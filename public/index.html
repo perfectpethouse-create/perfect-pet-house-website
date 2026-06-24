@@ -869,6 +869,132 @@
   </div>
 </section>
 
+<section class="section" id="booking" style="background:var(--orange-light);">
+  <div class="container">
+    <div class="center" style="max-width:600px;">
+      <span class="eyebrow">
+        <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        จองออนไลน์
+      </span>
+      <h2 class="section-title">จองคิวฝากเลี้ยง / อาบน้ำตัดขน</h2>
+      <p class="section-desc center">กรอกข้อมูลน้องให้เรา แล้วกดส่งเข้า LINE ได้เลย ทีมงานจะรีบยืนยันคิวให้เร็วที่สุด 🐾</p>
+    </div>
+
+    <form id="bookingForm" style="max-width:640px;margin:32px auto 0;background:#fff;padding:28px 24px;border-radius:20px;box-shadow:0 12px 32px rgba(58,46,38,0.10);">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="grid-column:1/-1;">
+          <label class="bk-label">ชื่อเจ้าของ <span style="color:var(--orange-dark)">*</span></label>
+          <input class="bk-input" name="owner" required placeholder="เช่น คุณแพรว">
+        </div>
+        <div>
+          <label class="bk-label">เบอร์โทร <span style="color:var(--orange-dark)">*</span></label>
+          <input class="bk-input" name="phone" required inputmode="tel" placeholder="08x-xxx-xxxx">
+        </div>
+        <div>
+          <label class="bk-label">LINE (ถ้ามี)</label>
+          <input class="bk-input" name="line" placeholder="@yourline">
+        </div>
+        <div>
+          <label class="bk-label">ชนิดสัตว์ <span style="color:var(--orange-dark)">*</span></label>
+          <select class="bk-input" name="pet" required>
+            <option value="">— เลือก —</option>
+            <option>น้องหมา</option>
+            <option>น้องแมว</option>
+            <option>อื่นๆ</option>
+          </select>
+        </div>
+        <div>
+          <label class="bk-label">ชื่อน้อง</label>
+          <input class="bk-input" name="petname" placeholder="เช่น โมจิ">
+        </div>
+        <div>
+          <label class="bk-label">สายพันธุ์ / ขนาด</label>
+          <input class="bk-input" name="breed" placeholder="เช่น ชิวาวา เล็ก 4 กก.">
+        </div>
+        <div>
+          <label class="bk-label">บริการที่ต้องการ <span style="color:var(--orange-dark)">*</span></label>
+          <select class="bk-input" name="service" required>
+            <option value="">— เลือก —</option>
+            <option>ฝากเลี้ยง (ค้างคืน)</option>
+            <option>Day Care (รายวัน)</option>
+            <option>อาบน้ำตัดขน</option>
+            <option>อาบน้ำอย่างเดียว</option>
+            <option>ฝากเลี้ยง + อาบน้ำตัดขน</option>
+          </select>
+        </div>
+        <div>
+          <label class="bk-label">วันรับเข้า <span style="color:var(--orange-dark)">*</span></label>
+          <input class="bk-input" type="date" name="checkin" required>
+        </div>
+        <div>
+          <label class="bk-label">วันรับกลับ</label>
+          <input class="bk-input" type="date" name="checkout">
+        </div>
+        <div style="grid-column:1/-1;">
+          <label class="bk-label">หมายเหตุเพิ่มเติม</label>
+          <textarea class="bk-input" name="note" rows="3" placeholder="เช่น น้องแพ้อาหารบางชนิด, ต้องการบริการเสริม, มีโรคประจำตัว ฯลฯ"></textarea>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;">
+        <button type="submit" class="btn btn-primary" style="flex:1;min-width:200px;justify-content:center;">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          ส่งคำขอจองเข้า LINE
+        </button>
+        <a href="tel:0823202807" class="btn btn-outline" style="flex:1;min-width:160px;justify-content:center;">โทรจอง 082-320-2807</a>
+      </div>
+      <p id="bookingHint" style="margin-top:14px;font-size:0.85rem;color:var(--brown-soft);text-align:center;">เมื่อกดส่ง ระบบจะคัดลอกข้อมูลให้อัตโนมัติและเปิดแชท LINE — วางข้อความแล้วกดส่งได้เลย</p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .bk-label{display:block;font-family:'Mitr',sans-serif;font-weight:500;font-size:0.9rem;color:var(--brown);margin-bottom:6px;}
+  .bk-input{width:100%;padding:11px 14px;border:1.5px solid #E7D6C5;border-radius:12px;font-family:'Prompt',sans-serif;font-size:0.95rem;color:var(--brown);background:var(--cream);transition:border-color .2s,box-shadow .2s;box-sizing:border-box;}
+  .bk-input:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(224,123,57,0.15);background:#fff;}
+  @media(max-width:560px){#bookingForm > div{grid-template-columns:1fr !important;}}
+</style>
+
+<script>
+  (function(){
+    var form = document.getElementById('bookingForm');
+    if(!form) return;
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var f = form;
+      var v = function(n){ return (f.elements[n] && f.elements[n].value || '').trim(); };
+      var lines = [
+        '🐾 ขอจองบริการ Perfect Pet House',
+        '──────────────',
+        '👤 เจ้าของ: ' + v('owner'),
+        '📞 เบอร์โทร: ' + v('phone')
+      ];
+      if(v('line')) lines.push('💬 LINE: ' + v('line'));
+      lines.push('🐶 ชนิดสัตว์: ' + v('pet'));
+      if(v('petname')) lines.push('🏷️ ชื่อน้อง: ' + v('petname'));
+      if(v('breed')) lines.push('📏 สายพันธุ์/ขนาด: ' + v('breed'));
+      lines.push('🛎️ บริการ: ' + v('service'));
+      lines.push('📅 วันรับเข้า: ' + v('checkin'));
+      if(v('checkout')) lines.push('📅 วันรับกลับ: ' + v('checkout'));
+      if(v('note')) lines.push('📝 หมายเหตุ: ' + v('note'));
+      var msg = lines.join('\n');
+
+      var openLine = function(){ window.open('https://line.me/R/ti/p/@perfectbkk', '_blank'); };
+      var hint = document.getElementById('bookingHint');
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(msg).then(function(){
+          if(hint){ hint.textContent = '✅ คัดลอกข้อมูลแล้ว! กำลังเปิด LINE — วางข้อความ (วาง/Paste) แล้วกดส่งได้เลย'; hint.style.color = 'var(--green)'; }
+          openLine();
+        }).catch(function(){ fallback(); });
+      } else { fallback(); }
+
+      function fallback(){
+        if(hint){ hint.innerHTML = 'คัดลอกข้อความด้านล่างนี้แล้วส่งทาง LINE:<br><textarea readonly style="width:100%;margin-top:8px;padding:10px;border-radius:10px;border:1px solid #E7D6C5;" rows="9">'+msg.replace(/</g,'&lt;')+'</textarea>'; hint.style.color='var(--brown)'; }
+        openLine();
+      }
+    });
+  })();
+</script>
+
 <section class="contact section" id="contact">
   <div class="container">
     <div class="center" style="max-width:560px;">
