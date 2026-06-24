@@ -1089,8 +1089,8 @@
           mode: 'no-cors',
           body: new URLSearchParams(data)
         }).then(function(){
-          showPanel('<strong style="color:var(--green);">✅ ส่งคำขอจองให้ร้านเรียบร้อยแล้ว!</strong><br><span style="font-size:0.85rem;">ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด 🐾 หากต้องการคุยด่วน ทักไลน์ร้านได้เลย</span>');
           form.reset();
+          showPanel('<strong style="color:var(--green);">✅ ส่งคำขอจองให้ร้านเรียบร้อยแล้ว!</strong><br><span style="font-size:0.85rem;">ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด 🐾 หากต้องการคุยด่วน ก็อปข้อความด้านล่างทักไลน์ร้านได้เลย</span>');
         }).catch(function(){
           window.open(LINE_URL, '_blank');
           showPanel('<strong style="color:var(--orange-dark);">⚠️ ส่งอัตโนมัติไม่สำเร็จ</strong><br><span style="font-size:0.85rem;">กรุณาคัดลอกข้อความนี้ส่งทางไลน์ <strong>@perfectbkk</strong> แทนนะคะ</span>');
