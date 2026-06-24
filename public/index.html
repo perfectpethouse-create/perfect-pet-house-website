@@ -972,7 +972,7 @@
         </div>
         <div>
           <label class="bk-label">บริการที่ต้องการ <span style="color:var(--orange-dark)">*</span></label>
-          <select class="bk-input" name="service" required>
+          <select class="bk-input" name="service" id="bkService" required>
             <option value="">— เลือก —</option>
             <option>ฝากเลี้ยง (ค้างคืน)</option>
             <option>Day Care (รายวัน)</option>
@@ -988,6 +988,13 @@
         <div>
           <label class="bk-label">วันรับกลับ</label>
           <input class="bk-input" type="date" name="checkout">
+        </div>
+        <div style="grid-column:1/-1;">
+          <label class="bk-label">ช่วงเวลาที่สะดวก <span style="font-weight:400;color:var(--brown-soft);font-size:0.82rem;">(ไม่บังคับ)</span></label>
+          <select class="bk-input" name="time" id="bkTime">
+            <option value="">— ไม่ระบุ —</option>
+          </select>
+          <p id="bkTimeNote" style="margin:6px 2px 0;font-size:0.8rem;color:var(--brown-soft);">🕘 ร้านเปิด 9:00–20:00 น. · โรงแรม 9:00–18:00 น. · อาบน้ำตัดขน 10:00–19:00 น.</p>
         </div>
         <div style="grid-column:1/-1;">
           <label class="bk-label">หมายเหตุเพิ่มเติม</label>
@@ -1017,6 +1024,32 @@
   (function(){
     var form = document.getElementById('bookingForm');
     if(!form) return;
+
+    // เติมช่วงเวลาตามบริการ (โรงแรม 9-18, อาบน้ำตัดขน 10-19, อื่นๆ 9-20)
+    var timeSel = document.getElementById('bkTime');
+    var serviceSel = document.getElementById('bkService');
+    var timeNote = document.getElementById('bkTimeNote');
+    function fillTimes(){
+      if(!timeSel) return;
+      var s = serviceSel ? serviceSel.value : '';
+      var start = 9, end = 20, label = 'ร้านเปิด 9:00–20:00 น.';
+      if(s.indexOf('ฝากเลี้ยง') === 0 || s.indexOf('Day Care') === 0){ start = 9; end = 18; label = '🏨 บริการโรงแรม รับเข้า 9:00–18:00 น.'; }
+      else if(s.indexOf('อาบน้ำ') === 0){ start = 10; end = 19; label = '✂️ บริการอาบน้ำตัดขน 10:00–19:00 น.'; }
+      else if(s.indexOf('ฝากเลี้ยง + อาบน้ำ') > -1){ start = 10; end = 18; label = '🏨✂️ ฝากเลี้ยง+อาบน้ำตัดขน 10:00–18:00 น.'; }
+      var cur = timeSel.value;
+      timeSel.innerHTML = '<option value="">— ไม่ระบุ —</option>';
+      for(var h = start; h <= end; h++){
+        var hh = (h < 10 ? '0' : '') + h + ':00';
+        var o = document.createElement('option');
+        o.value = hh; o.textContent = hh + ' น.';
+        if(hh === cur) o.selected = true;
+        timeSel.appendChild(o);
+      }
+      if(timeNote){ timeNote.textContent = '🕘 ' + label + ' (เลือกเวลาโดยประมาณ ไม่บังคับ)'; }
+    }
+    if(serviceSel){ serviceSel.addEventListener('change', fillTimes); }
+    fillTimes();
+
     form.addEventListener('submit', function(e){
       e.preventDefault();
       var f = form;
@@ -1034,6 +1067,7 @@
       lines.push('🛎️ บริการ: ' + v('service'));
       lines.push('📅 วันรับเข้า: ' + v('checkin'));
       if(v('checkout')) lines.push('📅 วันรับกลับ: ' + v('checkout'));
+      if(v('time')) lines.push('🕘 ช่วงเวลาที่สะดวก: ' + v('time') + ' น.');
       if(v('note')) lines.push('📝 หมายเหตุ: ' + v('note'));
       var msg = lines.join('\n');
 
@@ -1047,7 +1081,7 @@
         owner: v('owner'), phone: v('phone'), line: v('line'),
         pet: v('pet'), petname: v('petname'), breed: v('breed'),
         service: v('service'), checkin: v('checkin'), checkout: v('checkout'),
-        note: v('note'), message: msg,
+        time: v('time'), note: v('note'), message: msg,
         submittedAt: new Date().toLocaleString('th-TH')
       };
 
