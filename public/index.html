@@ -1039,24 +1039,31 @@
 
       var LINE_URL = 'https://line.me/R/ti/p/@perfectbkk';
 
-      // 1) เปิด LINE ทันทีในจังหวะที่ผู้ใช้กดปุ่ม (กัน popup ถูกบล็อก)
-      var win = window.open(LINE_URL, '_blank');
+      // ===== วาง URL ของ Google Apps Script (Web App) ตรงนี้ =====
+      var GOOGLE_SCRIPT_URL = '';
+      // ==========================================================
 
-      // 2) พยายามคัดลอกข้อความให้ (best effort ไม่บล็อกการทำงาน)
-      try { if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(msg); } } catch(err){}
+      var data = {
+        owner: v('owner'), phone: v('phone'), line: v('line'),
+        pet: v('pet'), petname: v('petname'), breed: v('breed'),
+        service: v('service'), checkin: v('checkin'), checkout: v('checkout'),
+        note: v('note'), message: msg,
+        submittedAt: new Date().toLocaleString('th-TH')
+      };
 
-      // 3) แสดงกล่องสรุป พร้อมปุ่มคัดลอก/เปิด LINE เสมอ — ผู้ใช้ไม่มีทางค้าง
       var hint = document.getElementById('bookingHint');
-      if(hint){
+
+      // กล่องสรุป + ปุ่มคัดลอก/เปิด LINE (ใช้เป็นทั้งผลสำเร็จและทางสำรอง)
+      function showPanel(headHtml){
+        if(!hint) return;
         hint.style.color = 'var(--brown)';
         hint.innerHTML =
           '<div style="text-align:left;background:var(--cream);border:1.5px solid #E7D6C5;border-radius:14px;padding:16px;margin-top:6px;">' +
-            '<strong style="color:var(--green);">✅ สร้างข้อความจองเรียบร้อย!</strong><br>' +
-            '<span style="font-size:0.85rem;">คัดลอกข้อความนี้ไปวางในแชท LINE <strong>@perfectbkk</strong> แล้วกดส่งได้เลย</span>' +
+            headHtml +
             '<textarea id="bkMsg" readonly rows="9" style="width:100%;margin-top:10px;padding:10px;border-radius:10px;border:1px solid #E7D6C5;font-family:Prompt,sans-serif;font-size:0.85rem;box-sizing:border-box;"></textarea>' +
             '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;">' +
               '<button type="button" id="bkCopy" class="btn btn-outline" style="flex:1;min-width:140px;justify-content:center;">📋 คัดลอกข้อความ</button>' +
-              '<a href="'+LINE_URL+'" target="_blank" rel="noopener" class="btn btn-primary" style="flex:1;min-width:140px;justify-content:center;">💬 เปิด LINE</a>' +
+              '<a href="'+LINE_URL+'" target="_blank" rel="noopener" class="btn btn-primary" style="flex:1;min-width:140px;justify-content:center;">💬 ทักไลน์ร้าน</a>' +
             '</div>' +
           '</div>';
         var ta = document.getElementById('bkMsg');
@@ -1074,7 +1081,26 @@
         hint.scrollIntoView({behavior:'smooth', block:'center'});
       }
 
-      // ถ้า popup ถูกบล็อก (win เป็น null) ก็ยังมีปุ่ม "เปิด LINE" ให้กดเองได้
+      if(GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL.indexOf('http') === 0){
+        // ===== ส่งเข้า Google Sheet อัตโนมัติ =====
+        if(hint){ hint.style.color = 'var(--brown-soft)'; hint.textContent = '⏳ กำลังส่งคำขอจองไปยังร้าน...'; }
+        fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: new URLSearchParams(data)
+        }).then(function(){
+          showPanel('<strong style="color:var(--green);">✅ ส่งคำขอจองให้ร้านเรียบร้อยแล้ว!</strong><br><span style="font-size:0.85rem;">ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด 🐾 หากต้องการคุยด่วน ทักไลน์ร้านได้เลย</span>');
+          form.reset();
+        }).catch(function(){
+          window.open(LINE_URL, '_blank');
+          showPanel('<strong style="color:var(--orange-dark);">⚠️ ส่งอัตโนมัติไม่สำเร็จ</strong><br><span style="font-size:0.85rem;">กรุณาคัดลอกข้อความนี้ส่งทางไลน์ <strong>@perfectbkk</strong> แทนนะคะ</span>');
+        });
+      } else {
+        // ===== ยังไม่ได้ตั้งค่า webhook → ส่งทาง LINE (คัดลอก-วาง) =====
+        window.open(LINE_URL, '_blank');
+        try { if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(msg); } } catch(err){}
+        showPanel('<strong style="color:var(--green);">✅ สร้างข้อความจองเรียบร้อย!</strong><br><span style="font-size:0.85rem;">คัดลอกข้อความนี้ไปวางในแชท LINE <strong>@perfectbkk</strong> แล้วกดส่งได้เลย</span>');
+      }
     });
   })();
 </script>
