@@ -1037,19 +1037,44 @@
       if(v('note')) lines.push('📝 หมายเหตุ: ' + v('note'));
       var msg = lines.join('\n');
 
-      var openLine = function(){ window.open('https://line.me/R/ti/p/@perfectbkk', '_blank'); };
-      var hint = document.getElementById('bookingHint');
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(msg).then(function(){
-          if(hint){ hint.textContent = '✅ คัดลอกข้อมูลแล้ว! กำลังเปิด LINE — วางข้อความ (วาง/Paste) แล้วกดส่งได้เลย'; hint.style.color = 'var(--green)'; }
-          openLine();
-        }).catch(function(){ fallback(); });
-      } else { fallback(); }
+      var LINE_URL = 'https://line.me/R/ti/p/@perfectbkk';
 
-      function fallback(){
-        if(hint){ hint.innerHTML = 'คัดลอกข้อความด้านล่างนี้แล้วส่งทาง LINE:<br><textarea readonly style="width:100%;margin-top:8px;padding:10px;border-radius:10px;border:1px solid #E7D6C5;" rows="9">'+msg.replace(/</g,'&lt;')+'</textarea>'; hint.style.color='var(--brown)'; }
-        openLine();
+      // 1) เปิด LINE ทันทีในจังหวะที่ผู้ใช้กดปุ่ม (กัน popup ถูกบล็อก)
+      var win = window.open(LINE_URL, '_blank');
+
+      // 2) พยายามคัดลอกข้อความให้ (best effort ไม่บล็อกการทำงาน)
+      try { if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(msg); } } catch(err){}
+
+      // 3) แสดงกล่องสรุป พร้อมปุ่มคัดลอก/เปิด LINE เสมอ — ผู้ใช้ไม่มีทางค้าง
+      var hint = document.getElementById('bookingHint');
+      if(hint){
+        hint.style.color = 'var(--brown)';
+        hint.innerHTML =
+          '<div style="text-align:left;background:var(--cream);border:1.5px solid #E7D6C5;border-radius:14px;padding:16px;margin-top:6px;">' +
+            '<strong style="color:var(--green);">✅ สร้างข้อความจองเรียบร้อย!</strong><br>' +
+            '<span style="font-size:0.85rem;">คัดลอกข้อความนี้ไปวางในแชท LINE <strong>@perfectbkk</strong> แล้วกดส่งได้เลย</span>' +
+            '<textarea id="bkMsg" readonly rows="9" style="width:100%;margin-top:10px;padding:10px;border-radius:10px;border:1px solid #E7D6C5;font-family:Prompt,sans-serif;font-size:0.85rem;box-sizing:border-box;"></textarea>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;">' +
+              '<button type="button" id="bkCopy" class="btn btn-outline" style="flex:1;min-width:140px;justify-content:center;">📋 คัดลอกข้อความ</button>' +
+              '<a href="'+LINE_URL+'" target="_blank" rel="noopener" class="btn btn-primary" style="flex:1;min-width:140px;justify-content:center;">💬 เปิด LINE</a>' +
+            '</div>' +
+          '</div>';
+        var ta = document.getElementById('bkMsg');
+        if(ta){ ta.value = msg; }
+        var copyBtn = document.getElementById('bkCopy');
+        if(copyBtn){
+          copyBtn.addEventListener('click', function(){
+            try { ta.select(); ta.setSelectionRange(0,99999); } catch(e){}
+            var ok=false;
+            try { if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(ta.value); ok=true; } } catch(e){}
+            if(!ok){ try { document.execCommand('copy'); ok=true; } catch(e){} }
+            copyBtn.textContent = ok ? '✅ คัดลอกแล้ว!' : '📋 คัดลอกข้อความ';
+          });
+        }
+        hint.scrollIntoView({behavior:'smooth', block:'center'});
       }
+
+      // ถ้า popup ถูกบล็อก (win เป็น null) ก็ยังมีปุ่ม "เปิด LINE" ให้กดเองได้
     });
   })();
 </script>
