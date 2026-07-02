@@ -537,7 +537,7 @@
     <h3 class="room-cat-head">🐶 ห้องพักสำหรับสุนัข</h3>
     <div class="room-grid">
       <div class="room-card">
-        <img src="images/room-cozy-dog.jpg" alt="ห้อง Cozy Room สำหรับสุนัข" loading="lazy" decoding="async">
+        <div class="room-photo"><img src="images/room-cozy-dog.jpg" alt="ห้อง Cozy Room สำหรับสุนัข" loading="lazy" decoding="async"><span class="zoom-hint">🔍</span></div>
         <div class="room-body">
           <h3>Cozy Room</h3>
           <p class="room-size">ขนาดห้อง: 1×1.5 ม.</p>
@@ -549,7 +549,7 @@
         </div>
       </div>
       <div class="room-card">
-        <img src="images/room-deluxe-dog.jpg" alt="ห้อง Deluxe Room สำหรับสุนัข" loading="lazy" decoding="async">
+        <div class="room-photo"><img src="images/room-deluxe-dog.jpg" alt="ห้อง Deluxe Room สำหรับสุนัข" loading="lazy" decoding="async"><span class="zoom-hint">🔍</span></div>
         <div class="room-body">
           <h3>Deluxe Room</h3>
           <p class="room-size">ขนาดห้อง: 1×2 ม.</p>
@@ -562,7 +562,7 @@
       </div>
       <div class="room-card room-card--featured">
         <span class="room-badge">⭐ แนะนำ</span>
-        <img src="images/room-vip-dog.jpg" alt="ห้อง VIP Villa สำหรับสุนัข" loading="lazy" decoding="async">
+        <div class="room-photo"><img src="images/room-vip-dog.jpg" alt="ห้อง VIP Villa สำหรับสุนัข" loading="lazy" decoding="async"><span class="zoom-hint">🔍</span></div>
         <div class="room-body">
           <h3>VIP Villa Room</h3>
           <p class="room-size">ขนาดห้อง: 1.5×2.5 ม.</p>
@@ -579,7 +579,7 @@
     <h3 class="room-cat-head" style="margin-top:48px;">🐱 ห้องพักสำหรับแมว</h3>
     <div class="room-grid">
       <div class="room-card">
-        <img src="images/room-cozy-cat.jpg" alt="ห้อง Cozy Room สำหรับแมว" loading="lazy" decoding="async">
+        <div class="room-photo"><img src="images/room-cozy-cat.jpg" alt="ห้อง Cozy Room สำหรับแมว" loading="lazy" decoding="async"><span class="zoom-hint">🔍</span></div>
         <div class="room-body">
           <h3>Cozy Room</h3>
           <p class="room-size">ขนาดห้อง: 1×1 ม.</p>
@@ -591,7 +591,7 @@
         </div>
       </div>
       <div class="room-card">
-        <img src="images/room-deluxe-cat.jpg" alt="ห้อง Deluxe Room สำหรับแมว" loading="lazy" decoding="async">
+        <div class="room-photo"><img src="images/room-deluxe-cat.jpg" alt="ห้อง Deluxe Room สำหรับแมว" loading="lazy" decoding="async"><span class="zoom-hint">🔍</span></div>
         <div class="room-body">
           <h3>Deluxe Room</h3>
           <p class="room-size">ขนาดห้อง: 1×1×2.5 ม. (แนวตั้ง)</p>
@@ -604,7 +604,7 @@
       </div>
       <div class="room-card room-card--featured">
         <span class="room-badge">⭐ แนะนำ</span>
-        <img src="images/room-vip-cat.jpg" alt="ห้อง VIP Villa สำหรับแมว" loading="lazy" decoding="async">
+        <div class="room-photo"><img src="images/room-vip-cat.jpg" alt="ห้อง VIP Villa สำหรับแมว" loading="lazy" decoding="async"><span class="zoom-hint">🔍</span></div>
         <div class="room-body">
           <h3>VIP Villa Room</h3>
           <p class="room-size">ขนาดห้อง: 1.5×2.5 ม.</p>
@@ -1678,5 +1678,57 @@
   })();
 </script>
 
+
+<!-- Lightbox ดูรูปห้องพักใหญ่ -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="ปิด">✕</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<style>
+  .room-photo{position:relative;overflow:hidden;}
+  .room-card img{cursor:zoom-in;transition:transform .5s cubic-bezier(.2,.8,.2,1),filter .3s;}
+  .room-card:hover img{transform:scale(1.05);filter:brightness(1.04);}
+  .zoom-hint{position:absolute;bottom:12px;right:12px;width:38px;height:38px;border-radius:50%;
+    background:rgba(20,12,6,0.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;
+    pointer-events:none;opacity:.85;transition:opacity .2s,transform .2s;}
+  .room-card:hover .zoom-hint{opacity:1;transform:scale(1.12);}
+  .lightbox{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.9);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;
+    opacity:0;visibility:hidden;transition:opacity .3s ease;}
+  .lightbox.open{opacity:1;visibility:visible;}
+  .lightbox img{max-width:92vw;max-height:78vh;object-fit:contain;border-radius:14px;
+    box-shadow:0 24px 70px rgba(0,0,0,.55);transform:scale(.95);transition:transform .35s cubic-bezier(.2,.8,.2,1);}
+  .lightbox.open img{transform:scale(1);}
+  .lightbox-caption{color:#fff;font-family:'Mitr',sans-serif;font-size:1.05rem;text-align:center;}
+  .lightbox-close{position:absolute;top:18px;right:22px;width:46px;height:46px;border-radius:50%;
+    border:none;background:rgba(255,255,255,0.16);color:#fff;font-size:1.4rem;line-height:1;cursor:pointer;
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:background .2s;}
+  .lightbox-close:hover{background:rgba(255,255,255,0.3);}
+</style>
+
+<script>
+  (function(){
+    var lb=document.getElementById('lightbox'), img=document.getElementById('lightboxImg'),
+        cap=document.getElementById('lightboxCaption'), closeBtn=document.getElementById('lightboxClose');
+    if(!lb) return;
+    function openLb(src,alt,caption){ img.src=src; img.alt=alt||''; cap.textContent=caption||'';
+      lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+    function closeLb(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+    document.querySelectorAll('.room-card').forEach(function(card){
+      var im=card.querySelector('img'); if(!im) return;
+      var h3=card.querySelector('h3');
+      var pet=card.querySelector('.room-price-row span');
+      var price=card.querySelector('.room-price-row strong');
+      var caption=(h3?h3.textContent:'')+((pet||price)?' · '+(pet?pet.textContent+' ':'')+(price?price.textContent:''):'');
+      im.addEventListener('click',function(){ openLb(im.src, im.alt, caption); });
+    });
+    closeBtn.addEventListener('click',closeLb);
+    lb.addEventListener('click',function(e){ if(e.target===lb) closeLb(); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape' && lb.classList.contains('open')) closeLb(); });
+  })();
+</script>
 </body>
 </html>
