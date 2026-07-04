@@ -1104,67 +1104,182 @@
   </div>
 </section>
 
-<section class="section" id="safety" style="background:#fff;">
-  <div class="container">
-    <div class="center" style="max-width:560px;">
-      <span class="eyebrow">
-        <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        ความปลอดภัยและขั้นตอนการดูแล
-      </span>
-      <h2 class="section-title">มาตรฐานที่เราใส่ใจทุกวัน</h2>
+<!-- ============================================================
+     Section "มาตรฐานการดูแล & ขั้นตอนเข้าพัก" — ดีไซน์ใหม่แบบ workflow timeline
+     (แทน section เดิม; CSS scope ใต้ .pph-care จึงไม่ชนสไตล์เว็บอื่น)
+     ============================================================ -->
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<section class="pph-care" id="safety" aria-label="มาตรฐานการดูแลและขั้นตอนการเข้าพัก">
+  <style>
+    .pph-care{
+      --pph-orange:#E27B2E; --pph-orange-dark:#C2632A; --pph-brown:#6E3411;
+      --pph-cream:#FDF4EA; --pph-ink:#3A2A1E; --pph-muted:#8C7B6E;
+      --pph-line:#F3D8C2; --pph-green:#3B8B57; --pph-red:#D9534F;
+      font-family:"Prompt",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--pph-ink); background:var(--pph-cream);
+      padding:64px 20px; box-sizing:border-box; -webkit-font-smoothing:antialiased;
+    }
+    .pph-care *{box-sizing:border-box;}
+    .pph-care .pph-wrap{max-width:1100px; margin:0 auto;}
+    .pph-care .pph-kicker{display:flex; align-items:center; justify-content:center; gap:8px;
+      font-size:14px; font-weight:600; letter-spacing:2px; color:var(--pph-orange);
+      text-transform:uppercase; margin:0 0 10px;}
+    .pph-care .pph-kicker svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2;}
+    .pph-care .pph-h2{text-align:center; font-size:clamp(30px,5vw,48px); font-weight:600;
+      color:var(--pph-brown); margin:0 0 8px; line-height:1.15;}
+    .pph-care .pph-sub{text-align:center; font-size:clamp(16px,2.4vw,20px); font-weight:400;
+      color:var(--pph-orange-dark); margin:0 0 48px;}
+    .pph-care .pph-flow{position:relative; max-width:720px; margin:0 auto 56px;
+      background:#fff; border-radius:28px; padding:40px 32px;
+      box-shadow:0 30px 70px rgba(150,80,20,0.08);}
+    .pph-care .pph-track{position:absolute; left:60px; top:78px; bottom:78px; width:5px;
+      background:var(--pph-line); border-radius:4px; overflow:hidden;}
+    .pph-care .pph-track::after{content:""; position:absolute; left:0; width:5px; height:44px;
+      background:var(--pph-orange); border-radius:4px; animation:pphFlow 3.6s cubic-bezier(.5,0,.5,1) infinite;}
+    @keyframes pphFlow{0%{top:-44px}100%{top:100%}}
+    .pph-care .pph-step{position:relative; display:flex; gap:20px; padding:16px 0;}
+    .pph-care .pph-node{position:relative; z-index:1; flex:0 0 58px; width:58px; height:58px;
+      border-radius:50%; background:var(--pph-orange); color:#fff;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 10px 22px rgba(226,123,46,0.35);}
+    .pph-care .pph-node svg{width:28px; height:28px; fill:none; stroke:#fff; stroke-width:2;
+      stroke-linecap:round; stroke-linejoin:round;}
+    .pph-care .pph-num{position:absolute; right:-4px; bottom:-4px; width:24px; height:24px;
+      border-radius:50%; background:#fff; color:var(--pph-orange-dark);
+      font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 2px 6px rgba(150,80,20,0.2);}
+    .pph-care .pph-step.done .pph-node{background:var(--pph-green); box-shadow:0 10px 22px rgba(59,139,87,0.35);}
+    .pph-care .pph-step.done .pph-num{color:#2E6E45;}
+    .pph-care .pph-st-title{font-size:clamp(18px,2.6vw,22px); font-weight:600; color:var(--pph-ink); line-height:1.25;}
+    .pph-care .pph-st-sub{font-size:clamp(14px,2vw,16px); color:var(--pph-muted); margin-top:4px; line-height:1.45;}
+    .pph-care .pph-std-h{text-align:center; font-size:22px; font-weight:600; color:var(--pph-brown); margin:0 0 20px;}
+    .pph-care .pph-std{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; margin-bottom:56px;}
+    .pph-care .pph-card{background:#fff; border:1px solid var(--pph-line); border-radius:18px; padding:22px 20px;}
+    .pph-care .pph-card .ic{width:46px; height:46px; border-radius:12px; background:#FBEADD;
+      display:flex; align-items:center; justify-content:center; margin-bottom:14px;}
+    .pph-care .pph-card .ic svg{width:24px; height:24px; fill:none; stroke:var(--pph-orange); stroke-width:2;
+      stroke-linecap:round; stroke-linejoin:round;}
+    .pph-care .pph-card b{display:block; font-size:17px; font-weight:600; color:var(--pph-ink); margin-bottom:6px;}
+    .pph-care .pph-card span{font-size:14px; color:var(--pph-muted); line-height:1.5;}
+    .pph-care .pph-foot{display:grid; grid-template-columns:1.2fr 0.8fr; gap:20px;}
+    .pph-care .pph-box{background:#fff; border:1px solid var(--pph-line); border-radius:18px; padding:24px 22px;}
+    .pph-care .pph-box h4{display:flex; align-items:center; gap:8px; font-size:18px; font-weight:600; margin:0 0 14px;}
+    .pph-care .pph-box h4 svg{width:22px; height:22px; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+    .pph-care .pph-box ul{list-style:none; margin:0; padding:0;}
+    .pph-care .pph-box li{display:flex; gap:10px; align-items:flex-start; font-size:15px; color:#5A4A3E;
+      line-height:1.5; padding:6px 0;}
+    .pph-care .pph-box li svg{width:18px; height:18px; flex:0 0 18px; margin-top:2px; fill:none; stroke-width:2.5;
+      stroke-linecap:round; stroke-linejoin:round;}
+    .pph-care .pph-ok h4{color:#2E6E45;} .pph-care .pph-ok li svg{stroke:var(--pph-green);}
+    .pph-care .pph-no h4{color:#B0413D;} .pph-care .pph-no li svg{stroke:var(--pph-red);}
+    .pph-care .pph-cta{text-align:center; margin-top:44px;}
+    .pph-care .pph-cta a{display:inline-flex; align-items:center; gap:12px; text-decoration:none;
+      background:var(--pph-orange); color:#fff; font-size:19px; font-weight:600;
+      padding:16px 40px; border-radius:999px; box-shadow:0 14px 32px rgba(226,123,46,0.35);
+      transition:transform .15s ease, box-shadow .15s ease;}
+    .pph-care .pph-cta a:hover{transform:translateY(-2px); box-shadow:0 18px 40px rgba(226,123,46,0.45);}
+    .pph-care .pph-cta a svg{width:24px; height:24px; fill:none; stroke:#fff; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+    .pph-care.js .pph-step,.pph-care.js .pph-card,.pph-care.js .pph-box{
+      opacity:0; transform:translateY(20px); transition:opacity .55s ease, transform .55s ease;}
+    .pph-care.js .pph-step.in,.pph-care.js .pph-card.in,.pph-care.js .pph-box.in{opacity:1; transform:none;}
+    @media (max-width:640px){
+      .pph-care{padding:48px 16px;}
+      .pph-care .pph-flow{padding:32px 20px;}
+      .pph-care .pph-track{left:47px; top:70px; bottom:70px;}
+      .pph-care .pph-node{flex-basis:50px; width:50px; height:50px;}
+      .pph-care .pph-foot{grid-template-columns:1fr;}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .pph-care .pph-track::after{animation:none; height:100%; top:0;}
+      .pph-care.js .pph-step,.pph-care.js .pph-card,.pph-care.js .pph-box{opacity:1; transform:none; transition:none;}
+    }
+  </style>
+
+  <div class="pph-wrap">
+    <p class="pph-kicker"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.6-3 7.8-7 9-4-1.2-7-4.4-7-9V6z"/></svg>ความปลอดภัยและขั้นตอนการดูแล</p>
+    <h2 class="pph-h2">มาตรฐานที่เราใส่ใจทุกวัน</h2>
+    <p class="pph-sub">จองล่วงหน้า → เข้าพัก ง่ายๆ ใน 5 ขั้นตอน</p>
+
+    <div class="pph-flow">
+      <div class="pph-track"></div>
+      <div class="pph-step">
+        <div class="pph-node"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M9 15l2 2 4-4"/></svg><span class="pph-num">1</span></div>
+        <div><div class="pph-st-title">จองล่วงหน้า</div><div class="pph-st-sub">โทร / LINE / ทักแชทแจ้งวันเข้าพัก</div></div>
+      </div>
+      <div class="pph-step">
+        <div class="pph-node"><svg viewBox="0 0 24 24"><path d="M2 12h4l2 6 4-13 2 7h6"/></svg><span class="pph-num">2</span></div>
+        <div><div class="pph-st-title">ยืนยันข้อมูลสุขภาพ</div><div class="pph-st-sub">ส่งสมุดวัคซีนและข้อมูลสุขภาพล่วงหน้า</div></div>
+      </div>
+      <div class="pph-step">
+        <div class="pph-node"><svg viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/><path d="M9 12v5M15 12v5"/></svg><span class="pph-num">3</span></div>
+        <div><div class="pph-st-title">นำน้องมาส่ง</div><div class="pph-st-sub">พร้อมของใช้ส่วนตัว อาหาร ของเล่น ผ้าห่ม</div></div>
+      </div>
+      <div class="pph-step">
+        <div class="pph-node"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.6-3 7.8-7 9-4-1.2-7-4.4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg><span class="pph-num">4</span></div>
+        <div><div class="pph-st-title">ประเมินสุขภาพ</div><div class="pph-st-sub">ทีมงานตรวจเช็คก่อนเข้าพัก</div></div>
+      </div>
+      <div class="pph-step done">
+        <div class="pph-node"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/><path d="M9.3 15l1.8 1.8L15 13"/></svg><span class="pph-num">5</span></div>
+        <div><div class="pph-st-title">เข้าพักได้เลย</div><div class="pph-st-sub">เริ่มต้นวันแรกของน้องที่ Perfect Pet House</div></div>
+      </div>
     </div>
 
-    <div class="safety-grid">
-      <div class="safety-list">
-        <div class="safety-item">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="15" height="10" rx="2"/><polygon points="22,8 17,12 22,16"/></svg>
-          <div><h4>CCTV ตลอด 24 ชม.</h4><p>ตรวจนับสัตว์ทุก 2 ชม. และล็อคประตูทุกครั้ง</p></div>
-        </div>
-        <div class="safety-item">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <div><h4>ทำความสะอาดทุก 2 ชม.</h4><p>ฆ่าเชื้อด้วยน้ำยาเกรดสัตวแพทย์ แยกสัตว์ป่วยทันทีหากพบความผิดปกติ</p></div>
-        </div>
-        <div class="safety-item">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-          <div><h4>ติดตามสุขภาพรายวัน</h4><p>บันทึกอาหาร น้ำหนัก พฤติกรรม พร้อมเก็บประวัติสุขภาพย้อนหลัง 1 ปี</p></div>
-        </div>
-        <div class="safety-item">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7z"/></svg>
-          <div><h4>แผนฉุกเฉินพร้อมเสมอ</h4><p>มีเบอร์สัตวแพทย์พร้อมตลอดเวลา แจ้งเจ้าของทันทีหากน้องผิดปกติ</p></div>
-        </div>
+    <h3 class="pph-std-h">ดูแลด้วยมาตรฐานเดียวกันทุกวัน</h3>
+    <div class="pph-std">
+      <div class="pph-card">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="13" height="12" rx="2"/><path d="M15 10l6-3v10l-6-3z"/><circle cx="7" cy="12" r="1.5"/></svg></div>
+        <b>CCTV ตลอด 24 ชม.</b><span>ตรวจนับสัตว์ทุก 2 ชม. และล็อคประตูทุกครั้ง</span>
       </div>
+      <div class="pph-card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3c2 4 5 5 5 9a5 5 0 0 1-10 0c0-4 3-5 5-9z"/></svg></div>
+        <b>ทำความสะอาดทุก 2 ชม.</b><span>ฆ่าเชื้อด้วยน้ำยาเกรดสัตวแพทย์ แยกสัตว์ป่วยทันทีหากพบความผิดปกติ</span>
+      </div>
+      <div class="pph-card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M2 12h4l2 6 4-13 2 7h6"/></svg></div>
+        <b>ติดตามสุขภาพรายวัน</b><span>บันทึกอาหาร น้ำหนัก พฤติกรรม พร้อมเก็บประวัติย้อนหลัง 1 ปี</span>
+      </div>
+      <div class="pph-card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.4-7 10-7 10z"/></svg></div>
+        <b>แผนฉุกเฉินพร้อมเสมอ</b><span>มีเบอร์สัตวแพทย์พร้อมตลอดเวลา แจ้งเจ้าของทันทีหากน้องผิดปกติ</span>
+      </div>
+    </div>
 
-      <div>
-        <div class="process-steps">
-          <div class="step"><div class="step-num">1</div><div class="step-text"><h4>จองล่วงหน้า</h4><p>โทร / LINE / ทักแชทแจ้งวันเข้าพัก</p></div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-text"><h4>ยืนยันข้อมูลสุขภาพ</h4><p>ส่งสมุดวัคซีนและข้อมูลสุขภาพล่วงหน้า</p></div></div>
-          <div class="step"><div class="step-num">3</div><div class="step-text"><h4>นำน้องมาส่ง</h4><p>พร้อมของใช้ส่วนตัว อาหาร ของเล่น ผ้าห่ม</p></div></div>
-          <div class="step"><div class="step-num">4</div><div class="step-text"><h4>ประเมินสุขภาพ</h4><p>ทีมงานตรวจเช็คก่อนเข้าพัก</p></div></div>
-          <div class="step"><div class="step-num">5</div><div class="step-text"><h4>เข้าพักได้เลย</h4><p>เริ่มต้นวันแรกของน้องที่ Perfect Pet House</p></div></div>
-        </div>
-
-        <div class="doc-box">
-          <h4>สิ่งที่ต้องเตรียมมา</h4>
-          <ul>
-            <li>สมุดวัคซีนสุนัข/แมว</li>
-            <li>อาหารและขนม (ทางร้านมีอาหารกระป๋องขายด้วย)</li>
-            <li>ของเล่น/ที่นอนตัวโปรดของน้อง</li>
-            <li>ทรายแมว (หากไม่ได้นำมา ทางร้านมีให้ 100.-/วัน)</li>
-            <li>ทิชชู่เปียก (ที่ร้านมีขาย)</li>
-            <li>แพมเพิส/แผ่นรองฉี่ (ที่ร้านมีขาย)</li>
-          </ul>
-        </div>
-        <div class="doc-box warn">
-          <h4>ไม่รับฝากกรณี</h4>
-          <ul>
-            <li>ยังไม่ฉีดวัคซีน หรือกำลังป่วย</li>
-            <li>มีอาการก้าวร้าวรุนแรง</li>
-            <li>มีโรคติดต่อ</li>
-          </ul>
-        </div>
+    <div class="pph-foot">
+      <div class="pph-box pph-ok">
+        <h4><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>สิ่งที่ต้องเตรียมมา</h4>
+        <ul>
+          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>สมุดวัคซีนสุนัข/แมว</li>
+          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>อาหารและขนม (ทางร้านมีอาหารกระป๋องขายด้วย)</li>
+          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>ของเล่น/ที่นอนตัวโปรดของน้อง</li>
+          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>ทรายแมว (หากไม่ได้นำมา ทางร้านมีให้ 100.-/วัน)</li>
+          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>ทิชชู่เปียก (ที่ร้านมีขาย)</li>
+          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>แพมเพิส/แผ่นรองฉี่ (ที่ร้านมีขาย)</li>
+        </ul>
+      </div>
+      <div class="pph-box pph-no">
+        <h4><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>ไม่รับฝากกรณี</h4>
+        <ul>
+          <li><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>ยังไม่ฉีดวัคซีน หรือกำลังป่วย</li>
+          <li><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>มีอาการก้าวร้าวรุนแรง</li>
+          <li><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>มีโรคติดต่อ</li>
+        </ul>
       </div>
     </div>
   </div>
+
+  <script>
+    (function(){
+      var root = document.currentScript.closest('.pph-care');
+      if(!root) return;
+      root.classList.add('js');
+      var items = root.querySelectorAll('.pph-step, .pph-card, .pph-box');
+      if(!('IntersectionObserver' in window)){ items.forEach(function(el){ el.classList.add('in'); }); return; }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.15 });
+      items.forEach(function(el){ io.observe(el); });
+    })();
+  </script>
 </section>
 
 <style>

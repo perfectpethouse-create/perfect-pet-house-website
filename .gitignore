@@ -1,3 +1,8 @@
 node_modules/
 .DS_Store
 *.log
+
+# ไฟล์ข้อมูลภายใน/ลูกค้า — ห้าม commit ขึ้น GitHub (กันข้อมูลลับหลุด)
+*.xlsx
+*.xls
+*.pdf
