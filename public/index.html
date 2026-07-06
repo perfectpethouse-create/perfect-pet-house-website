@@ -56,18 +56,20 @@
   a{color:inherit;text-decoration:none;}
   ul{list-style:none;}
   .container{max-width:1140px;margin:0 auto;padding:0 24px;}
-  h1,h2,h3,h4{font-family:'Mitr','Prompt',sans-serif;font-weight:600;line-height:1.35;}
-  .section{padding:80px 0;}
-  .section-sm-top{padding-top:48px;}
-  @media (max-width:768px){.section{padding:56px 0;}}
+  h1,h2,h3,h4{font-family:'Mitr','Prompt',sans-serif;font-weight:600;line-height:1.3;}
+  /* Apple-minimal rhythm: generous, consistent vertical whitespace */
+  .section{padding:104px 0;}
+  .section[id]{scroll-margin-top:96px;}
+  .section-sm-top{padding-top:56px;}
+  @media (max-width:768px){.section{padding:68px 0;}}
   .eyebrow{
-    display:inline-flex;align-items:center;gap:6px;
-    color:var(--orange-dark);font-weight:600;font-size:14px;
+    display:inline-flex;align-items:center;gap:7px;
+    color:var(--orange-dark);font-weight:600;font-size:13.5px;letter-spacing:.03em;
     background:var(--orange-light);padding:6px 16px;border-radius:999px;
-    margin-bottom:16px;
+    margin-bottom:20px;
   }
-  .section-title{font-size:clamp(26px,4vw,38px);margin-bottom:14px;color:var(--brown);}
-  .section-desc{color:var(--brown-soft);max-width:640px;font-size:16px;margin-bottom:8px;}
+  .section-title{font-size:clamp(28px,4.4vw,44px);line-height:1.22;margin-bottom:18px;color:var(--brown);}
+  .section-desc{color:var(--brown-soft);max-width:640px;font-size:17px;line-height:1.75;margin-bottom:8px;}
   .center{text-align:center;margin-left:auto;margin-right:auto;}
   .btn{
     display:inline-flex;align-items:center;gap:8px;
@@ -175,29 +177,37 @@
     .hero-img{animation:none;}
   }
 
-  /* ABOUT / STORY */
+  /* ABOUT / STORY — minimal, balanced */
   .about{background:#fff;}
-  .about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:start;}
-  @media (max-width:860px){.about-grid{grid-template-columns:1fr;}}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+  @media (max-width:860px){.about-grid{grid-template-columns:1fr;gap:40px;}}
   .about-text p{margin-bottom:16px;color:var(--brown-soft);}
-  .about-text strong{color:var(--brown);}
+  .about-text strong{color:var(--brown);font-weight:600;}
   .mission-card{
-    background:var(--orange-light);border-radius:var(--radius-md);
-    padding:24px 26px;margin:24px 0;border-left:4px solid var(--orange);
+    background:transparent;border-radius:0;
+    padding:6px 0 6px 22px;margin:28px 0;border-left:3px solid var(--orange);
   }
-  .mission-card p{color:var(--brown);font-style:italic;margin:0;font-weight:500;}
+  .mission-card p{color:var(--brown);font-style:italic;margin:0;font-weight:500;font-size:18px;line-height:1.6;}
   .cite-box{
-    background:var(--cream);border-radius:var(--radius-md);padding:20px 24px;
-    font-size:13.5px;color:var(--brown-soft);margin-top:28px;
+    background:var(--cream);border-radius:var(--radius-md);padding:18px 22px;
+    font-size:13px;color:var(--brown-soft);margin-top:30px;line-height:1.65;
   }
-  .cite-box a{color:var(--orange-dark);font-weight:600;text-decoration:underline;}
-  .about-photo{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);display:block;width:100%;height:auto;}
-  .about-photo-wrap{position:relative;}
-  @media (min-width:861px){.about-photo-wrap{position:sticky;top:110px;}}
-  .research-list{display:flex;flex-direction:column;gap:14px;margin-top:18px;}
+  .cite-box a{color:var(--orange-dark);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(184,92,30,0.35);}
+  .cite-box a:hover{border-bottom-color:var(--orange-dark);}
+  .research-list{display:flex;flex-direction:column;gap:16px;margin-top:22px;}
   .research-item{display:flex;gap:12px;align-items:flex-start;}
-  .research-item .icon{color:var(--green);margin-top:2px;}
+  .research-item .icon{color:var(--green);margin-top:2px;flex-shrink:0;}
   .research-item p{margin:0;color:var(--brown-soft);font-size:14.5px;}
+  /* Photo gallery (right column) — stacked field shots */
+  .about-gallery{display:flex;flex-direction:column;gap:20px;}
+  .about-shot{position:relative;margin:0;border-radius:var(--radius-lg);overflow:hidden;
+    box-shadow:var(--shadow);background:var(--cream);}
+  .about-shot img{width:100%;height:100%;display:block;aspect-ratio:4/3;object-fit:cover;
+    transition:transform .6s cubic-bezier(0.16,1,0.3,1);}
+  .about-shot:hover img{transform:scale(1.04);}
+  .about-shot figcaption{position:absolute;left:0;right:0;bottom:0;
+    padding:26px 18px 14px;font-size:13px;font-weight:500;color:#fff;
+    background:linear-gradient(to top,rgba(20,12,6,0.62),transparent);}
 
   /* DAILY CARE TIMELINE */
   .timeline{background:var(--orange-light);}
@@ -520,7 +530,7 @@
   </div>
 
   <!-- Right: image with diagonal clip-path reveal -->
-  <div class="hero-img" role="img" aria-label="บรรยากาศการดูแลน้องหมาน้องแมวที่ Perfect Pet House" style="background-image:url('images/img02.jpg');"></div>
+  <div class="hero-img" role="img" aria-label="บรรยากาศการดูแลน้องหมาน้องแมวที่ Perfect Pet House" style="background-image:url('images/IMG_4972.jpg');"></div>
 </section>
 
 <section class="about section" id="about">
@@ -559,8 +569,15 @@
       </div>
 
       <div class="reveal">
-        <div class="about-photo-wrap">
-          <img class="about-photo" src="images/img03.jpg" alt="สนามหญ้ากว้างขวางสำหรับให้น้องๆวิ่งเล่นที่ Perfect Pet House" loading="lazy">
+        <div class="about-gallery">
+          <figure class="about-shot">
+            <img src="images/IMG_4965.jpg" alt="สนามหญ้ากลางแจ้งขนาดใหญ่ของ Perfect Pet House" loading="lazy">
+            <figcaption>สนามหญ้ากลางแจ้ง ให้น้องๆ วิ่งเล่นได้เต็มที่</figcaption>
+          </figure>
+          <figure class="about-shot">
+            <img src="images/IMG_4970.jpg" alt="พื้นที่ออกกำลังกายกลางแจ้งที่ Perfect Pet House" loading="lazy">
+            <figcaption>พื้นที่ออกกำลังกาย เสริมสุขภาพข้อต่อและกล้ามเนื้อ</figcaption>
+          </figure>
         </div>
       </div>
     </div>
