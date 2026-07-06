@@ -78,7 +78,8 @@
     min-height:48px;
   }
   .btn:hover{transform:translateY(-2px);}
-  .btn-primary{background:var(--orange-dark);color:#fff;box-shadow:0 6px 16px rgba(224,123,57,0.35);}
+  .btn-primary{background:var(--orange-dark);color:#fff;box-shadow:none;}
+  .btn-primary:hover{box-shadow:0 8px 18px rgba(58,46,38,0.16);}
 .btn:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--orange-dark);outline-offset:2px;border-radius:4px;}
 
   .btn-primary:hover{background:var(--orange-dark);}
@@ -249,13 +250,13 @@
   .room-amenities{font-size:13px;color:var(--brown-soft);line-height:1.6;margin-bottom:22px;}
   .room-cta{
     margin-top:auto;display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(135deg,var(--orange),var(--orange-dark));
+    background:var(--orange-dark);
     color:#fff;font-family:'Mitr',sans-serif;font-weight:500;font-size:15px;
     padding:13px 20px;border-radius:50px;text-decoration:none;
-    box-shadow:0 6px 16px rgba(224,123,57,0.35);
+    box-shadow:none;
     transition:transform .2s, box-shadow .2s, filter .2s;
   }
-  .room-cta:hover{filter:brightness(1.06);transform:translateY(-2px);box-shadow:0 10px 22px rgba(224,123,57,0.45);}
+  .room-cta:hover{filter:brightness(1.06);transform:translateY(-2px);box-shadow:0 8px 18px rgba(58,46,38,0.16);}
   /* การ์ดเน้น VIP */
   .room-card--featured{
     border:1.5px solid rgba(224,123,57,0.55);
@@ -456,7 +457,7 @@
 
 <header>
   <div class="promo-bar" id="promoBar">
-    <span>🎁 ใหม่! <strong>แนะนำเพื่อน รับฟรีทั้งคู่</strong> · เพื่อนใหม่อาบน้ำครั้งแรกลด 10% + ฟรีสปาโอโซน <a href="#promotions">ดูโปรเลย!</a></span>
+    <span>ใหม่! <strong>แนะนำเพื่อน รับฟรีทั้งคู่</strong> · เพื่อนใหม่อาบน้ำครั้งแรกลด 10% + ฟรีสปาโอโซน <a href="#promotions">ดูโปรโมชั่น →</a></span>
     <button class="promo-close" id="promoClose" aria-label="ปิด">✕</button>
   </div>
   <div class="container nav-wrap">
@@ -471,11 +472,11 @@
         <li><a href="#reviews">รีวิว</a></li>
         <li><a href="/blog/">บทความ</a></li>
         <li><a href="#contact">ติดต่อเรา</a></li>
-        <li><a href="#booking" class="nav-book">📅 จองคิว</a></li>
+        <li><a href="#booking" class="nav-book">จองคิว</a></li>
       </ul>
     </nav>
     <div class="nav-cta">
-      <a href="#booking" class="btn btn-primary nav-book-btn" style="padding:10px 20px;">📅 จองคิว</a>
+      <a href="#booking" class="btn btn-primary nav-book-btn" style="padding:10px 20px;">จองคิว</a>
     </div>
     <button class="menu-toggle" id="menuToggle" aria-label="เปิดเมนู">
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -543,7 +544,7 @@
         </span>
         <h2 class="section-title">จุดเริ่มต้นของ Perfect Pet House</h2>
         <p>ก่อนจะมาเปิดร้าน เราเคยเลี้ยงน้องหมาที่มีปัญหาเรื่อง<strong>ข้อ กระดูก และสะโพก</strong>มาก่อน เห็นน้องเดินลำบาก เห็นน้องเจ็บ จนวันหนึ่งเราเริ่มศึกษาอย่างจริงจังและพบว่า การออกกำลังกายที่เหมาะสมมีส่วนช่วย<strong>พัฒนากล้ามเนื้อรอบข้อต่อให้แข็งแรงขึ้น</strong>ได้จริง</p>
-        <p>จากจุดนั้นเอง เราอยากส่งต่อสิ่งดีๆ นี้ให้น้องหมาน้องแมวทุกตัวที่มาพักกับเรา ไม่ใช่แค่ที่นอนสบายหรืออาหารดี แต่รวมถึง<strong>พื้นที่ออกกำลังกาย</strong>ที่ช่วยเสริมสร้างกล้ามเนื้อและสุขภาพข้อต่อในระยะยาวด้วย 🐾</p>
+        <p>จากจุดนั้นเอง เราอยากส่งต่อสิ่งดีๆ นี้ให้น้องหมาน้องแมวทุกตัวที่มาพักกับเรา ไม่ใช่แค่ที่นอนสบายหรืออาหารดี แต่รวมถึง<strong>พื้นที่ออกกำลังกาย</strong>ที่ช่วยเสริมสร้างกล้ามเนื้อและสุขภาพข้อต่อในระยะยาวด้วย</p>
 
         <div class="mission-card">
           <p>"ศูนย์รวมบริการน้องหมาน้องแมว ที่ใส่ใจเหมือนคนสำคัญในครอบครัว"</p>
@@ -616,10 +617,10 @@
       <p class="section-desc center">ทุกห้องสะอาด ปลอดภัย พร้อม CCTV และแอร์เย็นตลอด 24 ชม.</p>
     </div>
     <!-- แถวสุนัข -->
-    <h3 class="room-cat-head">🐶 ห้องพักสำหรับสุนัข</h3>
+    <h3 class="room-cat-head">ห้องพักสำหรับสุนัข</h3>
     <div class="room-grid">
       <div class="room-card">
-        <div class="room-photo"><img src="images/room-cozy-dog.jpg" alt="ห้อง Cozy Room สำหรับสุนัข" loading="lazy" decoding="async"><span class="zoom-hint">🔍</span></div>
+        <div class="room-photo"><img src="images/room-cozy-dog.jpg" alt="ห้อง Cozy Room สำหรับสุนัข" loading="lazy" decoding="async"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:17px;height:17px;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
         <div class="room-body">
           <h3>Cozy Room</h3>
           <p class="room-size">ขนาดห้อง: 1×1.5 ม.</p>
@@ -631,7 +632,7 @@
         </div>
       </div>
       <div class="room-card">
-        <div class="room-photo"><img src="images/room-deluxe-dog.jpg" alt="ห้อง Deluxe Room สำหรับสุนัข" loading="lazy" decoding="async"><span class="zoom-hint">🔍</span></div>
+        <div class="room-photo"><img src="images/room-deluxe-dog.jpg" alt="ห้อง Deluxe Room สำหรับสุนัข" loading="lazy" decoding="async"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:17px;height:17px;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
         <div class="room-body">
           <h3>Deluxe Room</h3>
           <p class="room-size">ขนาดห้อง: 1×2 ม.</p>
@@ -643,8 +644,8 @@
         </div>
       </div>
       <div class="room-card room-card--featured">
-        <span class="room-badge">⭐ แนะนำ</span>
-        <div class="room-photo"><img src="images/room-vip-dog.jpg" alt="ห้อง VIP Villa สำหรับสุนัข" loading="lazy" decoding="async"><span class="zoom-hint">🔍</span></div>
+        <span class="room-badge">แนะนำ</span>
+        <div class="room-photo"><img src="images/room-vip-dog.jpg" alt="ห้อง VIP Villa สำหรับสุนัข" loading="lazy" decoding="async"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:17px;height:17px;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
         <div class="room-body">
           <h3>VIP Villa Room</h3>
           <p class="room-size">ขนาดห้อง: 1.5×2.5 ม.</p>
@@ -658,10 +659,10 @@
     </div>
 
     <!-- แถวแมว -->
-    <h3 class="room-cat-head" style="margin-top:48px;">🐱 ห้องพักสำหรับแมว</h3>
+    <h3 class="room-cat-head" style="margin-top:48px;">ห้องพักสำหรับแมว</h3>
     <div class="room-grid">
       <div class="room-card">
-        <div class="room-photo"><img src="images/room-cozy-cat.jpg" alt="ห้อง Cozy Room สำหรับแมว" loading="lazy" decoding="async"><span class="zoom-hint">🔍</span></div>
+        <div class="room-photo"><img src="images/room-cozy-cat.jpg" alt="ห้อง Cozy Room สำหรับแมว" loading="lazy" decoding="async"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:17px;height:17px;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
         <div class="room-body">
           <h3>Cozy Room</h3>
           <p class="room-size">ขนาดห้อง: 1×1 ม.</p>
@@ -673,7 +674,7 @@
         </div>
       </div>
       <div class="room-card">
-        <div class="room-photo"><img src="images/room-deluxe-cat.jpg" alt="ห้อง Deluxe Room สำหรับแมว" loading="lazy" decoding="async"><span class="zoom-hint">🔍</span></div>
+        <div class="room-photo"><img src="images/room-deluxe-cat.jpg" alt="ห้อง Deluxe Room สำหรับแมว" loading="lazy" decoding="async"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:17px;height:17px;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
         <div class="room-body">
           <h3>Deluxe Room</h3>
           <p class="room-size">ขนาดห้อง: 1×1×2.5 ม. (แนวตั้ง)</p>
@@ -685,8 +686,8 @@
         </div>
       </div>
       <div class="room-card room-card--featured">
-        <span class="room-badge">⭐ แนะนำ</span>
-        <div class="room-photo"><img src="images/room-vip-cat.jpg" alt="ห้อง VIP Villa สำหรับแมว" loading="lazy" decoding="async"><span class="zoom-hint">🔍</span></div>
+        <span class="room-badge">แนะนำ</span>
+        <div class="room-photo"><img src="images/room-vip-cat.jpg" alt="ห้อง VIP Villa สำหรับแมว" loading="lazy" decoding="async"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:17px;height:17px;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
         <div class="room-body">
           <h3>VIP Villa Room</h3>
           <p class="room-size">ขนาดห้อง: 1.5×2.5 ม.</p>
@@ -749,24 +750,24 @@
 
     <!-- ⭐ FEATURED: แนะนำเพื่อน (PPH Friends) -->
     <div class="promo-hero" id="pphFriends">
-      <span class="promo-ribbon">✨ NEW · PPH FRIENDS</span>
+      <span class="promo-ribbon">NEW · PPH FRIENDS</span>
       <div class="promo-hero-inner">
         <div class="promo-hero-left">
-          <h3>แนะนำเพื่อน<br>รับฟรี<span> ทั้งคู่! 🎁</span></h3>
+          <h3>แนะนำเพื่อน<br>รับฟรี<span> ทั้งคู่!</span></h3>
           <p>ชวนเพื่อนที่มีน้องหมา–แมว มาลองบริการครั้งแรก แล้วรับของขวัญด้วยกันทั้งสองฝ่าย ยิ่งแนะนำ ยิ่งได้ ไม่จำกัดจำนวนเพื่อน</p>
-          <a href="#booking" class="btn promo-hero-btn">💬 ทักไลน์ พิมพ์ “แนะนำเพื่อน”</a>
+          <a href="#booking" class="btn promo-hero-btn">ทักไลน์ พิมพ์ “แนะนำเพื่อน”</a>
         </div>
         <div class="promo-hero-cards">
           <div class="ph-mini">
             <span class="ph-tag">เพื่อนใหม่ได้</span>
             <b>อาบน้ำครั้งแรก<br>ลด 10%</b>
-            <small>+ ฟรีสปาโอโซน 🫧</small>
+            <small>+ ฟรีสปาโอโซน</small>
           </div>
           <div class="ph-plus">＋</div>
           <div class="ph-mini">
             <span class="ph-tag">คุณได้</span>
             <b>ฟรีสปาโอโซน</b>
-            <small>ในครั้งถัดไป 💛</small>
+            <small>ในครั้งถัดไป</small>
           </div>
         </div>
       </div>
@@ -774,18 +775,18 @@
 
     <div class="promo-grid">
       <div class="promo-card">
-        <div class="promo-icon">🛁</div>
+        <div class="promo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
         <h3>พัก 5 คืน อาบน้ำฟรี!</h3>
         <p>เข้าพักโรงแรมตั้งแต่ <strong>5 คืนขึ้นไป</strong> รับบริการ <strong>อาบน้ำฟรี 1 ครั้ง</strong> ก่อนกลับบ้าน น้องสะอาดหอมฟูพร้อมเจอเจ้าของ</p>
       </div>
       <div class="promo-card">
-        <div class="promo-icon">🎉</div>
+        <div class="promo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div>
         <h3>ลูกค้าใหม่ ลด 10%</h3>
         <p>ลูกค้าใหม่ที่ใช้บริการ <strong>ครั้งแรก</strong> เฉพาะ <strong>วันจันทร์–ศุกร์</strong> รับส่วนลดทันที <strong>10%</strong> (ไม่รวมวันเสาร์-อาทิตย์และวันหยุดนักขัตฤกษ์)</p>
       </div>
       <div class="promo-card promo-card--soon">
         <span class="soon-badge">เร็วๆ นี้</span>
-        <div class="promo-icon">🏊</div>
+        <div class="promo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M2 16c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0"/><path d="M2 20c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0"/><circle cx="16" cy="6" r="2.5"/></svg></div>
         <h3>Founding Member</h3>
         <p>สนามออกกำลังกาย + สระว่ายน้ำสำหรับน้องหมา เปิดจอง <strong>รุ่นแรกราคาพิเศษ</strong> รับจำนวนจำกัด · <a href="#exercise">ดูรายละเอียด →</a></p>
       </div>
@@ -810,8 +811,8 @@
         <div>
           <label class="bk-label">ประเภทน้อง</label>
           <select class="bk-input" id="calcPet">
-            <option value="dog">🐶 สุนัข</option>
-            <option value="cat">🐱 แมว</option>
+            <option value="dog">สุนัข</option>
+            <option value="cat">แมว</option>
           </select>
         </div>
         <div>
@@ -839,11 +840,11 @@
         <div class="calc-row"><span>จำนวนคืน</span><span id="calcN">—</span></div>
         <div class="calc-row"><span>ราคารวม</span><span id="calcSub">—</span></div>
         <div class="calc-row calc-discount" id="calcDiscRow" style="display:none;"><span>ส่วนลดลูกค้าใหม่ 10%</span><span id="calcDisc">—</span></div>
-        <div class="calc-row calc-free" id="calcFreeRow" style="display:none;"><span>🛁 โปรพัก 5 คืน</span><span>อาบน้ำฟรี 1 ครั้ง</span></div>
+        <div class="calc-row calc-free" id="calcFreeRow" style="display:none;"><span>โปรพัก 5 คืน</span><span>อาบน้ำฟรี 1 ครั้ง</span></div>
         <div class="calc-row calc-total"><span>ราคาสุทธิ (ประมาณ)</span><span id="calcTotal">—</span></div>
         <div class="calc-row calc-deposit"><span>มัดจำ 50% เพื่อยืนยันการจอง</span><span id="calcDeposit">—</span></div>
         <p class="calc-note">* ราคาประเมินเบื้องต้น ไม่รวมบริการเสริม ราคาจริงยืนยันโดยทางร้านอีกครั้ง</p>
-        <a href="#booking" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;">📅 จองคิวเลย</a>
+        <a href="#booking" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;">จองคิวเลย</a>
       </div>
     </div>
   </div>
@@ -854,7 +855,8 @@
   @media(max-width:640px){.promo-grid{grid-template-columns:1fr;}}
   .promo-card{position:relative;background:#fff;border-radius:20px;padding:28px 24px;box-shadow:0 8px 24px rgba(58,46,38,0.10);border:2px dashed var(--orange);text-align:center;transition:transform .25s ease,box-shadow .25s ease;}
   .promo-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(58,46,38,0.18);}
-  .promo-icon{font-size:2.6rem;margin-bottom:8px;}
+  .promo-icon{margin-bottom:14px;}
+  .promo-icon svg{width:40px;height:40px;color:var(--orange-dark);}
   .promo-card h3{font-family:'Mitr',sans-serif;color:var(--orange-dark);font-size:1.25rem;margin-bottom:8px;}
   .promo-card p{color:var(--brown-soft);font-size:0.95rem;}
   .promo-card strong{color:var(--orange-dark);}
@@ -864,7 +866,6 @@
   /* Featured referral banner */
   .promo-hero{position:relative;max-width:960px;margin:40px auto 4px;border-radius:28px;padding:40px 36px;color:#fff;background:linear-gradient(135deg,#E07B39,#B85C1E);box-shadow:0 22px 50px rgba(184,92,30,0.30);overflow:hidden;}
   .promo-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 12%,rgba(255,255,255,0.24),transparent 46%);pointer-events:none;}
-  .promo-hero::after{content:"🐾";position:absolute;right:-8px;bottom:-24px;font-size:130px;opacity:0.12;transform:rotate(-15deg);pointer-events:none;}
   .promo-ribbon{position:absolute;top:18px;left:18px;z-index:2;background:#fff;color:var(--orange-dark);font-family:'Mitr',sans-serif;font-size:0.76rem;font-weight:600;padding:6px 14px;border-radius:99px;letter-spacing:0.5px;box-shadow:0 4px 12px rgba(0,0,0,0.12);}
   .promo-hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr 1fr;gap:30px;align-items:center;margin-top:18px;}
   .promo-hero-left h3{font-family:'Mitr',sans-serif;font-size:2.05rem;line-height:1.2;margin-bottom:12px;color:#fff;}
@@ -877,8 +878,7 @@
   .ph-mini .ph-tag{display:inline-block;background:#fff;color:var(--orange-dark);font-size:0.7rem;font-weight:600;padding:3px 10px;border-radius:99px;margin-bottom:10px;font-family:'Mitr',sans-serif;}
   .ph-mini b{display:block;font-size:1.02rem;line-height:1.3;margin-bottom:4px;}
   .ph-mini small{opacity:0.92;font-size:0.82rem;}
-  .ph-plus{font-size:1.7rem;font-weight:700;opacity:0.95;animation:phpulse 1.6s ease-in-out infinite;}
-  @keyframes phpulse{0%,100%{transform:scale(1);}50%{transform:scale(1.28);}}
+  .ph-plus{font-size:1.7rem;font-weight:700;opacity:0.95;}
   @media(max-width:640px){.promo-hero{padding:30px 22px;}.promo-hero-inner{grid-template-columns:1fr;gap:22px;}.promo-hero-left h3{font-size:1.65rem;}}
   .calc-wrap{max-width:760px;margin:36px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
   @media(max-width:720px){.calc-wrap{grid-template-columns:1fr;}}
@@ -1523,9 +1523,9 @@
     </div>
     <!-- BLOG_LATEST_START -->
     <div class="bloghome-grid">
-<a class="bloghome-card" href="/blog/2026-07-06-cat-not-eating-when-to-worry.html"><img src="/blog/images/2026-07-06-cat-not-eating-when-to-worry.jpg" alt="แมวไม่กินข้าว อันตรายกว่าที่คิด! รู้ทันก่อนสาย ควรพาไปหาหมอเมื่อไหร่" loading="lazy"><div class="body"><span class="date">📅 6 กรกฎาคม 2569</span><h3>แมวไม่กินข้าว อันตรายกว่าที่คิด! รู้ทันก่อนสาย ควรพาไปหาหมอเมื่อไหร่</h3><p>แมวงอแงไม่กินข้าวแค่วันสองวัน หลายคนคิดว่าเดี๋ยวก็หาย แต่รู้ไหมว่าแมวที่อดอาหารเสี่ยงภาวะตับวายที่อันตรายถึงชีวิตเร็วกว่าที่คิด</p><span class="more">อ่านต่อ →</span></div></a>
-<a class="bloghome-card" href="/blog/2026-07-05-toxic-foods-dogs.html"><img src="/blog/images/2026-07-05-toxic-foods-dogs.jpg" alt="8 อาหารอันตรายถึงชีวิต ที่ห้ามให้น้องหมากินเด็ดขาด" loading="lazy"><div class="body"><span class="date">📅 5 กรกฎาคม 2569</span><h3>8 อาหารอันตรายถึงชีวิต ที่ห้ามให้น้องหมากินเด็ดขาด</h3><p>ของกินบางอย่างที่คนกินได้สบายๆ กลับเป็นพิษร้ายแรงต่อน้องหมา บางชนิดแค่คำเดียวก็อันตราย รวมลิสต์อาหารต้องห้ามและอาการที่ต้องรีบพาไปหาหมอ</p><span class="more">อ่านต่อ →</span></div></a>
-<a class="bloghome-card" href="/blog/2026-07-04-rainy-season-dog-care.html"><img src="/blog/images/2026-07-04-rainy-season-dog-care.jpg" alt="หน้าฝนนี้ระวัง! 5 ปัญหาสุขภาพน้องหมาที่มากับความชื้น และวิธีดูแล" loading="lazy"><div class="body"><span class="date">📅 4 กรกฎาคม 2569</span><h3>หน้าฝนนี้ระวัง! 5 ปัญหาสุขภาพน้องหมาที่มากับความชื้น และวิธีดูแล</h3><p>ฝนตกทีไร น้องหมาเริ่มเกา มีกลิ่นตัว ขนแฉะ? ความชื้นหน้าฝนคือตัวการของหลายปัญหาผิวหนัง รวมวิธีดูแลและสัญญาณอันตรายที่ต้องรีบพาไปหาหมอ</p><span class="more">อ่านต่อ →</span></div></a>
+<a class="bloghome-card" href="/blog/2026-07-06-cat-not-eating-when-to-worry.html"><img src="/blog/images/2026-07-06-cat-not-eating-when-to-worry.jpg" alt="แมวไม่กินข้าว อันตรายกว่าที่คิด! รู้ทันก่อนสาย ควรพาไปหาหมอเมื่อไหร่" loading="lazy"><div class="body"><span class="date">6 กรกฎาคม 2569</span><h3>แมวไม่กินข้าว อันตรายกว่าที่คิด! รู้ทันก่อนสาย ควรพาไปหาหมอเมื่อไหร่</h3><p>แมวงอแงไม่กินข้าวแค่วันสองวัน หลายคนคิดว่าเดี๋ยวก็หาย แต่รู้ไหมว่าแมวที่อดอาหารเสี่ยงภาวะตับวายที่อันตรายถึงชีวิตเร็วกว่าที่คิด</p><span class="more">อ่านต่อ →</span></div></a>
+<a class="bloghome-card" href="/blog/2026-07-05-toxic-foods-dogs.html"><img src="/blog/images/2026-07-05-toxic-foods-dogs.jpg" alt="8 อาหารอันตรายถึงชีวิต ที่ห้ามให้น้องหมากินเด็ดขาด" loading="lazy"><div class="body"><span class="date">5 กรกฎาคม 2569</span><h3>8 อาหารอันตรายถึงชีวิต ที่ห้ามให้น้องหมากินเด็ดขาด</h3><p>ของกินบางอย่างที่คนกินได้สบายๆ กลับเป็นพิษร้ายแรงต่อน้องหมา บางชนิดแค่คำเดียวก็อันตราย รวมลิสต์อาหารต้องห้ามและอาการที่ต้องรีบพาไปหาหมอ</p><span class="more">อ่านต่อ →</span></div></a>
+<a class="bloghome-card" href="/blog/2026-07-04-rainy-season-dog-care.html"><img src="/blog/images/2026-07-04-rainy-season-dog-care.jpg" alt="หน้าฝนนี้ระวัง! 5 ปัญหาสุขภาพน้องหมาที่มากับความชื้น และวิธีดูแล" loading="lazy"><div class="body"><span class="date">4 กรกฎาคม 2569</span><h3>หน้าฝนนี้ระวัง! 5 ปัญหาสุขภาพน้องหมาที่มากับความชื้น และวิธีดูแล</h3><p>ฝนตกทีไร น้องหมาเริ่มเกา มีกลิ่นตัว ขนแฉะ? ความชื้นหน้าฝนคือตัวการของหลายปัญหาผิวหนัง รวมวิธีดูแลและสัญญาณอันตรายที่ต้องรีบพาไปหาหมอ</p><span class="more">อ่านต่อ →</span></div></a>
 </div>
     <!-- BLOG_LATEST_END -->
     <div class="bloghome-all">
@@ -1542,7 +1542,7 @@
         จองออนไลน์
       </span>
       <h2 class="section-title">จองคิวฝากเลี้ยง / อาบน้ำตัดขน</h2>
-      <p class="section-desc center">กรอกข้อมูลน้องให้เรา แล้วกดส่งเข้า LINE ได้เลย ทีมงานจะรีบยืนยันคิวให้เร็วที่สุด 🐾</p>
+      <p class="section-desc center">กรอกข้อมูลน้องให้เรา แล้วกดส่งเข้า LINE ได้เลย ทีมงานจะรีบยืนยันคิวให้เร็วที่สุด</p>
     </div>
 
     <form id="bookingForm" style="max-width:640px;margin:32px auto 0;background:#fff;padding:28px 24px;border-radius:20px;box-shadow:0 12px 32px rgba(58,46,38,0.10);">
@@ -1639,9 +1639,9 @@
       if(!timeSel) return;
       var s = serviceSel ? serviceSel.value : '';
       var start = 9, end = 20, label = 'ร้านเปิด 9:00–20:00 น.';
-      if(s.indexOf('ฝากเลี้ยง') === 0 || s.indexOf('Day Care') === 0){ start = 9; end = 18; label = '🏨 บริการโรงแรม รับเข้า 9:00–18:00 น.'; }
-      else if(s.indexOf('อาบน้ำ') === 0){ start = 10; end = 19; label = '✂️ บริการอาบน้ำตัดขน 10:00–19:00 น.'; }
-      else if(s.indexOf('ฝากเลี้ยง + อาบน้ำ') > -1){ start = 10; end = 18; label = '🏨✂️ ฝากเลี้ยง+อาบน้ำตัดขน 10:00–18:00 น.'; }
+      if(s.indexOf('ฝากเลี้ยง') === 0 || s.indexOf('Day Care') === 0){ start = 9; end = 18; label = 'บริการโรงแรม รับเข้า 9:00–18:00 น.'; }
+      else if(s.indexOf('อาบน้ำ') === 0){ start = 10; end = 19; label = 'บริการอาบน้ำตัดขน 10:00–19:00 น.'; }
+      else if(s.indexOf('ฝากเลี้ยง + อาบน้ำ') > -1){ start = 10; end = 18; label = 'ฝากเลี้ยง+อาบน้ำตัดขน 10:00–18:00 น.'; }
       var cur = timeSel.value;
       timeSel.innerHTML = '<option value="">— ไม่ระบุ —</option>';
       for(var h = start; h <= end; h++){
@@ -1702,8 +1702,8 @@
             headHtml +
             '<textarea id="bkMsg" readonly rows="9" style="width:100%;margin-top:10px;padding:10px;border-radius:10px;border:1px solid #E7D6C5;font-family:Prompt,sans-serif;font-size:0.85rem;box-sizing:border-box;"></textarea>' +
             '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;">' +
-              '<button type="button" id="bkCopy" class="btn btn-outline" style="flex:1;min-width:140px;justify-content:center;">📋 คัดลอกข้อความ</button>' +
-              '<a href="'+LINE_URL+'" target="_blank" rel="noopener" class="btn btn-primary" style="flex:1;min-width:140px;justify-content:center;">💬 ทักไลน์ร้าน</a>' +
+              '<button type="button" id="bkCopy" class="btn btn-outline" style="flex:1;min-width:140px;justify-content:center;">คัดลอกข้อความ</button>' +
+              '<a href="'+LINE_URL+'" target="_blank" rel="noopener" class="btn btn-primary" style="flex:1;min-width:140px;justify-content:center;">ทักไลน์ร้าน</a>' +
             '</div>' +
           '</div>';
         var ta = document.getElementById('bkMsg');
@@ -1715,7 +1715,7 @@
             var ok=false;
             try { if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(ta.value); ok=true; } } catch(e){}
             if(!ok){ try { document.execCommand('copy'); ok=true; } catch(e){} }
-            copyBtn.textContent = ok ? '✅ คัดลอกแล้ว!' : '📋 คัดลอกข้อความ';
+            copyBtn.textContent = ok ? 'คัดลอกแล้ว ✓' : 'คัดลอกข้อความ';
           });
         }
         hint.scrollIntoView({behavior:'smooth', block:'center'});
@@ -1723,23 +1723,23 @@
 
       if(GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL.indexOf('http') === 0){
         // ===== ส่งเข้า Google Sheet อัตโนมัติ =====
-        if(hint){ hint.style.color = 'var(--brown-soft)'; hint.textContent = '⏳ กำลังส่งคำขอจองไปยังร้าน...'; }
+        if(hint){ hint.style.color = 'var(--brown-soft)'; hint.textContent = 'กำลังส่งคำขอจองไปยังร้าน...'; }
         fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
           mode: 'no-cors',
           body: new URLSearchParams(data)
         }).then(function(){
           form.reset();
-          showPanel('<strong style="color:var(--green);">✅ ส่งคำขอจองให้ร้านเรียบร้อยแล้ว!</strong><br><span style="font-size:0.85rem;">ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด 🐾 หากต้องการคุยด่วน ก็อปข้อความด้านล่างทักไลน์ร้านได้เลย</span>');
+          showPanel('<strong style="color:var(--green);">ส่งคำขอจองให้ร้านเรียบร้อยแล้ว ✓</strong><br><span style="font-size:0.85rem;">ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด หากต้องการคุยด่วน ก็อปข้อความด้านล่างทักไลน์ร้านได้เลย</span>');
         }).catch(function(){
           window.open(LINE_URL, '_blank');
-          showPanel('<strong style="color:var(--orange-dark);">⚠️ ส่งอัตโนมัติไม่สำเร็จ</strong><br><span style="font-size:0.85rem;">กรุณาคัดลอกข้อความนี้ส่งทางไลน์ <strong>@perfectbkk</strong> แทนนะคะ</span>');
+          showPanel('<strong style="color:var(--orange-dark);">ส่งอัตโนมัติไม่สำเร็จ</strong><br><span style="font-size:0.85rem;">กรุณาคัดลอกข้อความนี้ส่งทางไลน์ <strong>@perfectbkk</strong> แทนนะคะ</span>');
         });
       } else {
         // ===== ยังไม่ได้ตั้งค่า webhook → ส่งทาง LINE (คัดลอก-วาง) =====
         window.open(LINE_URL, '_blank');
         try { if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(msg); } } catch(err){}
-        showPanel('<strong style="color:var(--green);">✅ สร้างข้อความจองเรียบร้อย!</strong><br><span style="font-size:0.85rem;">คัดลอกข้อความนี้ไปวางในแชท LINE <strong>@perfectbkk</strong> แล้วกดส่งได้เลย</span>');
+        showPanel('<strong style="color:var(--green);">สร้างข้อความจองเรียบร้อย ✓</strong><br><span style="font-size:0.85rem;">คัดลอกข้อความนี้ไปวางในแชท LINE <strong>@perfectbkk</strong> แล้วกดส่งได้เลย</span>');
       }
     });
   })();
@@ -1851,17 +1851,19 @@
 <style>
   .promo-bar{
     display:flex;align-items:center;justify-content:center;gap:10px;position:relative;
-    background:linear-gradient(90deg,var(--orange-dark),var(--orange));
-    color:#fff;font-family:'Prompt',sans-serif;font-size:0.9rem;font-weight:500;
-    padding:8px 40px 8px 16px;text-align:center;
+    background:var(--orange-light);
+    color:var(--brown);font-family:'Prompt',sans-serif;font-size:0.88rem;font-weight:400;
+    padding:9px 40px 9px 16px;text-align:center;
+    border-bottom:1px solid rgba(58,46,38,0.06);
   }
-  .promo-bar a{color:#fff;text-decoration:underline;font-weight:700;}
+  .promo-bar strong{font-weight:600;}
+  .promo-bar a{color:var(--orange-dark);text-decoration:none;font-weight:600;}
+  .promo-bar a:hover{text-decoration:underline;}
   .promo-close{position:absolute;right:12px;top:50%;transform:translateY(-50%);
-    background:none;border:none;color:#fff;font-size:1rem;cursor:pointer;opacity:.85;}
+    background:none;border:none;color:var(--brown-soft);font-size:1rem;cursor:pointer;opacity:.7;}
   .promo-close:hover{opacity:1;}
   .nav-book{color:var(--orange-dark) !important;font-weight:700 !important;}
-  .nav-book-btn{background:linear-gradient(135deg,var(--orange),var(--orange-dark)) !important;animation:navBookPulse 1.8s ease-in-out infinite;}
-  @keyframes navBookPulse{0%,100%{box-shadow:0 0 0 0 rgba(224,123,57,0.5);}50%{box-shadow:0 0 0 8px rgba(224,123,57,0);}}
+  .nav-book-btn{background:var(--orange-dark) !important;}
   .rating-badge{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;
     background:rgba(255,255,255,0.95);border-radius:50px;padding:8px 18px;margin:18px 0 4px;
     box-shadow:0 4px 14px rgba(58,46,38,0.15);}
@@ -1897,46 +1899,27 @@
   })();
 </script>
 
-<!-- ปุ่มลอยกระพริบ กระตุ้นให้จองคิว -->
+<!-- ปุ่มลอยจองคิว (นิ่ง เรียบ แบบมินิมอล) -->
 <a href="#booking" class="float-cta" id="floatCta" aria-label="จองคิวออนไลน์">
-  <span class="float-cta-pulse"></span>
   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-  <span class="float-cta-text">จองคิวเลย!<small>คิวเต็มเร็ว รีบจองก่อนใคร</small></span>
+  <span class="float-cta-text">จองคิวออนไลน์</span>
 </a>
 
 <style>
   .float-cta{
     position:fixed;right:18px;bottom:18px;z-index:999;
     display:flex;align-items:center;gap:10px;
-    background:linear-gradient(135deg,var(--orange),var(--orange-dark));
+    background:var(--orange-dark);
     color:#fff;text-decoration:none;
-    padding:13px 20px;border-radius:50px;
-    font-family:'Mitr',sans-serif;font-weight:600;font-size:1rem;
-    box-shadow:0 8px 24px rgba(224,123,57,0.45);
-    animation:ctaBlink 1.3s ease-in-out infinite;
+    padding:13px 22px;border-radius:50px;
+    font-family:'Mitr',sans-serif;font-weight:600;font-size:0.95rem;
+    box-shadow:0 6px 20px rgba(58,46,38,0.22);
+    transition:transform .25s cubic-bezier(0.16,1,0.3,1), box-shadow .25s ease;
   }
-  .float-cta .icon{width:22px;height:22px;flex:0 0 auto;}
-  .float-cta-text{display:flex;flex-direction:column;line-height:1.15;}
-  .float-cta-text small{font-weight:400;font-size:0.7rem;opacity:0.92;font-family:'Prompt',sans-serif;}
-  .float-cta-pulse{
-    position:absolute;inset:0;border-radius:50px;
-    background:var(--orange);z-index:-1;
-    animation:ctaRing 1.8s ease-out infinite;
-  }
-  @keyframes ctaBlink{
-    0%,100%{transform:scale(1);box-shadow:0 8px 24px rgba(224,123,57,0.45);}
-    50%{transform:scale(1.06);box-shadow:0 10px 30px rgba(224,123,57,0.7);}
-  }
-  @keyframes ctaRing{
-    0%{transform:scale(1);opacity:0.6;}
-    100%{transform:scale(1.4);opacity:0;}
-  }
+  .float-cta:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(58,46,38,0.28);}
+  .float-cta .icon{width:20px;height:20px;flex:0 0 auto;}
   @media(max-width:560px){
-    .float-cta{padding:11px 16px;font-size:0.9rem;right:12px;bottom:12px;}
-    .float-cta-text small{font-size:0.65rem;}
-  }
-  @media (prefers-reduced-motion: reduce){
-    .float-cta,.float-cta-pulse{animation:none;}
+    .float-cta{padding:11px 16px;font-size:0.88rem;right:12px;bottom:12px;}
   }
 </style>
 
