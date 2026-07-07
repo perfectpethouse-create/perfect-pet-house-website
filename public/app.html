@@ -173,6 +173,15 @@
   .size-grid button{padding:12px 4px;border-radius:14px;background:var(--cream);border:1.5px solid #EEDFCF;
     font-size:12.5px;font-weight:500;color:var(--brown);transition:all .15s;text-align:center;line-height:1.3;}
   .size-grid button.on{background:var(--orange);color:#fff;border-color:var(--orange);transform:translateY(-2px);box-shadow:0 6px 14px rgba(224,123,57,0.3);}
+  .calc-step{font-size:12px;font-weight:600;color:var(--brown);margin:16px 2px 8px;}
+  .coat-seg{margin:0;}
+  .cut-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--cream);border:1.5px solid #EEDFCF;border-radius:14px;padding:12px 15px;margin-top:14px;cursor:pointer;}
+  .cut-toggle b{font-size:13.5px;font-family:'Mitr';font-weight:500;color:var(--brown);}
+  .cut-toggle small{display:block;font-size:11px;color:var(--brown-soft);margin-top:1px;}
+  .cut-toggle .switch{width:46px;height:27px;border-radius:999px;background:#D8C6B4;position:relative;flex-shrink:0;transition:background .2s;}
+  .cut-toggle .switch i{position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,0.2);}
+  .cut-toggle.on .switch{background:var(--orange);}
+  .cut-toggle.on .switch i{transform:translateX(19px);}
   .price-out{margin-top:16px;background:var(--orange-light);border-radius:16px;padding:15px 16px;display:flex;align-items:center;justify-content:space-between;}
   .price-out .lbl{font-size:12.5px;color:var(--brown-soft);}
   .price-out .val{font-family:'Mitr';font-weight:600;font-size:24px;color:var(--orange-dark);}
@@ -405,10 +414,17 @@
           <button data-gpet="cat">🐱 แมว</button>
         </div>
         <div class="calc">
-          <h4>อาบน้ำ + ตัดขน</h4>
-          <p class="hint">เลือกขนาดน้อง (ตามน้ำหนัก) — ราคารวมอาบน้ำ+ตัดขนทรง</p>
+          <h4>อาบน้ำ & ตัดขน</h4>
+          <p class="hint">เลือกขนาด → ประเภทขน แล้วเลือกเพิ่มตัดขนทรงได้</p>
+          <p class="calc-step">1. ขนาดน้อง (ตามน้ำหนัก)</p>
           <div class="size-grid" id="groomSizes"></div>
-          <div class="price-out"><span class="lbl">ราคาโดยประมาณ</span><span class="val" id="groomPrice">—</span></div>
+          <p class="calc-step">2. ประเภทขน</p>
+          <div class="seg coat-seg" id="groomCoat"></div>
+          <div class="cut-toggle" id="cutToggle">
+            <span><b>+ ตัดขนทรง</b><small>อาบน้ำอย่างเดียว ไม่ต้องเปิด</small></span>
+            <span class="switch"><i></i></span>
+          </div>
+          <div class="price-out"><span class="lbl" id="groomBreak">เลือกขนาด + ประเภทขน</span><span class="val" id="groomPrice">—</span></div>
           <div class="free-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span id="groomFree">ฟรีทุกครั้ง: ตัดเล็บ + เช็ดหู + ไดเท้า/ท้อง/ก้น</span></div>
           <button class="rbtn" id="groomBook" style="width:100%;margin-top:16px;padding:14px;border-radius:14px;background:var(--orange-dark);color:#fff;font-family:'Mitr';font-weight:500;">จองบริการนี้</button>
         </div>
@@ -601,9 +617,16 @@
       {name:'VIP Villa Room',size:'1.5×2.5 ม.',price:1890,img:'images/room-vip-cat.jpg',feat:true}
     ]
   };
+  // row = [label, weight, ...ราคาตามคอลัมน์]; ราคาจริงจากตารางในเว็บ
   var GROOM={
-    dog:[['XS','<2kg',400],['S','2-5kg',500],['M','5-10kg',700],['L','10-15kg',900],['XL','15-20kg',1100],['2XL','20-30kg',1450]],
-    cat:[['XS','<2kg',450],['S','2-3kg',550],['M','3-5kg',750],['L','5-7kg',950],['XL','7-9kg',1250],['2XL','9-11kg',1400]]
+    dog:{ // [label,weight,ขนสั้น,ขนยาว,ขนยาวมีเซ็ต,ตัดขนเพิ่ม]
+      sizes:[['XS','<2kg',350,400,450,400],['S','2-5kg',400,500,600,500],['M','5-10kg',500,700,900,600],['L','10-15kg',700,900,1000,700],['XL','15-20kg',900,1100,1400,900],['2XL','20-30kg',1200,1450,1600,1200],['3XL','30-40kg',1650,1850,1900,1600]],
+      coats:[['ขนสั้น',2],['ขนยาว',3],['ขนยาวมีเซ็ต',4]],cutIdx:5
+    },
+    cat:{ // [label,weight,ขนสั้น,ขนยาว,ตัดขนเพิ่ม]
+      sizes:[['XS','<2kg',450,550,450],['S','2-3kg',550,650,550],['M','3-5kg',750,850,750],['L','5-7kg',950,1100,950],['XL','7-9kg',1250,1400,1250],['2XL','9-11kg',1400,1600,1400],['3XL','11-13kg',1750,1850,1750]],
+      coats:[['ขนสั้น',2],['ขนยาว',3]],cutIdx:4
+    }
   };
   var GROOM_FREE={dog:'ฟรีทุกครั้ง: ตัดเล็บ + เช็ดหู + ไดเท้า/ท้อง/ก้น',cat:'ฟรีทุกครั้ง: ตัดเล็บ + เช็ดหู'};
   var DAY={
@@ -668,7 +691,7 @@
   renderRooms();
 
   /* ---------- SERVICES tab ---------- */
-  var groomPet='dog',groomSize=null,dayPet='dog',daySize=null;
+  var groomPet='dog',groomSize=null,groomCoatIdx=null,groomCut=false,dayPet='dog',daySize=null;
   function setServ(which){
     document.querySelectorAll('#servSeg button').forEach(function(x){x.classList.toggle('on',x.dataset.serv===which);});
     document.getElementById('servGroom').style.display=which==='groom'?'':'none';
@@ -676,26 +699,49 @@
   }
   document.querySelectorAll('#servSeg button').forEach(function(b){b.addEventListener('click',function(){setServ(b.dataset.serv);});});
 
+  function recalcGroom(){
+    var out=document.getElementById('groomPrice'),brk=document.getElementById('groomBreak');
+    if(!groomSize||groomCoatIdx===null){out.textContent='—';brk.textContent='เลือกขนาด + ประเภทขน';return;}
+    var bath=groomSize[groomCoatIdx],cut=groomCut?groomSize[GROOM[groomPet].cutIdx]:0;
+    out.textContent=baht(bath+cut);
+    brk.textContent='อาบน้ำ '+baht(bath)+(groomCut?(' + ตัดขน '+baht(cut)):'');
+  }
   function renderGroom(){
-    var g=document.getElementById('groomSizes');g.innerHTML='';groomSize=null;
-    document.getElementById('groomPrice').textContent='—';
+    var g=document.getElementById('groomSizes');g.innerHTML='';groomSize=null;groomCoatIdx=null;groomCut=false;
     document.getElementById('groomFree').textContent=GROOM_FREE[groomPet];
-    GROOM[groomPet].forEach(function(s,i){
+    document.getElementById('cutToggle').classList.remove('on');
+    GROOM[groomPet].sizes.forEach(function(s){
       var b=document.createElement('button');b.innerHTML='<b>'+s[0]+'</b><br>'+s[1];
       b.addEventListener('click',function(){
         g.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');
-        groomSize=s;document.getElementById('groomPrice').textContent=baht(s[2]);
+        groomSize=s;recalcGroom();
       });
       g.appendChild(b);
     });
+    var c=document.getElementById('groomCoat');c.innerHTML='';
+    GROOM[groomPet].coats.forEach(function(co){
+      var b=document.createElement('button');b.textContent=co[0];
+      b.addEventListener('click',function(){
+        c.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');
+        groomCoatIdx=co[1];recalcGroom();
+      });
+      c.appendChild(b);
+    });
+    recalcGroom();
   }
+  document.getElementById('cutToggle').addEventListener('click',function(){
+    groomCut=!groomCut;this.classList.toggle('on',groomCut);recalcGroom();
+  });
   document.querySelectorAll('#groomPet button').forEach(function(b){b.addEventListener('click',function(){
     document.querySelectorAll('#groomPet button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');groomPet=b.dataset.gpet;renderGroom();});});
   renderGroom();
   document.getElementById('groomBook').addEventListener('click',function(){
+    if(!groomSize||groomCoatIdx===null){toast('เลือกขนาดและประเภทขนก่อนนะครับ');return;}
     var pet=groomPet==='dog'?'น้องหมา':'น้องแมว';
-    var r=groomSize?{name:'อาบน้ำตัดขน '+groomSize[0]+' ('+groomSize[1]+')',price:groomSize[2],size:groomSize[1]}:null;
-    startBooking('อาบน้ำตัดขน',pet,r);
+    var coatLabel='';GROOM[groomPet].coats.forEach(function(co){if(co[1]===groomCoatIdx)coatLabel=co[0];});
+    var bath=groomSize[groomCoatIdx],cut=groomCut?groomSize[GROOM[groomPet].cutIdx]:0;
+    var name='อาบน้ำ '+groomSize[0]+' ('+groomSize[1]+') · '+coatLabel+(groomCut?' + ตัดขนทรง':'');
+    startBooking('อาบน้ำตัดขน',pet,{name:name,price:bath+cut,size:groomSize[1]});
   });
 
   function renderDay(){
