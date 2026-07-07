@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#FFF8F0">
+<title>Perfect Pet House | จองห้องพัก & อาบน้ำตัดขน วัชรพล-รามอินทรา</title>
+<meta name="description" content="Perfect Pet House โรงแรมสัตว์เลี้ยง & อาบน้ำตัดขน ย่านวัชรพล-รามอินทรา จองห้องพักและบริการออนไลน์ได้เลย CCTV & แอร์เย็น 24 ชม. อัปเดตรูปน้องทุกวัน">
+<link rel="canonical" href="https://perfectbkk.com/">
+<meta property="og:title" content="Perfect Pet House — จองห้องพัก & อาบน้ำตัดขนออนไลน์">
+<meta property="og:description" content="ดูแลน้องหมาน้องแมวเหมือนคนในครอบครัว · จองออนไลน์ง่ายใน 4 ขั้นตอน">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#E07B39;
+    --orange-dark:#B85C1E;
+    --orange-light:#FCEADB;
+    --cream:#FFF8F0;
+    --brown:#3A2E26;
+    --brown-soft:#6B5B50;
+    --white:#FFFFFF;
+    --green:#5B8A6B;
+    --nav-h:72px;
+    --shadow:0 8px 24px rgba(58,46,38,0.10);
+    --shadow-sm:0 4px 12px rgba(58,46,38,0.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Prompt',sans-serif;color:var(--brown);line-height:1.6;font-size:15px;
+    background:#E9E2D8;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Mitr','Prompt',sans-serif;font-weight:600;line-height:1.3;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+  input,select,textarea{font-family:inherit;}
+
+  /* ===== Phone shell (จำลองจอมือถือบน desktop; เต็มจอบนมือถือจริง) ===== */
+  .phone{
+    position:relative;max-width:430px;margin:0 auto;min-height:100vh;
+    background:var(--cream);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.28);
+  }
+  @media(min-width:480px){ .phone{margin:24px auto;min-height:calc(100vh - 48px);border-radius:38px;} }
+
+  /* พื้นหลังกราเดียนต์นุ่มๆ เคลื่อนไหว */
+  .bg-shader{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+  .bg-shader .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;mix-blend-mode:multiply;will-change:transform;}
+  .bg-shader .b1{width:70vw;max-width:320px;height:320px;background:#ffd0a8;top:-6%;left:-10%;animation:float1 18s ease-in-out infinite alternate;}
+  .bg-shader .b2{width:60vw;max-width:300px;height:300px;background:#ffe9c7;bottom:12%;right:-14%;animation:float2 22s ease-in-out infinite alternate;}
+  @keyframes float1{to{transform:translate(14vw,10vh) scale(1.15);}}
+  @keyframes float2{to{transform:translate(-12vw,-8vh) scale(1.1);}}
+  @media (prefers-reduced-motion:reduce){.blob{animation:none!important;}}
+
+  /* ===== App top bar ===== */
+  .appbar{
+    position:sticky;top:0;z-index:40;height:58px;display:flex;align-items:center;
+    justify-content:space-between;padding:0 18px;
+    background:rgba(255,248,240,0.82);backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(58,46,38,0.06);
+  }
+  .appbar .brand{display:flex;align-items:center;gap:9px;font-family:'Mitr';font-weight:600;font-size:16px;color:var(--brown);}
+  .appbar .brand img{height:34px;width:auto;}
+  .appbar .bar-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;box-shadow:var(--shadow-sm);color:var(--orange-dark);}
+  .appbar .bar-icon svg{width:20px;height:20px;}
+
+  /* ===== Screen container ===== */
+  .screen-wrap{position:relative;z-index:1;padding-bottom:calc(var(--nav-h) + 20px);min-height:calc(100vh - 58px);}
+  .screen{display:none;animation:screenIn .38s cubic-bezier(.2,.8,.2,1);}
+  .screen.active{display:block;}
+  @keyframes screenIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+  .pad{padding:20px 18px 8px;}
+
+  .kicker{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--orange-dark);
+    background:var(--orange-light);padding:5px 13px;border-radius:999px;margin-bottom:12px;}
+  .h-title{font-size:23px;color:var(--brown);letter-spacing:-.01em;}
+  .h-sub{color:var(--brown-soft);font-size:14px;margin-top:5px;}
+  .sec-title{font-size:18px;margin:26px 0 12px;color:var(--brown);display:flex;align-items:center;justify-content:space-between;}
+  .sec-title .more{font-size:12.5px;font-weight:500;color:var(--orange-dark);}
+
+  /* ===== HOME ===== */
+  .hero-card{
+    position:relative;border-radius:26px;overflow:hidden;margin:4px 18px 0;
+    min-height:230px;display:flex;flex-direction:column;justify-content:flex-end;
+    color:#fff;box-shadow:0 18px 40px rgba(58,46,38,0.24);
+  }
+  .hero-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .hero-card::after{content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(to top,rgba(30,18,8,0.82) 8%,rgba(30,18,8,0.15) 60%,rgba(30,18,8,0.35) 100%);}
+  .hero-card .inner{position:relative;z-index:2;padding:22px 20px;}
+  .hero-card .badge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;
+    background:rgba(255,255,255,0.22);backdrop-filter:blur(6px);padding:5px 12px;border-radius:999px;margin-bottom:10px;}
+  .hero-card h2{color:#fff;font-size:22px;line-height:1.25;}
+  .hero-card p{font-size:13px;color:rgba(255,255,255,0.9);margin-top:6px;}
+  .hero-rate{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12.5px;}
+  .hero-rate .stars{color:#FFC93D;letter-spacing:1px;}
+
+  /* Quick actions */
+  .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:18px 18px 0;}
+  .quick button{display:flex;flex-direction:column;align-items:center;gap:7px;padding:14px 4px;border-radius:18px;
+    background:#fff;box-shadow:var(--shadow-sm);transition:transform .15s;}
+  .quick button:active{transform:scale(.93);}
+  .quick .qi{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    background:var(--orange-light);color:var(--orange-dark);}
+  .quick .qi svg{width:23px;height:23px;}
+  .quick span{font-size:11.5px;font-weight:500;color:var(--brown);text-align:center;line-height:1.25;}
+
+  /* promo strip */
+  .promo{margin:18px 18px 0;border-radius:20px;padding:16px 18px;display:flex;align-items:center;gap:14px;
+    background:linear-gradient(120deg,#E07B39,#B85C1E);color:#fff;box-shadow:0 12px 26px rgba(184,92,30,0.32);}
+  .promo .p-emoji{font-size:30px;line-height:1;}
+  .promo h4{color:#fff;font-size:15px;}
+  .promo p{font-size:12px;color:rgba(255,255,255,0.92);margin-top:2px;}
+  .promo .go{margin-left:auto;font-size:20px;opacity:.9;}
+
+  /* horizontal room scroller */
+  .h-scroll{display:flex;gap:14px;overflow-x:auto;padding:2px 18px 6px;scroll-snap-type:x mandatory;scrollbar-width:none;}
+  .h-scroll::-webkit-scrollbar{display:none;}
+  .mini-room{flex:0 0 208px;scroll-snap-align:start;background:#fff;border-radius:22px;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .15s;}
+  .mini-room:active{transform:scale(.97);}
+  .mini-room img{width:100%;height:130px;object-fit:cover;}
+  .mini-room .mr-body{padding:13px 15px 15px;}
+  .mini-room h4{font-size:15px;}
+  .mini-room .mr-size{font-size:11.5px;color:var(--brown-soft);margin-top:1px;}
+  .mini-room .mr-foot{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
+  .mini-room .mr-price{font-family:'Mitr';font-weight:600;color:var(--orange-dark);font-size:16px;}
+  .mini-room .mr-price small{font-size:11px;font-weight:400;color:var(--brown-soft);}
+  .mini-room .mr-go{width:30px;height:30px;border-radius:50%;background:var(--orange-dark);color:#fff;display:flex;align-items:center;justify-content:center;}
+  .mini-room .mr-go svg{width:16px;height:16px;}
+
+  /* trust row */
+  .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:4px 18px 0;}
+  .trust .t{background:#fff;border-radius:16px;padding:14px 8px;text-align:center;box-shadow:var(--shadow-sm);}
+  .trust .t svg{width:22px;height:22px;color:var(--orange);margin:0 auto 6px;}
+  .trust .t b{display:block;font-family:'Mitr';font-size:13px;color:var(--brown);}
+  .trust .t span{font-size:10.5px;color:var(--brown-soft);}
+
+  /* ===== ROOMS / SERVICES shared cards ===== */
+  .seg{display:flex;background:#EFE4D6;border-radius:999px;padding:5px;margin:2px 18px 4px;gap:4px;}
+  .seg button{flex:1;padding:10px 0;border-radius:999px;font-weight:600;font-size:14px;color:var(--brown-soft);transition:all .2s;}
+  .seg button.on{background:#fff;color:var(--orange-dark);box-shadow:var(--shadow-sm);}
+
+  .list{padding:6px 18px 0;display:flex;flex-direction:column;gap:16px;}
+  .room{background:#fff;border-radius:24px;overflow:hidden;box-shadow:var(--shadow-sm);position:relative;transition:transform .15s;}
+  .room:active{transform:scale(.985);}
+  .room .rimg{position:relative;height:170px;}
+  .room .rimg img{width:100%;height:100%;object-fit:cover;}
+  .room .rtag{position:absolute;top:12px;left:12px;background:rgba(20,12,6,0.72);backdrop-filter:blur(6px);color:#FFD9A8;
+    font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:999px;}
+  .room .rtag.feat{background:linear-gradient(120deg,#E07B39,#B85C1E);color:#fff;}
+  .room .rbody{padding:16px 18px 18px;}
+  .room .rhead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+  .room h3{font-size:18px;}
+  .room .rsize{font-size:12px;color:var(--brown-soft);margin-top:2px;}
+  .room .rprice{text-align:right;flex-shrink:0;}
+  .room .rprice b{font-family:'Mitr';font-size:21px;color:var(--orange-dark);}
+  .room .rprice small{display:block;font-size:11px;color:var(--brown-soft);}
+  .room .ramen{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px;}
+  .room .chip{font-size:11px;color:var(--brown-soft);background:var(--cream);border:1px solid #EEDFCF;padding:4px 10px;border-radius:999px;}
+  .room .rbtn{width:100%;padding:13px;border-radius:14px;background:var(--orange-dark);color:#fff;font-family:'Mitr';font-weight:500;font-size:14.5px;
+    display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .15s,filter .15s;}
+  .room .rbtn:active{transform:scale(.97);filter:brightness(1.08);}
+  .room .rbtn svg{width:17px;height:17px;}
+
+  /* service size price calculator */
+  .calc{background:#fff;border-radius:22px;box-shadow:var(--shadow-sm);padding:18px;margin:0 18px;}
+  .calc h4{font-size:15px;margin-bottom:4px;}
+  .calc .hint{font-size:12px;color:var(--brown-soft);margin-bottom:14px;}
+  .size-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+  .size-grid button{padding:12px 4px;border-radius:14px;background:var(--cream);border:1.5px solid #EEDFCF;
+    font-size:12.5px;font-weight:500;color:var(--brown);transition:all .15s;text-align:center;line-height:1.3;}
+  .size-grid button.on{background:var(--orange);color:#fff;border-color:var(--orange);transform:translateY(-2px);box-shadow:0 6px 14px rgba(224,123,57,0.3);}
+  .calc-step{font-size:12px;font-weight:600;color:var(--brown);margin:16px 2px 8px;}
+  .coat-seg{margin:0;}
+  .cut-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--cream);border:1.5px solid #EEDFCF;border-radius:14px;padding:12px 15px;margin-top:14px;cursor:pointer;}
+  .cut-toggle b{font-size:13.5px;font-family:'Mitr';font-weight:500;color:var(--brown);}
+  .cut-toggle small{display:block;font-size:11px;color:var(--brown-soft);margin-top:1px;}
+  .cut-toggle .switch{width:46px;height:27px;border-radius:999px;background:#D8C6B4;position:relative;flex-shrink:0;transition:background .2s;}
+  .cut-toggle .switch i{position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,0.2);}
+  .cut-toggle.on .switch{background:var(--orange);}
+  .cut-toggle.on .switch i{transform:translateX(19px);}
+  .price-out{margin-top:16px;background:var(--orange-light);border-radius:16px;padding:15px 16px;display:flex;align-items:center;justify-content:space-between;}
+  .price-out .lbl{font-size:12.5px;color:var(--brown-soft);}
+  .price-out .val{font-family:'Mitr';font-weight:600;font-size:24px;color:var(--orange-dark);}
+  .free-line{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--green);margin-top:12px;background:#EFF7F1;border-radius:12px;padding:10px 14px;}
+  .free-line svg{width:16px;height:16px;flex-shrink:0;}
+
+  /* ===== BOOKING WIZARD ===== */
+  .wiz-head{padding:18px 18px 0;}
+  .steps{display:flex;align-items:center;gap:6px;margin:14px 0 4px;}
+  .steps .dot{flex:1;height:6px;border-radius:999px;background:#E7D6C5;overflow:hidden;position:relative;}
+  .steps .dot i{position:absolute;inset:0;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .4s ease;}
+  .steps .dot.done i{transform:scaleX(1);}
+  .step-label{font-size:12px;color:var(--brown-soft);margin-top:6px;}
+  .step-label b{color:var(--orange-dark);font-weight:600;}
+
+  .wstep{display:none;padding:16px 18px 0;animation:screenIn .34s cubic-bezier(.2,.8,.2,1);}
+  .wstep.active{display:block;}
+  .wstep h3{font-size:19px;margin-bottom:3px;}
+  .wstep .wsub{font-size:13px;color:var(--brown-soft);margin-bottom:16px;}
+
+  .opt{display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:18px;background:#fff;border:2px solid transparent;
+    box-shadow:var(--shadow-sm);margin-bottom:11px;transition:all .15s;}
+  .opt:active{transform:scale(.98);}
+  .opt.on{border-color:var(--orange);background:#fff;}
+  .opt .oi{width:46px;height:46px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--orange-light);color:var(--orange-dark);}
+  .opt .oi svg{width:24px;height:24px;}
+  .opt .otext{flex:1;}
+  .opt .otext b{font-family:'Mitr';font-weight:500;font-size:15px;display:block;}
+  .opt .otext span{font-size:12px;color:var(--brown-soft);}
+  .opt .ocheck{width:24px;height:24px;border-radius:50%;border:2px solid #E7D6C5;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+  .opt.on .ocheck{background:var(--orange);border-color:var(--orange);}
+  .opt.on .ocheck svg{width:14px;height:14px;color:#fff;opacity:1;}
+  .opt .ocheck svg{opacity:0;}
+
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:13px;font-weight:500;color:var(--brown);margin-bottom:6px;}
+  .field label .req{color:var(--orange-dark);}
+  .field input,.field select,.field textarea{width:100%;padding:13px 14px;border:1.5px solid #E7D6C5;border-radius:14px;
+    font-size:15px;color:var(--brown);background:#fff;transition:border-color .15s,box-shadow .15s;}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(224,123,57,0.14);}
+  .field-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+  /* summary */
+  .sumcard{background:#fff;border-radius:20px;box-shadow:var(--shadow-sm);padding:6px 18px;margin-bottom:14px;}
+  .sumrow{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed #EEDFCF;font-size:13.5px;}
+  .sumrow:last-child{border-bottom:none;}
+  .sumrow .k{color:var(--brown-soft);}
+  .sumrow .v{color:var(--brown);font-weight:500;text-align:right;}
+  .sum-total{background:var(--orange-light);border-radius:16px;padding:15px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+  .sum-total .k{font-size:13px;color:var(--brown-soft);}
+  .sum-total .k b{display:block;font-family:'Mitr';font-size:17px;color:var(--brown);}
+  .sum-total .v{font-family:'Mitr';font-weight:600;font-size:26px;color:var(--orange-dark);}
+  .deposit-note{font-size:11.5px;color:var(--brown-soft);text-align:center;margin-top:8px;line-height:1.5;}
+
+  /* wizard footer nav */
+  .wiz-foot{display:flex;gap:11px;padding:16px 18px calc(var(--nav-h) + 16px);}
+  .wiz-foot .wb{flex:1;padding:15px;border-radius:16px;font-family:'Mitr';font-weight:500;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,filter .15s;}
+  .wiz-foot .wb:active{transform:scale(.97);}
+  .wb-primary{background:var(--orange-dark);color:#fff;}
+  .wb-primary:disabled{opacity:.45;}
+  .wb-ghost{flex:0 0 52px;background:#fff;box-shadow:var(--shadow-sm);color:var(--brown);}
+  .wb-primary svg,.wb-ghost svg{width:18px;height:18px;}
+
+  /* success */
+  .success{text-align:center;padding:40px 26px;}
+  .success .burst{width:96px;height:96px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+    animation:pop .5s cubic-bezier(.2,1.4,.4,1) both;box-shadow:0 14px 34px rgba(91,138,107,0.4);}
+  .success .burst svg{width:48px;height:48px;color:#fff;}
+  @keyframes pop{from{transform:scale(0);}to{transform:scale(1);}}
+  .success h2{font-size:22px;margin-bottom:8px;}
+  .success p{font-size:14px;color:var(--brown-soft);margin-bottom:22px;}
+  .success .line-btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:15px;border-radius:16px;
+    background:#06C755;color:#fff;font-family:'Mitr';font-weight:500;font-size:15.5px;margin-bottom:11px;}
+  .success .line-btn svg{width:22px;height:22px;flex-shrink:0;}
+  .success .ghost-btn{width:100%;padding:14px;border-radius:16px;background:#fff;box-shadow:var(--shadow-sm);color:var(--brown);font-weight:500;}
+
+  /* contact screen */
+  .contact-card{background:#fff;border-radius:20px;box-shadow:var(--shadow-sm);padding:6px 18px;margin:0 18px 14px;}
+  .c-row{display:flex;align-items:center;gap:14px;padding:15px 0;border-bottom:1px solid #F3E9DD;}
+  .c-row:last-child{border-bottom:none;}
+  .c-row .ci{width:42px;height:42px;border-radius:12px;background:var(--orange-light);color:var(--orange-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .c-row .ci svg{width:20px;height:20px;}
+  .c-row .ct b{font-size:11.5px;color:var(--brown-soft);font-weight:500;display:block;}
+  .c-row .ct span{font-size:15px;color:var(--brown);font-weight:500;}
+  .c-row .cgo{margin-left:auto;color:var(--orange-dark);}
+  .map-embed{margin:0 18px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);}
+  .map-embed iframe{width:100%;height:180px;border:0;display:block;}
+
+  /* ===== Bottom nav ===== */
+  .botnav{
+    position:fixed;left:0;right:0;bottom:0;z-index:60;height:var(--nav-h);
+    max-width:430px;margin:0 auto;
+    background:rgba(255,255,255,0.92);backdrop-filter:blur(18px);
+    border-top:1px solid rgba(58,46,38,0.07);
+    display:flex;align-items:flex-start;justify-content:space-around;padding-top:9px;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  @media(min-width:480px){ .botnav{bottom:24px;border-radius:0 0 38px 38px;} }
+  .navbtn{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;color:var(--brown-soft);transition:color .2s;position:relative;}
+  .navbtn svg{width:23px;height:23px;transition:transform .2s;}
+  .navbtn span{font-size:10.5px;font-weight:500;}
+  .navbtn.on{color:var(--orange-dark);}
+  .navbtn.on svg{transform:translateY(-2px);}
+  .navbtn.on::before{content:"";position:absolute;top:-9px;width:26px;height:3px;border-radius:999px;background:var(--orange);}
+  /* center booking button */
+  .navbtn.center{flex:0 0 auto;margin-top:-26px;}
+  .navbtn.center .fab{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#E07B39,#B85C1E);
+    display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(184,92,30,0.45);transition:transform .18s;}
+  .navbtn.center .fab svg{width:26px;height:26px;color:#fff;}
+  .navbtn.center:active .fab{transform:scale(.9);}
+  .navbtn.center span{color:var(--orange-dark);margin-top:5px;}
+
+  /* paw toast */
+  .toast{position:fixed;left:50%;bottom:calc(var(--nav-h) + 18px);transform:translateX(-50%) translateY(20px);
+    background:var(--brown);color:#fff;font-size:13px;padding:11px 20px;border-radius:999px;z-index:80;opacity:0;
+    transition:opacity .3s,transform .3s;box-shadow:0 10px 24px rgba(0,0,0,0.3);pointer-events:none;white-space:nowrap;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* reviews + gallery strips (home) */
+  .rev-scroll{display:flex;gap:14px;overflow-x:auto;padding:2px 18px 8px;scroll-snap-type:x mandatory;scrollbar-width:none;}
+  .rev-scroll::-webkit-scrollbar{display:none;}
+  .rev{flex:0 0 268px;scroll-snap-align:start;background:#fff;border-radius:20px;box-shadow:var(--shadow-sm);padding:17px 18px;display:flex;flex-direction:column;}
+  .rev .stars{color:#F0A23A;font-size:14px;letter-spacing:1px;margin-bottom:8px;}
+  .rev p{font-size:12.5px;color:var(--brown-soft);line-height:1.6;margin:0;}
+  .rev .who{display:flex;align-items:center;gap:9px;margin-top:13px;}
+  .rev .av{width:34px;height:34px;border-radius:50%;background:var(--orange-light);color:var(--orange-dark);display:flex;align-items:center;justify-content:center;font-family:'Mitr';font-weight:600;font-size:15px;flex-shrink:0;}
+  .rev .who b{font-size:12.5px;color:var(--brown);font-weight:600;}
+  .rev .who span{display:block;font-size:10.5px;color:var(--brown-soft);}
+  .gal-scroll{display:flex;gap:10px;overflow-x:auto;padding:2px 18px 8px;scroll-snap-type:x mandatory;scrollbar-width:none;}
+  .gal-scroll::-webkit-scrollbar{display:none;}
+  .gal-scroll img{flex:0 0 150px;width:150px;height:150px;object-fit:cover;border-radius:16px;scroll-snap-align:start;box-shadow:var(--shadow-sm);}
+
+  /* confetti */
+  .confetti{position:fixed;top:-10px;width:9px;height:14px;z-index:90;pointer-events:none;border-radius:2px;}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="bg-shader" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span></div>
+
+  <!-- App bar -->
+  <div class="appbar">
+    <div class="brand"><img src="images/img01.png" alt="Perfect Pet House">Perfect Pet House</div>
+    <button class="bar-icon" id="callTop" aria-label="โทรหาร้าน">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </button>
+  </div>
+
+  <div class="screen-wrap">
+
+    <!-- ============ HOME ============ -->
+    <section class="screen active" id="s-home">
+      <div class="hero-card">
+        <img src="images/IMG_4972.jpg" alt="ดูแลน้องหมาน้องแมว">
+        <div class="inner">
+          <span class="badge">📍 วัชรพล–รามอินทรา</span>
+          <h2>ดูแลน้อง<br>เหมือนคนในครอบครัว</h2>
+          <p>โรงแรม + อาบน้ำตัดขน · CCTV & แอร์ 24 ชม.</p>
+          <div class="hero-rate"><span class="stars">★★★★★</span><span><b>5.0</b> · รีวิวจริง 100+ รายการ</span></div>
+        </div>
+      </div>
+
+      <div class="quick">
+        <button data-goroom><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span>จองห้องพัก</span></button>
+        <button data-gogroom><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9a6 6 0 1 0 12 0 6 6 0 0 0-12 0z"/><path d="M12 15v6"/><path d="M9 21h6"/></svg></span><span>อาบน้ำตัดขน</span></button>
+        <button data-goday><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>Day Care</span></button>
+        <button data-line><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>ทัก LINE</span></button>
+      </div>
+
+      <div class="promo" data-line>
+        <span class="p-emoji">🎁</span>
+        <div><h4>แนะนำเพื่อน รับฟรีทั้งคู่</h4><p>เพื่อนใหม่อาบน้ำครั้งแรก ลด 10% + ฟรีสปาโอโซน</p></div>
+        <span class="go">›</span>
+      </div>
+
+      <div class="pad">
+        <div class="sec-title">ห้องพักยอดนิยม <button class="more" data-goroom>ดูทั้งหมด ›</button></div>
+      </div>
+      <div class="h-scroll" id="homeRooms"></div>
+
+      <div class="pad">
+        <div class="sec-title">ทำไมต้อง Perfect Pet House</div>
+      </div>
+      <div class="trust">
+        <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg><b>CCTV 24 ชม.</b><span>ดูน้องได้ตลอด</span></div>
+        <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10l7 4"/></svg><b>แอร์ 24 ชม.</b><span>เย็นสบายทั้งวัน</span></div>
+        <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><b>อัปเดตรูป</b><span>ทุกวัน</span></div>
+      </div>
+
+      <div class="pad"><div class="sec-title">รีวิวจากลูกค้าจริง <span class="more">★ 5.0 · 100+ รีวิว</span></div></div>
+      <div class="rev-scroll">
+        <div class="rev"><div class="stars">★★★★★</div><p>"ดูแลน้องดีมากๆ อาบน้ำดีจนน้องนิ่งหลับ ตัวหอมมาก จากน้องขี้กลัวกลับเป็นมิตรกับพี่เลี้ยง จะพากลับมาอีกแน่นอนค่ะ"</p><div class="who"><span class="av">อ</span><div><b>อารยากรณ์ คงสร</b><span>ลูกค้าอาบน้ำตัดขน</span></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p>"พี่ๆ พนักงานรักน้องหมามากทุกคน น้องดูมีความสุข จะกลับมาใช้บริการอีกแน่นอน ทั้งอาบน้ำตัดขน แล้วก็ฝากเลี้ยง"</p><div class="who"><span class="av">S</span><div><b>Suttida Thamman</b><span>ลูกค้าประจำ</span></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p>"โรงแรมที่ดีที่สุดตั้งแต่เคยใช้บริการมา รายงานอัปเดตตลอด มีสนามหญ้า มีห้อง playroom เด็กๆ ไม่เบื่อเลย ประทับใจมากค่ะ"</p><div class="who"><span class="av">ค</span><div><b>ค้คนางค์ จันสุตะ</b><span>ลูกค้าฝากเลี้ยง</span></div></div></div>
+      </div>
+
+      <div class="pad"><div class="sec-title">บรรยากาศจริงในร้าน <button class="more" data-line>ดูเพิ่ม ›</button></div></div>
+      <div class="gal-scroll">
+        <img src="images/img07.jpg" alt="บรรยากาศในร้าน" loading="lazy">
+        <img src="images/img09.jpg" alt="ห้องพักน้อง" loading="lazy">
+        <img src="images/img11.jpg" alt="บรรยากาศในร้าน" loading="lazy">
+        <img src="images/img13.jpg" alt="บรรยากาศในร้าน" loading="lazy">
+        <img src="images/img16.jpg" alt="บรรยากาศในร้าน" loading="lazy">
+        <img src="images/img20.jpg" alt="บรรยากาศในร้าน" loading="lazy">
+      </div>
+    </section>
+
+    <!-- ============ ROOMS ============ -->
+    <section class="screen" id="s-rooms">
+      <div class="pad"><span class="kicker">🏠 ห้องพัก 3 ระดับ</span><h1 class="h-title">เลือกห้องที่ใช่สำหรับน้อง</h1><p class="h-sub">ทุกห้อง CCTV + แอร์เย็น 24 ชม. · อัปเดตรูปทุกวัน</p></div>
+      <div class="seg" id="petSeg">
+        <button class="on" data-pet="น้องหมา">🐶 น้องหมา</button>
+        <button data-pet="น้องแมว">🐱 น้องแมว</button>
+      </div>
+      <div class="list" id="roomList"></div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section class="screen" id="s-serv">
+      <div class="pad"><span class="kicker">🛁 บริการเสริมความสุข</span><h1 class="h-title">อาบน้ำตัดขน & Day Care</h1><p class="h-sub">เลือกขนาดน้อง แล้วดูราคาได้ทันที</p></div>
+      <div class="seg" id="servSeg">
+        <button class="on" data-serv="groom">อาบน้ำตัดขน</button>
+        <button data-serv="day">Day Care รายวัน</button>
+      </div>
+
+      <!-- grooming -->
+      <div id="servGroom">
+        <div class="seg" id="groomPet" style="margin-top:12px;">
+          <button class="on" data-gpet="dog">🐶 สุนัข</button>
+          <button data-gpet="cat">🐱 แมว</button>
+        </div>
+        <div class="calc">
+          <h4>อาบน้ำ & ตัดขน</h4>
+          <p class="hint">เลือกขนาด → ประเภทขน แล้วเลือกเพิ่มตัดขนทรงได้</p>
+          <p class="calc-step">1. ขนาดน้อง (ตามน้ำหนัก)</p>
+          <div class="size-grid" id="groomSizes"></div>
+          <p class="calc-step">2. ประเภทขน</p>
+          <div class="seg coat-seg" id="groomCoat"></div>
+          <div class="cut-toggle" id="cutToggle">
+            <span><b>+ ตัดขนทรง</b><small>อาบน้ำอย่างเดียว ไม่ต้องเปิด</small></span>
+            <span class="switch"><i></i></span>
+          </div>
+          <div class="price-out"><span class="lbl" id="groomBreak">เลือกขนาด + ประเภทขน</span><span class="val" id="groomPrice">—</span></div>
+          <div class="free-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span id="groomFree">ฟรีทุกครั้ง: ตัดเล็บ + เช็ดหู + ไดเท้า/ท้อง/ก้น</span></div>
+          <button class="rbtn" id="groomBook" style="width:100%;margin-top:16px;padding:14px;border-radius:14px;background:var(--orange-dark);color:#fff;font-family:'Mitr';font-weight:500;">จองบริการนี้</button>
+        </div>
+        <p class="h-sub" style="padding:12px 26px 0;">* มีบริการเสริม เช่น สปาโอโซน แชมพูพิเศษ — สอบถามทาง LINE</p>
+      </div>
+
+      <!-- daycare -->
+      <div id="servDay" style="display:none;">
+        <div class="seg" id="dayPet" style="margin-top:12px;">
+          <button class="on" data-dpet="dog">🐶 สุนัข</button>
+          <button data-dpet="cat">🐱 แมว</button>
+        </div>
+        <div class="calc">
+          <h4>Day Care (รับฝากระหว่างวัน 9:00–20:00 น.)</h4>
+          <p class="hint">ไม่พักค้างคืน · เลือกขนาดน้อง</p>
+          <div class="size-grid" id="daySizes"></div>
+          <div class="price-out"><span class="lbl">เหมาเต็มวัน</span><span class="val" id="dayPrice">—</span></div>
+          <p class="h-sub" style="margin-top:12px;">3 ชม.แรก <b id="day3">—</b> · ชั่วโมงถัดไป +50 บาท</p>
+          <button class="rbtn" id="dayBook" style="width:100%;margin-top:16px;padding:14px;border-radius:14px;background:var(--orange-dark);color:#fff;font-family:'Mitr';font-weight:500;">จองบริการนี้</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BOOKING WIZARD ============ -->
+    <section class="screen" id="s-book">
+      <div class="wiz-head">
+        <span class="kicker">📅 จองออนไลน์</span>
+        <div class="steps" id="steps">
+          <div class="dot"><i></i></div><div class="dot"><i></i></div><div class="dot"><i></i></div><div class="dot"><i></i></div>
+        </div>
+        <p class="step-label">ขั้นตอน <b id="stepNow">1</b> จาก 4 · <span id="stepName">เลือกบริการ</span></p>
+      </div>
+
+      <!-- step 1: service -->
+      <div class="wstep active" data-step="1">
+        <h3>อยากใช้บริการอะไร?</h3>
+        <p class="wsub">แตะเลือกบริการที่ต้องการ</p>
+        <div class="opt" data-service="ฝากเลี้ยง (ค้างคืน)">
+          <span class="oi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
+          <span class="otext"><b>ฝากเลี้ยง (ค้างคืน)</b><span>โรงแรมสัตว์เลี้ยง พักค้างคืน</span></span>
+          <span class="ocheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+        </div>
+        <div class="opt" data-service="อาบน้ำตัดขน">
+          <span class="oi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9a6 6 0 1 0 12 0 6 6 0 0 0-12 0z"/><path d="M12 15v6"/><path d="M9 21h6"/></svg></span>
+          <span class="otext"><b>อาบน้ำตัดขน</b><span>Grooming ครบวงจร</span></span>
+          <span class="ocheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+        </div>
+        <div class="opt" data-service="Day Care (รายวัน)">
+          <span class="oi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+          <span class="otext"><b>Day Care (รายวัน)</b><span>รับฝากระหว่างวัน ไม่ค้างคืน</span></span>
+          <span class="ocheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+        </div>
+        <div class="opt" data-service="ฝากเลี้ยง + อาบน้ำตัดขน">
+          <span class="oi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></span>
+          <span class="otext"><b>ฝากเลี้ยง + อาบน้ำตัดขน</b><span>แพ็กคู่ คุ้มกว่า</span></span>
+          <span class="ocheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+        </div>
+      </div>
+
+      <!-- step 2: pet detail -->
+      <div class="wstep" data-step="2">
+        <h3>เล่าเรื่องน้องให้เราฟังหน่อย</h3>
+        <p class="wsub">ข้อมูลน้องเพื่อเตรียมห้อง/บริการให้พอดี</p>
+        <div class="field"><label>ชนิดสัตว์ <span class="req">*</span></label>
+          <div class="seg" style="margin:0;" id="bkPetSeg">
+            <button type="button" class="on" data-bkpet="น้องหมา">🐶 น้องหมา</button>
+            <button type="button" data-bkpet="น้องแมว">🐱 น้องแมว</button>
+          </div>
+        </div>
+        <div class="field-2">
+          <div class="field"><label>ชื่อน้อง</label><input id="f-petname" placeholder="เช่น โมจิ"></div>
+          <div class="field"><label>สายพันธุ์ / ขนาด</label><input id="f-breed" placeholder="ชิวาวา 4 กก."></div>
+        </div>
+        <div class="field"><label>เลือกห้อง / บริการ</label>
+          <select id="f-room"><option value="">— ไม่ระบุ (ให้ร้านแนะนำ) —</option></select>
+        </div>
+        <div class="field"><label>หมายเหตุ (แพ้อาหาร, โรคประจำตัว ฯลฯ)</label><textarea id="f-note" rows="2" placeholder="บอกเราได้เลย เราดูแลตามความต้องการของน้อง"></textarea></div>
+      </div>
+
+      <!-- step 3: date/time -->
+      <div class="wstep" data-step="3">
+        <h3>อยากเข้าพักวันไหน?</h3>
+        <p class="wsub">เลือกวันและช่วงเวลาที่สะดวก</p>
+        <div class="field-2">
+          <div class="field"><label>วันรับเข้า <span class="req">*</span></label><input type="date" id="f-checkin"></div>
+          <div class="field"><label>วันรับกลับ</label><input type="date" id="f-checkout"></div>
+        </div>
+        <div class="field"><label>ช่วงเวลาที่สะดวก</label>
+          <select id="f-time"><option value="">— ไม่ระบุ —</option></select>
+          <p class="h-sub" id="f-timeNote" style="margin-top:6px;">🕘 เช็คอิน 9:00–18:00 น. · เช็คเอาท์ก่อน 14:00 น.</p>
+        </div>
+        <div class="field" id="nightsBox" style="display:none;">
+          <div class="price-out"><span class="lbl">โดยประมาณ <span id="nightsN"></span></span><span class="val" id="nightsPrice">—</span></div>
+        </div>
+      </div>
+
+      <!-- step 4: contact + summary -->
+      <div class="wstep" data-step="4">
+        <h3>ช่องทางติดต่อกลับ</h3>
+        <p class="wsub">เพื่อให้ทีมงานยืนยันคิวกับพี่ได้</p>
+        <div class="field"><label>ชื่อเจ้าของ <span class="req">*</span></label><input id="f-owner" placeholder="เช่น คุณแพรว"></div>
+        <div class="field-2">
+          <div class="field"><label>เบอร์โทร <span class="req">*</span></label><input id="f-phone" inputmode="tel" placeholder="08x-xxx-xxxx"></div>
+          <div class="field"><label>LINE (ถ้ามี)</label><input id="f-line" placeholder="@yourline"></div>
+        </div>
+        <div class="sec-title" style="margin:18px 0 10px;font-size:15px;">สรุปการจอง</div>
+        <div class="sumcard" id="summary"></div>
+        <div class="sum-total"><span class="k">ประเมินราคา<b id="totLabel">รวมโดยประมาณ</b></span><span class="v" id="totVal">—</span></div>
+        <p class="deposit-note">* ราคาเป็นการประเมินเบื้องต้น ทีมงานจะยืนยันยอดจริงอีกครั้ง · มัดจำ 50% เพื่อยืนยันการจอง</p>
+      </div>
+
+      <!-- footer nav -->
+      <div class="wiz-foot" id="wizFoot">
+        <button class="wb wb-ghost" id="wizBack" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="wb wb-primary" id="wizNext" disabled>ถัดไป <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+
+      <!-- success -->
+      <div class="wstep" data-step="5">
+        <div class="success">
+          <div class="burst"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h2>เยี่ยมเลย! 🎉</h2>
+          <p>เราเตรียมข้อความจองให้พร้อมแล้ว<br>กดปุ่มด้านล่างเพื่อส่งเข้า LINE ร้านได้เลย</p>
+          <button class="line-btn" id="sendLine"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 4.19 3.66 7.7 8.6 8.37.33.07.79.22.9.5.1.26.07.66.03.92l-.15.87c-.04.26-.2 1.02.9.56 1.1-.46 5.94-3.5 8.1-5.99C21.6 14.03 22 12.32 22 10.5 22 5.82 17.52 2 12 2z"/></svg> ส่งข้อความจองเข้า LINE</button>
+          <button class="ghost-btn" id="copyMsg">คัดลอกข้อความจอง</button>
+          <button class="ghost-btn" id="bookAgain" style="margin-top:11px;">จองรายการใหม่</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="screen" id="s-contact">
+      <div class="pad"><span class="kicker">📞 ติดต่อเรา</span><h1 class="h-title">Perfect Pet House</h1><p class="h-sub">วัชรพล–รามอินทรา · เปิดทุกวัน 9:00–20:00 น.</p></div>
+      <div class="contact-card">
+        <a class="c-row" href="https://line.me/R/ti/p/@perfectbkk" target="_blank" rel="noopener">
+          <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+          <span class="ct"><b>LINE Official</b><span>@perfectbkk</span></span><span class="cgo">›</span>
+        </a>
+        <a class="c-row" href="tel:0823202807">
+          <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          <span class="ct"><b>โทรศัพท์</b><span>082-320-2807</span></span><span class="cgo">›</span>
+        </a>
+        <div class="c-row">
+          <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <span class="ct"><b>ที่ตั้ง</b><span>ท่าแร้ง บางเขน กรุงเทพฯ 10220</span></span>
+        </div>
+        <a class="c-row" href="/blog/">
+          <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+          <span class="ct"><b>บทความดูแลน้อง</b><span>เคล็ดลับสุขภาพหมา-แมว</span></span><span class="cgo">›</span>
+        </a>
+        <a class="c-row" href="/?desktop=1">
+          <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+          <span class="ct"><b>ดูเว็บไซต์เต็ม</b><span>ข้อมูลบริการทั้งหมด</span></span><span class="cgo">›</span>
+        </a>
+      </div>
+      <div class="map-embed">
+        <iframe loading="lazy" src="https://www.google.com/maps?q=Perfect+Pet+House+%E0%B8%A7%E0%B8%B1%E0%B8%8A%E0%B8%A3%E0%B8%9E%E0%B8%A5&output=embed" title="แผนที่ Perfect Pet House"></iframe>
+      </div>
+    </section>
+
+  </div><!-- /screen-wrap -->
+
+  <!-- Bottom nav -->
+  <nav class="botnav">
+    <button class="navbtn on" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>หน้าแรก</span></button>
+    <button class="navbtn" data-tab="rooms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><span>ห้องพัก</span></button>
+    <button class="navbtn center" data-tab="book"><span class="fab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v4M10 16h4"/></svg></span><span>จอง</span></button>
+    <button class="navbtn" data-tab="serv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9a6 6 0 1 0 12 0 6 6 0 0 0-12 0z"/><path d="M12 15v6M9 21h6"/></svg><span>บริการ</span></button>
+    <button class="navbtn" data-tab="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>ติดต่อ</span></button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+(function(){
+  var LINE_URL='https://line.me/R/ti/p/@perfectbkk';
+  var GOOGLE_SCRIPT_URL='https://script.google.com/macros/s/AKfycbwnGROqOa9rnr4OEyLNRD-MeKxefqc0ynDn4I3nnKpkIiLvDrYQsH3R-2NdXCiLCmcg/exec';
+
+  /* ---------- DATA ---------- */
+  var ROOMS={
+    'น้องหมา':[
+      {name:'Cozy Room',size:'1×1.5 ม.',price:790,img:'images/room-cozy-dog.jpg'},
+      {name:'Deluxe Room',size:'1×2 ม.',price:990,img:'images/room-deluxe-dog.jpg'},
+      {name:'VIP Villa Room',size:'1.5×2.5 ม.',price:1890,img:'images/room-vip-dog.jpg',feat:true}
+    ],
+    'น้องแมว':[
+      {name:'Cozy Room',size:'1×1 ม.',price:690,img:'images/room-cozy-cat.jpg'},
+      {name:'Deluxe Room',size:'แนวตั้ง 2.5 ม.',price:990,img:'images/room-deluxe-cat.jpg'},
+      {name:'VIP Villa Room',size:'1.5×2.5 ม.',price:1890,img:'images/room-vip-cat.jpg',feat:true}
+    ]
+  };
+  // row = [label, weight, ...ราคาตามคอลัมน์]; ราคาจริงจากตารางในเว็บ
+  var GROOM={
+    dog:{ // [label,weight,ขนสั้น,ขนยาว,ขนยาวมีเซ็ต,ตัดขนเพิ่ม]
+      sizes:[['XS','<2kg',350,400,450,400],['S','2-5kg',400,500,600,500],['M','5-10kg',500,700,900,600],['L','10-15kg',700,900,1000,700],['XL','15-20kg',900,1100,1400,900],['2XL','20-30kg',1200,1450,1600,1200],['3XL','30-40kg',1650,1850,1900,1600]],
+      coats:[['ขนสั้น',2],['ขนยาว',3],['ขนยาวมีเซ็ต',4]],cutIdx:5
+    },
+    cat:{ // [label,weight,ขนสั้น,ขนยาว,ตัดขนเพิ่ม]
+      sizes:[['XS','<2kg',450,550,450],['S','2-3kg',550,650,550],['M','3-5kg',750,850,750],['L','5-7kg',950,1100,950],['XL','7-9kg',1250,1400,1250],['2XL','9-11kg',1400,1600,1400],['3XL','11-13kg',1750,1850,1750]],
+      coats:[['ขนสั้น',2],['ขนยาว',3]],cutIdx:4
+    }
+  };
+  var GROOM_FREE={dog:'ฟรีทุกครั้ง: ตัดเล็บ + เช็ดหู + ไดเท้า/ท้อง/ก้น',cat:'ฟรีทุกครั้ง: ตัดเล็บ + เช็ดหู'};
+  var DAY={
+    dog:[['S','<5kg',300,450],['M','5-10kg',350,500],['L','10-20kg',400,550],['XL','>20kg',450,600]],
+    cat:[['S','<3kg',250,400],['M','3-7kg',300,450],['L','7-11kg',350,500],['XL','>11kg',400,550]]
+  };
+  var baht=function(n){return '฿'+n.toLocaleString('en-US');};
+
+  /* ---------- state ---------- */
+  var state={service:'',pet:'น้องหมา',room:'',roomPrice:0,step:1};
+
+  /* ---------- TABS ---------- */
+  var screens={home:'s-home',rooms:'s-rooms',serv:'s-serv',book:'s-book',contact:'s-contact'};
+  function go(tab){
+    Object.keys(screens).forEach(function(k){document.getElementById(screens[k]).classList.toggle('active',k===tab);});
+    document.querySelectorAll('.navbtn').forEach(function(b){b.classList.toggle('on',b.dataset.tab===tab);});
+    document.querySelector('.screen-wrap').scrollTop=0;window.scrollTo(0,0);
+  }
+  document.querySelectorAll('.navbtn').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.tab);});});
+  document.querySelectorAll('[data-goroom]').forEach(function(b){b.addEventListener('click',function(){go('rooms');});});
+  document.querySelectorAll('[data-gogroom]').forEach(function(b){b.addEventListener('click',function(){go('serv');setServ('groom');});});
+  document.querySelectorAll('[data-goday]').forEach(function(b){b.addEventListener('click',function(){go('serv');setServ('day');});});
+  document.querySelectorAll('[data-line]').forEach(function(b){b.addEventListener('click',function(){window.open(LINE_URL,'_blank');});});
+  document.getElementById('callTop').addEventListener('click',function(){location.href='tel:0823202807';});
+
+  /* ---------- TOAST ---------- */
+  var toastT;
+  function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show');},2200);}
+
+  /* ---------- HOME popular rooms ---------- */
+  (function(){
+    var wrap=document.getElementById('homeRooms');
+    ROOMS['น้องหมา'].forEach(function(r){
+      var d=document.createElement('div');d.className='mini-room';
+      d.innerHTML='<img src="'+r.img+'" alt="'+r.name+'"><div class="mr-body"><h4>'+r.name+'</h4><div class="mr-size">🐶 '+r.size+'</div><div class="mr-foot"><div class="mr-price">'+baht(r.price)+'<small>/คืน</small></div><span class="mr-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div></div>';
+      d.addEventListener('click',function(){startBooking('ฝากเลี้ยง (ค้างคืน)','น้องหมา',r);});
+      wrap.appendChild(d);
+    });
+  })();
+
+  /* ---------- ROOMS tab ---------- */
+  function renderRooms(){
+    var list=document.getElementById('roomList');list.innerHTML='';
+    ROOMS[state.pet].forEach(function(r){
+      var d=document.createElement('div');d.className='room';
+      d.innerHTML=
+        '<div class="rimg"><img src="'+r.img+'" alt="'+r.name+'">'+(r.feat?'<span class="rtag feat">⭐ แนะนำ</span>':'<span class="rtag">'+(state.pet)+'</span>')+'</div>'+
+        '<div class="rbody"><div class="rhead"><div><h3>'+r.name+'</h3><div class="rsize">ขนาดห้อง '+r.size+'</div></div>'+
+        '<div class="rprice"><b>'+baht(r.price)+'</b><small>ต่อคืน</small></div></div>'+
+        '<div class="ramen"><span class="chip">CCTV 24 ชม.</span><span class="chip">แอร์ 24 ชม.</span><span class="chip">อัปเดตรูปทุกวัน</span><span class="chip">เตียงนุ่ม</span></div>'+
+        '<button class="rbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> จองห้องนี้</button></div>';
+      d.querySelector('.rbtn').addEventListener('click',function(){startBooking('ฝากเลี้ยง (ค้างคืน)',state.pet,r);});
+      list.appendChild(d);
+    });
+  }
+  document.querySelectorAll('#petSeg button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('#petSeg button').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');state.pet=b.dataset.pet;renderRooms();
+    });
+  });
+  renderRooms();
+
+  /* ---------- SERVICES tab ---------- */
+  var groomPet='dog',groomSize=null,groomCoatIdx=null,groomCut=false,dayPet='dog',daySize=null;
+  function setServ(which){
+    document.querySelectorAll('#servSeg button').forEach(function(x){x.classList.toggle('on',x.dataset.serv===which);});
+    document.getElementById('servGroom').style.display=which==='groom'?'':'none';
+    document.getElementById('servDay').style.display=which==='day'?'':'none';
+  }
+  document.querySelectorAll('#servSeg button').forEach(function(b){b.addEventListener('click',function(){setServ(b.dataset.serv);});});
+
+  function recalcGroom(){
+    var out=document.getElementById('groomPrice'),brk=document.getElementById('groomBreak');
+    if(!groomSize||groomCoatIdx===null){out.textContent='—';brk.textContent='เลือกขนาด + ประเภทขน';return;}
+    var bath=groomSize[groomCoatIdx],cut=groomCut?groomSize[GROOM[groomPet].cutIdx]:0;
+    out.textContent=baht(bath+cut);
+    brk.textContent='อาบน้ำ '+baht(bath)+(groomCut?(' + ตัดขน '+baht(cut)):'');
+  }
+  function renderGroom(){
+    var g=document.getElementById('groomSizes');g.innerHTML='';groomSize=null;groomCoatIdx=null;groomCut=false;
+    document.getElementById('groomFree').textContent=GROOM_FREE[groomPet];
+    document.getElementById('cutToggle').classList.remove('on');
+    GROOM[groomPet].sizes.forEach(function(s){
+      var b=document.createElement('button');b.innerHTML='<b>'+s[0]+'</b><br>'+s[1];
+      b.addEventListener('click',function(){
+        g.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');
+        groomSize=s;recalcGroom();
+      });
+      g.appendChild(b);
+    });
+    var c=document.getElementById('groomCoat');c.innerHTML='';
+    GROOM[groomPet].coats.forEach(function(co){
+      var b=document.createElement('button');b.textContent=co[0];
+      b.addEventListener('click',function(){
+        c.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');
+        groomCoatIdx=co[1];recalcGroom();
+      });
+      c.appendChild(b);
+    });
+    recalcGroom();
+  }
+  document.getElementById('cutToggle').addEventListener('click',function(){
+    groomCut=!groomCut;this.classList.toggle('on',groomCut);recalcGroom();
+  });
+  document.querySelectorAll('#groomPet button').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('#groomPet button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');groomPet=b.dataset.gpet;renderGroom();});});
+  renderGroom();
+  document.getElementById('groomBook').addEventListener('click',function(){
+    if(!groomSize||groomCoatIdx===null){toast('เลือกขนาดและประเภทขนก่อนนะครับ');return;}
+    var pet=groomPet==='dog'?'น้องหมา':'น้องแมว';
+    var coatLabel='';GROOM[groomPet].coats.forEach(function(co){if(co[1]===groomCoatIdx)coatLabel=co[0];});
+    var bath=groomSize[groomCoatIdx],cut=groomCut?groomSize[GROOM[groomPet].cutIdx]:0;
+    var name='อาบน้ำ '+groomSize[0]+' ('+groomSize[1]+') · '+coatLabel+(groomCut?' + ตัดขนทรง':'');
+    startBooking('อาบน้ำตัดขน',pet,{name:name,price:bath+cut,size:groomSize[1]});
+  });
+
+  function renderDay(){
+    var g=document.getElementById('daySizes');g.innerHTML='';daySize=null;
+    document.getElementById('dayPrice').textContent='—';document.getElementById('day3').textContent='—';
+    DAY[dayPet].forEach(function(s){
+      var b=document.createElement('button');b.innerHTML='<b>'+s[0]+'</b><br>'+s[1];
+      b.addEventListener('click',function(){
+        g.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');
+        daySize=s;document.getElementById('dayPrice').textContent=baht(s[3]);document.getElementById('day3').textContent=baht(s[2]);
+      });
+      g.appendChild(b);
+    });
+  }
+  document.querySelectorAll('#dayPet button').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('#dayPet button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');dayPet=b.dataset.dpet;renderDay();});});
+  renderDay();
+  document.getElementById('dayBook').addEventListener('click',function(){
+    var pet=dayPet==='dog'?'น้องหมา':'น้องแมว';
+    var r=daySize?{name:'Day Care '+daySize[0]+' ('+daySize[1]+')',price:daySize[3],size:daySize[1]}:null;
+    startBooking('Day Care (รายวัน)',pet,r);
+  });
+
+  /* ---------- BOOKING WIZARD ---------- */
+  var wsteps=document.querySelectorAll('#s-book .wstep');
+  var dots=document.querySelectorAll('#steps .dot');
+  var stepNames={1:'เลือกบริการ',2:'ข้อมูลน้อง',3:'วันเวลา',4:'ยืนยัน'};
+
+  function showStep(n){
+    state.step=n;
+    wsteps.forEach(function(w){w.classList.toggle('active',+w.dataset.step===n);});
+    document.getElementById('wizFoot').style.display=(n>=5)?'none':'flex';
+    document.querySelector('#s-book .steps').style.display=(n>=5)?'none':'flex';
+    document.querySelector('#s-book .step-label').style.display=(n>=5)?'none':'block';
+    dots.forEach(function(d,i){d.classList.toggle('done',i<n);});
+    if(n<=4){document.getElementById('stepNow').textContent=n;document.getElementById('stepName').textContent=stepNames[n];}
+    document.getElementById('wizBack').style.display=(n>1&&n<5)?'flex':'none';
+    var next=document.getElementById('wizNext');
+    next.innerHTML=(n===4)?'ยืนยันการจอง <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>':'ถัดไป <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>';
+    validate();
+    if(n===3)buildNights();
+    if(n===4)buildSummary();
+    document.querySelector('.screen-wrap').scrollTop=0;window.scrollTo(0,0);
+  }
+
+  // start booking from a room/service card
+  function startBooking(service,pet,room){
+    state.service=service;state.pet=pet;
+    // set service option
+    document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(o){o.classList.toggle('on',o.dataset.service===service);});
+    // set pet seg
+    document.querySelectorAll('#bkPetSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.bkpet===pet);});
+    buildRoomOptions();
+    if(room){state.room=room.name;state.roomPrice=room.price||0;document.getElementById('f-room').value=room.name;}
+    else{state.room='';state.roomPrice=0;}
+    fillTimes();
+    go('book');showStep(2);
+  }
+
+  // step 1 service select
+  document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(o){
+    o.addEventListener('click',function(){
+      document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(x){x.classList.remove('on');});
+      o.classList.add('on');state.service=o.dataset.service;buildRoomOptions();validate();
+    });
+  });
+  // step 2 pet seg
+  document.querySelectorAll('#bkPetSeg button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('#bkPetSeg button').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');state.pet=b.dataset.bkpet;buildRoomOptions();
+    });
+  });
+
+  function buildRoomOptions(){
+    var sel=document.getElementById('f-room');
+    var isStay=/ฝากเลี้ยง/.test(state.service);
+    sel.innerHTML='<option value="">— ไม่ระบุ (ให้ร้านแนะนำ) —</option>';
+    if(isStay){
+      ROOMS[state.pet].forEach(function(r){
+        var o=document.createElement('option');o.value=r.name;o.dataset.price=r.price;
+        o.textContent=r.name+' · '+baht(r.price)+'/คืน';sel.appendChild(o);
+      });
+    }
+    sel.parentElement.style.display=isStay?'':'none';
+  }
+  document.getElementById('f-room').addEventListener('change',function(){
+    var o=this.selectedOptions[0];state.room=this.value;state.roomPrice=o&&o.dataset.price?+o.dataset.price:0;
+  });
+
+  // time options depend on service
+  function fillTimes(){
+    var sel=document.getElementById('f-time'),note=document.getElementById('f-timeNote');
+    var s=state.service,start=9,end=20,label='ร้านเปิด 9:00–20:00 น.';
+    if(/ฝากเลี้ยง/.test(s)&&!/อาบ/.test(s)){start=9;end=18;label='เช็คอิน 9:00–18:00 น. · เช็คเอาท์ก่อน 14:00 น.';}
+    else if(/Day Care/.test(s)){start=9;end=18;label='Day Care 9:00–20:00 น.';}
+    else if(/อาบน้ำ/.test(s)&&!/ฝาก/.test(s)){start=10;end=19;label='อาบน้ำตัดขน 10:00–19:00 น.';}
+    else if(/ฝาก/.test(s)&&/อาบ/.test(s)){start=10;end=18;label='ฝากเลี้ยง+อาบน้ำ 10:00–18:00 น.';}
+    var cur=sel.value;sel.innerHTML='<option value="">— ไม่ระบุ —</option>';
+    for(var h=start;h<=end;h++){var hh=(h<10?'0':'')+h+':00';var o=document.createElement('option');o.value=hh;o.textContent=hh+' น.';if(hh===cur)o.selected=true;sel.appendChild(o);}
+    note.textContent='🕘 '+label;
+  }
+
+  function buildNights(){
+    var box=document.getElementById('nightsBox');
+    if(!/ฝากเลี้ยง/.test(state.service)||!state.roomPrice){box.style.display='none';return;}
+    var ci=document.getElementById('f-checkin').value,co=document.getElementById('f-checkout').value;
+    if(ci&&co){
+      var n=Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000));
+      document.getElementById('nightsN').textContent=n+' คืน × '+baht(state.roomPrice);
+      document.getElementById('nightsPrice').textContent=baht(n*state.roomPrice);
+      box.style.display='';
+    } else box.style.display='none';
+  }
+  ['f-checkin','f-checkout'].forEach(function(id){document.getElementById(id).addEventListener('change',function(){buildNights();validate();});});
+
+  function estTotal(){
+    if(/ฝากเลี้ยง/.test(state.service)&&state.roomPrice){
+      var ci=document.getElementById('f-checkin').value,co=document.getElementById('f-checkout').value;
+      var n=(ci&&co)?Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000)):1;
+      return {label:n+' คืน × '+baht(state.roomPrice),total:n*state.roomPrice};
+    }
+    if(state.roomPrice)return {label:'',total:state.roomPrice};
+    return {label:'',total:0};
+  }
+
+  function buildSummary(){
+    var s=document.getElementById('summary');
+    var rows=[['บริการ',state.service||'—'],['ชนิดสัตว์',state.pet]];
+    if(document.getElementById('f-petname').value)rows.push(['ชื่อน้อง',document.getElementById('f-petname').value]);
+    if(state.room)rows.push(['ห้อง/บริการ',state.room]);
+    if(document.getElementById('f-checkin').value)rows.push(['วันรับเข้า',document.getElementById('f-checkin').value]);
+    if(document.getElementById('f-checkout').value)rows.push(['วันรับกลับ',document.getElementById('f-checkout').value]);
+    if(document.getElementById('f-time').value)rows.push(['ช่วงเวลา',document.getElementById('f-time').value+' น.']);
+    s.innerHTML=rows.map(function(r){return '<div class="sumrow"><span class="k">'+r[0]+'</span><span class="v">'+r[1]+'</span></div>';}).join('');
+    var e=estTotal();
+    document.getElementById('totVal').textContent=e.total?baht(e.total):'ทีมงานแจ้งราคา';
+    document.getElementById('totLabel').textContent=e.label?('('+e.label+')'):'รวมโดยประมาณ';
+  }
+
+  function validate(){
+    var n=state.step,ok=true;
+    if(n===1)ok=!!state.service;
+    if(n===2)ok=!!state.pet;
+    if(n===3)ok=!!document.getElementById('f-checkin').value || /อาบน้ำ|Day Care/.test(state.service);
+    if(n===4)ok=document.getElementById('f-owner').value.trim()&&document.getElementById('f-phone').value.trim();
+    document.getElementById('wizNext').disabled=!ok;
+  }
+  ['f-owner','f-phone'].forEach(function(id){document.getElementById(id).addEventListener('input',validate);});
+
+  document.getElementById('wizNext').addEventListener('click',function(){
+    var n=state.step;
+    if(n<4){showStep(n+1);}
+    else{submitBooking();showStep(5);celebrate();}
+  });
+  document.getElementById('wizBack').addEventListener('click',function(){if(state.step>1)showStep(Math.max(1,state.step-1));});
+
+  /* build LINE message + submit */
+  var lastMsg='';
+  function buildMsg(){
+    var v=function(id){return (document.getElementById(id).value||'').trim();};
+    var e=estTotal();
+    var L=['🐾 ขอจองบริการ Perfect Pet House','──────────────',
+      '👤 เจ้าของ: '+v('f-owner'),'📞 เบอร์โทร: '+v('f-phone')];
+    if(v('f-line'))L.push('💬 LINE: '+v('f-line'));
+    L.push('🐶 ชนิดสัตว์: '+state.pet);
+    if(v('f-petname'))L.push('🏷️ ชื่อน้อง: '+v('f-petname'));
+    if(v('f-breed'))L.push('📏 สายพันธุ์/ขนาด: '+v('f-breed'));
+    L.push('🛎️ บริการ: '+state.service);
+    if(state.room)L.push('🏠 ห้อง/บริการ: '+state.room);
+    if(v('f-checkin'))L.push('📅 วันรับเข้า: '+v('f-checkin'));
+    if(v('f-checkout'))L.push('📅 วันรับกลับ: '+v('f-checkout'));
+    if(v('f-time'))L.push('🕘 ช่วงเวลา: '+v('f-time')+' น.');
+    if(v('f-note'))L.push('📝 หมายเหตุ: '+v('f-note'));
+    if(e.total)L.push('💰 ประเมินราคา: '+baht(e.total)+(e.label?(' ('+e.label+')'):''));
+    return L.join('\n');
+  }
+  function submitBooking(){
+    lastMsg=buildMsg();
+    var v=function(id){return (document.getElementById(id).value||'').trim();};
+    try{
+      var data={owner:v('f-owner'),phone:v('f-phone'),line:v('f-line'),pet:state.pet,petname:v('f-petname'),
+        breed:v('f-breed'),service:state.service,room:state.room,checkin:v('f-checkin'),checkout:v('f-checkout'),
+        time:v('f-time'),note:v('f-note'),message:lastMsg,submittedAt:new Date().toLocaleString('th-TH')};
+      if(GOOGLE_SCRIPT_URL&&GOOGLE_SCRIPT_URL.indexOf('http')===0){
+        fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)}).catch(function(){});
+      }
+    }catch(e){}
+  }
+  document.getElementById('sendLine').addEventListener('click',function(){
+    try{if(navigator.clipboard)navigator.clipboard.writeText(lastMsg);}catch(e){}
+    toast('คัดลอกข้อความแล้ว · วางในแชท LINE ได้เลย');
+    setTimeout(function(){window.open(LINE_URL,'_blank');},600);
+  });
+  document.getElementById('copyMsg').addEventListener('click',function(){
+    try{navigator.clipboard.writeText(lastMsg);toast('คัดลอกข้อความจองแล้ว ✓');}catch(e){toast('กดค้างที่ข้อความเพื่อคัดลอก');}
+  });
+  document.getElementById('bookAgain').addEventListener('click',function(){
+    state={service:'',pet:'น้องหมา',room:'',roomPrice:0,step:1};
+    document.querySelectorAll('#s-book input,#s-book textarea').forEach(function(i){i.value='';});
+    document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(o){o.classList.remove('on');});
+    showStep(1);
+  });
+
+  /* confetti celebrate */
+  function celebrate(){
+    var colors=['#E07B39','#FFC93D','#5B8A6B','#B85C1E','#ffd0a8'];
+    for(var i=0;i<38;i++){(function(i){
+      var c=document.createElement('div');c.className='confetti';
+      c.style.left=(Math.random()*100)+'%';c.style.background=colors[i%colors.length];
+      c.style.transform='rotate('+(Math.random()*360)+'deg)';
+      document.body.appendChild(c);
+      var dur=1400+Math.random()*1200,dx=(Math.random()-0.5)*220;
+      c.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:'translate('+dx+'px,'+(window.innerHeight+40)+'px) rotate('+(720*(Math.random()>.5?1:-1))+'deg)',opacity:.9}],{duration:dur,easing:'cubic-bezier(.2,.6,.4,1)'});
+      setTimeout(function(){c.remove();},dur);
+    })(i);}
+  }
+
+  showStep(1);
+})();
+</script>
+</body>
+</html>
