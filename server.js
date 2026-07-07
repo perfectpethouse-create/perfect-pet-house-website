@@ -3,9 +3,7 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-// Serve static assets from /public (แต่ไม่ให้เสิร์ฟ index.html อัตโนมัติ เพื่อคุมเส้นทาง "/" เอง)
-app.use(express.static(path.join(__dirname, 'public'), { index: false }));
+const PUBLIC = path.join(__dirname, 'public');
 
 // ตรวจว่าเป็นมือถือจริง (ไม่รวมแท็บเล็ต — แท็บเล็ตใช้เว็บเต็มสวยกว่า)
 function isMobile(ua) {
@@ -18,17 +16,24 @@ function isCrawler(ua) {
   return /googlebot|bingbot|duckduckbot|yandex|baiduspider|slurp|facebookexternalhit|twitterbot|linebot|line-poker|whatsapp|telegrambot|discordbot|applebot|petalbot|ahrefsbot|semrushbot|crawler|spider/i.test(ua);
 }
 
-// หน้าแรก + SPA fallback: เลือกไฟล์ตามอุปกรณ์
-app.get('*', (req, res) => {
+// เลือกไฟล์หน้าแรกตามอุปกรณ์ (มือถือ = แอป, คอม/บอต = เว็บเต็ม)
+function serveByDevice(req, res) {
   const ua = req.headers['user-agent'] || '';
-
   // ทางออกแบบบังคับด้วย query (?desktop=1 = เว็บเต็ม, ?app=1 = แอปมือถือ)
-  if (req.query.desktop === '1') return res.sendFile(path.join(__dirname, 'public', 'index.html'));
-  if (req.query.app === '1') return res.sendFile(path.join(__dirname, 'public', 'app.html'));
-
+  if (req.query.desktop === '1') return res.sendFile(path.join(PUBLIC, 'index.html'));
+  if (req.query.app === '1') return res.sendFile(path.join(PUBLIC, 'app.html'));
   const useApp = isMobile(ua) && !isCrawler(ua);
-  res.sendFile(path.join(__dirname, 'public', useApp ? 'app.html' : 'index.html'));
-});
+  res.sendFile(path.join(PUBLIC, useApp ? 'app.html' : 'index.html'));
+}
+
+// หน้าแรก "/" เลือกตามอุปกรณ์ (ต้องมาก่อน static ไม่งั้น static จะเสิร์ฟ index.html อัตโนมัติ)
+app.get('/', serveByDevice);
+
+// ไฟล์จริงทั้งหมด: รูป, /app.html, และโฟลเดอร์ย่อยที่มี index.html เช่น /blog/
+app.use(express.static(PUBLIC));
+
+// เส้นทางที่ไม่ตรงไฟล์ใดๆ → fallback ตามอุปกรณ์
+app.get('*', serveByDevice);
 
 app.listen(PORT, () => {
   console.log(`Perfect Pet House website running on port ${PORT}`);
