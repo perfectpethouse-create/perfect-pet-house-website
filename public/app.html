@@ -831,7 +831,7 @@
   document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(o){
     o.addEventListener('click',function(){
       document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(x){x.classList.remove('on');});
-      o.classList.add('on');state.service=o.dataset.service;buildRoomOptions();validate();
+      o.classList.add('on');state.service=o.dataset.service;buildRoomOptions();fillTimes();validate();
     });
   });
   // step 2 pet seg
