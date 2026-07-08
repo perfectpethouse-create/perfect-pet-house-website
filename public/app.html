@@ -548,6 +548,7 @@
           <div class="burst"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
           <h2>เยี่ยมเลย! 🎉</h2>
           <p>เราเตรียมข้อความจองให้พร้อมแล้ว<br>กดปุ่มด้านล่างเพื่อส่งเข้า LINE ร้านได้เลย</p>
+          <p id="notifyStatus" style="font-size:13px;margin:4px 0 10px;min-height:18px;"></p>
           <button class="line-btn" id="sendLine"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 4.19 3.66 7.7 8.6 8.37.33.07.79.22.9.5.1.26.07.66.03.92l-.15.87c-.04.26-.2 1.02.9.56 1.1-.46 5.94-3.5 8.1-5.99C21.6 14.03 22 12.32 22 10.5 22 5.82 17.52 2 12 2z"/></svg> ส่งข้อความจองเข้า LINE</button>
           <button class="ghost-btn" id="copyMsg">คัดลอกข้อความจอง</button>
           <button class="ghost-btn" id="bookAgain" style="margin-top:11px;">จองรายการใหม่</button>
@@ -858,6 +859,14 @@
   }
   ['f-checkin','f-checkout'].forEach(function(id){document.getElementById(id).addEventListener('change',function(){buildNights();validate();});});
 
+  // กันเลือกวันย้อนหลัง + วันรับกลับต้องไม่ก่อนวันรับเข้า
+  (function(){
+    var ci=document.getElementById('f-checkin'),co=document.getElementById('f-checkout');
+    function todayStr(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
+    ci.min=todayStr();co.min=todayStr();
+    ci.addEventListener('change',function(){co.min=ci.value||todayStr();if(co.value&&co.value<co.min)co.value='';});
+  })();
+
   function estTotal(){
     if(/ฝากเลี้ยง/.test(state.service)&&state.roomPrice){
       var ci=document.getElementById('f-checkin').value,co=document.getElementById('f-checkout').value;
@@ -887,7 +896,8 @@
     if(n===1)ok=!!state.service;
     if(n===2)ok=!!state.pet;
     if(n===3)ok=!!document.getElementById('f-checkin').value || /อาบน้ำ|Day Care/.test(state.service);
-    if(n===4)ok=document.getElementById('f-owner').value.trim()&&document.getElementById('f-phone').value.trim();
+    if(n===4){var ph=document.getElementById('f-phone').value.replace(/[^0-9]/g,'');
+      ok=!!document.getElementById('f-owner').value.trim()&&ph.length>=9&&ph.length<=11;}
     document.getElementById('wizNext').disabled=!ok;
   }
   ['f-owner','f-phone'].forEach(function(id){document.getElementById(id).addEventListener('input',validate);});
@@ -922,14 +932,26 @@
   function submitBooking(){
     lastMsg=buildMsg();
     var v=function(id){return (document.getElementById(id).value||'').trim();};
+    var st=document.getElementById('notifyStatus');
+    function setSt(msg,color){if(st){st.textContent=msg;st.style.color=color;}}
     try{
       var data={owner:v('f-owner'),phone:v('f-phone'),line:v('f-line'),pet:state.pet,petname:v('f-petname'),
         breed:v('f-breed'),service:state.service,room:state.room,checkin:v('f-checkin'),checkout:v('f-checkout'),
         time:v('f-time'),note:v('f-note'),message:lastMsg,submittedAt:new Date().toLocaleString('th-TH')};
       if(GOOGLE_SCRIPT_URL&&GOOGLE_SCRIPT_URL.indexOf('http')===0){
-        fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)}).catch(function(){});
+        setSt('กำลังส่งข้อมูลจองถึงร้าน...','#8a7a6d');
+        // อ่านคำตอบจริงจาก Apps Script — บอกลูกค้าตามผลที่เกิดขึ้นจริง
+        fetch(GOOGLE_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)})
+          .then(function(r){return r.json();})
+          .then(function(j){
+            if(!j||!j.ok)throw new Error('notify failed');
+            setSt('✓ ส่งข้อมูลถึงระบบร้านเรียบร้อย ทีมงานจะติดต่อกลับ','#5B8A6B');
+          })
+          .catch(function(){
+            setSt('⚠ ระบบแจ้งเตือนอัตโนมัติขัดข้อง — กรุณากดส่งข้อความเข้า LINE ด้านล่างเพื่อยืนยันคิว','#B85C1E');
+          });
       }
-    }catch(e){}
+    }catch(e){setSt('⚠ กรุณากดส่งข้อความเข้า LINE ด้านล่างเพื่อยืนยันคิว','#B85C1E');}
   }
   document.getElementById('sendLine').addEventListener('click',function(){
     try{if(navigator.clipboard)navigator.clipboard.writeText(lastMsg);}catch(e){}
