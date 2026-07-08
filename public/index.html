@@ -1553,7 +1553,7 @@
         </div>
         <div>
           <label class="bk-label">เบอร์โทร <span style="color:var(--orange-dark)">*</span></label>
-          <input class="bk-input" name="phone" required inputmode="tel" placeholder="08x-xxx-xxxx">
+          <input class="bk-input" name="phone" required inputmode="tel" placeholder="08x-xxx-xxxx" pattern="[0-9+\-\s]{9,13}" title="กรอกเบอร์โทร 9–10 หลัก เช่น 0823202807">
         </div>
         <div>
           <label class="bk-label">LINE (ถ้ามี)</label>
@@ -1656,6 +1656,19 @@
     if(serviceSel){ serviceSel.addEventListener('change', fillTimes); }
     fillTimes();
 
+    // กันเลือกวันย้อนหลัง + วันรับกลับต้องไม่ก่อนวันรับเข้า
+    var ciEl = form.elements['checkin'], coEl = form.elements['checkout'];
+    function todayStr(){ var d = new Date(); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
+    if(ciEl){
+      ciEl.min = todayStr();
+      ciEl.addEventListener('change', function(){
+        if(!coEl) return;
+        coEl.min = ciEl.value || todayStr();
+        if(coEl.value && coEl.value < coEl.min) coEl.value = '';
+      });
+    }
+    if(coEl){ coEl.min = todayStr(); }
+
     form.addEventListener('submit', function(e){
       e.preventDefault();
       var f = form;
@@ -1722,18 +1735,19 @@
       }
 
       if(GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL.indexOf('http') === 0){
-        // ===== ส่งเข้า Google Sheet อัตโนมัติ =====
+        // ส่ง JSON แบบ text/plain (simple request ไม่ติด CORS preflight)
+        // แล้วอ่านคำตอบจริงจาก Apps Script — สำเร็จจริงเท่านั้นถึงบอกลูกค้าว่าสำเร็จ
         if(hint){ hint.style.color = 'var(--brown-soft)'; hint.textContent = 'กำลังส่งคำขอจองไปยังร้าน...'; }
         fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
-          mode: 'no-cors',
-          body: new URLSearchParams(data)
-        }).then(function(){
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(data)
+        }).then(function(r){ return r.json(); }).then(function(j){
+          if(!j || !j.ok) throw new Error('notify failed');
           form.reset();
           showPanel('<strong style="color:var(--green);">ส่งคำขอจองให้ร้านเรียบร้อยแล้ว ✓</strong><br><span style="font-size:0.85rem;">ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด หากต้องการคุยด่วน ก็อปข้อความด้านล่างทักไลน์ร้านได้เลย</span>');
         }).catch(function(){
-          window.open(LINE_URL, '_blank');
-          showPanel('<strong style="color:var(--orange-dark);">ส่งอัตโนมัติไม่สำเร็จ</strong><br><span style="font-size:0.85rem;">กรุณาคัดลอกข้อความนี้ส่งทางไลน์ <strong>@perfectbkk</strong> แทนนะคะ</span>');
+          showPanel('<strong style="color:var(--orange-dark);">ระบบส่งอัตโนมัติขัดข้องชั่วคราว</strong><br><span style="font-size:0.85rem;">กรุณาคัดลอกข้อความด้านล่างส่งทางไลน์ <strong>@perfectbkk</strong> หรือโทร <a href="tel:0823202807" style="color:var(--orange-dark);font-weight:600;">082-320-2807</a> เพื่อยืนยันคิวนะคะ</span>');
         });
       } else {
         // ===== ยังไม่ได้ตั้งค่า webhook → ส่งทาง LINE (คัดลอก-วาง) =====

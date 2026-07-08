@@ -5,6 +5,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const PUBLIC = path.join(__dirname, 'public');
 
+// ── ความปลอดภัยพื้นฐาน ──
+app.disable('x-powered-by'); // ไม่บอกใครว่าใช้ Express (ลดข้อมูลให้ผู้ไม่หวังดี)
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');            // กันเบราว์เซอร์เดา MIME ผิด
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');                // กันเว็บอื่นฝังหน้าเราไปหลอกลูกค้า (clickjacking)
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  next();
+});
+
 // ตรวจว่าเป็นมือถือจริง (ไม่รวมแท็บเล็ต — แท็บเล็ตใช้เว็บเต็มสวยกว่า)
 function isMobile(ua) {
   return /Mobi|Android|iPhone|iPod|Windows Phone|BlackBerry|Opera Mini|IEMobile/i.test(ua) &&
