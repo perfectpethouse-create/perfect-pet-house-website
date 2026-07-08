@@ -13,7 +13,7 @@
 var CONFIG = {
   NOTIFY_EMAIL: 'perfectpethouse@gmail.com', // อีเมลที่ให้แจ้งเตือนเข้า (คั่นหลายอันด้วย , ได้)
   CALENDAR_ID: 'primary',                    // 'primary' = ปฏิทินหลักของบัญชีที่รันสคริปต์นี้
-  SHEET_ID: '',                              // (ไม่บังคับ) ID ของ Google Sheet เก็บประวัติจอง — เว้นว่างได้
+  SHEET_ID: '17S8GglVHoA3BQfIiVeBD1Oq4uISApOaRHcnDLcr1RgU', // ชีต "PPH ประวัติการจองจากเว็บ" ใน Drive ของร้าน
   GROOM_HOURS: 2,                            // ความยาวคิวอาบน้ำตัดขนในปฏิทิน (ชั่วโมง)
   TZ: 'Asia/Bangkok'
 };
@@ -132,7 +132,7 @@ function parseDate(ymd, hm) {
 function logToSheet(b) {
   if (!CONFIG.SHEET_ID) return false;
   var ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
-  var sh = ss.getSheetByName('การจอง') || ss.insertSheet('การจอง');
+  var sh = ss.getSheetByName('การจอง') || ss.getSheets()[0]; // ใช้แท็บแรก (มีหัวตารางอยู่แล้ว)
   if (sh.getLastRow() === 0) {
     sh.appendRow(['เวลาที่จอง', 'เจ้าของ', 'เบอร์โทร', 'LINE', 'ชนิดสัตว์', 'ชื่อน้อง',
       'สายพันธุ์/ขนาด', 'บริการ', 'ห้อง', 'วันรับเข้า', 'วันรับกลับ', 'เวลา', 'หมายเหตุ']);
