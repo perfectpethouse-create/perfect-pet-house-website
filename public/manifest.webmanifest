@@ -1,0 +1,15 @@
+{
+  "name": "Perfect Pet House — จองห้องพัก & อาบน้ำตัดขน",
+  "short_name": "Perfect Pet",
+  "description": "โรงแรมสัตว์เลี้ยง & อาบน้ำตัดขน วัชรพล-รามอินทรา จองออนไลน์ได้เลย",
+  "lang": "th",
+  "start_url": "/?app=1",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FFF8F0",
+  "theme_color": "#FFF8F0",
+  "icons": [
+    { "src": "/images/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

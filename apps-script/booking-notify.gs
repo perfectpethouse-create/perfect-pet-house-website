@@ -20,7 +20,10 @@ var CONFIG = {
 // ═════════════════════════════════════════════
 
 // เปิด URL /exec ตรงๆ ในเบราว์เซอร์ = เช็คว่าระบบพร้อมใช้งาน
-function doGet() {
+// เพิ่ม ?busy=YYYY-MM-DD ต่อท้าย = ดูคิวที่มีอยู่แล้วของวันนั้น (หน้าเว็บใช้แสดง "มีคิวแล้ว")
+function doGet(e) {
+  var q = (e && e.parameter) || {};
+  if (q.busy && /^\d{4}-\d{2}-\d{2}$/.test(q.busy)) return jsonOut(getBusySlots(q.busy));
   return jsonOut({ ok: true, service: 'PPH booking notify', time: new Date().toISOString() });
 }
 
@@ -35,9 +38,28 @@ function doPost(e) {
   try { result.email = sendNotifyEmail(b); } catch (err) { result.emailError = String(err); }
   try { result.calendar = addToCalendar(b); } catch (err) { result.calendarError = String(err); }
   try { result.sheet = logToSheet(b); } catch (err) { result.sheetError = String(err); }
+  try { result.customerEmail = sendCustomerEmail(b); } catch (err) { result.customerEmailError = String(err); }
 
   result.ok = !!(result.email || result.calendar || result.sheet);
   return jsonOut(result);
+}
+
+// คิวที่มีเวลาเริ่ม-จบของวันที่ระบุ (ไม่นับอีเวนต์เต็มวัน — ฝากเลี้ยงไม่บล็อกคิวอาบน้ำ)
+function getBusySlots(ymd) {
+  var cal = getCal();
+  if (!cal) return { ok: false, busy: [] };
+  var start = parseDate(ymd, '00:00');
+  var end = new Date(start.getTime() + 24 * 3600 * 1000);
+  var evs = cal.getEvents(start, end);
+  var busy = [];
+  for (var i = 0; i < evs.length; i++) {
+    if (evs[i].isAllDayEvent()) continue;
+    busy.push({
+      s: Utilities.formatDate(evs[i].getStartTime(), CONFIG.TZ, 'HH:mm'),
+      e: Utilities.formatDate(evs[i].getEndTime(), CONFIG.TZ, 'HH:mm')
+    });
+  }
+  return { ok: true, date: ymd, busy: busy };
 }
 
 // รองรับทั้ง JSON (แอปมือถือ) และ form-encoded (เว็บเต็ม)
@@ -53,7 +75,7 @@ function parseBooking(e) {
   }
   function s(x) { return (d[x] === undefined || d[x] === null) ? '' : String(d[x]).slice(0, 500); }
   return {
-    owner: s('owner'), phone: s('phone'), line: s('line'),
+    owner: s('owner'), phone: s('phone'), line: s('line'), email: s('email'),
     pet: s('pet'), petname: s('petname'), breed: s('breed'),
     service: s('service'), room: s('room'),
     checkin: s('checkin'), checkout: s('checkout'), time: s('time'),
@@ -67,6 +89,7 @@ function bookingText(b) {
   var L = ['🐾 ขอจองบริการ Perfect Pet House', '──────────────',
     '👤 เจ้าของ: ' + b.owner, '📞 เบอร์โทร: ' + b.phone];
   if (b.line) L.push('💬 LINE: ' + b.line);
+  if (b.email) L.push('📧 อีเมล: ' + b.email);
   if (b.pet) L.push('🐶 ชนิดสัตว์: ' + b.pet);
   if (b.petname) L.push('🏷️ ชื่อน้อง: ' + b.petname);
   if (b.breed) L.push('📏 สายพันธุ์/ขนาด: ' + b.breed);
@@ -91,11 +114,30 @@ function sendNotifyEmail(b) {
   return true;
 }
 
-function addToCalendar(b) {
-  if (!b.checkin || !/^\d{4}-\d{2}-\d{2}$/.test(b.checkin)) return false; // ไม่ระบุวัน = ไม่ลงปฏิทิน
-  var cal = (CONFIG.CALENDAR_ID === 'primary')
+function getCal() {
+  return (CONFIG.CALENDAR_ID === 'primary')
     ? CalendarApp.getDefaultCalendar()
     : CalendarApp.getCalendarById(CONFIG.CALENDAR_ID);
+}
+
+// อีเมลสำเนายืนยันถึงลูกค้า (เฉพาะเมื่อลูกค้ากรอกอีเมลมา)
+function sendCustomerEmail(b) {
+  if (!b.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.email)) return false;
+  var subject = '🐾 Perfect Pet House ได้รับคำขอจองของคุณแล้ว' + (b.checkin ? ' · ' + b.checkin : '');
+  var body = 'สวัสดีค่ะ คุณ' + b.owner + '\n\n' +
+    'Perfect Pet House ได้รับคำขอจองของคุณเรียบร้อยแล้ว\n' +
+    'ทีมงานจะติดต่อกลับทางโทรศัพท์หรือ LINE เพื่อยืนยันคิวโดยเร็วที่สุดค่ะ\n\n' +
+    '── สรุปคำขอจอง ──\n' + bookingText(b) + '\n\n' +
+    'หมายเหตุ: อีเมลนี้ยืนยันว่า "ได้รับคำขอ" แล้ว คิวจะสมบูรณ์เมื่อทีมงานติดต่อยืนยันอีกครั้งค่ะ\n\n' +
+    'Perfect Pet House · วัชรพล–รามอินทรา\n' +
+    'โทร 082-320-2807 · LINE @perfectbkk · เปิดทุกวัน 9:00–20:00 น.';
+  MailApp.sendEmail({ to: b.email, subject: subject, body: body, name: 'Perfect Pet House' });
+  return true;
+}
+
+function addToCalendar(b) {
+  if (!b.checkin || !/^\d{4}-\d{2}-\d{2}$/.test(b.checkin)) return false; // ไม่ระบุวัน = ไม่ลงปฏิทิน
+  var cal = getCal();
   if (!cal) return false;
 
   var who = b.petname ? (b.petname + ' · ' + b.owner) : b.owner;
@@ -137,12 +179,32 @@ function logToSheet(b) {
     sh.appendRow(['เวลาที่จอง', 'เจ้าของ', 'เบอร์โทร', 'LINE', 'ชนิดสัตว์', 'ชื่อน้อง',
       'สายพันธุ์/ขนาด', 'บริการ', 'ห้อง', 'วันรับเข้า', 'วันรับกลับ', 'เวลา', 'หมายเหตุ']);
   }
+  if (sh.getRange(1, 14).getValue() === '') sh.getRange(1, 14).setValue('อีเมล');
   sh.appendRow([
     b.submittedAt || Utilities.formatDate(new Date(), CONFIG.TZ, 'dd/MM/yyyy HH:mm'),
     b.owner, "'" + b.phone, b.line, b.pet, b.petname, b.breed,
-    b.service, b.room, b.checkin, b.checkout, b.time, b.note
+    b.service, b.room, b.checkin, b.checkout, b.time, b.note, b.email
   ]);
   return true;
+}
+
+// ▶ สรุปคิววันนี้ส่งเข้าเมลร้าน — ตั้งทริกเกอร์รายวัน 8:00 น. (เมนูนาฬิกา ⏰ ซ้ายมือ)
+function dailySummary() {
+  var cal = getCal();
+  var today = Utilities.formatDate(new Date(), CONFIG.TZ, 'yyyy-MM-dd');
+  var thDate = Utilities.formatDate(new Date(), CONFIG.TZ, 'dd/MM/yyyy');
+  var start = parseDate(today, '00:00');
+  var evs = cal.getEvents(start, new Date(start.getTime() + 24 * 3600 * 1000));
+  var L = [];
+  for (var i = 0; i < evs.length; i++) {
+    var t = evs[i].isAllDayEvent() ? '🏠 ทั้งวัน' : ('🕘 ' + Utilities.formatDate(evs[i].getStartTime(), CONFIG.TZ, 'HH:mm') + ' น.');
+    L.push('• ' + t + ' — ' + evs[i].getTitle());
+  }
+  var body = (L.length
+    ? 'วันนี้มีคิวทั้งหมด ' + L.length + ' รายการ\n\n' + L.join('\n')
+    : 'วันนี้ยังไม่มีคิวในปฏิทิน 🎉') +
+    '\n\n──────────────\nสรุปอัตโนมัติจากปฏิทินร้าน ทุกเช้า 8:00 น.';
+  MailApp.sendEmail({ to: CONFIG.NOTIFY_EMAIL, subject: '📋 สรุปคิววันนี้ ' + thDate + ' (' + L.length + ' รายการ)', body: body });
 }
 
 function jsonOut(obj) {

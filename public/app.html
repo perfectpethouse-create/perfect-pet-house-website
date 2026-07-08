@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
 <meta name="theme-color" content="#FFF8F0">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/images/icon-192.png">
+<link rel="apple-touch-icon" href="/images/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Perfect Pet">
 <title>Perfect Pet House | จองห้องพัก & อาบน้ำตัดขน วัชรพล-รามอินทรา</title>
 <meta name="description" content="Perfect Pet House โรงแรมสัตว์เลี้ยง & อาบน้ำตัดขน ย่านวัชรพล-รามอินทรา จองห้องพักและบริการออนไลน์ได้เลย CCTV & แอร์เย็น 24 ชม. อัปเดตรูปน้องทุกวัน">
 <link rel="canonical" href="https://perfectbkk.com/">
@@ -180,6 +186,8 @@
   .cut-toggle small{display:block;font-size:11px;color:var(--brown-soft);margin-top:1px;}
   .cut-toggle .switch{width:46px;height:27px;border-radius:999px;background:#D8C6B4;position:relative;flex-shrink:0;transition:background .2s;}
   .cut-toggle .switch i{position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,0.2);}
+  .award-strip{display:flex;gap:10px;overflow-x:auto;padding:0 18px 14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+  .award-strip img{height:180px;width:auto;border-radius:16px;flex:0 0 auto;scroll-snap-align:start;box-shadow:var(--shadow-sm);}
   .cut-toggle.on .switch{background:var(--orange);}
   .cut-toggle.on .switch i{transform:translateX(19px);}
   .price-out{margin-top:16px;background:var(--orange-light);border-radius:16px;padding:15px 16px;display:flex;align-items:center;justify-content:space-between;}
@@ -429,6 +437,22 @@
           <button class="rbtn" id="groomBook" style="width:100%;margin-top:16px;padding:14px;border-radius:14px;background:var(--orange-dark);color:#fff;font-family:'Mitr';font-weight:500;">จองบริการนี้</button>
         </div>
         <p class="h-sub" style="padding:12px 26px 0;">* มีบริการเสริม เช่น สปาโอโซน แชมพูพิเศษ — สอบถามทาง LINE</p>
+
+        <!-- ผลงานแชมป์ตัดขน -->
+        <div class="pad" style="padding-bottom:8px;">
+          <div class="sec-title">🏆 ผลงานแชมป์ ชนะเลิศอันดับ 1</div>
+          <p class="h-sub" style="margin-top:2px;">ฝีมือช่างของเรา การันตีด้วยรางวัลจากเวทีแข่งขันจริง</p>
+        </div>
+        <div class="award-strip">
+          <img src="images/award01.jpg" alt="ผลงานตัดขน ชนะเลิศอันดับ 1" loading="lazy">
+          <img src="images/award02.jpg" alt="ผลงานตัดขนแชมป์" loading="lazy">
+          <img src="images/award03.jpg" alt="ผลงานตัดขนแชมป์" loading="lazy">
+          <img src="images/award04.jpg" alt="ผลงานตัดขนแชมป์" loading="lazy">
+          <img src="images/award05.jpg" alt="ผลงานตัดขนแชมป์" loading="lazy">
+          <img src="images/award06.jpg" alt="ผลงานตัดขนแชมป์" loading="lazy">
+          <img src="images/award07.jpg" alt="ผลงานตัดขนแชมป์" loading="lazy">
+          <img src="images/award08.jpg" alt="ผลงานตัดขนแชมป์" loading="lazy">
+        </div>
       </div>
 
       <!-- daycare -->
@@ -530,6 +554,7 @@
           <div class="field"><label>เบอร์โทร <span class="req">*</span></label><input id="f-phone" inputmode="tel" placeholder="08x-xxx-xxxx"></div>
           <div class="field"><label>LINE (ถ้ามี)</label><input id="f-line" placeholder="@yourline"></div>
         </div>
+        <div class="field"><label>อีเมล (รับสำเนายืนยันการจอง — ไม่บังคับ)</label><input id="f-email" type="email" inputmode="email" placeholder="you@email.com"></div>
         <div class="sec-title" style="margin:18px 0 10px;font-size:15px;">สรุปการจอง</div>
         <div class="sumcard" id="summary"></div>
         <div class="sum-total"><span class="k">ประเมินราคา<b id="totLabel">รวมโดยประมาณ</b></span><span class="v" id="totVal">—</span></div>
@@ -844,6 +869,26 @@
     var cur=sel.value;sel.innerHTML='<option value="">— ไม่ระบุ —</option>';
     for(var h=start;h<=end;h++){var hh=(h<10?'0':'')+h+':00';var o=document.createElement('option');o.value=hh;o.textContent=hh+' น.';if(hh===cur)o.selected=true;sel.appendChild(o);}
     note.textContent='🕘 '+label;
+    markBusyTimes();
+  }
+
+  // ดึงคิวที่มีอยู่แล้วของวันที่เลือกจากปฏิทินร้าน มาติดป้าย "มีคิวแล้ว" ในตัวเลือกเวลา
+  var busyCache={};
+  function markBusyTimes(){
+    var d=document.getElementById('f-checkin').value,sel=document.getElementById('f-time');
+    if(!d||!GOOGLE_SCRIPT_URL)return;
+    function apply(busy){
+      Array.from(sel.options).forEach(function(o){
+        if(!o.value)return;
+        var hEnd=parseInt(o.value,10)+1;hEnd=(hEnd<10?'0':'')+hEnd+':00';
+        var n=busy.filter(function(b){return b.s<hEnd&&b.e>o.value;}).length;
+        o.textContent=o.value+' น.'+(n>0?' · มีคิวแล้ว '+n+' รายการ':'');
+      });
+    }
+    if(busyCache[d]){apply(busyCache[d]);return;}
+    fetch(GOOGLE_SCRIPT_URL+'?busy='+d).then(function(r){return r.json();}).then(function(j){
+      if(j&&j.ok){busyCache[d]=j.busy||[];apply(busyCache[d]);}
+    }).catch(function(){});
   }
 
   function buildNights(){
@@ -864,7 +909,7 @@
     var ci=document.getElementById('f-checkin'),co=document.getElementById('f-checkout');
     function todayStr(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
     ci.min=todayStr();co.min=todayStr();
-    ci.addEventListener('change',function(){co.min=ci.value||todayStr();if(co.value&&co.value<co.min)co.value='';});
+    ci.addEventListener('change',function(){co.min=ci.value||todayStr();if(co.value&&co.value<co.min)co.value='';markBusyTimes();});
   })();
 
   function estTotal(){
@@ -917,6 +962,7 @@
     var L=['🐾 ขอจองบริการ Perfect Pet House','──────────────',
       '👤 เจ้าของ: '+v('f-owner'),'📞 เบอร์โทร: '+v('f-phone')];
     if(v('f-line'))L.push('💬 LINE: '+v('f-line'));
+    if(v('f-email'))L.push('📧 อีเมล: '+v('f-email'));
     L.push('🐶 ชนิดสัตว์: '+state.pet);
     if(v('f-petname'))L.push('🏷️ ชื่อน้อง: '+v('f-petname'));
     if(v('f-breed'))L.push('📏 สายพันธุ์/ขนาด: '+v('f-breed'));
@@ -935,7 +981,7 @@
     var st=document.getElementById('notifyStatus');
     function setSt(msg,color){if(st){st.textContent=msg;st.style.color=color;}}
     try{
-      var data={owner:v('f-owner'),phone:v('f-phone'),line:v('f-line'),pet:state.pet,petname:v('f-petname'),
+      var data={owner:v('f-owner'),phone:v('f-phone'),line:v('f-line'),email:v('f-email'),pet:state.pet,petname:v('f-petname'),
         breed:v('f-breed'),service:state.service,room:state.room,checkin:v('f-checkin'),checkout:v('f-checkout'),
         time:v('f-time'),note:v('f-note'),message:lastMsg,submittedAt:new Date().toLocaleString('th-TH')};
       if(GOOGLE_SCRIPT_URL&&GOOGLE_SCRIPT_URL.indexOf('http')===0){

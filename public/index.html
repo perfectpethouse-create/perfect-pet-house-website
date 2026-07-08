@@ -1559,6 +1559,10 @@
           <label class="bk-label">LINE (ถ้ามี)</label>
           <input class="bk-input" name="line" placeholder="@yourline">
         </div>
+        <div style="grid-column:1/-1;">
+          <label class="bk-label">อีเมล <span style="font-weight:400;color:var(--brown-soft);font-size:0.82rem;">(รับสำเนายืนยันการจอง — ไม่บังคับ)</span></label>
+          <input class="bk-input" type="email" name="email" placeholder="you@email.com">
+        </div>
         <div>
           <label class="bk-label">ชนิดสัตว์ <span style="color:var(--orange-dark)">*</span></label>
           <select class="bk-input" name="pet" required>
@@ -1669,6 +1673,28 @@
     }
     if(coEl){ coEl.min = todayStr(); }
 
+    // ติดป้าย "มีคิวแล้ว" ในตัวเลือกเวลา จากปฏิทินร้าน (ผ่าน Apps Script ?busy=)
+    var BUSY_URL = 'https://script.google.com/macros/s/AKfycbwnGROqOa9rnr4OEyLNRD-MeKxefqc0ynDn4I3nnKpkIiLvDrYQsH3R-2NdXCiLCmcg/exec';
+    var busyCache = {};
+    function markBusyTimes(){
+      var d = ciEl ? ciEl.value : '';
+      if(!d || !timeSel) return;
+      function apply(busy){
+        Array.from(timeSel.options).forEach(function(o){
+          if(!o.value) return;
+          var hEnd = parseInt(o.value, 10) + 1; hEnd = (hEnd < 10 ? '0' : '') + hEnd + ':00';
+          var n = busy.filter(function(b){ return b.s < hEnd && b.e > o.value; }).length;
+          o.textContent = o.value + ' น.' + (n > 0 ? ' · มีคิวแล้ว ' + n + ' รายการ' : '');
+        });
+      }
+      if(busyCache[d]){ apply(busyCache[d]); return; }
+      fetch(BUSY_URL + '?busy=' + d).then(function(r){ return r.json(); }).then(function(j){
+        if(j && j.ok){ busyCache[d] = j.busy || []; apply(busyCache[d]); }
+      }).catch(function(){});
+    }
+    if(ciEl){ ciEl.addEventListener('change', markBusyTimes); }
+    if(serviceSel){ serviceSel.addEventListener('change', markBusyTimes); }
+
     form.addEventListener('submit', function(e){
       e.preventDefault();
       var f = form;
@@ -1680,6 +1706,7 @@
         '📞 เบอร์โทร: ' + v('phone')
       ];
       if(v('line')) lines.push('💬 LINE: ' + v('line'));
+      if(v('email')) lines.push('📧 อีเมล: ' + v('email'));
       lines.push('🐶 ชนิดสัตว์: ' + v('pet'));
       if(v('petname')) lines.push('🏷️ ชื่อน้อง: ' + v('petname'));
       if(v('breed')) lines.push('📏 สายพันธุ์/ขนาด: ' + v('breed'));
@@ -1697,7 +1724,7 @@
       // ==========================================================
 
       var data = {
-        owner: v('owner'), phone: v('phone'), line: v('line'),
+        owner: v('owner'), phone: v('phone'), line: v('line'), email: v('email'),
         pet: v('pet'), petname: v('petname'), breed: v('breed'),
         service: v('service'), checkin: v('checkin'), checkout: v('checkout'),
         time: v('time'), note: v('note'), message: msg,
