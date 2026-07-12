@@ -340,6 +340,17 @@
 
   /* confetti */
   .confetti{position:fixed;top:-10px;width:9px;height:14px;z-index:90;pointer-events:none;border-radius:2px;}
+  /* promo ticker (marquee) */
+  .promo-ticker{position:relative;overflow:hidden;background:var(--orange-light);border-bottom:1px solid rgba(58,46,38,0.07);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 92%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 6%,#000 92%,transparent);}
+  .pt-track{display:flex;width:max-content;animation:ptScroll 26s linear infinite;}
+  @keyframes ptScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .pt-item{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:9px 0;margin-right:13px;
+    font-size:12.5px;color:var(--brown);font-weight:400;}
+  .pt-item::after{content:"•";margin-left:13px;color:var(--orange-dark);opacity:.4;}
+  .pt-item strong{color:var(--orange-dark);font-weight:600;}
+  @media(prefers-reduced-motion:reduce){.pt-track{animation:none;}}
 </style>
 </head>
 <body>
@@ -352,6 +363,21 @@
     <button class="bar-icon" id="callTop" aria-label="โทรหาร้าน">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
     </button>
+  </div>
+
+  <div class="promo-ticker" aria-label="โปรโมชั่นทั้งหมด">
+    <div class="pt-track">
+      <span class="pt-item">🎁 <strong>แนะนำเพื่อน รับฟรีทั้งคู่</strong> อาบน้ำครั้งแรก ลด 10% + ฟรีสปาโอโซน</span>
+      <span class="pt-item">🛁 <strong>พัก 5 คืน</strong> อาบน้ำฟรี 1 ครั้ง</span>
+      <span class="pt-item">✨ <strong>ลูกค้าใหม่ (จ–ศ)</strong> ลด 10%</span>
+      <span class="pt-item">💦 <strong>โซนใหม่ Dog Park &amp; Paw Splash</strong> 10 ท่านแรก ฟรีอัปเกรดโซน</span>
+      <span class="pt-item">🏊 <strong>Founding Member</strong> สนาม+สระว่ายน้ำน้องหมา เปิดจองรุ่นแรก (เร็วๆ นี้)</span>
+      <span class="pt-item" aria-hidden="true">🎁 <strong>แนะนำเพื่อน รับฟรีทั้งคู่</strong> อาบน้ำครั้งแรก ลด 10% + ฟรีสปาโอโซน</span>
+      <span class="pt-item" aria-hidden="true">🛁 <strong>พัก 5 คืน</strong> อาบน้ำฟรี 1 ครั้ง</span>
+      <span class="pt-item" aria-hidden="true">✨ <strong>ลูกค้าใหม่ (จ–ศ)</strong> ลด 10%</span>
+      <span class="pt-item" aria-hidden="true">💦 <strong>โซนใหม่ Dog Park &amp; Paw Splash</strong> 10 ท่านแรก ฟรีอัปเกรดโซน</span>
+      <span class="pt-item" aria-hidden="true">🏊 <strong>Founding Member</strong> สนาม+สระว่ายน้ำน้องหมา เปิดจองรุ่นแรก (เร็วๆ นี้)</span>
+    </div>
   </div>
 
   <div class="screen-wrap">

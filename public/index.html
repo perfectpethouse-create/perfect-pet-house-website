@@ -482,7 +482,20 @@
 
 <header>
   <div class="promo-bar" id="promoBar">
-    <span>ใหม่! <strong>แนะนำเพื่อน รับฟรีทั้งคู่</strong> · เพื่อนใหม่อาบน้ำครั้งแรกลด 10% + ฟรีสปาโอโซน <a href="#promotions">ดูโปรโมชั่น →</a></span>
+    <div class="promo-marquee" aria-label="โปรโมชั่นทั้งหมด">
+      <div class="promo-track">
+        <a class="promo-item" href="#promotions"><span class="pi-e">🎁</span><strong>แนะนำเพื่อน รับฟรีทั้งคู่</strong>&nbsp;เพื่อนใหม่อาบน้ำครั้งแรก ลด 10% + ฟรีสปาโอโซน</a>
+        <a class="promo-item" href="#promotions"><span class="pi-e">🛁</span><strong>พัก 5 คืน อาบน้ำฟรี</strong>&nbsp;1 ครั้ง ก่อนกลับบ้าน</a>
+        <a class="promo-item" href="#promotions"><span class="pi-e">✨</span><strong>ลูกค้าใหม่ครั้งแรก (จ–ศ)</strong>&nbsp;รับส่วนลดทันที 10%</a>
+        <a class="promo-item" href="/exercise-zone.html"><span class="pi-e">💦</span><strong>โซนใหม่! Dog Park &amp; Paw Splash</strong>&nbsp;10 ท่านแรก ฟรีอัปเกรดโซน</a>
+        <a class="promo-item" href="#promotions"><span class="pi-e">🏊</span><strong>Founding Member</strong>&nbsp;สนาม+สระว่ายน้ำน้องหมา เปิดจองรุ่นแรกราคาพิเศษ (เร็วๆ นี้)</a>
+        <a class="promo-item" href="#promotions" aria-hidden="true" tabindex="-1"><span class="pi-e">🎁</span><strong>แนะนำเพื่อน รับฟรีทั้งคู่</strong>&nbsp;เพื่อนใหม่อาบน้ำครั้งแรก ลด 10% + ฟรีสปาโอโซน</a>
+        <a class="promo-item" href="#promotions" aria-hidden="true" tabindex="-1"><span class="pi-e">🛁</span><strong>พัก 5 คืน อาบน้ำฟรี</strong>&nbsp;1 ครั้ง ก่อนกลับบ้าน</a>
+        <a class="promo-item" href="#promotions" aria-hidden="true" tabindex="-1"><span class="pi-e">✨</span><strong>ลูกค้าใหม่ครั้งแรก (จ–ศ)</strong>&nbsp;รับส่วนลดทันที 10%</a>
+        <a class="promo-item" href="/exercise-zone.html" aria-hidden="true" tabindex="-1"><span class="pi-e">💦</span><strong>โซนใหม่! Dog Park &amp; Paw Splash</strong>&nbsp;10 ท่านแรก ฟรีอัปเกรดโซน</a>
+        <a class="promo-item" href="#promotions" aria-hidden="true" tabindex="-1"><span class="pi-e">🏊</span><strong>Founding Member</strong>&nbsp;สนาม+สระว่ายน้ำน้องหมา เปิดจองรุ่นแรกราคาพิเศษ (เร็วๆ นี้)</a>
+      </div>
+    </div>
     <button class="promo-close" id="promoClose" aria-label="ปิด">✕</button>
   </div>
   <div class="container nav-wrap">
@@ -1847,18 +1860,24 @@
 </div>
 
 <style>
-  .promo-bar{
-    display:flex;align-items:center;justify-content:center;gap:10px;position:relative;
-    background:var(--orange-light);
-    color:var(--brown);font-family:'Prompt',sans-serif;font-size:0.88rem;font-weight:400;
-    padding:9px 40px 9px 16px;text-align:center;
-    border-bottom:1px solid rgba(58,46,38,0.06);
-  }
-  .promo-bar strong{font-weight:600;}
-  .promo-bar a{color:var(--orange-dark);text-decoration:none;font-weight:600;}
-  .promo-bar a:hover{text-decoration:underline;}
-  .promo-close{position:absolute;right:12px;top:50%;transform:translateY(-50%);
-    background:none;border:none;color:var(--brown-soft);font-size:1rem;cursor:pointer;opacity:.7;}
+  .promo-bar{position:relative;overflow:hidden;background:var(--orange-light);
+    border-bottom:1px solid rgba(58,46,38,0.06);}
+  .promo-marquee{overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 88%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 4%,#000 88%,transparent);}
+  .promo-track{display:flex;width:max-content;animation:promoScroll 40s linear infinite;}
+  .promo-marquee:hover .promo-track{animation-play-state:paused;}
+  @keyframes promoScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .promo-item{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;padding:10px 0;margin-right:15px;
+    color:var(--brown);font-family:'Prompt',sans-serif;font-size:0.88rem;font-weight:400;text-decoration:none;}
+  .promo-item::after{content:"•";margin-left:15px;color:var(--orange-dark);opacity:.4;}
+  .promo-item strong{color:var(--orange-dark);font-weight:600;}
+  .promo-item .pi-e{font-size:1.02rem;}
+  .promo-item:hover strong{text-decoration:underline;}
+  @media(prefers-reduced-motion:reduce){.promo-track{animation:none;}}
+  .promo-close{position:absolute;right:10px;top:50%;transform:translateY(-50%);z-index:2;
+    width:24px;height:24px;border-radius:50%;background:var(--orange-light);
+    border:none;color:var(--brown-soft);font-size:0.95rem;cursor:pointer;opacity:.75;line-height:1;}
   .promo-close:hover{opacity:1;}
   .nav-book{color:var(--orange-dark) !important;font-weight:700 !important;}
   .nav-book-btn{background:var(--orange-dark) !important;}
