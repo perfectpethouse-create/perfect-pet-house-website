@@ -195,6 +195,11 @@
   .price-out .val{font-family:'Mitr';font-weight:600;font-size:24px;color:var(--orange-dark);}
   .free-line{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--green);margin-top:12px;background:#EFF7F1;border-radius:12px;padding:10px 14px;}
   .free-line svg{width:16px;height:16px;flex-shrink:0;}
+  .free-line.ez{color:var(--orange-dark);background:#FCEFE0;}
+  .ez-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
+  .ez-facts>div{background:#E7F5FA;border-radius:12px;padding:11px 8px;text-align:center;}
+  .ez-facts b{display:block;font-size:12.5px;color:#1B7E9B;line-height:1.3;}
+  .ez-facts span{display:block;font-size:10.5px;color:var(--brown-soft);margin-top:3px;line-height:1.3;}
 
   /* ===== BOOKING WIZARD ===== */
   .wiz-head{padding:18px 18px 0;}
@@ -356,8 +361,14 @@
         <button data-goroom><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span>จองห้องพัก</span></button>
         <button data-gogroom><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9a6 6 0 1 0 12 0 6 6 0 0 0-12 0z"/><path d="M12 15v6"/><path d="M9 21h6"/></svg></span><span>อาบน้ำตัดขน</span></button>
         <button data-goday><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>Day Care</span></button>
-        <button data-line><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>ทัก LINE</span></button>
+        <button data-goexercise><span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg></span><span>ออกกำลังกาย</span></button>
       </div>
+
+      <a class="promo" href="/exercise-zone.html" style="background:linear-gradient(120deg,#1B7E9B,#2AA6C9);box-shadow:0 12px 26px rgba(27,126,155,0.32);">
+        <span class="p-emoji">💦</span>
+        <div><h4>โซนออกกำลังกาย · Dog Park &amp; Paw Splash</h4><p>สระน้ำตื้น + สนามกลางแจ้ง · ดูราคาต่อครั้ง &amp; แพ็กเกจ</p></div>
+        <span class="go">›</span>
+      </a>
 
       <div class="promo" data-line>
         <span class="p-emoji">🎁</span>
@@ -409,10 +420,11 @@
 
     <!-- ============ SERVICES ============ -->
     <section class="screen" id="s-serv">
-      <div class="pad"><span class="kicker">🛁 บริการเสริมความสุข</span><h1 class="h-title">อาบน้ำตัดขน & Day Care</h1><p class="h-sub">เลือกขนาดน้อง แล้วดูราคาได้ทันที</p></div>
+      <div class="pad"><span class="kicker">🐾 บริการเสริมความสุข</span><h1 class="h-title">อาบน้ำ · Day Care · ออกกำลังกาย</h1><p class="h-sub">เลือกบริการที่ต้องการ ดูรายละเอียดได้ทันที</p></div>
       <div class="seg" id="servSeg">
-        <button class="on" data-serv="groom">อาบน้ำตัดขน</button>
-        <button data-serv="day">Day Care รายวัน</button>
+        <button class="on" data-serv="groom">อาบน้ำ</button>
+        <button data-serv="day">Day Care</button>
+        <button data-serv="exercise">ออกกำลังกาย</button>
       </div>
 
       <!-- grooming -->
@@ -469,6 +481,24 @@
           <p class="h-sub" style="margin-top:12px;">3 ชม.แรก <b id="day3">—</b> · ชั่วโมงถัดไป +50 บาท</p>
           <button class="rbtn" id="dayBook" style="width:100%;margin-top:16px;padding:14px;border-radius:14px;background:var(--orange-dark);color:#fff;font-family:'Mitr';font-weight:500;">จองบริการนี้</button>
         </div>
+      </div>
+
+      <!-- exercise zone -->
+      <div id="servExercise" style="display:none;">
+        <div class="calc">
+          <h4>โซนออกกำลังกาย · Dog Park &amp; Paw Splash</h4>
+          <p class="hint">สนามวิ่งเล่นกลางแจ้ง + สระน้ำตื้นไล่ระดับ · ออกกำลังแบบไม่กระแทกข้อต่อ</p>
+          <div class="ez-facts">
+            <div><b>รอบละ<br>60 นาที</b><span>เปิด 9.00–19.00</span></div>
+            <div><b>สระตื้น<br>25–45 ซม.</b><span>ใส่เสื้อชูชีพ</span></div>
+            <div><b>พี่เลี้ยง<br>1 : 3</b><span>ดูแลใกล้ชิดในน้ำ</span></div>
+          </div>
+          <div class="price-out"><span class="lbl">เริ่มต้น (ไซส์ S · ระดับ 1 สนาม)</span><span class="val">690฿<small style="font-size:12px;font-weight:400;">/ครั้ง</small></span></div>
+          <div class="free-line ez"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>10 ท่านแรก: ฟรีอัปเกรดโซน — จ่ายราคาระดับ 1 ได้เล่นระดับ 2 (เพิ่มสระ)</span></div>
+          <a href="/exercise-zone.html" class="rbtn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:16px;padding:14px;border-radius:14px;background:linear-gradient(135deg,#1B7E9B,#2AA6C9);color:#fff;font-family:'Mitr';font-weight:500;">ดูรายละเอียด &amp; ราคาทั้งหมด ›</a>
+          <button class="rbtn" data-line style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;padding:14px;border-radius:14px;background:#06C755;color:#fff;font-family:'Mitr';font-weight:500;">จองรอบ / สอบถามทาง LINE</button>
+        </div>
+        <p class="h-sub" style="padding:12px 26px 0;">* ราคาแยกตามขนาดน้อง (S–XL) และระดับบริการ (สนาม / สระ+สนาม / สระ+สนาม+อาบน้ำ) — ดูตารางเต็มในหน้ารายละเอียด</p>
       </div>
     </section>
 
@@ -675,6 +705,7 @@
   document.querySelectorAll('[data-goroom]').forEach(function(b){b.addEventListener('click',function(){go('rooms');});});
   document.querySelectorAll('[data-gogroom]').forEach(function(b){b.addEventListener('click',function(){go('serv');setServ('groom');});});
   document.querySelectorAll('[data-goday]').forEach(function(b){b.addEventListener('click',function(){go('serv');setServ('day');});});
+  document.querySelectorAll('[data-goexercise]').forEach(function(b){b.addEventListener('click',function(){go('serv');setServ('exercise');});});
   document.querySelectorAll('[data-line]').forEach(function(b){b.addEventListener('click',function(){window.open(LINE_URL,'_blank');});});
   document.getElementById('callTop').addEventListener('click',function(){location.href='tel:0823202807';});
 
@@ -722,6 +753,7 @@
     document.querySelectorAll('#servSeg button').forEach(function(x){x.classList.toggle('on',x.dataset.serv===which);});
     document.getElementById('servGroom').style.display=which==='groom'?'':'none';
     document.getElementById('servDay').style.display=which==='day'?'':'none';
+    var ez=document.getElementById('servExercise'); if(ez) ez.style.display=which==='exercise'?'':'none';
   }
   document.querySelectorAll('#servSeg button').forEach(function(b){b.addEventListener('click',function(){setServ(b.dataset.serv);});});
 
