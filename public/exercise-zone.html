@@ -238,6 +238,74 @@
   footer .flinks a:hover{color:#fff;}
   footer strong{color:#fff;}
 
+  /* ===== Scroll-reveal motion ===== */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;}
+  .reveal.show{opacity:1;transform:translateY(0);}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+
+  /* ===== Prominent section headings ===== */
+  .sec-head .eyebrow{box-shadow:0 6px 16px rgba(224,123,57,.18);}
+  .sec-head h2{position:relative;display:inline-block;padding-bottom:16px;}
+  .sec-head h2::after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+    width:70px;height:4px;border-radius:99px;background:linear-gradient(90deg,var(--orange),var(--water));}
+  .zones .sec-head h2::after,.elig .sec-head h2::after{background:linear-gradient(90deg,var(--water),var(--green));}
+
+  /* ===== Benefits — redesigned ===== */
+  #benefits{background:linear-gradient(180deg,#fff 0%,var(--water-soft) 100%);}
+  #benefits .eyebrow{background:#fff;color:var(--water-dark);}
+  #benefits .eyebrow svg{animation:bob 2.4s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
+  #benefits h2 .hl{color:var(--water-dark);}
+  .bene-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;}
+  .bene-card{flex:1 1 300px;max-width:340px;position:relative;overflow:hidden;
+    background:#fff;border:1px solid #E8EFF2;border-radius:20px;padding:28px 22px 24px;box-shadow:0 6px 18px rgba(27,126,155,.06);}
+  .bene-card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;
+    background:linear-gradient(90deg,var(--water),var(--water-dark));transform:scaleX(0);transform-origin:left;transition:transform .4s ease;}
+  .bene-card:hover{box-shadow:0 18px 40px rgba(27,126,155,.16);}
+  .bene-card:hover::before{transform:scaleX(1);}
+  .bene-num{position:absolute;top:16px;right:20px;font-family:'Mitr',sans-serif;font-weight:600;font-size:30px;line-height:1;color:#E4EFF4;}
+  .bene-card .ic{transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+  .bene-card:hover .ic{transform:scale(1.14) rotate(-5deg);}
+  .bene-card h4{position:relative;padding-left:12px;}
+  .bene-card h4::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:4px;border-radius:99px;background:var(--water);}
+
+  /* ===== Zone photo cards ===== */
+  .zone{background:#fff;}
+  .zone-photo{position:relative;height:210px;background-size:cover;background-position:center;display:flex;align-items:flex-end;}
+  .zone-photo::after{content:"";position:absolute;inset:0;}
+  .zone.park .zone-photo::after{background:linear-gradient(to top,rgba(23,74,42,.92) 0%,rgba(45,110,68,.35) 52%,rgba(45,110,68,0) 100%);}
+  .zone.splash .zone-photo::after{background:linear-gradient(to top,rgba(12,70,88,.92) 0%,rgba(27,126,155,.35) 52%,rgba(27,126,155,0) 100%);}
+  .zone-cap{position:relative;z-index:2;padding:20px 24px;color:#fff;}
+  .zone-cap .kind{font-size:13px;letter-spacing:1px;text-transform:uppercase;font-weight:600;opacity:.95;}
+  .zone-cap h3{font-size:24px;margin-top:3px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .zone-lead{font-size:14.5px;color:var(--brown-soft);margin:2px 0 14px;}
+
+  /* ===== Booking form ===== */
+  .ez-form{max-width:640px;margin:26px auto 0;background:#fff;border:1px solid #F0E2D3;border-radius:var(--radius-lg);padding:26px 24px;box-shadow:var(--shadow);}
+  .ezf-title{font-size:20px;color:var(--brown);display:flex;align-items:center;gap:9px;}
+  .ezf-title svg{width:22px;height:22px;fill:none;stroke:var(--orange);stroke-width:2;}
+  .ezf-pick{margin:12px 0 18px;background:var(--water-soft);border-radius:12px;padding:12px 16px;font-size:14.5px;color:var(--brown-soft);}
+  .ezf-pick b{color:var(--water-dark);}
+  .ezf-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .ezf-field{margin-bottom:14px;display:flex;flex-direction:column;}
+  .ezf-field.full{grid-column:1/-1;}
+  .ezf-field label{font-size:13px;font-weight:500;color:var(--brown);margin-bottom:6px;}
+  .ezf-field input,.ezf-field select,.ezf-field textarea{width:100%;padding:12px 13px;border:1.5px solid #E7D6C5;border-radius:12px;
+    font-family:'Prompt',sans-serif;font-size:15px;color:var(--brown);background:#FFFDFB;transition:border-color .2s;}
+  .ezf-field input:focus,.ezf-field select:focus,.ezf-field textarea:focus{outline:none;border-color:var(--orange);}
+  .ezf-submit{width:100%;margin-top:6px;background:var(--orange);color:#fff;font-family:'Prompt',sans-serif;font-weight:600;font-size:16px;
+    padding:15px;border:none;border-radius:999px;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:9px;}
+  .ezf-submit svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;}
+  .ezf-submit:hover{background:var(--orange-dark);transform:translateY(-2px);}
+  .ezf-alt{text-align:center;font-size:13.5px;color:var(--brown-soft);margin-top:14px;}
+  .ezf-alt a{color:var(--water-dark);font-weight:600;}
+  #bkResult{margin-top:14px;}
+  #bkResult .bk-box{background:var(--cream);border:1.5px solid #E7D6C5;border-radius:14px;padding:16px;font-size:14px;color:var(--brown);}
+  #bkResult textarea{width:100%;margin-top:10px;padding:10px;border-radius:10px;border:1px solid #E7D6C5;font-family:'Prompt',sans-serif;font-size:13px;box-sizing:border-box;}
+  #bkResult .bk-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
+  #bkResult .bk-btns .btn{flex:1;min-width:140px;}
+  .ezf-err{border-color:var(--red)!important;}
+
   @media(max-width:860px){
     .steps{grid-template-columns:repeat(2,1fr);gap:26px 14px;}
   }
@@ -246,6 +314,7 @@
     .site-header .brand span{display:none;}
     .steps{grid-template-columns:repeat(2,1fr);}
     .hero-cta-row .btn{flex:1;min-width:140px;}
+    .ezf-row{grid-template-columns:1fr;gap:0;}
   }
   @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto;}}
 </style>
@@ -302,35 +371,40 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow"><svg viewBox="0 0 24 24"><path d="M12 2c4 5 6 8 6 11a6 6 0 1 1-12 0c0-3 2-6 6-11z"/></svg>ทำไมต้องออกกำลังในน้ำ</span>
-      <h2>เล่นน้ำไม่ใช่แค่สนุก — แต่ดีต่อร่างกายน้องจริง</h2>
+      <h2>เล่นน้ำไม่ใช่แค่สนุก<br><span class="hl">แต่ดีต่อร่างกายน้องจริง</span></h2>
       <p>สระน้ำตื้นไล่ระดับช่วยให้น้องขยับได้เต็มที่โดยข้อต่อไม่ต้องรับแรงกระแทกหนัก เหมาะทั้งน้องสูงวัย น้องอ้วน และน้องที่อยากฟิต</p>
     </div>
     <div class="bene-grid">
       <div class="bene-card">
+        <span class="bene-num">01</span>
         <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 14h16M6 14a6 6 0 0 1 12 0"/><path d="M9 14V9a3 3 0 0 1 6 0v5"/></svg></div>
         <h4>ข้อต่อไม่กระแทก</h4>
         <p>น้ำช่วยพยุงน้ำหนักตัว ลดแรงกดที่ข้อต่อ เหมาะกับน้องข้อสะโพก/ข้อเข่าเสื่อม สูงวัย หรือน้ำหนักเกิน</p>
         <span class="term">แรงพยุงของน้ำ (Buoyancy)</span>
       </div>
       <div class="bene-card">
+        <span class="bene-num">02</span>
         <div class="ic"><svg viewBox="0 0 24 24"><path d="M6.5 6.5a5 5 0 0 1 7 7l-7-7z"/><path d="M17.5 17.5a5 5 0 0 1-7-7"/><line x1="4" y1="20" x2="20" y2="4"/></svg></div>
         <h4>สร้างกล้ามเนื้อ</h4>
         <p>น้ำมีแรงต้านรอบตัว น้องต้องออกแรงมากกว่าเดินบนบก กล้ามเนื้อจึงแข็งแรงขึ้นแบบค่อยเป็นค่อยไป</p>
         <span class="term">แรงต้านของน้ำ (Resistance)</span>
       </div>
       <div class="bene-card">
+        <span class="bene-num">03</span>
         <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></div>
         <h4>ช่วยลดบวม เลือดไหลเวียนดี</h4>
         <p>แรงดันน้ำที่ขาเปรียบเหมือนผ้ารัดอ่อนๆ ช่วยลดอาการบวมของข้อต่อและกระตุ้นการไหลเวียน</p>
         <span class="term">แรงดันน้ำที่ขา (Hydrostatic)</span>
       </div>
       <div class="bene-card">
+        <span class="bene-num">04</span>
         <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div>
         <h4>คลายเครียด คลายร้อน</h4>
         <p>ได้ปลดปล่อยพลังงาน สนุกกับกิจกรรม ลดความเครียดสะสม และคลายร้อนในวันอากาศร้อน</p>
         <span class="term">สุขภาพใจ + ผ่อนคลาย</span>
       </div>
       <div class="bene-card">
+        <span class="bene-num">05</span>
         <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg></div>
         <h4>ฟื้นความมั่นใจกับน้ำ</h4>
         <p>สระตื้นไล่ระดับ 25–45 ซม. ให้น้องค่อยๆ ปรับตัว เหมาะมากกับน้องที่กลัวน้ำหรือยังไม่เคยเล่นน้ำ</p>
@@ -350,24 +424,28 @@
     </div>
     <div class="zone-grid">
       <div class="zone park">
-        <div class="zone-top">
-          <span class="kind">🐾 Dog Park</span>
-          <h3>สนามวิ่งเล่นกลางแจ้ง</h3>
-          <p>พื้นที่กว้าง ปลอดภัย สำหรับวอร์มอัป วิ่งเล่น และคูลดาวน์ตามหลักที่ถูกต้อง</p>
+        <div class="zone-photo" style="background-image:url('images/dogpark.jpg')">
+          <div class="zone-cap">
+            <span class="kind">🐾 Dog Park</span>
+            <h3>สนามวิ่งเล่นกลางแจ้ง</h3>
+          </div>
         </div>
         <div class="zone-body">
+          <p class="zone-lead">พื้นที่กว้าง ปลอดภัย สำหรับวอร์มอัป วิ่งเล่น และคูลดาวน์ตามหลักที่ถูกต้อง</p>
           <div class="feat"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V9l7-5 7 5v12"/></svg><span><b>พื้นที่กว้าง มีรั้วรอบ</b> ให้น้องวิ่งเล่นได้อย่างอิสระและปลอดภัย</span></div>
           <div class="feat"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4 12H2M22 12h-2"/></svg><span><b>วอร์มอัป &amp; คูลดาวน์</b> เตรียมกล้ามเนื้อก่อนลงน้ำ และผ่อนคลายหลังเล่น</span></div>
           <div class="feat"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg><span><b>มีพี่เลี้ยงดูแลตลอด</b> ไม่ปล่อยน้องเล่นตามลำพัง</span></div>
         </div>
       </div>
       <div class="zone splash">
-        <div class="zone-top">
-          <span class="kind">💦 Paw Splash</span>
-          <h3>สระน้ำตื้นไล่ระดับ</h3>
-          <p>สระออกแบบเพื่อสัตว์เลี้ยงโดยเฉพาะ ให้น้องขยับข้อต่อเต็มช่วงการเคลื่อนไหวแบบไม่กระแทก (Controlled Exercise)</p>
+        <div class="zone-photo" style="background-image:url('images/pawsplash.jpg')">
+          <div class="zone-cap">
+            <span class="kind">💦 Paw Splash</span>
+            <h3>สระน้ำตื้นไล่ระดับ</h3>
+          </div>
         </div>
         <div class="zone-body">
+          <p class="zone-lead">สระออกแบบเพื่อสัตว์เลี้ยงโดยเฉพาะ ให้น้องขยับข้อต่อเต็มช่วงการเคลื่อนไหวแบบไม่กระแทก (Controlled Exercise)</p>
           <div class="feat"><svg viewBox="0 0 24 24"><path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg><span><b>ตื้นไล่ระดับ 25 → 45 ซม.</b> เดินน้ำได้ทั้งน้องเล็กและน้องใหญ่ เริ่มจากตื้นไปหาลึกอย่างปลอดภัย</span></div>
           <div class="feat"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0z"/><path d="M12 8v4l2 2"/></svg><span><b>ใส่เสื้อชูชีพทุกตัว</b> และมีพี่เลี้ยงประคองในน้ำตลอดเวลา</span></div>
           <div class="feat"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M2 21v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/><path d="M17 11a3 3 0 0 0 0-6"/></svg><span><b>ดูแลใกล้ชิด 1 : 3</b> พี่เลี้ยง 1 คน ต่อน้อง 3 ตัว เพื่อความปลอดภัยในน้ำ</span></div>
@@ -443,6 +521,31 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>
         จองราคานี้ผ่าน LINE
       </a>
+    </div>
+
+    <!-- Booking form -->
+    <div class="ez-form reveal" id="ezForm">
+      <h4 class="ezf-title"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>กรอกข้อมูลเพื่อส่งคำขอจอง</h4>
+      <div class="ezf-pick">บริการที่เลือก: <b id="ezfService">น้อง M · สนาม + สระน้ำ · 1,090 ฿/ครั้ง</b><br><span style="font-size:12.5px;">เปลี่ยนได้ที่ปุ่มเลือกด้านบน</span></div>
+      <div class="ezf-row">
+        <div class="ezf-field"><label>ชื่อเจ้าของ *</label><input id="bkOwner" placeholder="ชื่อ-นามสกุล"></div>
+        <div class="ezf-field"><label>เบอร์โทร *</label><input id="bkPhone" inputmode="tel" placeholder="08x-xxx-xxxx"></div>
+      </div>
+      <div class="ezf-row">
+        <div class="ezf-field"><label>ชื่อน้อง</label><input id="bkPet" placeholder="เช่น โมจิ"></div>
+        <div class="ezf-field"><label>สายพันธุ์ / น้ำหนัก</label><input id="bkBreed" placeholder="โกลเด้น 22 กก."></div>
+      </div>
+      <div class="ezf-row">
+        <div class="ezf-field"><label>วันที่สะดวก</label><input id="bkDate" type="date"></div>
+        <div class="ezf-field"><label>รอบเวลา</label><select id="bkTime">
+          <option value="">— เลือกรอบ —</option>
+          <option>09:00</option><option>10:00</option><option>11:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option><option>18:00</option>
+        </select></div>
+      </div>
+      <div class="ezf-field full"><label>หมายเหตุ (โรคประจำตัว / สายพันธุ์หน้าสั้น ฯลฯ)</label><textarea id="bkNote" rows="2" placeholder="บอกเราได้เลย เราดูแลตามความต้องการของน้อง"></textarea></div>
+      <button type="button" class="ezf-submit" id="bkSubmit"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>ส่งคำขอจอง</button>
+      <div class="ezf-alt">หรือ <a href="https://line.me/R/ti/p/@perfectbkk">ทักผ่าน LINE @perfectbkk</a> · โทร <a href="tel:0823202807">082-320-2807</a></div>
+      <div id="bkResult"></div>
     </div>
 
     <details class="ez-table-details">
@@ -607,12 +710,15 @@
   var P={S:{"1":690,"2":890,"3":990},M:{"1":790,"2":1090,"3":1290},L:{"1":890,"2":1290,"3":1490},XL:{"1":990,"2":1490,"3":1790}};
   var SZ={S:'ไซส์ S (0–10 กก.)',M:'ไซส์ M (10–20 กก.)',L:'ไซส์ L (20–30 กก.)',XL:'ไซส์ XL (30 กก.+)'};
   var LV={"1":'สนามอย่างเดียว',"2":'สนาม + สระน้ำ',"3":'ครบทั้งหมด (+อาบน้ำ)'};
+  var LINE_URL='https://line.me/R/ti/p/@perfectbkk';
   var sel={size:'M',lvl:'2'};
-  var elPrice=document.getElementById('ezPrice'), elSum=document.getElementById('ezSummary');
+  var elPrice=document.getElementById('ezPrice'), elSum=document.getElementById('ezSummary'), elSvc=document.getElementById('ezfService');
+  function price(){return P[sel.size][sel.lvl];}
   function render(){
-    var p=P[sel.size][sel.lvl];
-    elPrice.textContent=p.toLocaleString('en-US');
-    elSum.textContent=SZ[sel.size]+' · '+LV[sel.lvl];
+    var p=price();
+    if(elPrice) elPrice.textContent=p.toLocaleString('en-US');
+    if(elSum) elSum.textContent=SZ[sel.size]+' · '+LV[sel.lvl];
+    if(elSvc) elSvc.textContent='น้อง '+sel.size+' · '+LV[sel.lvl]+' · '+p.toLocaleString('en-US')+' ฿/ครั้ง';
   }
   function wire(id,key){
     document.querySelectorAll('#'+id+' button').forEach(function(b){
@@ -622,9 +728,75 @@
       });
     });
   }
-  wire('ezSize','size');
-  wire('ezLevel','lvl');
-  render();
+  wire('ezSize','size'); wire('ezLevel','lvl'); render();
+
+  /* ---- scroll reveal ---- */
+  var revs=[].slice.call(document.querySelectorAll('.sec-head, .bene-card, .zone, .step, .pkg, .elig-card, .ez-calc, .ez-form, .upgrade-banner, .gallery img'));
+  revs.forEach(function(el,i){ el.classList.add('reveal'); el.style.transitionDelay=((i%6)*0.06)+'s'; });
+  function checkReveal(){
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    for(var i=0;i<revs.length;i++){
+      var el=revs[i]; if(el.classList.contains('show')) continue;
+      var r=el.getBoundingClientRect();
+      if(r.top < vh*0.9 && r.bottom > 0){ el.classList.add('show'); }
+    }
+  }
+  window.addEventListener('scroll',checkReveal,{passive:true});
+  window.addEventListener('resize',checkReveal);
+  checkReveal();
+  requestAnimationFrame(checkReveal);
+  setTimeout(checkReveal,400);
+  // safety net: never leave content invisible if scroll detection fails
+  setTimeout(function(){ revs.forEach(function(el){ el.classList.add('show'); }); }, 2500);
+
+  /* ---- booking form ---- */
+  var GOOGLE_SCRIPT_URL='https://script.google.com/macros/s/AKfycbwnGROqOa9rnr4OEyLNRD-MeKxefqc0ynDn4I3nnKpkIiLvDrYQsH3R-2NdXCiLCmcg/exec';
+  var SZS={S:'S (0–10 กก.)',M:'M (10–20 กก.)',L:'L (20–30 กก.)',XL:'XL (30 กก.+)'};
+  var btn=document.getElementById('bkSubmit');
+  function val(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+  function mark(id,bad){var e=document.getElementById(id);if(e)e.classList.toggle('ezf-err',bad);}
+  var submitSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:19px;height:19px;"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>';
+  if(btn){
+    btn.addEventListener('click',function(){
+      var owner=val('bkOwner'), phone=val('bkPhone');
+      mark('bkOwner',!owner); mark('bkPhone',!phone);
+      var res=document.getElementById('bkResult');
+      if(!owner||!phone){ res.innerHTML='<div class="bk-box" style="border-color:#E6A417;">กรุณากรอกชื่อเจ้าของและเบอร์โทรก่อนส่งนะคะ</div>'; return; }
+      var p=price();
+      var petname=val('bkPet'), breed=val('bkBreed'), date=val('bkDate'), time=val('bkTime'), note=val('bkNote');
+      var msg='🐾 คำขอจอง โซนออกกำลังกาย (Dog Park & Paw Splash)\n'
+        +'บริการ: '+LV[sel.lvl]+' · ไซส์ '+SZS[sel.size]+'\n'
+        +'ราคา: '+p.toLocaleString('en-US')+' บาท/ครั้ง\n'
+        +'ชื่อเจ้าของ: '+owner+'\nเบอร์: '+phone+'\n'
+        +(petname?'ชื่อน้อง: '+petname+'\n':'')
+        +(breed?'สายพันธุ์/น้ำหนัก: '+breed+'\n':'')
+        +(date?'วันที่สะดวก: '+date+'\n':'')
+        +(time?'รอบเวลา: '+time+' น.\n':'')
+        +(note?'หมายเหตุ: '+note+'\n':'')
+        +'ส่งเมื่อ: '+new Date().toLocaleString('th-TH');
+      var data={owner:owner,phone:phone,line:'',email:'',pet:'น้องหมา',petname:petname,breed:breed,
+        service:'โซนออกกำลังกาย – '+LV[sel.lvl]+' (ไซส์ '+sel.size+')',checkin:date,checkout:'',time:time,
+        note:'ราคา '+p+' บาท/ครั้ง'+(note?' · '+note:''),message:msg,submittedAt:new Date().toLocaleString('th-TH')};
+      function panel(head){
+        res.innerHTML='<div class="bk-box">'+head
+          +'<textarea id="bkMsg" readonly rows="9"></textarea>'
+          +'<div class="bk-btns"><button type="button" id="bkCopy" class="btn btn-outline" style="justify-content:center;">คัดลอกข้อความ</button>'
+          +'<a href="'+LINE_URL+'" target="_blank" rel="noopener" class="btn btn-primary" style="justify-content:center;">ทักไลน์ร้าน</a></div></div>';
+        var ta=document.getElementById('bkMsg'); if(ta) ta.value=msg;
+        var cb=document.getElementById('bkCopy');
+        if(cb) cb.addEventListener('click',function(){try{ta.select();ta.setSelectionRange(0,99999);}catch(e){}var ok=false;try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(ta.value);ok=true;}}catch(e){}if(!ok){try{document.execCommand('copy');ok=true;}catch(e){}}cb.textContent=ok?'คัดลอกแล้ว ✓':'คัดลอกข้อความ';});
+        res.scrollIntoView({behavior:'smooth',block:'center'});
+      }
+      btn.disabled=true; btn.textContent='กำลังส่ง...';
+      fetch(GOOGLE_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)})
+        .then(function(r){return r.json();}).then(function(j){
+          if(!j||!j.ok) throw new Error('fail');
+          panel('<strong style="color:var(--green);">ส่งคำขอจองให้ร้านเรียบร้อยแล้ว ✓</strong><br><span style="font-size:13px;">ทีมงานจะติดต่อกลับเพื่อยืนยันคิวโดยเร็วที่สุด</span>');
+        }).catch(function(){
+          panel('<strong style="color:var(--orange-dark);">ระบบส่งอัตโนมัติขัดข้องชั่วคราว</strong><br><span style="font-size:13px;">กรุณาคัดลอกข้อความด้านล่างส่งทาง LINE @perfectbkk หรือโทร 082-320-2807 เพื่อยืนยันคิวนะคะ</span>');
+        }).then(function(){ btn.disabled=false; btn.innerHTML=submitSvg+'ส่งคำขอจอง'; });
+    });
+  }
 })();
 </script>
 </body>
