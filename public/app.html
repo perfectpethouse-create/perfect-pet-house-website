@@ -200,6 +200,17 @@
   .ez-facts>div{background:#E7F5FA;border-radius:12px;padding:11px 8px;text-align:center;}
   .ez-facts b{display:block;font-size:12.5px;color:#1B7E9B;line-height:1.3;}
   .ez-facts span{display:block;font-size:10.5px;color:var(--brown-soft);margin-top:3px;line-height:1.3;}
+  .ez-step{font-weight:600;color:var(--brown);font-size:13.5px;margin:18px 0 9px;}
+  .ez-opts{display:grid;gap:8px;}
+  .ez-opts.size{grid-template-columns:repeat(4,1fr);}
+  .ez-opts.lvl{grid-template-columns:1fr;}
+  .ez-opts button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:11px 4px;border:2px solid #EBDDCD;border-radius:12px;background:#fff;color:var(--brown);font-family:'Prompt',sans-serif;font-weight:600;font-size:14px;line-height:1.2;transition:all .15s;text-align:center;}
+  .ez-opts.lvl button{flex-direction:row;justify-content:center;gap:6px;}
+  .ez-opts button small{font-weight:400;font-size:10.5px;color:var(--brown-soft);}
+  .ez-opts button:active{transform:scale(.96);}
+  .ez-opts.size button.on{border-color:var(--orange-dark);background:var(--orange-dark);color:#fff;}
+  .ez-opts.lvl button.on{border-color:#1B7E9B;background:#2AA6C9;color:#fff;}
+  .ez-opts button.on small{color:rgba(255,255,255,0.85);}
 
   /* ===== BOOKING WIZARD ===== */
   .wiz-head{padding:18px 18px 0;}
@@ -493,7 +504,20 @@
             <div><b>สระตื้น<br>25–45 ซม.</b><span>ใส่เสื้อชูชีพ</span></div>
             <div><b>พี่เลี้ยง<br>1 : 3</b><span>ดูแลใกล้ชิดในน้ำ</span></div>
           </div>
-          <div class="price-out"><span class="lbl">เริ่มต้น (ไซส์ S · ระดับ 1 สนาม)</span><span class="val">690฿<small style="font-size:12px;font-weight:400;">/ครั้ง</small></span></div>
+          <div class="ez-step">1 · เลือกขนาดน้อง (ตามน้ำหนัก)</div>
+          <div class="ez-opts size" id="ezaSize">
+            <button type="button" data-size="S">S<small>0–10 กก.</small></button>
+            <button type="button" data-size="M" class="on">M<small>10–20 กก.</small></button>
+            <button type="button" data-size="L">L<small>20–30 กก.</small></button>
+            <button type="button" data-size="XL">XL<small>30 กก.+</small></button>
+          </div>
+          <div class="ez-step">2 · เลือกบริการที่ต้องการ</div>
+          <div class="ez-opts lvl" id="ezaLevel">
+            <button type="button" data-lvl="1">สนามอย่างเดียว <small>Dog Park</small></button>
+            <button type="button" data-lvl="2" class="on">สนาม + สระน้ำ <small>+ Paw Splash</small></button>
+            <button type="button" data-lvl="3">ครบทั้งหมด <small>สระ+สนาม+อาบน้ำ</small></button>
+          </div>
+          <div class="price-out"><span class="lbl" id="ezaSum">ไซส์ M · สนาม + สระน้ำ</span><span class="val"><span id="ezaPrice">1,090</span>฿<small style="font-size:12px;font-weight:400;">/ครั้ง</small></span></div>
           <div class="free-line ez"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>10 ท่านแรก: ฟรีอัปเกรดโซน — จ่ายราคาระดับ 1 ได้เล่นระดับ 2 (เพิ่มสระ)</span></div>
           <a href="/exercise-zone.html" class="rbtn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:16px;padding:14px;border-radius:14px;background:linear-gradient(135deg,#1B7E9B,#2AA6C9);color:#fff;font-family:'Mitr';font-weight:500;">ดูรายละเอียด &amp; ราคาทั้งหมด ›</a>
           <button class="rbtn" data-line style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;padding:14px;border-radius:14px;background:#06C755;color:#fff;font-family:'Mitr';font-weight:500;">จองรอบ / สอบถามทาง LINE</button>
@@ -1061,6 +1085,29 @@
   }
 
   showStep(1);
+})();
+</script>
+<script>
+(function(){
+  var P={S:{"1":690,"2":890,"3":990},M:{"1":790,"2":1090,"3":1290},L:{"1":890,"2":1290,"3":1490},XL:{"1":990,"2":1490,"3":1790}};
+  var SZ={S:'ไซส์ S',M:'ไซส์ M',L:'ไซส์ L',XL:'ไซส์ XL'};
+  var LV={"1":'สนามอย่างเดียว',"2":'สนาม + สระน้ำ',"3":'ครบทั้งหมด (+อาบน้ำ)'};
+  var sel={size:'M',lvl:'2'};
+  var elPrice=document.getElementById('ezaPrice'), elSum=document.getElementById('ezaSum');
+  if(!elPrice) return;
+  function render(){
+    elPrice.textContent=P[sel.size][sel.lvl].toLocaleString('en-US');
+    elSum.textContent=SZ[sel.size]+' · '+LV[sel.lvl];
+  }
+  function wire(id,key){
+    document.querySelectorAll('#'+id+' button').forEach(function(b){
+      b.addEventListener('click',function(){
+        document.querySelectorAll('#'+id+' button').forEach(function(x){x.classList.remove('on');});
+        b.classList.add('on'); sel[key]=b.dataset[key]; render();
+      });
+    });
+  }
+  wire('ezaSize','size'); wire('ezaLevel','lvl'); render();
 })();
 </script>
 </body>
