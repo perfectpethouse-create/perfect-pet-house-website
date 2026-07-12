@@ -322,6 +322,31 @@
   .ex-card .icon-lg{color:#FFD9A8;margin:0 auto 12px;}
   .ex-card h4{font-size:15px;margin-bottom:6px;color:#fff;}
   .ex-card p{font-size:13px;color:#CBDBCE;margin:0;}
+  /* ── Exercise section: motion & polish ── */
+  .exercise .eyebrow svg{animation:exFloat 2.6s ease-in-out infinite;}
+  @keyframes exFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
+  .exercise-icons .ex-card{transition:transform .3s ease, background .3s ease, border-color .3s ease, box-shadow .3s ease;position:relative;overflow:hidden;}
+  .exercise-icons .ex-card::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 32%,rgba(255,217,168,.14) 50%,transparent 68%);transform:translateX(-120%);transition:transform .7s ease;pointer-events:none;}
+  .exercise-icons .ex-card:hover{transform:translateY(-6px);background:rgba(255,255,255,0.14);border-color:rgba(255,217,168,0.55);box-shadow:0 16px 32px rgba(0,0,0,0.25);}
+  .exercise-icons .ex-card:hover::after{transform:translateX(120%);}
+  .exercise-icons .ex-card .icon-lg{transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+  .exercise-icons .ex-card:hover .icon-lg{transform:scale(1.18) rotate(-5deg);}
+  .exercise-icons.show .ex-card{animation:exCardIn .55s cubic-bezier(.2,.7,.2,1) backwards;}
+  .exercise-icons.show .ex-card:nth-child(1){animation-delay:.05s;}
+  .exercise-icons.show .ex-card:nth-child(2){animation-delay:.14s;}
+  .exercise-icons.show .ex-card:nth-child(3){animation-delay:.23s;}
+  .exercise-icons.show .ex-card:nth-child(4){animation-delay:.32s;}
+  @keyframes exCardIn{from{opacity:0;transform:translateY(20px) scale(.96);}to{opacity:1;transform:none;}}
+  /* promo callout in teaser */
+  .ex-teaser-cta{position:relative;overflow:hidden;}
+  .ex-promo-badge{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#E07B39,#B85C1E);color:#fff;font-weight:700;font-size:13.5px;padding:8px 18px;border-radius:999px;margin-bottom:14px;box-shadow:0 8px 20px rgba(184,92,30,.35);animation:promoPulse 2.2s ease-in-out infinite;}
+  @keyframes promoPulse{0%,100%{transform:scale(1);box-shadow:0 8px 20px rgba(184,92,30,.35);}50%{transform:scale(1.045);box-shadow:0 10px 28px rgba(224,123,57,.55);}}
+  .ex-promo-line{background:#fff;border:1.5px dashed #E8A66B;border-radius:14px;padding:14px 18px;max-width:620px;margin:0 auto 18px!important;color:var(--brown)!important;font-size:15px;line-height:1.6;}
+  .ex-promo-line strong{color:var(--orange-dark);}
+  .ex-teaser-sub{font-size:13.5px;color:var(--brown-soft)!important;}
+  .ex-teaser-cta .btn-primary{transition:transform .2s ease, box-shadow .2s ease;}
+  .ex-teaser-cta .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(224,123,57,.42);}
+  @media(prefers-reduced-motion:reduce){.exercise .eyebrow svg,.ex-promo-badge,.exercise-icons.show .ex-card{animation:none;}}
   .no-price-tag{
     display:inline-flex;align-items:center;gap:8px;background:rgba(255,217,168,0.15);
     border:1px solid rgba(255,217,168,0.4);color:#FFD9A8;border-radius:999px;
@@ -1106,9 +1131,11 @@
       </div>
     </div>
 
-    <div class="ex-teaser-cta reveal" style="text-align:center;margin-top:46px;padding:32px 24px;background:rgba(252,234,219,0.6);border:1px solid #F0DCC8;border-radius:var(--radius-lg);">
-      <h3 style="font-size:clamp(20px,3vw,26px);color:var(--brown);margin-bottom:10px;">โซน Dog Park &amp; Paw Splash</h3>
-      <p style="color:var(--brown-soft);max-width:600px;margin:0 auto 22px;">ดูข้อมูลครบทั้งประโยชน์การออกกำลังในน้ำ, สระน้ำตื้นไล่ระดับ, ขั้นตอนบริการ 60 นาที, <strong>ราคาต่อครั้ง</strong> และแพ็กเกจ</p>
+    <div class="ex-teaser-cta reveal" style="text-align:center;margin-top:46px;padding:34px 24px;background:rgba(255,248,240,0.95);border:1px solid #F0DCC8;border-radius:var(--radius-lg);box-shadow:0 18px 40px rgba(0,0,0,0.18);">
+      <span class="ex-promo-badge">🎁 โปรเปิดตัว · 10 ท่านแรก</span>
+      <h3 style="font-size:clamp(20px,3vw,26px);color:var(--brown);margin-bottom:12px;">โซน Dog Park &amp; Paw Splash</h3>
+      <p class="ex-promo-line"><strong>ฟรีอัปเกรดโซน!</strong> จองราคา<strong>ระดับ 1 (สนาม)</strong> รับสิทธิ์เล่น <strong>ระดับ 2 (เพิ่มสระ Paw Splash)</strong> ให้น้องได้ลองของเด่น โดยไม่ต้องจ่ายเพิ่ม</p>
+      <p class="ex-teaser-sub" style="max-width:600px;margin:0 auto 22px;">ดูข้อมูลครบทั้งประโยชน์การออกกำลังในน้ำ, สระน้ำตื้นไล่ระดับ, ขั้นตอนบริการ 60 นาที, <strong>ราคาต่อครั้ง</strong> และแพ็กเกจ</p>
       <a href="/exercise-zone.html" class="btn btn-primary" style="padding:14px 30px;">ดูรายละเอียด ราคา &amp; แพ็กเกจ →</a>
     </div>
   </div>
