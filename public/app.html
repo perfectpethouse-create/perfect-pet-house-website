@@ -586,6 +586,11 @@
           <span class="otext"><b>ฝากเลี้ยง + อาบน้ำตัดขน</b><span>แพ็กคู่ คุ้มกว่า</span></span>
           <span class="ocheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
         </div>
+        <div class="opt" data-service="โซนออกกำลังกาย (Dog Park &amp; Paw Splash)">
+          <span class="oi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg></span>
+          <span class="otext"><b>โซนออกกำลังกาย</b><span>Dog Park &amp; Paw Splash · สนาม + สระน้ำ</span></span>
+          <span class="ocheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+        </div>
       </div>
 
       <!-- step 2: pet detail -->
@@ -948,6 +953,7 @@
     else if(/Day Care/.test(s)){start=9;end=18;label='Day Care 9:00–20:00 น.';}
     else if(/อาบน้ำ/.test(s)&&!/ฝาก/.test(s)){start=10;end=19;label='อาบน้ำตัดขน 10:00–19:00 น.';}
     else if(/ฝาก/.test(s)&&/อาบ/.test(s)){start=10;end=18;label='ฝากเลี้ยง+อาบน้ำ 10:00–18:00 น.';}
+    else if(/ออกกำลังกาย|Dog Park/.test(s)){start=9;end=19;label='โซนออกกำลังกาย รอบ 9:00–19:00 น. (รอบละ 60 นาที)';}
     var cur=sel.value;sel.innerHTML='<option value="">— ไม่ระบุ —</option>';
     for(var h=start;h<=end;h++){var hh=(h<10?'0':'')+h+':00';var o=document.createElement('option');o.value=hh;o.textContent=hh+' น.';if(hh===cur)o.selected=true;sel.appendChild(o);}
     note.textContent='🕘 '+label;
@@ -1135,6 +1141,9 @@
   }
   wire('ezaSize','size'); wire('ezaLevel','lvl'); render();
 })();
+</script>
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
 </script>
 </body>
 </html>

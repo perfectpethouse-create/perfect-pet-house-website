@@ -2019,5 +2019,8 @@
     document.addEventListener('keydown',function(e){ if(e.key==='Escape' && lb.classList.contains('open')) closeLb(); });
   })();
 </script>
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
+</script>
 </body>
 </html>
