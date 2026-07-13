@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#FFF8F0">
+<meta name="robots" content="noindex,nofollow">
+<title>ลงทะเบียนเข้าพัก | Perfect Pet House</title>
+<meta name="description" content="แบบฟอร์มลงทะเบียนข้อมูลสัตว์เลี้ยงก่อนเข้าพักโรงแรม Perfect Pet House — กรอกครั้งเดียวได้หลายตัว">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#E07B39; --orange-dark:#B85C1E; --orange-light:#FCEADB;
+    --cream:#FFF8F0; --brown:#3A2E26; --brown-soft:#6B5B50; --white:#FFFFFF;
+    --green:#5B8A6B; --red:#C0553B; --line:#EBDDCD;
+    --shadow:0 8px 24px rgba(58,46,38,0.10); --shadow-sm:0 4px 12px rgba(58,46,38,0.08);
+    --foot-h:78px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  [hidden]{display:none!important;}
+  body{background:var(--cream);font-family:'Prompt',sans-serif;color:var(--brown);line-height:1.6;font-size:15px;}
+  h1,h2,h3,h4{font-family:'Mitr','Prompt',sans-serif;font-weight:600;line-height:1.3;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+  input,select,textarea{font-family:inherit;font-size:16px;color:var(--brown);}
+  a{color:var(--orange-dark);}
+
+  /* ── Header + progress ── */
+  .topbar{position:sticky;top:0;z-index:20;background:var(--cream);border-bottom:1px solid var(--line);
+    padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;}
+  .topbar .brand{display:flex;align-items:center;gap:9px;font-family:'Mitr';font-weight:600;font-size:16px;}
+  .topbar .brand .paw{width:30px;height:30px;border-radius:9px;background:var(--orange);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .prog-meta{display:flex;justify-content:space-between;align-items:baseline;margin:11px 2px 6px;}
+  .prog-meta .step-title{font-family:'Mitr';font-weight:500;font-size:14.5px;color:var(--brown);}
+  .prog-meta .step-count{font-size:12.5px;color:var(--brown-soft);}
+  .prog-track{height:7px;background:var(--orange-light);border-radius:99px;overflow:hidden;}
+  .prog-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--orange-dark));border-radius:99px;
+    width:0;transition:width .35s cubic-bezier(.4,0,.2,1);}
+
+  /* ── Layout ── */
+  .wrap{max-width:640px;margin:0 auto;padding:18px 16px calc(var(--foot-h) + 24px);}
+  .intro-hero{text-align:center;padding:14px 6px 4px;}
+  .intro-hero .big{font-size:44px;margin-bottom:6px;}
+  .intro-hero h1{font-size:23px;color:var(--orange-dark);margin-bottom:8px;}
+  .intro-hero p{color:var(--brown-soft);font-size:14.5px;max-width:440px;margin:0 auto;}
+  .intro-points{list-style:none;margin:20px 0 8px;display:grid;gap:11px;}
+  .intro-points li{display:flex;gap:11px;align-items:flex-start;background:var(--white);border:1px solid var(--line);
+    border-radius:15px;padding:13px 15px;box-shadow:var(--shadow-sm);}
+  .intro-points .ic{font-size:20px;flex-shrink:0;}
+  .intro-points b{font-family:'Mitr';font-weight:500;font-size:14.5px;display:block;}
+  .intro-points span{font-size:13px;color:var(--brown-soft);}
+
+  .card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:17px 16px;
+    box-shadow:var(--shadow-sm);margin-bottom:15px;}
+  .card > h2{font-size:16.5px;color:var(--brown);margin-bottom:3px;display:flex;align-items:center;gap:8px;}
+  .card > .sub{font-size:12.5px;color:var(--brown-soft);margin-bottom:14px;}
+  .card .ic-badge{width:30px;height:30px;border-radius:9px;background:var(--orange-light);color:var(--orange-dark);
+    display:inline-flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+
+  .field{margin-bottom:14px;}
+  .field:last-child{margin-bottom:0;}
+  .field > label{display:block;font-family:'Mitr';font-weight:500;font-size:14px;margin-bottom:7px;color:var(--brown);}
+  .field .en{color:var(--brown-soft);font-weight:400;font-size:12px;font-family:'Prompt';}
+  .field .req{color:var(--red);margin-left:2px;}
+  .field .hint{font-size:12px;color:var(--brown-soft);margin-top:5px;display:block;}
+  .inp,textarea.inp,select.inp{width:100%;padding:12px 13px;border:1.5px solid var(--line);border-radius:12px;
+    background:var(--cream);transition:border-color .15s,background .15s;}
+  .inp:focus,textarea.inp:focus{outline:none;border-color:var(--orange);background:#fff;}
+  textarea.inp{resize:vertical;min-height:64px;line-height:1.5;}
+  .field.invalid .inp,.field.invalid .opts{border-color:var(--red);}
+  .field.invalid > label{color:var(--red);}
+  .err-msg{display:none;color:var(--red);font-size:12px;margin-top:5px;}
+  .field.invalid .err-msg{display:block;}
+
+  /* ── Choice pills (radio / checkbox) ── */
+  .opts{display:flex;flex-wrap:wrap;gap:8px;}
+  .opts.col{flex-direction:column;}
+  .opt-pill{display:flex;align-items:center;gap:8px;padding:11px 14px;border:1.5px solid var(--line);
+    border-radius:12px;background:var(--cream);font-size:14px;transition:all .15s;flex:0 0 auto;line-height:1.25;}
+  .opts.col .opt-pill{width:100%;}
+  .opt-pill input{position:absolute;opacity:0;pointer-events:none;}
+  .opt-pill .dot{width:19px;height:19px;border-radius:50%;border:2px solid var(--line);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;transition:all .15s;}
+  .opt-pill.check .dot{border-radius:6px;}
+  .opt-pill.sel{border-color:var(--orange);background:var(--orange-light);font-weight:500;}
+  .opt-pill.sel .dot{border-color:var(--orange-dark);background:var(--orange-dark);}
+  .opt-pill.sel .dot::after{content:'';width:8px;height:8px;border-radius:inherit;background:#fff;}
+  .opt-other-txt{margin-top:8px;}
+  .opt-other-txt[hidden]{display:none;}
+
+  /* ── Pet header + actions ── */
+  .pet-banner{display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(135deg,var(--orange),var(--orange-dark));
+    color:#fff;border-radius:16px;padding:14px 16px;margin-bottom:15px;box-shadow:var(--shadow-sm);}
+  .pet-banner .pt{font-family:'Mitr';font-weight:600;font-size:16px;display:flex;align-items:center;gap:9px;}
+  .pet-banner .pt .n{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;
+    align-items:center;justify-content:center;font-size:15px;}
+  .pet-del{background:rgba(255,255,255,.18);color:#fff;font-size:12.5px;padding:7px 11px;border-radius:9px;font-family:'Mitr';}
+  .copy-prev{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--orange-dark);
+    background:var(--orange-light);padding:6px 11px;border-radius:9px;font-family:'Mitr';font-weight:500;margin-top:9px;}
+  .add-pet-btn{width:100%;padding:14px;border:2px dashed var(--orange);border-radius:15px;background:var(--orange-light);
+    color:var(--orange-dark);font-family:'Mitr';font-weight:500;font-size:14.5px;display:flex;align-items:center;
+    justify-content:center;gap:8px;margin-top:4px;}
+
+  /* ── Rules box (consent) ── */
+  .rules-box{max-height:280px;overflow-y:auto;border:1.5px solid var(--line);border-radius:14px;padding:14px 15px;
+    background:var(--cream);font-size:13.5px;line-height:1.65;-webkit-overflow-scrolling:touch;}
+  .rules-box h3{font-size:14.5px;color:var(--orange-dark);margin:14px 0 5px;}
+  .rules-box h3:first-child{margin-top:0;}
+  .rules-box h4{font-size:13.5px;margin:9px 0 3px;color:var(--brown);}
+  .rules-box ul{margin:0 0 4px;padding-left:19px;}
+  .rules-box li{margin-bottom:3px;}
+  .rules-box .lead{color:var(--brown-soft);font-size:12.5px;margin-bottom:6px;}
+  .rules-fill-note{background:#FFF4E6;border:1px dashed var(--orange);border-radius:11px;padding:10px 12px;
+    font-size:12.5px;color:var(--orange-dark);margin-top:11px;}
+  .consent-check{display:flex;gap:11px;align-items:flex-start;background:var(--orange-light);border:1.5px solid var(--orange);
+    border-radius:14px;padding:14px;margin-top:15px;cursor:pointer;}
+  .consent-check input{position:absolute;opacity:0;}
+  .consent-check .box{width:24px;height:24px;border-radius:7px;border:2px solid var(--orange-dark);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;background:#fff;transition:all .15s;margin-top:1px;}
+  .consent-check.on .box{background:var(--orange-dark);}
+  .consent-check.on .box::after{content:'✓';color:#fff;font-weight:700;font-size:15px;}
+  .consent-check .txt{font-size:14px;font-family:'Mitr';font-weight:500;}
+
+  /* ── Review ── */
+  .rev-group{margin-bottom:13px;}
+  .rev-group .rg-h{font-family:'Mitr';font-weight:500;font-size:13px;color:var(--orange-dark);text-transform:uppercase;
+    letter-spacing:.3px;margin-bottom:7px;display:flex;align-items:center;gap:7px;}
+  .rev-row{display:flex;justify-content:space-between;gap:14px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:13.5px;}
+  .rev-row:last-child{border-bottom:none;}
+  .rev-row .k{color:var(--brown-soft);flex-shrink:0;}
+  .rev-row .v{text-align:right;font-weight:500;word-break:break-word;}
+  .rev-edit{font-size:12.5px;color:var(--orange-dark);background:var(--orange-light);padding:5px 11px;border-radius:8px;font-family:'Mitr';}
+  .rev-pet-card{border:1.5px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:11px;background:var(--cream);}
+  .rev-pet-card .rp-name{font-family:'Mitr';font-weight:600;font-size:14.5px;margin-bottom:8px;color:var(--brown);
+    display:flex;align-items:center;gap:8px;}
+
+  #status{text-align:center;font-size:14px;margin:6px 0 2px;min-height:20px;font-family:'Mitr';font-weight:500;}
+  .line-fallback{display:none;margin-top:12px;}
+  .line-fallback.show{display:block;}
+  .line-btn{width:100%;padding:14px;border-radius:14px;background:#06C755;color:#fff;font-family:'Mitr';
+    font-weight:500;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;}
+
+  /* ── Success ── */
+  .success{text-align:center;padding:26px 8px;}
+  .success .tick{width:82px;height:82px;border-radius:50%;background:var(--green);color:#fff;font-size:42px;
+    display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:var(--shadow);}
+  .success h1{font-size:23px;color:var(--brown);margin-bottom:8px;}
+  .success p{color:var(--brown-soft);font-size:14.5px;max-width:420px;margin:0 auto 6px;}
+  .success .reg{display:inline-block;margin-top:12px;background:var(--orange-light);color:var(--orange-dark);
+    font-family:'Mitr';font-weight:600;padding:8px 16px;border-radius:11px;font-size:14px;}
+  .success .home-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:24px;
+    padding:14px 26px;border-radius:14px;background:var(--orange-dark);color:#fff;font-family:'Mitr';font-weight:500;font-size:15px;text-decoration:none;}
+
+  /* ── Footer nav ── */
+  .footnav{position:fixed;bottom:0;left:0;right:0;z-index:20;background:var(--white);border-top:1px solid var(--line);
+    padding:12px 16px calc(env(safe-area-inset-bottom) + 12px);display:flex;gap:11px;max-width:640px;margin:0 auto;}
+  .footnav button{flex:1;padding:15px;border-radius:15px;font-family:'Mitr';font-weight:500;font-size:15px;
+    display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .12s,filter .12s;}
+  .footnav button:active{transform:scale(.98);}
+  .btn-back{background:var(--orange-light);color:var(--orange-dark);flex:0 0 40%;}
+  .btn-next{background:var(--orange-dark);color:#fff;}
+  .btn-next.submit{background:var(--green);}
+  .footnav.single .btn-back{display:none;}
+
+  .draft-toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--foot-h) + 14px);
+    background:var(--brown);color:#fff;font-size:12.5px;padding:8px 15px;border-radius:99px;z-index:30;
+    opacity:0;transition:opacity .3s;pointer-events:none;font-family:'Mitr';}
+  .draft-toast.show{opacity:.94;}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><span class="paw">🐾</span><span>ลงทะเบียนเข้าพัก · Perfect Pet House</span></div>
+  <div class="prog-meta" id="progMeta" hidden>
+    <span class="step-title" id="stepTitle">—</span>
+    <span class="step-count" id="stepCount"></span>
+  </div>
+  <div class="prog-track" id="progTrack" hidden><div class="prog-fill" id="progFill"></div></div>
+</header>
+
+<main class="wrap"><div id="screen"></div></main>
+
+<nav class="footnav" id="footnav" hidden>
+  <button class="btn-back" id="btnBack">‹ ย้อนกลับ</button>
+  <button class="btn-next" id="btnNext">ถัดไป ›</button>
+</nav>
+
+<div class="draft-toast" id="draftToast">💾 บันทึกร่างอัตโนมัติแล้ว</div>
+
+<script>
+(function(){
+  "use strict";
+  // ⚠️ วาง URL ของ Apps Script (Web app /exec) สำหรับ "ระบบลงทะเบียนเข้าพัก" ตรงนี้ (ดูวิธีในไฟล์คู่มือ)
+  var CHECKIN_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwbpo2S0I8_JFP50PdNLcHnv_LrusYBxQJCwStKHd9cx5QteTBgcBZop6PT7zo7Crxs/exec';
+  var LINE_URL = 'https://line.me/R/ti/p/@perfectbkk';
+  var DRAFT_KEY = 'pph_checkin_draft_v1';
+
+  // ── ตัวเลือก (ไทย / อังกฤษ ตามฟอร์มต้นฉบับ) ──
+  var OPT = {
+    species:['สุนัข / Dog','แมว / Cat'],
+    gender:['ชาย / Male','หญิง / Female'],
+    neutered:['ทำแล้ว / Yes','ยังไม่ได้ทำ / No','ไม่แน่ใจ / Unsure'],
+    health:['ปกติสุขภาพดี / Healthy','มีโรคประจำตัว / Chronic Condition','อยู่ระหว่างการรักษา / Under Treatment'],
+    vaccine:['ทันสมัยครบถ้วน / Up-to-date','ฉีดบางส่วน / Partially','ยังไม่ได้ฉีด / Not Vaccinated','ไม่แน่ใจ / Unsure'],
+    flea:['ทำแล้ว / Done (ภายใน 30 วัน)','ยังไม่ได้ทำ / Not Done','ไม่แน่ใจ / Unsure'],
+    temperament:['เชื่องและเป็นมิตร / Friendly','ขี้อาย/ตกใจง่าย / Shy','ชอบเล่น / Playful','เฉื่อยชา / Calm','ก้าวร้าว / Aggressive','ไม่แน่นอน / Unpredictable'],
+    socialize:['เข้ากันได้ดี / Gets Along Well','พอทนได้ / Tolerates','ไม่ชอบสัตว์อื่น / Dislikes Others'],
+    behaviors:['เห่า/ร้องมาก / Excessive Barking','ชอบขุดคุ้ย / Digging','พยายามหนี / Escape Artist','กลัวเสียงดัง / Noise Phobia','แยกตัวไม่ได้ / Separation Anxiety','ชอบกินสิ่งของ / Chews Non-food'],
+    meals:['1 มื้อ / 1 Meal','2 มื้อ / 2 Meals','3 มื้อ / 3 Meals','ให้ตลอดวัน / Free Feeding'],
+    allergyFlag:['ไม่มี / None','มี (โปรดระบุ) / Yes'],
+    room:['ห้อง Cozy','ห้อง Deluxe','ห้อง VIP'],
+    items:['อาหาร / Food','ขนม / Treats','ยา / Medication','ของเล่น / Toys','ที่นอน / Bedding','เสื้อผ้า / Clothing','อุปกรณ์พิเศษ / Special Equipment']
+  };
+
+  // ── State ──
+  var owner = {fullname:'',nickname:'',idcard:'',phone:'',line:'',email:'',address:'',emgName:'',emgPhone:''};
+  var stay  = {checkin:'',checkinTime:'',checkout:'',checkoutTime:'',specialRequest:''};
+  var consent = {agreed:false, signName:''};
+  function blankPet(){return {name:'',species:'',breed:'',gender:'',age:'',weight:'',microchip:'',neutered:'',
+    health:'',disease:'',medication:'',vaccine:'',vaccineDate:'',flea:'',temperament:[],socialize:'',behaviors:[],
+    stressTriggers:'',behaviorNote:'',meals:'',feedTime:'',amount:'',allergyFlag:'',allergyList:'',supplements:'',
+    room:'',items:[],itemsDetail:''};}
+  var pets = [blankPet()];
+  var started = false;
+  var cur = 0; // index in screens[]
+
+  var $ = function(id){return document.getElementById(id);};
+  var esc = function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+
+  function screens(){
+    var arr = ['owner'];
+    for(var i=0;i<pets.length;i++) arr.push('pet:'+i);
+    arr.push('stay','consent','review');
+    return arr;
+  }
+  function screenTitle(s){
+    if(s==='owner') return 'ข้อมูลเจ้าของ';
+    if(s.indexOf('pet:')===0){var i=+s.split(':')[1];return 'ข้อมูลน้อง (ตัวที่ '+(i+1)+'/'+pets.length+')';}
+    if(s==='stay') return 'วันเข้าพัก & ห้อง';
+    if(s==='consent') return 'ยินยอม & ข้อตกลง';
+    if(s==='review') return 'ตรวจทาน & ส่ง';
+    return '';
+  }
+
+  // ── ตัวช่วยสร้าง choice ──
+  function pills(name,val,options,multi,extraOther){
+    var vals = multi ? (val||[]) : [val];
+    var h = '';
+    options.forEach(function(o){
+      var on = vals.indexOf(o)>=0;
+      h += '<label class="opt-pill'+(multi?' check':'')+(on?' sel':'')+'" data-name="'+name+'" data-val="'+esc(o)+'">'+
+           '<input type="'+(multi?'checkbox':'radio')+'" name="'+name+'" value="'+esc(o)+'"'+(on?' checked':'')+'>'+
+           '<span class="dot"></span><span>'+esc(o)+'</span></label>';
+    });
+    if(extraOther){
+      var otherVal = otherValueOf(val,options,multi);
+      var on = otherVal!=='';
+      h += '<label class="opt-pill'+(multi?' check':'')+(on?' sel':'')+'" data-name="'+name+'" data-val="__other__" data-other="1">'+
+           '<input type="'+(multi?'checkbox':'radio')+'" name="'+name+'" value="__other__"'+(on?' checked':'')+'>'+
+           '<span class="dot"></span><span>อื่นๆ / Other</span></label>';
+    }
+    return '<div class="opts col" data-group="'+name+'"'+(multi?' data-multi="1"':'')+(extraOther?' data-other="1"':'')+'>'+h+'</div>'+
+      (extraOther ? '<input class="inp opt-other-txt" data-other-for="'+name+'" placeholder="ระบุอื่นๆ..." value="'+esc(otherValueOf(val,options,multi))+'"'+(otherValueOf(val,options,multi)?'':' hidden')+'>' : '');
+  }
+  function otherValueOf(val,options,multi){
+    if(multi){ var extra=(val||[]).filter(function(v){return options.indexOf(v)<0;}); return extra.join(', '); }
+    return (val && options.indexOf(val)<0) ? val : '';
+  }
+
+  function field(labelHtml,inner,opts){
+    opts = opts||{};
+    return '<div class="field" data-fkey="'+(opts.key||'')+'"'+(opts.req?' data-req="1"':'')+'>'+
+      '<label>'+labelHtml+(opts.req?'<span class="req">*</span>':'')+'</label>'+inner+
+      (opts.hint?'<span class="hint">'+opts.hint+'</span>':'')+
+      '<span class="err-msg">'+(opts.err||'กรุณากรอกข้อมูลนี้')+'</span></div>';
+  }
+  function lbl(th,en){return esc(th)+(en?' <span class="en">/ '+esc(en)+'</span>':'');}
+  function inp(key,val,type,ph){return '<input class="inp" data-k="'+key+'" type="'+(type||'text')+'" value="'+esc(val)+'"'+(ph?' placeholder="'+esc(ph)+'"':'')+'>';}
+  function ta(key,val,ph){return '<textarea class="inp" data-k="'+key+'"'+(ph?' placeholder="'+esc(ph)+'"':'')+'>'+esc(val)+'</textarea>';}
+
+  // ═══════ RENDERERS ═══════
+  function renderIntro(){
+    $('progMeta').hidden = true; $('progTrack').hidden = true; $('footnav').hidden = true;
+    $('screen').innerHTML =
+      '<div class="intro-hero">'+
+        '<div class="big">🏨🐾</div>'+
+        '<h1>ลงทะเบียนข้อมูลก่อนเข้าพัก</h1>'+
+        '<p>กรอกข้อมูลน้องหมาน้องแมวให้ครบก่อนวันเข้าพัก เพื่อให้ทีมงานเตรียมการดูแลได้ดีที่สุด ใช้เวลาประมาณ 3–5 นาที</p>'+
+      '</div>'+
+      '<ul class="intro-points">'+
+        '<li><span class="ic">🐶🐱</span><div><b>มีหลายตัว? กรอกครั้งเดียวจบ</b><span>เพิ่มน้องได้ไม่จำกัด ข้อมูลเจ้าของกรอกแค่ครั้งเดียว</span></div></li>'+
+        '<li><span class="ic">💾</span><div><b>กรอกค้างไว้ได้</b><span>ระบบบันทึกร่างอัตโนมัติ กลับมากรอกต่อได้ (ยกเว้นเลขบัตร)</span></div></li>'+
+        '<li><span class="ic">🔒</span><div><b>ข้อมูลปลอดภัย</b><span>ส่งตรงถึงทีมงาน Perfect Pet House เท่านั้น</span></div></li>'+
+      '</ul>'+
+      '<button class="add-pet-btn" id="startBtn" style="border-style:solid;background:var(--orange-dark);color:#fff;border-color:var(--orange-dark);margin-top:16px;">เริ่มกรอกข้อมูล ›</button>'+
+      (hasDraft()?'<button class="add-pet-btn" id="clearDraftBtn" style="margin-top:10px;background:transparent;border-color:var(--line);color:var(--brown-soft);">🗑 ล้างร่างที่บันทึกไว้</button>':'');
+    $('startBtn').onclick = function(){started=true;cur=0;render();};
+    var cd = $('clearDraftBtn'); if(cd) cd.onclick = function(){clearDraft();location.reload();};
+  }
+
+  function renderOwner(){
+    return '<div class="card">'+
+      '<h2><span class="ic-badge">👤</span>ข้อมูลเจ้าของสัตว์เลี้ยง</h2>'+
+      '<div class="sub">Owner Information · กรอกครั้งเดียวสำหรับน้องทุกตัว</div>'+
+      field(lbl('ชื่อ-นามสกุล','Full Name'), inp('fullname',owner.fullname), {key:'fullname',req:1}) +
+      field(lbl('ชื่อเล่น','Nickname'), inp('nickname',owner.nickname), {key:'nickname'}) +
+      field(lbl('เลขบัตรประชาชน / พาสปอร์ต','ID / Passport'), inp('idcard',owner.idcard,'text','เพื่อยืนยันตัวตนผู้ฝาก'),
+        {key:'idcard',req:1,hint:'🔒 เก็บเป็นความลับ ใช้ยืนยันตัวตนเจ้าของเท่านั้น'}) +
+      field(lbl('เบอร์โทรศัพท์','Phone'), inp('phone',owner.phone,'tel'), {key:'phone',req:1}) +
+      field(lbl('Line ID / Social Media',''), inp('line',owner.line), {key:'line'}) +
+      field(lbl('อีเมล','Email'), inp('email',owner.email,'email','ไว้ส่งอีเมลยืนยันให้คุณ'), {key:'email',hint:'ถ้ากรอก จะได้รับอีเมลยืนยันการลงทะเบียน'}) +
+      field(lbl('ที่อยู่ปัจจุบัน','Address'), ta('address',owner.address), {key:'address'}) +
+      '</div>'+
+      '<div class="card">'+
+      '<h2><span class="ic-badge">🚨</span>ผู้ติดต่อฉุกเฉิน</h2>'+
+      '<div class="sub">Emergency Contact · เผื่อกรณีติดต่อเจ้าของไม่ได้</div>'+
+      field(lbl('ชื่อผู้ติดต่อฉุกเฉิน','Emergency Contact Name'), inp('emgName',owner.emgName), {key:'emgName',req:1}) +
+      field(lbl('เบอร์โทรฉุกเฉิน','Emergency Phone'), inp('emgPhone',owner.emgPhone,'tel'), {key:'emgPhone',req:1}) +
+      '</div>';
+  }
+
+  function renderPet(i){
+    var p = pets[i];
+    var canCopy = i>0;
+    return '<div class="pet-banner">'+
+        '<span class="pt"><span class="n">'+(i+1)+'</span>น้องตัวที่ '+(i+1)+'</span>'+
+        (pets.length>1?'<button class="pet-del" id="delPet">🗑 ลบตัวนี้</button>':'')+
+      '</div>'+
+      // 2. ข้อมูลสัตว์
+      '<div class="card"><h2><span class="ic-badge">🐾</span>ข้อมูลสัตว์เลี้ยง</h2><div class="sub">Pet Information</div>'+
+        field(lbl('ชื่อสัตว์เลี้ยง','Pet Name'), inp('name',p.name), {key:'name',req:1}) +
+        field(lbl('ชนิดสัตว์','Species'), pills('species',p.species,OPT.species,false,true), {key:'species',req:1}) +
+        field(lbl('สายพันธุ์','Breed'), inp('breed',p.breed,'text','เช่น ชิสุ, เปอร์เซีย, พันธุ์ผสม'), {key:'breed',req:1}) +
+        field(lbl('เพศ','Gender'), pills('gender',p.gender,OPT.gender,false,false), {key:'gender',req:1}) +
+        field(lbl('อายุ','Age'), inp('age',p.age,'text','เช่น 2 ปี / 8 เดือน'), {key:'age',req:1}) +
+        field(lbl('น้ำหนัก (กก.)','Weight'), inp('weight',p.weight,'text','เช่น 5.5'), {key:'weight'}) +
+        field(lbl('หมายเลข Microchip','ถ้ามี'), inp('microchip',p.microchip), {key:'microchip'}) +
+        field(lbl('ทำหมันแล้วหรือยัง','Neutered / Spayed'), pills('neutered',p.neutered,OPT.neutered,false,false), {key:'neutered',req:1}) +
+      '</div>'+
+      // 3. สุขภาพ
+      '<div class="card"><h2><span class="ic-badge">❤️</span>สุขภาพ & วัคซีน</h2><div class="sub">Health & Vaccination</div>'+
+        field(lbl('สุขภาพโดยรวม','General Health'), pills('health',p.health,OPT.health,false,false), {key:'health',req:1}) +
+        field(lbl('โรคประจำตัว','Underlying Disease'), ta('disease',p.disease,'ถ้ามี โปรดระบุ'), {key:'disease'}) +
+        field(lbl('ยาที่ต้องกินระหว่างพัก','Medication'), ta('medication',p.medication,'ชื่อยา · ปริมาณ · เวลาให้'), {key:'medication'}) +
+        field(lbl('สถานะวัคซีนพื้นฐาน','Core Vaccine'), pills('vaccine',p.vaccine,OPT.vaccine,false,false), {key:'vaccine',req:1}) +
+        field(lbl('วันที่ฉีดวัคซีนล่าสุด','Last Vaccination'), inp('vaccineDate',p.vaccineDate,'date'), {key:'vaccineDate'}) +
+        field(lbl('การป้องกันเห็บ หมัด พยาธิ','Flea/Tick/Parasite'), pills('flea',p.flea,OPT.flea,false,false), {key:'flea'}) +
+      '</div>'+
+      // 4. นิสัย
+      '<div class="card"><h2><span class="ic-badge">🐶</span>พฤติกรรม & นิสัย</h2><div class="sub">Behavior & Temperament</div>'+
+        field(lbl('อุปนิสัยโดยทั่วไป','Temperament')+' <span class="en">(เลือกได้หลายข้อ)</span>', pills('temperament',p.temperament,OPT.temperament,true,false), {key:'temperament'}) +
+        field(lbl('เข้ากับสัตว์เลี้ยงตัวอื่น','Socialization'), pills('socialize',p.socialize,OPT.socialize,false,false), {key:'socialize'}) +
+        field(lbl('พฤติกรรมพิเศษที่ควรทราบ','Special Behaviors')+' <span class="en">(เลือกได้หลายข้อ)</span>', pills('behaviors',p.behaviors,OPT.behaviors,true,true), {key:'behaviors'}) +
+        field(lbl('สิ่งที่ทำให้เครียด','Stress Triggers'), ta('stressTriggers',p.stressTriggers,'ถ้ามี'), {key:'stressTriggers'}) +
+        field(lbl('หมายเหตุพฤติกรรมเพิ่มเติม','Additional Notes'), ta('behaviorNote',p.behaviorNote), {key:'behaviorNote'}) +
+      '</div>'+
+      // 5. อาหาร
+      '<div class="card"><h2><span class="ic-badge">🍽️</span>อาหาร & โภชนาการ</h2><div class="sub">Feeding & Nutrition</div>'+
+        field(lbl('จำนวนมื้อต่อวัน','Meals Per Day'), pills('meals',p.meals,OPT.meals,false,false), {key:'meals',req:1}) +
+        field(lbl('เวลาให้อาหาร','Feeding Schedule'), inp('feedTime',p.feedTime,'text','เช่น 09:00, 18:00'), {key:'feedTime'}) +
+        field(lbl('ปริมาณอาหารต่อมื้อ','Amount Per Meal'), inp('amount',p.amount), {key:'amount'}) +
+        field(lbl('มีอาหารที่แพ้/ห้ามกินไหม','Food Allergies'), pills('allergyFlag',p.allergyFlag,OPT.allergyFlag,false,false), {key:'allergyFlag',req:1}) +
+        field(lbl('ระบุอาหารที่แพ้/ห้ามกิน','List Allergies'), ta('allergyList',p.allergyList,'ระบุถ้าเลือก "มี"'), {key:'allergyList'}) +
+        field(lbl('ยา & วิตามินเสริม','Meds & Vitamins'), ta('supplements',p.supplements), {key:'supplements'}) +
+      '</div>'+
+      // ห้อง + สิ่งของ
+      '<div class="card"><h2><span class="ic-badge">🏠</span>ห้องพัก & สิ่งของ</h2><div class="sub">Room & Items (รายตัว)</div>'+
+        field(lbl('ประเภทห้องพัก','Room Type')+(canCopy?' <button type="button" class="copy-prev" id="copyPrevRoom">⧉ เหมือนตัวก่อนหน้า</button>':''), pills('room',p.room,OPT.room,false,true), {key:'room',req:1}) +
+        field(lbl('สิ่งของที่นำมาด้วย','Items Brought')+' <span class="en">(เลือกได้หลายข้อ)</span>', pills('items',p.items,OPT.items,true,false), {key:'items'}) +
+        field(lbl('รายละเอียดสิ่งของ','Details'), ta('itemsDetail',p.itemsDetail), {key:'itemsDetail'}) +
+      '</div>'+
+      '<button class="add-pet-btn" id="addPetBtn">➕ เพิ่มสัตว์เลี้ยงอีกตัว</button>';
+  }
+
+  function renderStay(){
+    return '<div class="card"><h2><span class="ic-badge">📅</span>วันเข้าพัก</h2>'+
+      '<div class="sub">Stay Dates · ใช้ร่วมกันสำหรับน้องทุกตัว</div>'+
+      field(lbl('วันที่เข้าพัก','Check-in Date'), inp('checkin',stay.checkin,'date'), {key:'checkin',req:1}) +
+      field(lbl('เวลาเข้าพัก','Check-in Time'), inp('checkinTime',stay.checkinTime,'time'), {key:'checkinTime',hint:'เช็คอิน 9:00–18:00 น.'}) +
+      field(lbl('วันที่ออก','Check-out Date'), inp('checkout',stay.checkout,'date'), {key:'checkout',req:1}) +
+      field(lbl('เวลาออก','Check-out Time'), inp('checkoutTime',stay.checkoutTime,'time'), {key:'checkoutTime',hint:'เช็คเอาท์ 14:00 น. เลทได้ 30 นาที'}) +
+      field(lbl('ความต้องการพิเศษอื่นๆ','Special Requests'), ta('specialRequest',stay.specialRequest), {key:'specialRequest'}) +
+      '</div>';
+  }
+
+  function rulesHTML(){
+    return '<div class="rules-box">'+
+      '<p class="lead">เพื่อประสบการณ์ที่ดีที่สุดของน้องและความพึงพอใจของเจ้าของ กรุณาอ่านและทำความเข้าใจข้อกำหนดต่อไปนี้</p>'+
+      '<h3>1. การจองห้องพักและบริการ</h3><ul>'+
+        '<li>ลูกค้าชำระค่าบริการครึ่งราคา (50%) เพื่อยืนยันการจองห้องพัก</li>'+
+        '<li>เมื่อมาถึงโรงแรมชำระอีกครึ่งราคา (50%) เพื่อเข้าพักและรับบริการ</li>'+
+        '<li>การจองถือว่าสำเร็จเมื่อได้รับการชำระเงินเท่านั้น · กรุณาเก็บหลักฐานการชำระเงินไว้ทุกครั้ง</li></ul>'+
+      '<h3>2. นโยบายการยกเลิก / เลื่อนการเข้าพัก</h3>'+
+        '<h4>Low season</h4><ul><li>ยกเลิกต้องแจ้งล่วงหน้าอย่างน้อย 3 วัน</li>'+
+        '<li>ไม่มีนโยบายคืนเงิน แต่เก็บยอดเป็นเครดิตใช้ภายใน 6 เดือนนับจากวันจอง หักได้เฉพาะค่าห้องพัก</li></ul>'+
+        '<h4>High season (5–20 เม.ย. และ 15 ธ.ค.–5 ม.ค.)</h4><ul><li>ไม่คืนเงินและไม่เก็บเครดิต หากยกเลิก</li></ul>'+
+        '<h4>รับสัตว์ออกก่อนกำหนด</h4><ul><li>ไม่มีนโยบายคืนเงินหรือเก็บยอดคงเหลือ ไม่ว่ากรณีใด</li></ul>'+
+      '<h3>3. เงื่อนไขการเข้าพัก</h3><ul>'+
+        '<li>ต้องไม่มีเห็บหมัด และได้รับยาป้องกันสม่ำเสมอ · วัคซีนพื้นฐานครบและต่อเนื่อง</li>'+
+        '<li>สุขภาพแข็งแรง ไม่เป็นโรคติดต่อ/โรคผิวหนัง/พักฟื้น · นิสัยเป็นมิตร ไม่เคยทำร้ายคนหรือสัตว์อื่น</li>'+
+        '<li>เจ้าของรับผิดชอบความเสียหายหากสัตว์ทำร้ายเจ้าหน้าที่หรือทำลายทรัพย์สินของโรงแรม</li></ul>'+
+      '<h3>4. เหตุฉุกเฉินและสุขภาพ</h3><ul>'+
+        '<li>โรงแรมดูแลทุกตัวอย่างดีที่สุด เน้นสุขอนามัยเป็นอันดับหนึ่ง</li>'+
+        '<li>หากเจ็บป่วยโรงแรมสามารถนำส่งโรงพยาบาลสัตว์ได้ทุกช่วงเวลา เจ้าของรับผิดชอบค่ารักษา</li>'+
+        '<li>โรงแรมรับผิดชอบเฉพาะค่าใช้จ่ายเบื้องต้นกรณีเหตุสุดวิสัยที่เกิดจากความบกพร่องของโรงแรมเท่านั้น</li></ul>'+
+      '<h3>5. การรับ-ส่ง</h3><ul>'+
+        '<li>เช็คอิน 9:00–18:00 น. · เช็คเอาท์ 14:00 น. (เลทได้ 30 นาที) · เช็คเอาท์หลัง 14:00 คิด Day care</li>'+
+        '<li>รับ-ส่ง 10:00–20:00 น. · ส่งก่อนเวลา (ตั้งแต่ 08:30) คิดค่าล่วงเวลา 100 บาท/ตัว</li>'+
+        '<li>รับกลับหลัง 20:00 คิดเพิ่ม 50% ของห้องพัก · มารับไม่เกิน 21:00 น. เกินกว่านั้นรับวันถัดไป</li></ul>'+
+      '<h3>6. การใช้ภาพถ่าย / วิดีโอ</h3><ul>'+
+        '<li>โรงแรมอาจถ่ายภาพ/วิดีโอเพื่อประชาสัมพันธ์ผ่านช่องทางออนไลน์ · หากไม่สะดวกกรุณาแจ้งล่วงหน้า</li></ul>'+
+      '<div class="rules-fill-note">📌 หมายเหตุทีมงาน: ช่องนี้แสดงกฎระเบียบฉบับย่อ หากต้องการฉบับเต็ม/ปรับปรุงนโยบาย แก้ที่ไฟล์ <b>apps-script/กฎระเบียบและนโยบาย-เข้าพัก.md</b> แล้วซิงก์เข้าฟังก์ชัน rulesHTML()</div>'+
+      '</div>';
+  }
+
+  function renderConsent(){
+    return '<div class="card"><h2><span class="ic-badge">📜</span>การยินยอม & ข้อตกลง</h2>'+
+      '<div class="sub">Consent & Agreement · กรุณาอ่านก่อนยืนยัน</div>'+
+      rulesHTML()+
+      '<div style="margin-top:15px;font-size:13.5px;line-height:1.7;">ข้าพเจ้ายืนยันและยินยอมว่า:<br>'+
+        '• ข้อมูลทั้งหมดที่กรอกถูกต้องและเป็นความจริง<br>'+
+        '• ในกรณีฉุกเฉิน โรงแรมมีสิทธิ์นำสัตว์เลี้ยงไปรับการรักษาจากสัตวแพทย์ โดยค่าใช้จ่ายเป็นของเจ้าของ<br>'+
+        '• ยินยอมให้โรงแรมถ่ายภาพ/วิดีโอสัตว์เลี้ยงเพื่ออัพเดทรายงาน<br>'+
+        '• ข้าพเจ้าอ่านกฎระเบียบและนโยบายของ Perfect Pet House เรียบร้อยแล้ว</div>'+
+      '<label class="consent-check'+(consent.agreed?' on':'')+'" id="consentBox">'+
+        '<input type="checkbox"'+(consent.agreed?' checked':'')+'>'+
+        '<span class="box"></span>'+
+        '<span class="txt">ยืนยันและยินยอมตามข้อตกลงทั้งหมด<br><span class="en" style="font-weight:400;color:var(--brown-soft)">I confirm and agree to all terms above</span></span>'+
+      '</label>'+
+      '<div class="field" data-fkey="agreed" style="margin-top:4px;"><span class="err-msg" style="'+(consent.agreed?'':'')+'">กรุณาติ๊กยอมรับข้อตกลงก่อนส่ง</span></div>'+
+      field(lbl('ชื่อผู้ลงนามรับทราบ','Name for acknowledgement'), inp('signName',consent.signName,'text','พิมพ์ชื่อ-นามสกุลเพื่อรับทราบ'), {key:'signName'}) +
+      '</div>';
+  }
+
+  function renderReview(){
+    var h = '<div class="card"><h2><span class="ic-badge">✅</span>ตรวจทานข้อมูลก่อนส่ง</h2>'+
+      '<div class="sub">Review · แตะ "แก้ไข" เพื่อกลับไปแก้จุดที่ต้องการ</div>';
+    // owner
+    h += '<div class="rev-group"><div class="rg-h">👤 เจ้าของ <button class="rev-edit" data-go="owner">แก้ไข</button></div>'+
+      revRow('ชื่อ', owner.fullname+(owner.nickname?' ('+owner.nickname+')':'')) +
+      revRow('เลขบัตร', maskId(owner.idcard)) +
+      revRow('โทร', owner.phone+(owner.line?' · '+owner.line:'')) +
+      (owner.email?revRow('อีเมล', owner.email):'') +
+      revRow('ฉุกเฉิน', owner.emgName+' · '+owner.emgPhone) + '</div>';
+    // stay
+    h += '<div class="rev-group"><div class="rg-h">📅 วันเข้าพัก <button class="rev-edit" data-go="stay">แก้ไข</button></div>'+
+      revRow('เข้าพัก', (stay.checkin||'-')+(stay.checkinTime?' '+stay.checkinTime:'')) +
+      revRow('ออก', (stay.checkout||'-')+(stay.checkoutTime?' '+stay.checkoutTime:'')) +
+      (stay.specialRequest?revRow('พิเศษ', stay.specialRequest):'') + '</div>';
+    // pets
+    h += '<div class="rev-group"><div class="rg-h">🐾 สัตว์เลี้ยง '+pets.length+' ตัว</div>';
+    pets.forEach(function(p,i){
+      h += '<div class="rev-pet-card"><div class="rp-name"><span>'+(i+1)+'. '+esc(p.name||'(ยังไม่ตั้งชื่อ)')+'</span>'+
+        '<button class="rev-edit" data-go="pet:'+i+'" style="margin-left:auto;">แก้ไข</button></div>'+
+        revRow('ชนิด/พันธุ์', [p.species,p.breed,p.gender,p.age].filter(Boolean).join(' · ')) +
+        revRow('ห้อง', p.room||'-') +
+        revRow('วัคซีน', (p.vaccine||'-')) +
+        revRow('สุขภาพ', (p.health||'-')+(p.disease?' · '+p.disease:'')) +
+        revRow('อาหาร', [p.meals,p.allergyFlag&&p.allergyFlag.indexOf('มี')===0?('แพ้: '+p.allergyList):''].filter(Boolean).join(' · ')) +
+        '</div>';
+    });
+    h += '<button class="add-pet-btn" id="addPetReview">➕ เพิ่มสัตว์เลี้ยงอีกตัว</button>';
+    h += '</div>';
+    h += '<div class="card"><div id="status">ตรวจสอบข้อมูลครบแล้ว กด "ส่งข้อมูล" ด้านล่างได้เลย</div>'+
+      '<div class="line-fallback" id="lineFallback">'+
+        '<p style="font-size:13px;color:var(--brown-soft);text-align:center;margin-bottom:10px;">ระบบอัตโนมัติขัดข้อง — เราคัดลอกสรุปให้แล้ว กรุณาวางในแชท LINE เพื่อยืนยัน</p>'+
+        '<button class="line-btn" id="lineBtn">📋 วางใน LINE @perfectbkk</button></div>'+
+      '</div>';
+    return h;
+  }
+  function revRow(k,v){return '<div class="rev-row"><span class="k">'+esc(k)+'</span><span class="v">'+esc(v||'-')+'</span></div>';}
+  function maskId(id){id=String(id||'');if(id.length<=4)return id;return id.slice(0,-4).replace(/[0-9A-Za-z]/g,'x')+id.slice(-4);}
+
+  // ═══════ RENDER + WIRE ═══════
+  function render(){
+    if(!started){renderIntro();return;}
+    var sc = screens(), s = sc[cur];
+    $('progMeta').hidden=false; $('progTrack').hidden=false; $('footnav').hidden=false;
+    var html;
+    if(s==='owner') html=renderOwner();
+    else if(s.indexOf('pet:')===0) html=renderPet(+s.split(':')[1]);
+    else if(s==='stay') html=renderStay();
+    else if(s==='consent') html=renderConsent();
+    else html=renderReview();
+    $('screen').innerHTML = html;
+    window.scrollTo(0,0);
+
+    // progress
+    $('stepTitle').textContent = screenTitle(s);
+    $('stepCount').textContent = 'ขั้นที่ '+(cur+1)+' / '+sc.length;
+    $('progFill').style.width = ((cur+1)/sc.length*100)+'%';
+
+    // footer
+    var foot = $('footnav'); foot.classList.toggle('single', cur===0);
+    var next = $('btnNext');
+    if(s==='review'){next.textContent='ส่งข้อมูล ✓';next.classList.add('submit');}
+    else{next.textContent='ถัดไป ›';next.classList.remove('submit');}
+
+    wireScreen(s);
+  }
+
+  function wireScreen(s){
+    // choice pills
+    $('screen').querySelectorAll('.opts').forEach(function(grp){
+      var multi = grp.getAttribute('data-multi');
+      grp.querySelectorAll('.opt-pill').forEach(function(pill){
+        pill.addEventListener('click', function(e){
+          e.preventDefault();
+          if(multi){ pill.classList.toggle('sel'); pill.querySelector('input').checked = pill.classList.contains('sel'); }
+          else{ grp.querySelectorAll('.opt-pill').forEach(function(x){x.classList.remove('sel');x.querySelector('input').checked=false;});
+                pill.classList.add('sel'); pill.querySelector('input').checked=true; }
+          // toggle "other" textbox
+          var name = grp.getAttribute('data-group');
+          var otherTxt = $('screen').querySelector('.opt-other-txt[data-other-for="'+name+'"]');
+          if(otherTxt){
+            var otherSel = grp.querySelector('.opt-pill[data-other] input');
+            otherTxt.hidden = !(otherSel && otherSel.checked);
+            if(!otherTxt.hidden) otherTxt.focus();
+          }
+          clearInvalid(pill.closest('.field'));
+          scheduleSave();
+        });
+      });
+    });
+    // consent checkbox
+    var cb = $('consentBox');
+    if(cb){ cb.addEventListener('click', function(e){ e.preventDefault(); cb.classList.toggle('on');
+      cb.querySelector('input').checked = cb.classList.contains('on'); consent.agreed = cb.classList.contains('on');
+      clearInvalid($('screen').querySelector('[data-fkey="agreed"]')); scheduleSave(); }); }
+    // text inputs autosave
+    $('screen').querySelectorAll('.inp').forEach(function(el){
+      el.addEventListener('input', function(){ clearInvalid(el.closest('.field')); scheduleSave(); });
+    });
+    // pet actions
+    var add = $('addPetBtn'); if(add) add.onclick = function(){ if(!validate(screens()[cur]))return; readCurrent();
+      var i=+screens()[cur].split(':')[1]; pets.splice(i+1,0,blankPet()); cur = cur+1; save(); render(); };
+    var del = $('delPet'); if(del) del.onclick = function(){ var i=+screens()[cur].split(':')[1];
+      if(pets.length<=1)return; if(!confirm('ลบข้อมูลน้องตัวที่ '+(i+1)+'?'))return;
+      pets.splice(i,1); if(cur>=screens().length-3 && i>=pets.length){} cur=Math.min(cur, screens().length-1); save(); render(); };
+    var copyR = $('copyPrevRoom'); if(copyR) copyR.onclick = function(e){ e.preventDefault(); var i=+screens()[cur].split(':')[1];
+      readCurrent(); pets[i].room = pets[i-1].room; render(); };
+    var addR = $('addPetReview'); if(addR) addR.onclick = function(){ pets.push(blankPet()); cur = 1+ (pets.length-1); save(); render(); };
+    // review edit jump
+    $('screen').querySelectorAll('.rev-edit').forEach(function(b){ b.onclick=function(){ var go=b.getAttribute('data-go');
+      var sc=screens(); for(var k=0;k<sc.length;k++){if(sc[k]===go){cur=k;break;}} render(); }; });
+    // submit / line fallback wiring on review
+    if(s==='review'){ var lb=$('lineBtn'); if(lb) lb.onclick=function(){ openLine(); }; }
+  }
+
+  // ═══════ READ current screen → state ═══════
+  function readCurrent(){
+    var s = screens()[cur];
+    if(s==='owner') readInto(owner);
+    else if(s.indexOf('pet:')===0) readPet(+s.split(':')[1]);
+    else if(s==='stay') readInto(stay);
+    else if(s==='consent'){ readInto(consent); var cb=$('consentBox'); if(cb) consent.agreed=cb.classList.contains('on'); }
+  }
+  function readInto(obj){
+    $('screen').querySelectorAll('.inp[data-k]').forEach(function(el){ obj[el.getAttribute('data-k')] = el.value.trim(); });
+    // choice groups
+    $('screen').querySelectorAll('.opts[data-group]').forEach(function(grp){
+      var name=grp.getAttribute('data-group'); if(!(name in obj))return;
+      obj[name]=readGroup(grp);
+    });
+  }
+  function readPet(i){
+    var p=pets[i]; readInto(p);
+    // ensure arrays for multi
+    ['temperament','behaviors','items'].forEach(function(k){ var grp=$('screen').querySelector('.opts[data-group="'+k+'"]'); if(grp)p[k]=readGroup(grp,true); });
+  }
+  function readGroup(grp,forceArr){
+    var multi = grp.getAttribute('data-multi') || forceArr;
+    var name = grp.getAttribute('data-group');
+    var otherTxt = $('screen').querySelector('.opt-other-txt[data-other-for="'+name+'"]');
+    var otherVal = otherTxt && !otherTxt.hidden ? otherTxt.value.trim() : '';
+    if(multi){
+      var out=[]; grp.querySelectorAll('.opt-pill').forEach(function(pill){
+        if(pill.querySelector('input').checked){ if(pill.getAttribute('data-other')){ if(otherVal)out.push(otherVal); } else out.push(pill.getAttribute('data-val')); }
+      }); return out;
+    }else{
+      var sel=grp.querySelector('.opt-pill input:checked'); if(!sel)return '';
+      var pill=sel.closest('.opt-pill'); if(pill.getAttribute('data-other')) return otherVal||'อื่นๆ';
+      return pill.getAttribute('data-val');
+    }
+  }
+
+  // ═══════ VALIDATE ═══════
+  var REQ = {
+    owner:['fullname','idcard','phone','emgName','emgPhone'],
+    pet:['name','species','breed','gender','age','neutered','health','vaccine','meals','allergyFlag','room'],
+    stay:['checkin','checkout'],
+    consent:['agreed']
+  };
+  function validate(s){
+    var need;
+    if(s==='owner') need=REQ.owner;
+    else if(s.indexOf('pet:')===0) need=REQ.pet;
+    else if(s==='stay') need=REQ.stay;
+    else if(s==='consent') need=REQ.consent;
+    else return true;
+    readCurrent();
+    var firstBad=null;
+    // clear
+    $('screen').querySelectorAll('.field').forEach(function(f){f.classList.remove('invalid');});
+    need.forEach(function(k){
+      var val = getVal(s,k), bad=false;
+      if(k==='agreed') bad = !consent.agreed;
+      else bad = !val || (val.length===0);
+      if(bad){ var f=$('screen').querySelector('.field[data-fkey="'+k+'"]'); if(f){f.classList.add('invalid'); if(!firstBad)firstBad=f;} }
+    });
+    if(firstBad){ firstBad.scrollIntoView({behavior:'smooth',block:'center'}); return false; }
+    return true;
+  }
+  function getVal(s,k){
+    if(s==='owner')return owner[k]; if(s==='stay')return stay[k];
+    if(s==='consent')return k==='agreed'?consent.agreed:consent[k];
+    if(s.indexOf('pet:')===0)return pets[+s.split(':')[1]][k];
+    return '';
+  }
+  function clearInvalid(f){if(f)f.classList.remove('invalid');}
+
+  // ═══════ NAV ═══════
+  $('btnNext').onclick = function(){
+    var s = screens()[cur];
+    if(s==='review'){ submit(); return; }
+    if(!validate(s)) return;
+    readCurrent(); save();
+    cur = Math.min(cur+1, screens().length-1); render();
+  };
+  $('btnBack').onclick = function(){ readCurrent(); save(); if(cur>0){cur--;render();} else {started=false;render();} };
+
+  // ═══════ AUTOSAVE (ยกเว้นเลขบัตร) ═══════
+  var saveTimer=null;
+  function scheduleSave(){ if(saveTimer)clearTimeout(saveTimer); saveTimer=setTimeout(function(){readCurrent();save();showToast();},600); }
+  function save(){
+    try{
+      var o={}; for(var k in owner) if(k!=='idcard') o[k]=owner[k];
+      localStorage.setItem(DRAFT_KEY, JSON.stringify({owner:o,stay:stay,consent:consent,pets:pets,cur:cur,started:started,ts:Date.now()}));
+    }catch(e){}
+  }
+  function hasDraft(){ try{return !!localStorage.getItem(DRAFT_KEY);}catch(e){return false;} }
+  function loadDraft(){
+    try{
+      var d=JSON.parse(localStorage.getItem(DRAFT_KEY)); if(!d)return false;
+      for(var k in d.owner) owner[k]=d.owner[k];
+      if(d.stay)for(var k2 in d.stay)stay[k2]=d.stay[k2];
+      if(d.consent){consent.agreed=!!d.consent.agreed;consent.signName=d.consent.signName||'';}
+      if(d.pets&&d.pets.length)pets=d.pets;
+      return true;
+    }catch(e){return false;}
+  }
+  function clearDraft(){try{localStorage.removeItem(DRAFT_KEY);}catch(e){}}
+  var toastTimer=null;
+  function showToast(){var t=$('draftToast');t.classList.add('show');if(toastTimer)clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('show');},1400);}
+
+  // ═══════ SUBMIT ═══════
+  function buildPayload(){
+    return { type:'checkin', submittedAt:new Date().toLocaleString('th-TH'),
+      owner:owner, stay:stay, consent:consent, pets:pets };
+  }
+  function summaryForLine(){
+    var L=['🏨 ลงทะเบียนเข้าพัก Perfect Pet House','เจ้าของ: '+owner.fullname+' · โทร '+owner.phone,
+      'เข้าพัก: '+stay.checkin+(stay.checkinTime?' '+stay.checkinTime:'')+' → ออก: '+stay.checkout+(stay.checkoutTime?' '+stay.checkoutTime:''),
+      'สัตว์ '+pets.length+' ตัว:'];
+    pets.forEach(function(p,i){L.push((i+1)+') '+p.name+' · '+p.species+' · '+p.breed+' · ห้อง '+(p.room||'-'));});
+    return L.join('\n');
+  }
+  function openLine(){
+    try{ if(navigator.clipboard) navigator.clipboard.writeText(summaryForLine()); }catch(e){}
+    setTimeout(function(){ window.open(LINE_URL,'_blank'); }, 500);
+  }
+  function submit(){
+    var st=$('status'); var next=$('btnNext');
+    function setSt(m,c){ if(st){st.textContent=m; st.style.color=c||'var(--brown-soft)';} }
+    var payload=buildPayload();
+    if(!CHECKIN_SCRIPT_URL || CHECKIN_SCRIPT_URL.indexOf('http')!==0){
+      // backend ยังไม่ตั้งค่า → fallback LINE
+      setSt('⚠ ระบบยังไม่ได้เชื่อมต่อฐานข้อมูล — กรุณายืนยันทาง LINE','var(--orange-dark)');
+      $('lineFallback').classList.add('show'); openLine(); return;
+    }
+    next.disabled=true; setSt('กำลังส่งข้อมูล...','var(--brown-soft)');
+    fetch(CHECKIN_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
+      .then(function(r){return r.json();})
+      .then(function(j){ if(!j||!j.ok)throw new Error('fail'); clearDraft(); renderSuccess(j.regId); })
+      .catch(function(){ next.disabled=false; setSt('⚠ ส่งอัตโนมัติไม่สำเร็จ — เราคัดลอกสรุปให้แล้ว กรุณาวางใน LINE','var(--orange-dark)');
+        $('lineFallback').classList.add('show'); openLine(); });
+  }
+  function renderSuccess(regId){
+    $('progMeta').hidden=true; $('progTrack').hidden=true; $('footnav').hidden=true;
+    $('progFill').style.width='100%';
+    $('screen').innerHTML='<div class="success">'+
+      '<div class="tick">✓</div>'+
+      '<h1>ส่งข้อมูลเรียบร้อย!</h1>'+
+      '<p>ขอบคุณที่ไว้วางใจให้ Perfect Pet House ดูแลน้องๆ ทีมงานได้รับข้อมูลน้อง '+pets.length+' ตัวแล้ว และจะเตรียมการดูแลตามที่คุณระบุ</p>'+
+      (regId?'<span class="reg">รหัสลงทะเบียน: '+esc(regId)+'</span>':'')+
+      (owner.email?'<p style="margin-top:14px;">📧 เราส่งอีเมลยืนยันไปที่ '+esc(owner.email)+' แล้ว</p>':'')+
+      '<p style="margin-top:6px;font-size:13px;">หากต้องแก้ไขข้อมูล ทักได้ที่ LINE @perfectbkk</p>'+
+      '<a class="home-btn" href="/">กลับสู่หน้าแรก ›</a>'+
+      '</div>';
+    window.scrollTo(0,0);
+  }
+
+  // ═══════ INIT ═══════
+  if(loadDraft()){ /* มีร่างเดิม — เริ่มที่หน้า intro ให้เลือกกรอกต่อหรือล้าง */ }
+  render();
+})();
+</script>
+</body>
+</html>
