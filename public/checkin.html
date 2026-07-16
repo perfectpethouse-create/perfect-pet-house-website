@@ -195,6 +195,23 @@
   "use strict";
   // ⚠️ วาง URL ของ Apps Script (Web app /exec) สำหรับ "ระบบลงทะเบียนเข้าพัก" ตรงนี้ (ดูวิธีในไฟล์คู่มือ)
   var CHECKIN_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwbpo2S0I8_JFP50PdNLcHnv_LrusYBxQJCwStKHd9cx5QteTBgcBZop6PT7zo7Crxs/exec';
+  // ── ส่งสำเนาเข้าระบบภายในร้าน (Firestore ของแอปจอง) — fire-and-forget
+  //    ไม่กระทบการส่งเข้า Google Sheets เดิม ถ้าล้มเหลวลูกค้าไม่เห็นอะไรผิดปกติ
+  var PPH_APP_INBOX = 'https://firestore.googleapis.com/v1/projects/pph-booking/databases/(default)/documents/checkinForms?key=AIzaSyCi7sSXV0Sz85XqWI0hVTGw-BbNd8Cxox0';
+  function sendToInternalApp(payload){
+    try{
+      fetch(PPH_APP_INBOX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields:{
+        raw:{stringValue:JSON.stringify(payload)},
+        name:{stringValue:(payload.owner&&payload.owner.fullname)||''},
+        phone:{stringValue:(payload.owner&&payload.owner.phone)||''},
+        checkIn:{stringValue:(payload.stay&&payload.stay.checkin)||''},
+        checkOut:{stringValue:(payload.stay&&payload.stay.checkout)||''},
+        petCount:{integerValue:String((payload.pets&&payload.pets.length)||0)},
+        submittedAt:{stringValue:new Date().toISOString()},
+        status:{stringValue:'new'}
+      }})}).catch(function(){});
+    }catch(e){}
+  }
   var LINE_URL = 'https://line.me/R/ti/p/@perfectbkk';
   var DRAFT_KEY = 'pph_checkin_draft_v1';
 
@@ -676,6 +693,7 @@
     var st=$('status'); var next=$('btnNext');
     function setSt(m,c){ if(st){st.textContent=m; st.style.color=c||'var(--brown-soft)';} }
     var payload=buildPayload();
+    sendToInternalApp(payload);
     if(!CHECKIN_SCRIPT_URL || CHECKIN_SCRIPT_URL.indexOf('http')!==0){
       // backend ยังไม่ตั้งค่า → fallback LINE
       setSt('⚠ ระบบยังไม่ได้เชื่อมต่อฐานข้อมูล — กรุณายืนยันทาง LINE','var(--orange-dark)');
