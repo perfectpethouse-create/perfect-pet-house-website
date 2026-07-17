@@ -706,6 +706,22 @@
 </footer>
 
 <script>
+  // ── ส่งสำเนาคำขอจองเข้าระบบภายในร้าน (Firestore ของแอปจอง) — fire-and-forget
+  //    ไม่กระทบการส่งเข้า Google Sheets เดิม ถ้าล้มเหลวลูกค้าไม่เห็นอะไรผิดปกติ
+  var PPH_REQ_INBOX = 'https://firestore.googleapis.com/v1/projects/pph-booking/databases/(default)/documents/bookingRequests?key=AIzaSyCi7sSXV0Sz85XqWI0hVTGw-BbNd8Cxox0';
+  function sendBookingToApp(d){
+    try{
+      var S = function(v){ return { stringValue: String(v == null ? '' : v) }; };
+      fetch(PPH_REQ_INBOX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields:{
+        owner:S(d.owner), phone:S(d.phone), line:S(d.line), email:S(d.email),
+        pet:S(d.pet), petname:S(d.petname), breed:S(d.breed),
+        service:S(d.service), room:S(d.room), checkin:S(d.checkin), checkout:S(d.checkout),
+        time:S(d.time), note:S(d.note), source:S(location.pathname),
+        submittedAt:S(new Date().toISOString()), status:S('new')
+      }})}).catch(function(){});
+    }catch(e){}
+  }
+
 (function(){
   var P={S:{"1":690,"2":890,"3":990},M:{"1":790,"2":1090,"3":1290},L:{"1":890,"2":1290,"3":1490},XL:{"1":990,"2":1490,"3":1790}};
   var SZ={S:'ไซส์ S (0–10 กก.)',M:'ไซส์ M (10–20 กก.)',L:'ไซส์ L (20–30 กก.)',XL:'ไซส์ XL (30 กก.+)'};
@@ -788,6 +804,7 @@
         res.scrollIntoView({behavior:'smooth',block:'center'});
       }
       btn.disabled=true; btn.textContent='กำลังส่ง...';
+      sendBookingToApp(data);
       fetch(GOOGLE_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)})
         .then(function(r){return r.json();}).then(function(j){
           if(!j||!j.ok) throw new Error('fail');

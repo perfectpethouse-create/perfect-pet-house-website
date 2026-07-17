@@ -1601,6 +1601,22 @@
 </style>
 
 <script>
+  // ── ส่งสำเนาคำขอจองเข้าระบบภายในร้าน (Firestore ของแอปจอง) — fire-and-forget
+  //    ไม่กระทบการส่งเข้า Google Sheets เดิม ถ้าล้มเหลวลูกค้าไม่เห็นอะไรผิดปกติ
+  var PPH_REQ_INBOX = 'https://firestore.googleapis.com/v1/projects/pph-booking/databases/(default)/documents/bookingRequests?key=AIzaSyCi7sSXV0Sz85XqWI0hVTGw-BbNd8Cxox0';
+  function sendBookingToApp(d){
+    try{
+      var S = function(v){ return { stringValue: String(v == null ? '' : v) }; };
+      fetch(PPH_REQ_INBOX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields:{
+        owner:S(d.owner), phone:S(d.phone), line:S(d.line), email:S(d.email),
+        pet:S(d.pet), petname:S(d.petname), breed:S(d.breed),
+        service:S(d.service), room:S(d.room), checkin:S(d.checkin), checkout:S(d.checkout),
+        time:S(d.time), note:S(d.note), source:S(location.pathname),
+        submittedAt:S(new Date().toISOString()), status:S('new')
+      }})}).catch(function(){});
+    }catch(e){}
+  }
+
   (function(){
     var form = document.getElementById('bookingForm');
     if(!form) return;
@@ -1735,6 +1751,7 @@
         // ส่ง JSON แบบ text/plain (simple request ไม่ติด CORS preflight)
         // แล้วอ่านคำตอบจริงจาก Apps Script — สำเร็จจริงเท่านั้นถึงบอกลูกค้าว่าสำเร็จ
         if(hint){ hint.style.color = 'var(--brown-soft)'; hint.textContent = 'กำลังส่งคำขอจองไปยังร้าน...'; }
+        sendBookingToApp(data);
         fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
