@@ -50,7 +50,9 @@ function doPost(e) {
   if (!data.owner.fullname && !data.owner.phone) return jsonOut({ ok: false, error: 'no owner data' });
   if (!data.pets.length) return jsonOut({ ok: false, error: 'no pets' });
 
-  data.regId = 'REG-' + Utilities.formatDate(new Date(), CONFIG.TZ, 'yyMMdd-HHmmss');
+  // ใช้รหัสจากหน้าเว็บถ้าส่งมา (PPH-YYMMDD-HHMM) เพื่อให้ตรงกับแอปภายใน/เอกสารพิมพ์
+  // ถ้าไม่มี (ฟอร์มเวอร์ชันเก่า) จึงสร้าง REG-... สำรอง
+  data.regId = data.ref || ('REG-' + Utilities.formatDate(new Date(), CONFIG.TZ, 'yyMMdd-HHmmss'));
   data.submittedAt = data.submittedAt || Utilities.formatDate(new Date(), CONFIG.TZ, 'dd/MM/yyyy HH:mm');
 
   try { result.sheet = logToSheet(data); } catch (err) { result.sheetError = String(err); }
@@ -94,6 +96,7 @@ function parsePayload(e) {
   }
 
   return {
+    ref: s(d.ref, 40),
     submittedAt: s(d.submittedAt),
     owner: {
       fullname: s(o.fullname), nickname: s(o.nickname), idcard: s(o.idcard, 50),

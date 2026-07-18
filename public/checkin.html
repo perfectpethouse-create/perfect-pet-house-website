@@ -202,6 +202,7 @@
     try{
       fetch(PPH_APP_INBOX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields:{
         raw:{stringValue:JSON.stringify(payload)},
+        ref:{stringValue:payload.ref||''},
         name:{stringValue:(payload.owner&&payload.owner.fullname)||''},
         phone:{stringValue:(payload.owner&&payload.owner.phone)||''},
         checkIn:{stringValue:(payload.stay&&payload.stay.checkin)||''},
@@ -674,8 +675,15 @@
   function showToast(){var t=$('draftToast');t.classList.add('show');if(toastTimer)clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('show');},1400);}
 
   // ═══════ SUBMIT ═══════
+  // รหัสการจองเดียว ใช้ร่วมทุกระบบ (แอปภายใน + Google Sheet + อีเมล + เอกสารพิมพ์)
+  // รูปแบบ PPH-YYMMDD-HHMM สร้างจากเวลาที่กดส่ง
+  function makeRef(d){
+    d = d || new Date();
+    var p = function(n){ return (n<10?'0':'')+n; };
+    return 'PPH-'+p(d.getFullYear()%100)+p(d.getMonth()+1)+p(d.getDate())+'-'+p(d.getHours())+p(d.getMinutes());
+  }
   function buildPayload(){
-    return { type:'checkin', submittedAt:new Date().toLocaleString('th-TH'),
+    return { type:'checkin', ref:makeRef(), submittedAt:new Date().toLocaleString('th-TH'),
       owner:owner, stay:stay, consent:consent, pets:pets };
   }
   function summaryForLine(){
