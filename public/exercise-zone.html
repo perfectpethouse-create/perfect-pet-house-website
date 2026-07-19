@@ -561,10 +561,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr><th>S<span class="wt">0–10 กก.</span></th><td>690 <span class="unit">฿</span></td><td>890 <span class="unit">฿</span></td><td>990 <span class="unit">฿</span></td></tr>
-            <tr><th>M<span class="wt">10–20 กก.</span></th><td>790 <span class="unit">฿</span></td><td>1,090 <span class="unit">฿</span></td><td>1,290 <span class="unit">฿</span></td></tr>
-            <tr><th>L<span class="wt">20–30 กก.</span></th><td>890 <span class="unit">฿</span></td><td>1,290 <span class="unit">฿</span></td><td>1,490 <span class="unit">฿</span></td></tr>
-            <tr><th>XL<span class="wt">30 กก. ขึ้นไป</span></th><td>990 <span class="unit">฿</span></td><td>1,490 <span class="unit">฿</span></td><td>1,790 <span class="unit">฿</span></td></tr>
+            <tr data-sz="S"><th>S<span class="wt">0–10 กก.</span></th><td data-lv="1"><span class="pz">690</span> <span class="unit">฿</span></td><td data-lv="2"><span class="pz">890</span> <span class="unit">฿</span></td><td data-lv="3"><span class="pz">990</span> <span class="unit">฿</span></td></tr>
+            <tr data-sz="M"><th>M<span class="wt">10–20 กก.</span></th><td data-lv="1"><span class="pz">790</span> <span class="unit">฿</span></td><td data-lv="2"><span class="pz">1,090</span> <span class="unit">฿</span></td><td data-lv="3"><span class="pz">1,290</span> <span class="unit">฿</span></td></tr>
+            <tr data-sz="L"><th>L<span class="wt">20–30 กก.</span></th><td data-lv="1"><span class="pz">890</span> <span class="unit">฿</span></td><td data-lv="2"><span class="pz">1,290</span> <span class="unit">฿</span></td><td data-lv="3"><span class="pz">1,490</span> <span class="unit">฿</span></td></tr>
+            <tr data-sz="XL"><th>XL<span class="wt">30 กก. ขึ้นไป</span></th><td data-lv="1"><span class="pz">990</span> <span class="unit">฿</span></td><td data-lv="2"><span class="pz">1,490</span> <span class="unit">฿</span></td><td data-lv="3"><span class="pz">1,790</span> <span class="unit">฿</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -745,6 +745,37 @@
     });
   }
   wire('ezSize','size'); wire('ezLevel','lvl'); render();
+
+  /* ---- ราคากลางจากระบบหลังร้าน ----
+     เจ้าของร้านแก้ราคาในแอป (หน้า "ตั้งค่า") แล้วหน้านี้เปลี่ยนตามอัตโนมัติ
+     ตัวเลขที่ฝังใน HTML ข้างบนเป็นค่าสำรอง ใช้เมื่อโหลดไม่สำเร็จ/ออฟไลน์
+     จึงไม่มีทางที่หน้าเว็บจะแสดงราคาว่างเปล่า */
+  (function(){
+    var URL='https://firestore.googleapis.com/v1/projects/pph-booking/databases/(default)/documents/publicInfo/prices?key=AIzaSyCi7sSXV0Sz85XqWI0hVTGw-BbNd8Cxox0';
+    function paintTable(){
+      document.querySelectorAll('tr[data-sz]').forEach(function(tr){
+        var sz=tr.dataset.sz;
+        tr.querySelectorAll('td[data-lv]').forEach(function(td){
+          var v=P[sz] && P[sz][td.dataset.lv];
+          var span=td.querySelector('.pz');
+          if(span && typeof v==='number') span.textContent=v.toLocaleString('en-US');
+        });
+      });
+    }
+    fetch(URL).then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
+      var raw = d && d.fields && d.fields.exerciseJson && d.fields.exerciseJson.stringValue;
+      if(!raw) return;
+      var t = JSON.parse(raw), changed = false;
+      ['S','M','L','XL'].forEach(function(sz){
+        ['1','2','3'].forEach(function(lv){
+          var v = t[sz] && t[sz][lv];
+          /* รับเฉพาะตัวเลขบวก — กันข้อมูลเพี้ยนทำให้เว็บโชว์ราคา 0 บาท */
+          if(typeof v==='number' && isFinite(v) && v>0 && P[sz][lv]!==v){ P[sz][lv]=v; changed=true; }
+        });
+      });
+      if(changed){ render(); paintTable(); }
+    }).catch(function(){ /* ออฟไลน์/บล็อก → ใช้ราคาสำรองใน HTML ต่อไป */ });
+  })();
 
   /* ---- scroll reveal ---- */
   var revs=[].slice.call(document.querySelectorAll('.sec-head, .bene-card, .zone, .step, .pkg, .elig-card, .ez-calc, .ez-form, .upgrade-banner, .gallery img'));
