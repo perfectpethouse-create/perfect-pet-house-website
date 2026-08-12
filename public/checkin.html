@@ -208,6 +208,7 @@
         checkIn:{stringValue:(payload.stay&&payload.stay.checkin)||''},
         checkOut:{stringValue:(payload.stay&&payload.stay.checkout)||''},
         petCount:{integerValue:String((payload.pets&&payload.pets.length)||0)},
+        bookingId:{stringValue:payload.bookingId||''},
         submittedAt:{stringValue:new Date().toISOString()},
         status:{stringValue:'new'}
       }})}).catch(function(){});
@@ -215,6 +216,8 @@
   }
   var LINE_URL = 'https://line.me/R/ti/p/@perfectbkk';
   var DRAFT_KEY = 'pph_checkin_draft_v1';
+  // รหัสใบจอง (bookingId) จากลิงก์ที่พนักงานส่งให้ ?b=... → แนบกลับเพื่อให้แอปจับคู่ใบจองอัตโนมัติ
+  var BOOKING_ID = (function(){ try { return new URLSearchParams(location.search).get('b') || ''; } catch(e){ return ''; } })();
 
   // ── ตัวเลือก (ไทย / อังกฤษ ตามฟอร์มต้นฉบับ) ──
   var OPT = {
@@ -684,7 +687,7 @@
   }
   function buildPayload(){
     return { type:'checkin', ref:makeRef(), submittedAt:new Date().toLocaleString('th-TH'),
-      owner:owner, stay:stay, consent:consent, pets:pets };
+      bookingId:BOOKING_ID, owner:owner, stay:stay, consent:consent, pets:pets };
   }
   function summaryForLine(){
     var L=['🏨 ลงทะเบียนเข้าพัก Perfect Pet House','เจ้าของ: '+owner.fullname+' · โทร '+owner.phone,
