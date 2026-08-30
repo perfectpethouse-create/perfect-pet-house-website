@@ -2,7 +2,7 @@
    กันหน้าจอขาว "ไม่พบข้อมูลเว็บ" ตอนเซิร์ฟเวอร์ตอบช้า/ล่มชั่วคราว
    กลยุทธ์: หน้า HTML = network-first (ออนไลน์ได้ของใหม่เสมอ, ถ้าเน็ต/เซิร์ฟเวอร์ล่มค่อยดึง cache)
            ไฟล์ static = cache-first (เร็ว) */
-var CACHE = 'pph-v1';
+var CACHE = 'pph-v2';
 var CORE = ['/', '/app.html', '/index.html', '/exercise-zone.html',
   '/manifest.webmanifest', '/images/img01.png'];
 

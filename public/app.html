@@ -260,6 +260,86 @@
   .sum-total .v{font-family:'Mitr';font-weight:600;font-size:26px;color:var(--orange-dark);}
   .deposit-note{font-size:11.5px;color:var(--brown-soft);text-align:center;margin-top:8px;line-height:1.5;}
 
+  /* ===== Gato-style booking additions ===== */
+  /* pet photo upload (preview only) */
+  .photo-up{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+  .photo-up .pv{width:76px;height:76px;border-radius:22px;flex-shrink:0;overflow:hidden;position:relative;
+    background:var(--orange-light);border:2px dashed #E0B98F;display:flex;align-items:center;justify-content:center;color:var(--orange-dark);}
+  .photo-up .pv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .photo-up .pv svg{width:26px;height:26px;}
+  .photo-up .pu-txt b{font-family:'Mitr';font-weight:500;font-size:14px;color:var(--brown);display:block;}
+  .photo-up .pu-txt span{font-size:11.5px;color:var(--brown-soft);}
+  .photo-up input{display:none;}
+  .photo-up .pu-btn{margin-top:7px;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;
+    color:var(--orange-dark);background:var(--orange-light);padding:7px 13px;border-radius:999px;}
+  .photo-up .pu-btn svg{width:14px;height:14px;}
+
+  /* time slot grid */
+  .slotgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:4px;}
+  .slot{padding:12px 4px;border-radius:14px;background:var(--cream);border:1.5px solid #EEDFCF;
+    font-size:14px;font-weight:500;color:var(--brown);transition:all .15s;position:relative;line-height:1.25;}
+  .slot small{display:block;font-size:10px;font-weight:400;color:var(--brown-soft);margin-top:2px;}
+  .slot.on{background:var(--orange);color:#fff;border-color:var(--orange);transform:translateY(-2px);box-shadow:0 6px 14px rgba(224,123,57,0.3);}
+  .slot.on small{color:rgba(255,255,255,0.85);}
+  .slot:disabled,.slot.full{opacity:.5;cursor:not-allowed;background:#F1E8DC;text-decoration:line-through;color:var(--brown-soft);}
+  .slot.full small{text-decoration:none;color:#B85C1E;}
+  .slot-note{font-size:12px;color:var(--brown-soft);margin-top:10px;}
+  .slot-load{font-size:12px;color:var(--brown-soft);margin-top:8px;display:flex;align-items:center;gap:7px;}
+  .slot-load .spin{width:13px;height:13px;border:2px solid #E7D6C5;border-top-color:var(--orange);border-radius:50%;animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* add-on chips */
+  .addon{display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:15px;background:#fff;
+    border:1.5px solid #EEDFCF;box-shadow:var(--shadow-sm);margin-bottom:10px;transition:all .15s;}
+  .addon:active{transform:scale(.985);}
+  .addon.on{border-color:var(--orange);background:#FFF8F0;}
+  .addon .ab{width:24px;height:24px;border-radius:8px;border:2px solid #E7D6C5;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+  .addon.on .ab{background:var(--orange);border-color:var(--orange);}
+  .addon .ab svg{width:14px;height:14px;color:#fff;opacity:0;}
+  .addon.on .ab svg{opacity:1;}
+  .addon .at{flex:1;}
+  .addon .at b{font-family:'Mitr';font-weight:500;font-size:14px;color:var(--brown);display:block;}
+  .addon .at span{font-size:11.5px;color:var(--brown-soft);}
+
+  /* deposit QR card */
+  .qr-card{background:#fff;border-radius:20px;box-shadow:var(--shadow-sm);padding:20px 18px;margin:6px 0 14px;text-align:center;}
+  .qr-card .qr-head{font-family:'Mitr';font-weight:500;font-size:15px;color:var(--brown);margin-bottom:3px;}
+  .qr-card .qr-amt{font-family:'Mitr';font-weight:600;font-size:30px;color:var(--orange-dark);margin:6px 0 2px;}
+  .qr-card .qr-amt small{font-size:13px;font-weight:400;color:var(--brown-soft);}
+  .qr-box{width:216px;height:216px;margin:14px auto 10px;border-radius:16px;overflow:hidden;background:#fff;
+    display:flex;align-items:center;justify-content:center;border:1px solid #F0E4D5;}
+  .qr-box canvas,.qr-box img{width:100%;height:100%;display:block;image-rendering:pixelated;}
+  .qr-promptpay{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12px;color:var(--brown-soft);margin-top:2px;}
+  .qr-promptpay b{color:#0A4DA2;font-family:'Mitr';font-weight:600;}
+  .qr-pending{background:#FCEFE0;border-radius:14px;padding:16px;font-size:13px;color:var(--orange-dark);line-height:1.6;}
+  .qr-hint{font-size:11.5px;color:var(--brown-soft);margin-top:10px;line-height:1.55;}
+
+  /* terms & conditions */
+  .tnc{background:#fff;border-radius:16px;box-shadow:var(--shadow-sm);padding:4px 16px;margin-bottom:14px;}
+  .tnc summary{list-style:none;cursor:pointer;padding:13px 0;display:flex;align-items:center;justify-content:space-between;gap:10px;
+    font-size:13.5px;font-weight:500;color:var(--brown);font-family:'Mitr';}
+  .tnc summary::-webkit-details-marker{display:none;}
+  .tnc summary .chev{transition:transform .2s;color:var(--brown-soft);}
+  .tnc[open] summary .chev{transform:rotate(180deg);}
+  .tnc .tnc-body{font-size:12px;color:var(--brown-soft);line-height:1.65;padding:4px 0 14px;max-height:230px;overflow-y:auto;border-top:1px dashed #EEDFCF;}
+  .tnc .tnc-body h5{font-size:12.5px;color:var(--brown);margin:12px 0 4px;font-family:'Mitr';font-weight:500;}
+  .tnc .tnc-body ul{margin:0 0 4px;padding-left:17px;}
+  .tnc .tnc-body li{margin-bottom:3px;}
+  .tnc-check{display:flex;align-items:flex-start;gap:11px;padding:14px 16px;border-radius:15px;background:var(--cream);
+    border:1.5px solid #EEDFCF;margin-bottom:6px;cursor:pointer;transition:all .15s;}
+  .tnc-check.on{border-color:var(--green);background:#EFF7F1;}
+  .tnc-check .cb{width:24px;height:24px;border-radius:8px;border:2px solid #D8C6B4;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-top:1px;}
+  .tnc-check.on .cb{background:var(--green);border-color:var(--green);}
+  .tnc-check .cb svg{width:14px;height:14px;color:#fff;opacity:0;}
+  .tnc-check.on .cb svg{opacity:1;}
+  .tnc-check .ct{font-size:12.5px;color:var(--brown);line-height:1.5;}
+
+  /* send reminder on success */
+  .send-remind{background:#FCEFE0;border-radius:15px;padding:14px 16px;margin:2px 0 14px;text-align:left;
+    font-size:12.5px;color:var(--brown);line-height:1.6;display:flex;gap:11px;}
+  .send-remind .sr-i{font-size:20px;line-height:1;flex-shrink:0;}
+  .send-remind b{color:var(--orange-dark);}
+
   /* wizard footer nav */
   .wiz-foot{display:flex;gap:11px;padding:16px 18px calc(var(--nav-h) + 16px);}
   .wiz-foot .wb{flex:1;padding:15px;border-radius:16px;font-family:'Mitr';font-weight:500;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,filter .15s;}
@@ -557,9 +637,9 @@
       <div class="wiz-head">
         <span class="kicker">📅 จองออนไลน์</span>
         <div class="steps" id="steps">
-          <div class="dot"><i></i></div><div class="dot"><i></i></div><div class="dot"><i></i></div><div class="dot"><i></i></div>
+          <div class="dot"><i></i></div><div class="dot"><i></i></div><div class="dot"><i></i></div><div class="dot"><i></i></div><div class="dot"><i></i></div>
         </div>
-        <p class="step-label">ขั้นตอน <b id="stepNow">1</b> จาก 4 · <span id="stepName">เลือกบริการ</span></p>
+        <p class="step-label">ขั้นตอน <b id="stepNow">1</b> จาก 5 · <span id="stepName">เลือกบริการ</span></p>
       </div>
 
       <!-- step 1: service -->
@@ -597,6 +677,19 @@
       <div class="wstep" data-step="2">
         <h3>เล่าเรื่องน้องให้เราฟังหน่อย</h3>
         <p class="wsub">ข้อมูลน้องเพื่อเตรียมห้อง/บริการให้พอดี</p>
+
+        <div class="photo-up">
+          <label class="pv" for="f-photo" id="photoPv">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </label>
+          <div class="pu-txt">
+            <b>รูปน้อง <span style="font-weight:400;color:var(--brown-soft);">(ถ้ามี)</span></b>
+            <span>ช่วยให้เราเตรียมตัวรับน้องได้ดีขึ้น</span>
+            <label class="pu-btn" for="f-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> เลือกรูป</label>
+          </div>
+          <input type="file" id="f-photo" accept="image/*">
+        </div>
+
         <div class="field"><label>ชนิดสัตว์ <span class="req">*</span></label>
           <div class="seg" style="margin:0;" id="bkPetSeg">
             <button type="button" class="on" data-bkpet="น้องหมา">🐶 น้องหมา</button>
@@ -607,43 +700,90 @@
           <div class="field"><label>ชื่อน้อง</label><input id="f-petname" placeholder="เช่น โมจิ"></div>
           <div class="field"><label>สายพันธุ์ / ขนาด</label><input id="f-breed" placeholder="ชิวาวา 4 กก."></div>
         </div>
-        <div class="field"><label>เลือกห้อง / บริการ</label>
+
+        <!-- ห้องพัก (เฉพาะฝากเลี้ยง) -->
+        <div class="field" id="bkRoomWrap" style="display:none;"><label>เลือกห้อง / บริการ</label>
           <select id="f-room"><option value="">— ไม่ระบุ (ให้ร้านแนะนำ) —</option></select>
         </div>
-        <div class="field"><label>หมายเหตุ (แพ้อาหาร, โรคประจำตัว ฯลฯ)</label><textarea id="f-note" rows="2" placeholder="บอกเราได้เลย เราดูแลตามความต้องการของน้อง"></textarea></div>
+
+        <!-- ขนาด+ชนิดขน (เฉพาะอาบน้ำตัดขน) -->
+        <div id="bkGroomWrap" style="display:none;">
+          <p class="calc-step">เลือกขนาดน้อง (ตามน้ำหนัก) <span class="req">*</span></p>
+          <div class="size-grid" id="bkGroomSizes"></div>
+          <p class="calc-step">ประเภทขน <span class="req">*</span></p>
+          <div class="seg coat-seg" id="bkGroomCoat"></div>
+          <div class="cut-toggle" id="bkCutToggle">
+            <div><b>ตัดขนขึ้นทรง</b><small>เพิ่มบริการตัดแต่งทรง</small></div>
+            <span class="switch"><i></i></span>
+          </div>
+          <div class="free-line" id="bkGroomFree"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span></span></div>
+          <div class="price-out" style="margin-top:14px;"><span class="lbl" id="bkGroomBreak">เลือกขนาด + ประเภทขน</span><span class="val" id="bkGroomPrice">—</span></div>
+        </div>
       </div>
 
       <!-- step 3: date/time -->
       <div class="wstep" data-step="3">
-        <h3>อยากเข้าพักวันไหน?</h3>
+        <h3 id="s3title">อยากเข้าพักวันไหน?</h3>
         <p class="wsub">เลือกวันและช่วงเวลาที่สะดวก</p>
         <div class="field-2">
-          <div class="field"><label>วันรับเข้า <span class="req">*</span></label><input type="date" id="f-checkin"></div>
-          <div class="field"><label>วันรับกลับ</label><input type="date" id="f-checkout"></div>
+          <div class="field"><label id="ciLabel">วันรับเข้า <span class="req">*</span></label><input type="date" id="f-checkin"></div>
+          <div class="field" id="coWrap"><label>วันรับกลับ</label><input type="date" id="f-checkout"></div>
         </div>
-        <div class="field"><label>ช่วงเวลาที่สะดวก</label>
-          <select id="f-time"><option value="">— ไม่ระบุ —</option></select>
-          <p class="h-sub" id="f-timeNote" style="margin-top:6px;">🕘 เช็คอิน 9:00–18:00 น. · เช็คเอาท์ก่อน 14:00 น.</p>
+        <div class="field">
+          <label id="slotLabel">ช่วงเวลาที่สะดวก</label>
+          <input type="hidden" id="f-time">
+          <div class="slotgrid" id="slotGrid"></div>
+          <div class="slot-load" id="slotLoad" style="display:none;"><span class="spin"></span> กำลังเช็คคิวว่าง...</div>
+          <p class="slot-note" id="f-timeNote">🕘 เลือกวันก่อน เพื่อดูช่วงเวลาที่ว่าง</p>
         </div>
         <div class="field" id="nightsBox" style="display:none;">
           <div class="price-out"><span class="lbl">โดยประมาณ <span id="nightsN"></span></span><span class="val" id="nightsPrice">—</span></div>
         </div>
       </div>
 
-      <!-- step 4: contact + summary -->
+      <!-- step 4: add-ons + special request -->
       <div class="wstep" data-step="4">
-        <h3>ช่องทางติดต่อกลับ</h3>
-        <p class="wsub">เพื่อให้ทีมงานยืนยันคิวกับพี่ได้</p>
+        <h3>บริการเสริม & คำขอพิเศษ</h3>
+        <p class="wsub" id="s4sub">เลือกบริการเสริมที่ต้องการ · ทีมงานแจ้งราคาเพิ่มเติม</p>
+        <div id="addonWrap"></div>
+        <div class="field" style="margin-top:6px;"><label>คำขอพิเศษ / หมายเหตุ (แพ้อาหาร, โรคประจำตัว, พฤติกรรม ฯลฯ)</label>
+          <textarea id="f-note" rows="3" placeholder="บอกเราได้เลย เราดูแลตามความต้องการของน้อง"></textarea></div>
+      </div>
+
+      <!-- step 5: contact + deposit + confirm -->
+      <div class="wstep" data-step="5">
+        <h3>ยืนยัน & จ่ายมัดจำ</h3>
+        <p class="wsub">กรอกช่องทางติดต่อ แล้วโอนมัดจำเพื่อยืนยันคิว</p>
         <div class="field"><label>ชื่อเจ้าของ <span class="req">*</span></label><input id="f-owner" placeholder="เช่น คุณแพรว"></div>
         <div class="field-2">
           <div class="field"><label>เบอร์โทร <span class="req">*</span></label><input id="f-phone" inputmode="tel" placeholder="08x-xxx-xxxx"></div>
           <div class="field"><label>LINE (ถ้ามี)</label><input id="f-line" placeholder="@yourline"></div>
         </div>
         <div class="field"><label>อีเมล (รับสำเนายืนยันการจอง — ไม่บังคับ)</label><input id="f-email" type="email" inputmode="email" placeholder="you@email.com"></div>
+
         <div class="sec-title" style="margin:18px 0 10px;font-size:15px;">สรุปการจอง</div>
         <div class="sumcard" id="summary"></div>
         <div class="sum-total"><span class="k">ประเมินราคา<b id="totLabel">รวมโดยประมาณ</b></span><span class="v" id="totVal">—</span></div>
-        <p class="deposit-note">* ราคาเป็นการประเมินเบื้องต้น ทีมงานจะยืนยันยอดจริงอีกครั้ง · มัดจำ 50% เพื่อยืนยันการจอง</p>
+
+        <!-- deposit / QR -->
+        <div class="qr-card" id="qrCard">
+          <div class="qr-head">มัดจำ 50% เพื่อยืนยันการจอง</div>
+          <div class="qr-amt" id="depAmt">—</div>
+          <div class="qr-box" id="qrBox"></div>
+          <div class="qr-promptpay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><line x1="14" y1="14" x2="14" y2="21"/><line x1="21" y1="14" x2="21" y2="21"/></svg> <b>PromptPay</b> · <span id="qrName">Perfect Pet House</span></div>
+          <p class="qr-hint">สแกน QR ด้วยแอปธนาคาร โอนยอดมัดจำ แล้ว<b>เก็บสลิปไว้ส่งในแชต LINE</b> · ยอดที่เหลือชำระวันรับบริการ</p>
+        </div>
+
+        <!-- terms -->
+        <details class="tnc">
+          <summary>เงื่อนไข &amp; นโยบายการจอง <span class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <div class="tnc-body" id="tncBody"></div>
+        </details>
+        <div class="tnc-check" id="tncCheck">
+          <span class="cb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <span class="ct">ฉันอ่านและยอมรับเงื่อนไข &amp; นโยบายการจองของ Perfect Pet House แล้ว</span>
+        </div>
+        <p class="deposit-note">* ราคาเป็นการประเมินเบื้องต้น ทีมงานจะยืนยันยอดจริงอีกครั้ง</p>
       </div>
 
       <!-- footer nav -->
@@ -653,12 +793,16 @@
       </div>
 
       <!-- success -->
-      <div class="wstep" data-step="5">
+      <div class="wstep" data-step="6">
         <div class="success">
           <div class="burst"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
           <h2>เยี่ยมเลย! 🎉</h2>
           <p>เราเตรียมข้อความจองให้พร้อมแล้ว<br>กดปุ่มด้านล่างเพื่อส่งเข้า LINE ร้านได้เลย</p>
           <p id="notifyStatus" style="font-size:13px;margin:4px 0 10px;min-height:18px;"></p>
+          <div class="send-remind">
+            <span class="sr-i">📎</span>
+            <div>อย่าลืมส่ง <b>รูปน้อง</b> และ <b>สลิปมัดจำ</b> เข้าในแชต LINE ร้านด้วยนะครับ เพื่อยืนยันคิวให้สมบูรณ์</div>
+          </div>
           <button class="line-btn" id="sendLine"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 4.19 3.66 7.7 8.6 8.37.33.07.79.22.9.5.1.26.07.66.03.92l-.15.87c-.04.26-.2 1.02.9.56 1.1-.46 5.94-3.5 8.1-5.99C21.6 14.03 22 12.32 22 10.5 22 5.82 17.52 2 12 2z"/></svg> ส่งข้อความจองเข้า LINE</button>
           <button class="ghost-btn" id="copyMsg">คัดลอกข้อความจอง</button>
           <button class="ghost-btn" id="bookAgain" style="margin-top:11px;">จองรายการใหม่</button>
@@ -711,6 +855,122 @@
 </div>
 
 <script>
+/* ===== PromptPay + QR encoder (self-contained, no CDN) — ระดับ ECC = M, byte mode, version 1–10 ===== */
+window.PPHQR=(function(){
+  // ---------- PromptPay EMVCo payload ----------
+  function crc16(s){var c=0xFFFF;for(var i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(var j=0;j<8;j++){c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:((c<<1)&0xFFFF);}}return c;}
+  function tlv(id,v){return id+('0'+v.length).slice(-2)+v;}
+  function target(id){var d=(''+id).replace(/[^0-9]/g,'');if(d.length===13)return tlv('02',d);if(d.charAt(0)==='0')d=d.slice(1);return tlv('01','0066'+d);}
+  function promptpay(id,amount){
+    var acc=tlv('29',tlv('00','A000000677010111')+target(id));
+    var p=tlv('00','01')+tlv('01',amount!=null?'12':'11')+acc+tlv('53','764')+(amount!=null?tlv('54',(Math.round(amount*100)/100).toFixed(2)):'')+tlv('58','TH')+'6304';
+    return p+('000'+crc16(p).toString(16).toUpperCase()).slice(-4);
+  }
+  // ---------- GF(256) + Reed–Solomon ----------
+  var EXP=[],LOG=[];(function(){var x=1;for(var i=0;i<255;i++){EXP[i]=x;LOG[x]=i;x<<=1;if(x&256)x^=285;}for(var i=255;i<512;i++)EXP[i]=EXP[i-255];})();
+  function gmul(a,b){return (a===0||b===0)?0:EXP[LOG[a]+LOG[b]];}
+  function genPoly(n){var g=[1];for(var i=0;i<n;i++){var ng=new Array(g.length+1);for(var k=0;k<ng.length;k++)ng[k]=0;for(var j=0;j<g.length;j++){ng[j]^=g[j];ng[j+1]^=gmul(g[j],EXP[i]);}g=ng;}return g;}
+  function rsEC(data,n){var gen=genPoly(n),res=data.concat(new Array(n).fill(0));for(var i=0;i<data.length;i++){var c=res[i];if(c){for(var j=0;j<gen.length;j++)res[i+j]^=gmul(gen[j],c);}}return res.slice(data.length);}
+  // ---------- tables (ECC level M) ----------
+  var ECM={1:[10,[[1,16]]],2:[16,[[1,28]]],3:[26,[[1,44]]],4:[18,[[2,32]]],5:[24,[[2,43]]],6:[16,[[4,27]]],7:[18,[[4,31]]],8:[22,[[2,38],[2,39]]],9:[22,[[3,36],[2,37]]],10:[26,[[4,43],[1,44]]]};
+  var ALIGN={1:[],2:[6,18],3:[6,22],4:[6,26],5:[6,30],6:[6,34],7:[6,22,38],8:[6,24,42],9:[6,26,46],10:[6,28,50]};
+  function totalData(v){var t=0;ECM[v][1].forEach(function(b){t+=b[0]*b[1];});return t;}
+  function chooseVersion(len){for(var v=1;v<=10;v++){var cb=v<10?8:16;if(4+cb+8*len<=totalData(v)*8)return v;}throw new Error('QR data too long');}
+  // ---------- data → codewords ----------
+  function toCodewords(str){
+    var bytes=Array.from(new TextEncoder().encode(str));
+    var v=chooseVersion(bytes.length),cb=v<10?8:16,bits=[];
+    function push(val,n){for(var i=n-1;i>=0;i--)bits.push((val>>i)&1);}
+    push(4,4);push(bytes.length,cb);bytes.forEach(function(b){push(b,8);});
+    var cap=totalData(v)*8,term=Math.min(4,cap-bits.length);for(var i=0;i<term;i++)bits.push(0);
+    while(bits.length%8)bits.push(0);
+    var pad=[236,17],pi=0;while(bits.length<cap)push(pad[pi++%2],8);
+    var dcw=[];for(var i=0;i<bits.length;i+=8){var b=0;for(var j=0;j<8;j++)b=(b<<1)|bits[i+j];dcw.push(b);}
+    var ecLen=ECM[v][0],blocks=[],idx=0;
+    ECM[v][1].forEach(function(grp){for(var k=0;k<grp[0];k++){var d=dcw.slice(idx,idx+grp[1]);idx+=grp[1];blocks.push({d:d,e:rsEC(d,ecLen)});}});
+    var out=[],maxD=0;blocks.forEach(function(b){if(b.d.length>maxD)maxD=b.d.length;});
+    for(var i=0;i<maxD;i++)blocks.forEach(function(b){if(i<b.d.length)out.push(b.d[i]);});
+    for(var i=0;i<ecLen;i++)blocks.forEach(function(b){out.push(b.e[i]);});
+    return {v:v,cw:out};
+  }
+  // ---------- matrix ----------
+  function gb(x,i){return (x>>i)&1;}
+  function fmtBits(mask){var data=(0<<3)|mask,v=data<<10;for(var i=14;i>=10;i--){if((v>>i)&1)v^=0x537<<(i-10);}return ((data<<10)|(v&0x3FF))^0x5412;}
+  function verBits(ver){var v=ver<<12;for(var i=17;i>=12;i--){if((v>>i)&1)v^=0x1F25<<(i-12);}return (ver<<12)|(v&0xFFF);}
+  function setF(m,isF,col,row,val,mark){m[row][col]=val?1:0;if(mark&&isF)isF[row][col]=true;}
+  function setFormat(m,isF,size,bits,mark){
+    for(var i=0;i<=5;i++)setF(m,isF,8,i,gb(bits,i),mark);
+    setF(m,isF,8,7,gb(bits,6),mark);setF(m,isF,8,8,gb(bits,7),mark);setF(m,isF,7,8,gb(bits,8),mark);
+    for(var i=9;i<15;i++)setF(m,isF,14-i,8,gb(bits,i),mark);
+    for(var i=0;i<8;i++)setF(m,isF,size-1-i,8,gb(bits,i),mark);
+    for(var i=8;i<15;i++)setF(m,isF,8,size-15+i,gb(bits,i),mark);
+    setF(m,isF,8,size-8,1,mark);
+  }
+  function setVersion(m,isF,size,v,mark){if(v<7)return;var bits=verBits(v);for(var i=0;i<18;i++){var bit=gb(bits,i),a=size-11+i%3,b=Math.floor(i/3);setF(m,isF,a,b,bit,mark);setF(m,isF,b,a,bit,mark);}}
+  function buildBase(v){
+    var size=v*4+17,m=[],isF=[];for(var r=0;r<size;r++){m.push(new Array(size).fill(0));isF.push(new Array(size).fill(false));}
+    // timing
+    for(var i=0;i<size;i++){setF(m,isF,6,i,i%2===0,true);setF(m,isF,i,6,i%2===0,true);}
+    // finders + separators
+    function finder(cx,cy){for(var dy=-4;dy<=4;dy++)for(var dx=-4;dx<=4;dx++){var xx=cx+dx,yy=cy+dy;if(xx<0||yy<0||xx>=size||yy>=size)continue;var d=Math.max(Math.abs(dx),Math.abs(dy));setF(m,isF,xx,yy,(d!==2&&d!==4)?1:0,true);}}
+    finder(3,3);finder(size-4,3);finder(3,size-4);
+    // alignment
+    var pos=ALIGN[v],n=pos.length;
+    for(var i=0;i<n;i++)for(var j=0;j<n;j++){if((i===0&&j===0)||(i===0&&j===n-1)||(i===n-1&&j===0))continue;var cx=pos[j],cy=pos[i];for(var dy=-2;dy<=2;dy++)for(var dx=-2;dx<=2;dx++)setF(m,isF,cx+dx,cy+dy,(Math.max(Math.abs(dx),Math.abs(dy))!==1)?1:0,true);}
+    // reserve format + version (placeholder), mark as function
+    setFormat(m,isF,size,0,true);
+    setVersion(m,isF,size,v,true);
+    return {m:m,isFunc:isF,size:size};
+  }
+  function placeData(base,cw){
+    var size=base.size,m=base.m,isF=base.isFunc,total=cw.length*8,idx=0;
+    for(var right=size-1;right>=1;right-=2){
+      if(right===6)right=5;
+      for(var vert=0;vert<size;vert++)for(var j=0;j<2;j++){
+        var x=right-j,upward=((right+1)&2)===0,y=upward?(size-1-vert):vert;
+        if(!isF[y][x]){var bit=(idx<total)?((cw[idx>>3]>>(7-(idx&7)))&1):0;idx++;m[y][x]=bit;}
+      }
+    }
+  }
+  function maskFn(mask,r,c){switch(mask){
+    case 0:return (r+c)%2===0;case 1:return r%2===0;case 2:return c%3===0;case 3:return (r+c)%3===0;
+    case 4:return (Math.floor(r/2)+Math.floor(c/3))%2===0;case 5:return ((r*c)%2)+((r*c)%3)===0;
+    case 6:return (((r*c)%2)+((r*c)%3))%2===0;default:return (((r+c)%2)+((r*c)%3))%2===0;}}
+  function applyMask(base,mask){
+    var size=base.size,isF=base.isFunc,m=base.m.map(function(row){return row.slice();});
+    for(var r=0;r<size;r++)for(var c=0;c<size;c++){if(!isF[r][c]&&maskFn(mask,r,c))m[r][c]^=1;}
+    setFormat(m,isF,size,fmtBits(mask),false);
+    return m;
+  }
+  function penalty(m,size){
+    var p=0,r,c,run;
+    for(r=0;r<size;r++){run=1;for(c=1;c<size;c++){if(m[r][c]===m[r][c-1])run++;else{if(run>=5)p+=run-2;run=1;}}if(run>=5)p+=run-2;}
+    for(c=0;c<size;c++){run=1;for(r=1;r<size;r++){if(m[r][c]===m[r-1][c])run++;else{if(run>=5)p+=run-2;run=1;}}if(run>=5)p+=run-2;}
+    for(r=0;r<size-1;r++)for(c=0;c<size-1;c++){var v=m[r][c];if(v===m[r][c+1]&&v===m[r+1][c]&&v===m[r+1][c+1])p+=3;}
+    var p1=[1,0,1,1,1,0,1,0,0,0,0],p2=[0,0,0,0,1,0,1,1,1,0,1];
+    function chk(line){var cnt=0;for(var i=0;i+11<=line.length;i++){var a=true,b=true;for(var k=0;k<11;k++){if(line[i+k]!==p1[k])a=false;if(line[i+k]!==p2[k])b=false;}if(a||b)cnt++;}return cnt;}
+    for(r=0;r<size;r++)p+=40*chk(m[r]);
+    for(c=0;c<size;c++){var col=[];for(r=0;r<size;r++)col.push(m[r][c]);p+=40*chk(col);}
+    var dark=0;for(r=0;r<size;r++)for(c=0;c<size;c++)dark+=m[r][c];
+    p+=Math.floor(Math.abs(dark*100/(size*size)-50)/5)*10;
+    return p;
+  }
+  function encode(text){
+    var d=toCodewords(text),base=buildBase(d.v);placeData(base,d.cw);
+    var best=null,bestScore=Infinity,bestMask=0;
+    for(var mask=0;mask<8;mask++){var mm=applyMask(base,mask),s=penalty(mm,base.size);if(s<bestScore){bestScore=s;best=mm;bestMask=mask;}}
+    return {m:best,size:base.size,version:d.v,mask:bestMask,isFunc:base.isFunc};
+  }
+  function canvas(text,px){
+    var r=encode(text),quiet=4,total=r.size+quiet*2,scale=Math.max(2,Math.floor((px||216)/total));
+    var cv=document.createElement('canvas');cv.width=cv.height=total*scale;
+    var ctx=cv.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,cv.width,cv.height);ctx.fillStyle='#000';
+    for(var y=0;y<r.size;y++)for(var x=0;x<r.size;x++)if(r.m[y][x])ctx.fillRect((x+quiet)*scale,(y+quiet)*scale,scale,scale);
+    cv.style.width='100%';cv.style.height='100%';cv.style.imageRendering='pixelated';return cv;
+  }
+  return {promptpay:promptpay,canvas:canvas,encode:encode,_dbg:{fmtBits:fmtBits,verBits:verBits,crc16:crc16}};
+})();
+
   // ── ส่งสำเนาคำขอจองเข้าระบบภายในร้าน (Firestore ของแอปจอง) — fire-and-forget
   //    ไม่กระทบการส่งเข้า Google Sheets เดิม ถ้าล้มเหลวลูกค้าไม่เห็นอะไรผิดปกติ
   var PPH_REQ_INBOX = 'https://firestore.googleapis.com/v1/projects/pph-booking/databases/(default)/documents/bookingRequests?key=AIzaSyCi7sSXV0Sz85XqWI0hVTGw-BbNd8Cxox0';
@@ -746,9 +1006,9 @@
   };
   // row = [label, weight, ...ราคาตามคอลัมน์]; ราคาจริงจากตารางในเว็บ
   var GROOM={
-    dog:{ // [label,weight,ขนสั้น,ขนยาว,ขนยาวมีเซ็ต,ตัดขนเพิ่ม]
+    dog:{ // [label,weight,ขนสั้น,ขนยาว,ขนยาวพิเศษ,ตัดขนเพิ่ม]
       sizes:[['XS','<2kg',350,400,450,400],['S','2-5kg',400,500,600,500],['M','5-10kg',500,700,900,600],['L','10-15kg',700,900,1000,700],['XL','15-20kg',900,1100,1400,900],['2XL','20-30kg',1200,1450,1600,1200],['3XL','30-40kg',1650,1850,1900,1600]],
-      coats:[['ขนสั้น',2],['ขนยาว',3],['ขนยาวมีเซ็ต',4]],cutIdx:5
+      coats:[['ขนสั้น',2],['ขนยาว',3],['ขนยาวพิเศษ',4]],cutIdx:5
     },
     cat:{ // [label,weight,ขนสั้น,ขนยาว,ตัดขนเพิ่ม]
       sizes:[['XS','<2kg',450,550,450],['S','2-3kg',550,650,550],['M','3-5kg',750,850,750],['L','5-7kg',950,1100,950],['XL','7-9kg',1250,1400,1250],['2XL','9-11kg',1400,1600,1400],['3XL','11-13kg',1750,1850,1750]],
@@ -895,38 +1155,62 @@
   });
 
   /* ---------- BOOKING WIZARD ---------- */
+  // ── ตั้งค่า ──
+  var PROMPTPAY_ID='';                 // ← ใส่เบอร์พร้อมเพย์ร้าน (มือถือ 10 หลัก หรือเลข ปชช. 13 หลัก) เช่น '0823202807'
+  var PROMPTPAY_NAME='Perfect Pet House';
+  var SLOT_CAPACITY=2;                 // จำนวนคิวต่อช่องเวลาก่อนจะเต็ม (ปิดช่อง)
+  var DEPOSIT_RATE=0.5;                // มัดจำ 50%
+  var ADDONS=[
+    {label:'แปรงฟัน / ดูแลช่องปาก'},
+    {label:'แก้ขนสังกะตัง (สางขนพันกัน)'},
+    {label:'เช็ด/บีบต่อมกลิ่นก้น'},
+    {label:'สปา / สครับผิว'}
+  ];
+  // เนื้อหาย่อจาก apps-script/กฎระเบียบและนโยบาย-เข้าพัก.md (แก้ที่ไฟล์นั้นแล้วซิงก์เข้ามา)
+  var TNC_HTML='<h5>การจอง &amp; มัดจำ</h5><ul><li>ชำระมัดจำ 50% เพื่อยืนยันการจอง ส่วนที่เหลือชำระวันรับบริการ</li><li>การจองสมบูรณ์เมื่อได้รับชำระเงินและทีมงานยืนยันคิว</li><li>กรุณาเก็บหลักฐานการชำระเงินทุกครั้ง</li></ul><h5>การยกเลิก / เลื่อน</h5><ul><li>Low season: แจ้งล่วงหน้าอย่างน้อย 3 วัน — ไม่มีคืนเงิน แต่เก็บเป็นเครดิตใช้ได้ภายใน 6 เดือน (เฉพาะค่าห้อง)</li><li>High season (5–20 เม.ย. และ 15 ธ.ค.–5 ม.ค.): ไม่มีคืนเงินและไม่เก็บเครดิตหากยกเลิก</li><li>รับน้องออกก่อนกำหนด: ไม่มีคืนเงิน/เก็บยอดคงเหลือ</li></ul><h5>เงื่อนไขการเข้าพัก / รับบริการ</h5><ul><li>น้องต้องไม่มีเห็บหมัด และได้รับยาป้องกันสม่ำเสมอ</li><li>แจ้งประวัติสุขภาพ / โรคประจำตัว / พฤติกรรมตามจริง เพื่อความปลอดภัยของน้อง</li><li>ทางร้านดูแลน้องอย่างดีที่สุดเสมือนสมาชิกในครอบครัว</li></ul>';
+
   var wsteps=document.querySelectorAll('#s-book .wstep');
   var dots=document.querySelectorAll('#steps .dot');
-  var stepNames={1:'เลือกบริการ',2:'ข้อมูลน้อง',3:'วันเวลา',4:'ยืนยัน'};
+  var stepNames={1:'เลือกบริการ',2:'ข้อมูลน้อง',3:'วันเวลา',4:'บริการเสริม',5:'ยืนยัน'};
+  var LAST_INPUT_STEP=5, SUCCESS_STEP=6;
 
   function showStep(n){
     state.step=n;
     wsteps.forEach(function(w){w.classList.toggle('active',+w.dataset.step===n);});
-    document.getElementById('wizFoot').style.display=(n>=5)?'none':'flex';
-    document.querySelector('#s-book .steps').style.display=(n>=5)?'none':'flex';
-    document.querySelector('#s-book .step-label').style.display=(n>=5)?'none':'block';
+    var hideChrome=(n>LAST_INPUT_STEP);
+    document.getElementById('wizFoot').style.display=hideChrome?'none':'flex';
+    document.querySelector('#s-book .steps').style.display=hideChrome?'none':'flex';
+    document.querySelector('#s-book .step-label').style.display=hideChrome?'none':'block';
     dots.forEach(function(d,i){d.classList.toggle('done',i<n);});
-    if(n<=4){document.getElementById('stepNow').textContent=n;document.getElementById('stepName').textContent=stepNames[n];}
-    document.getElementById('wizBack').style.display=(n>1&&n<5)?'flex':'none';
+    if(n<=LAST_INPUT_STEP){document.getElementById('stepNow').textContent=n;document.getElementById('stepName').textContent=stepNames[n];}
+    document.getElementById('wizBack').style.display=(n>1&&n<=LAST_INPUT_STEP)?'flex':'none';
     var next=document.getElementById('wizNext');
-    next.innerHTML=(n===4)?'ยืนยันการจอง <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>':'ถัดไป <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>';
+    next.innerHTML=(n===LAST_INPUT_STEP)?'ยืนยันการจอง <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>':'ถัดไป <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>';
+    if(n===2)buildStep2();
+    if(n===3){fillSlots();buildNights();}
+    if(n===4)buildAddons();
+    if(n===5){buildSummary();buildDeposit();}
     validate();
-    if(n===3)buildNights();
-    if(n===4)buildSummary();
     document.querySelector('.screen-wrap').scrollTop=0;window.scrollTo(0,0);
   }
+
+  var bkGroomPet='dog',bkSize=null,bkCoatIdx=null,bkCut=false;
+  function isStaySvc(){return /ฝากเลี้ยง/.test(state.service);}
+  function isGroomSvc(){return state.service==='อาบน้ำตัดขน';}
 
   // start booking from a room/service card
   function startBooking(service,pet,room){
     state.service=service;state.pet=pet;
-    // set service option
     document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(o){o.classList.toggle('on',o.dataset.service===service);});
-    // set pet seg
     document.querySelectorAll('#bkPetSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.bkpet===pet);});
-    buildRoomOptions();
-    if(room){state.room=room.name;state.roomPrice=room.price||0;document.getElementById('f-room').value=room.name;}
+    if(service==='อาบน้ำตัดขน'){
+      // รับค่าขนาด/ขน ที่ลูกค้าเลือกไว้จากแท็บบริการมาต่อเลย
+      bkSize=(typeof groomSize!=='undefined')?groomSize:null;
+      bkCoatIdx=(typeof groomCoatIdx!=='undefined')?groomCoatIdx:null;
+      bkCut=(typeof groomCut!=='undefined')?!!groomCut:false;
+      state.room='';state.roomPrice=0;
+    } else if(room){state.room=room.name;state.roomPrice=room.price||0;}
     else{state.room='';state.roomPrice=0;}
-    fillTimes();
     go('book');showStep(2);
   }
 
@@ -934,70 +1218,138 @@
   document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(o){
     o.addEventListener('click',function(){
       document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(x){x.classList.remove('on');});
-      o.classList.add('on');state.service=o.dataset.service;buildRoomOptions();fillTimes();validate();
+      o.classList.add('on');state.service=o.dataset.service;
+      state.room='';state.roomPrice=0;bkSize=null;bkCoatIdx=null;bkCut=false;
+      validate();
     });
   });
   // step 2 pet seg
   document.querySelectorAll('#bkPetSeg button').forEach(function(b){
     b.addEventListener('click',function(){
       document.querySelectorAll('#bkPetSeg button').forEach(function(x){x.classList.remove('on');});
-      b.classList.add('on');state.pet=b.dataset.bkpet;buildRoomOptions();
+      b.classList.add('on');state.pet=b.dataset.bkpet;buildStep2();validate();
     });
   });
 
+  // ── STEP 2: ปรับฟอร์มตามประเภทบริการ ──
+  function buildStep2(){
+    document.getElementById('bkRoomWrap').style.display=isStaySvc()?'':'none';
+    document.getElementById('bkGroomWrap').style.display=isGroomSvc()?'':'none';
+    if(isStaySvc())buildRoomOptions();
+    if(isGroomSvc())renderBkGroom();
+  }
   function buildRoomOptions(){
     var sel=document.getElementById('f-room');
-    var isStay=/ฝากเลี้ยง/.test(state.service);
     sel.innerHTML='<option value="">— ไม่ระบุ (ให้ร้านแนะนำ) —</option>';
-    if(isStay){
-      ROOMS[state.pet].forEach(function(r){
-        var o=document.createElement('option');o.value=r.name;o.dataset.price=r.price;
-        o.textContent=r.name+' · '+baht(r.price)+'/คืน';sel.appendChild(o);
-      });
-    }
-    sel.parentElement.style.display=isStay?'':'none';
+    ROOMS[state.pet].forEach(function(r){
+      var o=document.createElement('option');o.value=r.name;o.dataset.price=r.price;
+      o.textContent=r.name+' · '+baht(r.price)+'/คืน';if(r.name===state.room)o.selected=true;sel.appendChild(o);
+    });
   }
   document.getElementById('f-room').addEventListener('change',function(){
-    var o=this.selectedOptions[0];state.room=this.value;state.roomPrice=o&&o.dataset.price?+o.dataset.price:0;
+    var o=this.selectedOptions[0];state.room=this.value;state.roomPrice=o&&o.dataset.price?+o.dataset.price:0;validate();
   });
 
-  // time options depend on service
-  function fillTimes(){
-    var sel=document.getElementById('f-time'),note=document.getElementById('f-timeNote');
-    var s=state.service,start=9,end=20,label='ร้านเปิด 9:00–20:00 น.';
-    if(/ฝากเลี้ยง/.test(s)&&!/อาบ/.test(s)){start=9;end=18;label='เช็คอิน 9:00–18:00 น. · เช็คเอาท์ก่อน 14:00 น.';}
-    else if(/Day Care/.test(s)){start=9;end=18;label='Day Care 9:00–20:00 น.';}
-    else if(/อาบน้ำ/.test(s)&&!/ฝาก/.test(s)){start=10;end=19;label='อาบน้ำตัดขน 10:00–19:00 น.';}
-    else if(/ฝาก/.test(s)&&/อาบ/.test(s)){start=10;end=18;label='ฝากเลี้ยง+อาบน้ำ 10:00–18:00 น.';}
-    else if(/ออกกำลังกาย|Dog Park/.test(s)){start=9;end=19;label='โซนออกกำลังกาย รอบ 9:00–19:00 น. (รอบละ 60 นาที)';}
-    var cur=sel.value;sel.innerHTML='<option value="">— ไม่ระบุ —</option>';
-    for(var h=start;h<=end;h++){var hh=(h<10?'0':'')+h+':00';var o=document.createElement('option');o.value=hh;o.textContent=hh+' น.';if(hh===cur)o.selected=true;sel.appendChild(o);}
-    note.textContent='🕘 '+label;
-    markBusyTimes();
+  // ── STEP 2 (grooming): เลือกขนาด/ชนิดขน แล้วคำนวณราคา ──
+  function renderBkGroom(){
+    bkGroomPet=(state.pet==='น้องแมว')?'cat':'dog';
+    var g=document.getElementById('bkGroomSizes');g.innerHTML='';
+    document.getElementById('bkGroomFree').querySelector('span').textContent=GROOM_FREE[bkGroomPet];
+    GROOM[bkGroomPet].sizes.forEach(function(s){
+      var b=document.createElement('button');b.type='button';b.innerHTML='<b>'+s[0]+'</b><br>'+s[1];
+      if(bkSize&&bkSize[0]===s[0])b.classList.add('on');
+      b.addEventListener('click',function(){
+        g.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');
+        bkSize=s;recalcBkGroom();validate();
+      });
+      g.appendChild(b);
+    });
+    var c=document.getElementById('bkGroomCoat');c.innerHTML='';
+    GROOM[bkGroomPet].coats.forEach(function(co){
+      var b=document.createElement('button');b.type='button';b.textContent=co[0];
+      if(bkCoatIdx===co[1])b.classList.add('on');
+      b.addEventListener('click',function(){
+        c.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');
+        bkCoatIdx=co[1];recalcBkGroom();validate();
+      });
+      c.appendChild(b);
+    });
+    document.getElementById('bkCutToggle').classList.toggle('on',bkCut);
+    recalcBkGroom();
+  }
+  document.getElementById('bkCutToggle').addEventListener('click',function(){
+    bkCut=!bkCut;this.classList.toggle('on',bkCut);recalcBkGroom();
+  });
+  function recalcBkGroom(){
+    var out=document.getElementById('bkGroomPrice'),brk=document.getElementById('bkGroomBreak');
+    if(!bkSize||bkCoatIdx===null){out.textContent='—';brk.textContent='เลือกขนาด + ประเภทขน';state.roomPrice=0;return;}
+    var bath=bkSize[bkCoatIdx],cut=bkCut?bkSize[GROOM[bkGroomPet].cutIdx]:0;
+    out.textContent=baht(bath+cut);
+    brk.textContent='อาบน้ำ '+baht(bath)+(bkCut?(' + ตัดขน '+baht(cut)):'');
+    state.roomPrice=bath+cut;
+    var coatLabel='';GROOM[bkGroomPet].coats.forEach(function(co){if(co[1]===bkCoatIdx)coatLabel=co[0];});
+    state.room='อาบน้ำ '+bkSize[0]+' ('+bkSize[1]+') · '+coatLabel+(bkCut?' + ตัดขนทรง':'');
   }
 
-  // ดึงคิวที่มีอยู่แล้วของวันที่เลือกจากปฏิทินร้าน มาติดป้าย "มีคิวแล้ว" ในตัวเลือกเวลา
-  var busyCache={};
-  function markBusyTimes(){
-    var d=document.getElementById('f-checkin').value,sel=document.getElementById('f-time');
-    if(!d||!GOOGLE_SCRIPT_URL)return;
-    function apply(busy){
-      Array.from(sel.options).forEach(function(o){
-        if(!o.value)return;
-        var hEnd=parseInt(o.value,10)+1;hEnd=(hEnd<10?'0':'')+hEnd+':00';
-        var n=busy.filter(function(b){return b.s<hEnd&&b.e>o.value;}).length;
-        o.textContent=o.value+' น.'+(n>0?' · มีคิวแล้ว '+n+' รายการ':'');
+  // ── STEP 3: ปุ่มช่วงเวลา + เช็คคิวจริง ──
+  function slotHours(){
+    var s=state.service,start=10,end=19,label='อาบน้ำตัดขน 10:00–19:00 น.';
+    if(isStaySvc()&&!/อาบ/.test(s)){start=9;end=18;label='เช็คอิน 9:00–18:00 น. · เช็คเอาท์ก่อน 14:00 น.';}
+    else if(/Day Care/.test(s)){start=9;end=18;label='Day Care 9:00–18:00 น.';}
+    else if(/อาบน้ำ/.test(s)&&/ฝาก/.test(s)){start=10;end=18;label='ฝากเลี้ยง+อาบน้ำ 10:00–18:00 น.';}
+    else if(/ออกกำลังกาย|Dog Park/.test(s)){start=9;end=19;label='โซนออกกำลังกาย รอบ 9:00–19:00 น.';}
+    return {start:start,end:end,label:label};
+  }
+  function fillSlots(){
+    document.getElementById('s3title').textContent=isStaySvc()?'อยากเข้าพักวันไหน?':'อยากใช้บริการวันไหน?';
+    document.getElementById('ciLabel').innerHTML=isStaySvc()?'วันรับเข้า <span class="req">*</span>':'วันที่ <span class="req">*</span>';
+    document.getElementById('coWrap').style.display=isStaySvc()?'':'none';
+    document.getElementById('slotLabel').textContent=isStaySvc()?'เวลาเช็คอินที่สะดวก':'ช่วงเวลาที่สะดวก';
+    var h=slotHours(),grid=document.getElementById('slotGrid'),cur=document.getElementById('f-time').value;
+    grid.innerHTML='';
+    for(var hr=h.start;hr<=h.end;hr++){
+      var hh=(hr<10?'0':'')+hr+':00';
+      var b=document.createElement('button');b.type='button';b.className='slot';b.dataset.t=hh;b.innerHTML=hh+' น.';
+      if(hh===cur)b.classList.add('on');
+      b.addEventListener('click',function(){
+        if(this.disabled||this.classList.contains('full'))return;
+        grid.querySelectorAll('.slot').forEach(function(x){x.classList.remove('on');});
+        this.classList.add('on');document.getElementById('f-time').value=this.dataset.t;validate();
       });
+      grid.appendChild(b);
+    }
+    document.getElementById('f-timeNote').textContent='🕘 '+h.label;
+    markBusySlots();
+  }
+  // อ่านคิวจริงจากปฏิทินร้าน (?busy=) แล้วปิดช่องที่เต็ม (≥ SLOT_CAPACITY)
+  var busyCache={};
+  function markBusySlots(){
+    var d=document.getElementById('f-checkin').value,grid=document.getElementById('slotGrid');
+    var load=document.getElementById('slotLoad');
+    if(!d)return;
+    function apply(busy){
+      grid.querySelectorAll('.slot').forEach(function(b){
+        var t=b.dataset.t,hEnd=parseInt(t,10)+1;hEnd=(hEnd<10?'0':'')+hEnd+':00';
+        var n=busy.filter(function(x){return x.s<hEnd&&x.e>t;}).length;
+        var full=n>=SLOT_CAPACITY,left=Math.max(0,SLOT_CAPACITY-n);
+        b.classList.toggle('full',full);b.disabled=full;
+        b.innerHTML=t+' น.'+(full?'<small>เต็มแล้ว</small>':(n>0?'<small>เหลือ '+left+' คิว</small>':''));
+        if(full&&b.classList.contains('on')){b.classList.remove('on');document.getElementById('f-time').value='';}
+      });
+      validate();
     }
     if(busyCache[d]){apply(busyCache[d]);return;}
+    if(!GOOGLE_SCRIPT_URL)return;
+    load.style.display='flex';
     fetch(GOOGLE_SCRIPT_URL+'?busy='+d).then(function(r){return r.json();}).then(function(j){
+      load.style.display='none';
       if(j&&j.ok){busyCache[d]=j.busy||[];apply(busyCache[d]);}
-    }).catch(function(){});
+    }).catch(function(){load.style.display='none';});
   }
 
   function buildNights(){
     var box=document.getElementById('nightsBox');
-    if(!/ฝากเลี้ยง/.test(state.service)||!state.roomPrice){box.style.display='none';return;}
+    if(!isStaySvc()||!state.roomPrice){box.style.display='none';return;}
     var ci=document.getElementById('f-checkin').value,co=document.getElementById('f-checkout').value;
     if(ci&&co){
       var n=Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000));
@@ -1013,11 +1365,11 @@
     var ci=document.getElementById('f-checkin'),co=document.getElementById('f-checkout');
     function todayStr(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
     ci.min=todayStr();co.min=todayStr();
-    ci.addEventListener('change',function(){co.min=ci.value||todayStr();if(co.value&&co.value<co.min)co.value='';markBusyTimes();});
+    ci.addEventListener('change',function(){co.min=ci.value||todayStr();if(co.value&&co.value<co.min)co.value='';markBusySlots();});
   })();
 
   function estTotal(){
-    if(/ฝากเลี้ยง/.test(state.service)&&state.roomPrice){
+    if(isStaySvc()&&state.roomPrice){
       var ci=document.getElementById('f-checkin').value,co=document.getElementById('f-checkout').value;
       var n=(ci&&co)?Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000)):1;
       return {label:n+' คืน × '+baht(state.roomPrice),total:n*state.roomPrice};
@@ -1026,35 +1378,99 @@
     return {label:'',total:0};
   }
 
+  // ── STEP 4: บริการเสริม ──
+  var selAddons=[];
+  function buildAddons(){
+    var wrap=document.getElementById('addonWrap'),sub=document.getElementById('s4sub');
+    if(!/อาบน้ำ/.test(state.service)){
+      wrap.innerHTML='<p class="slot-note" style="margin:0 0 4px;">บริการนี้ไม่มีรายการเสริมให้เลือก กรอกคำขอพิเศษด้านล่างได้เลย</p>';
+      sub.textContent='กรอกคำขอพิเศษ / หมายเหตุ';return;
+    }
+    sub.textContent='เลือกบริการเสริมที่ต้องการ · ทีมงานแจ้งราคาเพิ่มเติม';
+    wrap.innerHTML='';
+    ADDONS.forEach(function(a){
+      var d=document.createElement('div');d.className='addon'+(selAddons.indexOf(a.label)>=0?' on':'');
+      d.innerHTML='<span class="ab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span class="at"><b>'+a.label+'</b></span>';
+      d.addEventListener('click',function(){
+        var i=selAddons.indexOf(a.label);
+        if(i>=0){selAddons.splice(i,1);d.classList.remove('on');}
+        else{selAddons.push(a.label);d.classList.add('on');}
+      });
+      wrap.appendChild(d);
+    });
+  }
+
   function buildSummary(){
     var s=document.getElementById('summary');
+    var v=function(id){return (document.getElementById(id).value||'').trim();};
     var rows=[['บริการ',state.service||'—'],['ชนิดสัตว์',state.pet]];
-    if(document.getElementById('f-petname').value)rows.push(['ชื่อน้อง',document.getElementById('f-petname').value]);
-    if(state.room)rows.push(['ห้อง/บริการ',state.room]);
-    if(document.getElementById('f-checkin').value)rows.push(['วันรับเข้า',document.getElementById('f-checkin').value]);
-    if(document.getElementById('f-checkout').value)rows.push(['วันรับกลับ',document.getElementById('f-checkout').value]);
-    if(document.getElementById('f-time').value)rows.push(['ช่วงเวลา',document.getElementById('f-time').value+' น.']);
+    if(v('f-petname'))rows.push(['ชื่อน้อง',v('f-petname')]);
+    if(state.room)rows.push(['รายละเอียด',state.room]);
+    if(v('f-checkin'))rows.push([isStaySvc()?'วันรับเข้า':'วันที่',v('f-checkin')]);
+    if(v('f-checkout'))rows.push(['วันรับกลับ',v('f-checkout')]);
+    if(v('f-time'))rows.push(['ช่วงเวลา',v('f-time')+' น.']);
+    if(selAddons.length)rows.push(['บริการเสริม',selAddons.join(', ')]);
     s.innerHTML=rows.map(function(r){return '<div class="sumrow"><span class="k">'+r[0]+'</span><span class="v">'+r[1]+'</span></div>';}).join('');
     var e=estTotal();
     document.getElementById('totVal').textContent=e.total?baht(e.total):'ทีมงานแจ้งราคา';
     document.getElementById('totLabel').textContent=e.label?('('+e.label+')'):'รวมโดยประมาณ';
   }
 
+  // ── STEP 5: มัดจำ + QR PromptPay ──
+  function buildDeposit(){
+    var e=estTotal(),amtEl=document.getElementById('depAmt'),box=document.getElementById('qrBox');
+    document.getElementById('qrName').textContent=PROMPTPAY_NAME;
+    function boxAuto(){box.style.width='auto';box.style.height='auto';box.style.border='none';}
+    function boxFixed(){box.style.width='216px';box.style.height='216px';box.style.border='1px solid #F0E4D5';}
+    box.style.display='';box.innerHTML='';
+    if(!e.total){
+      amtEl.innerHTML='<small>ทีมงานจะประเมินราคาและแจ้งยอดมัดจำทาง LINE</small>';
+      boxAuto();box.innerHTML='<div class="qr-pending">เมื่อทีมงานยืนยันราคา จะแจ้งช่องทางโอนมัดจำทาง LINE</div>';
+      return;
+    }
+    var deposit=Math.round(e.total*DEPOSIT_RATE);
+    amtEl.innerHTML=baht(deposit)+' <small>(50% ของ '+baht(e.total)+')</small>';
+    if(PROMPTPAY_ID&&window.PPHQR){
+      try{
+        boxFixed();
+        box.appendChild(window.PPHQR.canvas(window.PPHQR.promptpay(PROMPTPAY_ID,deposit),216));
+      }catch(err){boxAuto();box.innerHTML='<div class="qr-pending">สร้าง QR ไม่สำเร็จ ทีมงานจะแจ้งช่องทางโอนทาง LINE</div>';}
+    }else{
+      boxAuto();
+      box.innerHTML='<div class="qr-pending">ร้านกำลังตั้งค่า QR พร้อมเพย์<br>ทีมงานจะแจ้งช่องทางโอนมัดจำ '+baht(deposit)+' ทาง LINE</div>';
+    }
+  }
+
+  // ── T&C ──
+  var tncOK=false;
+  document.getElementById('tncBody').innerHTML=TNC_HTML;
+  document.getElementById('tncCheck').addEventListener('click',function(){
+    tncOK=!tncOK;this.classList.toggle('on',tncOK);validate();
+  });
+
+  // ── รูปน้อง (พรีวิวในเครื่องเท่านั้น ไม่อัปโหลด) ──
+  document.getElementById('f-photo').addEventListener('change',function(){
+    var f=this.files&&this.files[0];if(!f)return;
+    document.getElementById('photoPv').innerHTML='<img src="'+URL.createObjectURL(f)+'" alt="รูปน้อง">';
+  });
+
   function validate(){
     var n=state.step,ok=true;
     if(n===1)ok=!!state.service;
-    if(n===2)ok=!!state.pet;
-    if(n===3)ok=!!document.getElementById('f-checkin').value || /อาบน้ำ|Day Care/.test(state.service);
-    if(n===4){var ph=document.getElementById('f-phone').value.replace(/[^0-9]/g,'');
-      ok=!!document.getElementById('f-owner').value.trim()&&ph.length>=9&&ph.length<=11;}
+    if(n===2){ok=!!state.pet;if(isGroomSvc())ok=ok&&!!bkSize&&bkCoatIdx!==null;}
+    if(n===3){ok=!!document.getElementById('f-checkin').value;
+      if(isGroomSvc()||/Day Care|ออกกำลังกาย/.test(state.service))ok=ok&&!!document.getElementById('f-time').value;}
+    if(n===4)ok=true;
+    if(n===5){var ph=document.getElementById('f-phone').value.replace(/[^0-9]/g,'');
+      ok=!!document.getElementById('f-owner').value.trim()&&ph.length>=9&&ph.length<=11&&tncOK;}
     document.getElementById('wizNext').disabled=!ok;
   }
   ['f-owner','f-phone'].forEach(function(id){document.getElementById(id).addEventListener('input',validate);});
 
   document.getElementById('wizNext').addEventListener('click',function(){
     var n=state.step;
-    if(n<4){showStep(n+1);}
-    else{submitBooking();showStep(5);celebrate();}
+    if(n<LAST_INPUT_STEP){showStep(n+1);}
+    else{submitBooking();showStep(SUCCESS_STEP);celebrate();}
   });
   document.getElementById('wizBack').addEventListener('click',function(){if(state.step>1)showStep(Math.max(1,state.step-1));});
 
@@ -1062,7 +1478,7 @@
   var lastMsg='';
   function buildMsg(){
     var v=function(id){return (document.getElementById(id).value||'').trim();};
-    var e=estTotal();
+    var e=estTotal(),deposit=e.total?Math.round(e.total*DEPOSIT_RATE):0;
     var L=['🐾 ขอจองบริการ Perfect Pet House','──────────────',
       '👤 เจ้าของ: '+v('f-owner'),'📞 เบอร์โทร: '+v('f-phone')];
     if(v('f-line'))L.push('💬 LINE: '+v('f-line'));
@@ -1071,23 +1487,29 @@
     if(v('f-petname'))L.push('🏷️ ชื่อน้อง: '+v('f-petname'));
     if(v('f-breed'))L.push('📏 สายพันธุ์/ขนาด: '+v('f-breed'));
     L.push('🛎️ บริการ: '+state.service);
-    if(state.room)L.push('🏠 ห้อง/บริการ: '+state.room);
-    if(v('f-checkin'))L.push('📅 วันรับเข้า: '+v('f-checkin'));
+    if(state.room)L.push('🏠 รายละเอียด: '+state.room);
+    if(v('f-checkin'))L.push('📅 '+(isStaySvc()?'วันรับเข้า':'วันที่')+': '+v('f-checkin'));
     if(v('f-checkout'))L.push('📅 วันรับกลับ: '+v('f-checkout'));
     if(v('f-time'))L.push('🕘 ช่วงเวลา: '+v('f-time')+' น.');
-    if(v('f-note'))L.push('📝 หมายเหตุ: '+v('f-note'));
+    if(selAddons.length)L.push('✨ บริการเสริม: '+selAddons.join(', '));
+    if(v('f-note'))L.push('📝 คำขอพิเศษ: '+v('f-note'));
     if(e.total)L.push('💰 ประเมินราคา: '+baht(e.total)+(e.label?(' ('+e.label+')'):''));
+    if(deposit)L.push('💵 มัดจำ 50%: '+baht(deposit));
+    L.push('✅ ยอมรับเงื่อนไข & นโยบายการจองแล้ว');
+    L.push('📎 (แนบรูปน้อง + สลิปมัดจำในแชตนี้)');
     return L.join('\n');
   }
   function submitBooking(){
     lastMsg=buildMsg();
     var v=function(id){return (document.getElementById(id).value||'').trim();};
+    var e=estTotal(),deposit=e.total?Math.round(e.total*DEPOSIT_RATE):0;
+    var extra=(selAddons.length?(' | เสริม: '+selAddons.join(', ')):'')+(deposit?(' | มัดจำ '+deposit):'');
     var st=document.getElementById('notifyStatus');
     function setSt(msg,color){if(st){st.textContent=msg;st.style.color=color;}}
     try{
       var data={owner:v('f-owner'),phone:v('f-phone'),line:v('f-line'),email:v('f-email'),pet:state.pet,petname:v('f-petname'),
         breed:v('f-breed'),service:state.service,room:state.room,checkin:v('f-checkin'),checkout:v('f-checkout'),
-        time:v('f-time'),note:v('f-note'),message:lastMsg,submittedAt:new Date().toLocaleString('th-TH')};
+        time:v('f-time'),note:(v('f-note')+extra),message:lastMsg,submittedAt:new Date().toLocaleString('th-TH')};
       if(GOOGLE_SCRIPT_URL&&GOOGLE_SCRIPT_URL.indexOf('http')===0){
         setSt('กำลังส่งข้อมูลจองถึงร้าน...','#8a7a6d');
         // อ่านคำตอบจริงจาก Apps Script — บอกลูกค้าตามผลที่เกิดขึ้นจริง
@@ -1102,7 +1524,7 @@
             setSt('⚠ ระบบแจ้งเตือนอัตโนมัติขัดข้อง — กรุณากดส่งข้อความเข้า LINE ด้านล่างเพื่อยืนยันคิว','#B85C1E');
           });
       }
-    }catch(e){setSt('⚠ กรุณากดส่งข้อความเข้า LINE ด้านล่างเพื่อยืนยันคิว','#B85C1E');}
+    }catch(e2){setSt('⚠ กรุณากดส่งข้อความเข้า LINE ด้านล่างเพื่อยืนยันคิว','#B85C1E');}
   }
   document.getElementById('sendLine').addEventListener('click',function(){
     try{if(navigator.clipboard)navigator.clipboard.writeText(lastMsg);}catch(e){}
@@ -1114,8 +1536,13 @@
   });
   document.getElementById('bookAgain').addEventListener('click',function(){
     state={service:'',pet:'น้องหมา',room:'',roomPrice:0,step:1};
+    selAddons=[];bkSize=null;bkCoatIdx=null;bkCut=false;tncOK=false;
     document.querySelectorAll('#s-book input,#s-book textarea').forEach(function(i){i.value='';});
     document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(o){o.classList.remove('on');});
+    document.getElementById('tncCheck').classList.remove('on');
+    document.getElementById('slotGrid').innerHTML='';
+    document.getElementById('photoPv').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
+    document.querySelectorAll('#bkPetSeg button').forEach(function(x,i){x.classList.toggle('on',i===0);});
     showStep(1);
   });
 
