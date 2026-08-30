@@ -1253,6 +1253,9 @@ window.PPHQR=(function(){
   // ── STEP 2 (grooming): เลือกขนาด/ชนิดขน แล้วคำนวณราคา ──
   function renderBkGroom(){
     bkGroomPet=(state.pet==='น้องแมว')?'cat':'dog';
+    // ตั้งค่าเริ่มต้นประเภทขน = ตัวแรก (ขนสั้น) ถ้ายังไม่เลือก/ค่าเดิมไม่มีในสัตว์ชนิดนี้ — กันลูกค้ากดถัดไปไม่ได้เพราะลืมเลือกขน
+    var _coats=GROOM[bkGroomPet].coats;
+    if(bkCoatIdx===null||!_coats.some(function(co){return co[1]===bkCoatIdx;}))bkCoatIdx=_coats[0][1];
     var g=document.getElementById('bkGroomSizes');g.innerHTML='';
     document.getElementById('bkGroomFree').querySelector('span').textContent=GROOM_FREE[bkGroomPet];
     GROOM[bkGroomPet].sizes.forEach(function(s){
@@ -1282,7 +1285,7 @@ window.PPHQR=(function(){
   });
   function recalcBkGroom(){
     var out=document.getElementById('bkGroomPrice'),brk=document.getElementById('bkGroomBreak');
-    if(!bkSize||bkCoatIdx===null){out.textContent='—';brk.textContent='เลือกขนาด + ประเภทขน';state.roomPrice=0;return;}
+    if(!bkSize||bkCoatIdx===null){out.textContent='—';brk.textContent='เลือกขนาดน้อง (ตามน้ำหนัก)';state.roomPrice=0;return;}
     var bath=bkSize[bkCoatIdx],cut=bkCut?bkSize[GROOM[bkGroomPet].cutIdx]:0;
     out.textContent=baht(bath+cut);
     brk.textContent='อาบน้ำ '+baht(bath)+(bkCut?(' + ตัดขน '+baht(cut)):'');
