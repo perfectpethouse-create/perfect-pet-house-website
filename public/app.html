@@ -767,7 +767,7 @@
 
         <!-- deposit / QR -->
         <div class="qr-card" id="qrCard">
-          <div class="qr-head">มัดจำ 50% เพื่อยืนยันการจอง</div>
+          <div class="qr-head" id="qrHead">มัดจำ 50% เพื่อยืนยันการจอง</div>
           <div class="qr-amt" id="depAmt">—</div>
           <div class="qr-box" id="qrBox"></div>
           <div class="qr-promptpay"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><line x1="14" y1="14" x2="14" y2="21"/><line x1="21" y1="14" x2="21" y2="21"/></svg> <b>PromptPay</b> · <span id="qrName">Perfect Pet House</span></div>
@@ -1007,11 +1007,11 @@ window.PPHQR=(function(){
   // row = [label, weight, ...ราคาตามคอลัมน์]; ราคาจริงจากตารางในเว็บ
   var GROOM={
     dog:{ // [label,weight,ขนสั้น,ขนยาว,ขนยาวพิเศษ,ตัดขนเพิ่ม]
-      sizes:[['XS','<2kg',350,400,450,400],['S','2-5kg',400,500,600,500],['M','5-10kg',500,700,900,600],['L','10-15kg',700,900,1000,700],['XL','15-20kg',900,1100,1400,900],['2XL','20-30kg',1200,1450,1600,1200],['3XL','30-40kg',1650,1850,1900,1600]],
+      sizes:[['XS','<2kg',350,400,450,400],['S','2-5kg',400,500,600,500],['M','5-10kg',500,700,900,600],['L','10-15kg',700,900,1000,700],['XL','15-20kg',900,1100,1400,900],['2XL','20-30kg',1200,1450,1600,1200],['3XL','30-40kg',1650,1850,1900,1600],['4XL','40-50kg',2200,2150,2400,2200],['5XL','>50kg',2850,3100,3300,2800]],
       coats:[['ขนสั้น',2],['ขนยาว',3],['ขนยาวพิเศษ',4]],cutIdx:5
     },
     cat:{ // [label,weight,ขนสั้น,ขนยาว,ตัดขนเพิ่ม]
-      sizes:[['XS','<2kg',450,550,450],['S','2-3kg',550,650,550],['M','3-5kg',750,850,750],['L','5-7kg',950,1100,950],['XL','7-9kg',1250,1400,1250],['2XL','9-11kg',1400,1600,1400],['3XL','11-13kg',1750,1850,1750]],
+      sizes:[['XS','<2kg',450,550,450],['S','2-3kg',550,650,550],['M','3-5kg',750,850,750],['L','5-7kg',950,1100,950],['XL','7-9kg',1250,1400,1250],['2XL','9-11kg',1400,1600,1400],['3XL','11-13kg',1750,1850,1750],['4XL','13-15kg',2100,2250,2100],['5XL','>15kg',2650,2800,2650]],
       coats:[['ขนสั้น',2],['ขนยาว',3]],cutIdx:4
     }
   };
@@ -1159,7 +1159,8 @@ window.PPHQR=(function(){
   var PROMPTPAY_ID='';                 // ← ใส่เบอร์พร้อมเพย์ร้าน (มือถือ 10 หลัก หรือเลข ปชช. 13 หลัก) เช่น '0823202807'
   var PROMPTPAY_NAME='Perfect Pet House';
   var SLOT_CAPACITY=2;                 // จำนวนคิวต่อช่องเวลาก่อนจะเต็ม (ปิดช่อง)
-  var DEPOSIT_RATE=0.5;                // มัดจำ 50%
+  var DEPOSIT_RATE=0.5;                // มัดจำ 50% (ห้องพัก/บริการอื่น)
+  var DEPOSIT_FLAT_GROOM=100;          // อาบน้ำตัดขน: มัดจำคงที่ 100 บาท + รับฟรีสปาโอโซน
   var ADDONS=[
     {label:'แปรงฟัน / ดูแลช่องปาก'},
     {label:'แก้ขนสังกะตัง (สางขนพันกัน)'},
@@ -1167,7 +1168,7 @@ window.PPHQR=(function(){
     {label:'สปา / สครับผิว'}
   ];
   // เนื้อหาย่อจาก apps-script/กฎระเบียบและนโยบาย-เข้าพัก.md (แก้ที่ไฟล์นั้นแล้วซิงก์เข้ามา)
-  var TNC_HTML='<h5>การจอง &amp; มัดจำ</h5><ul><li>ชำระมัดจำ 50% เพื่อยืนยันการจอง ส่วนที่เหลือชำระวันรับบริการ</li><li>การจองสมบูรณ์เมื่อได้รับชำระเงินและทีมงานยืนยันคิว</li><li>กรุณาเก็บหลักฐานการชำระเงินทุกครั้ง</li></ul><h5>การยกเลิก / เลื่อน</h5><ul><li>Low season: แจ้งล่วงหน้าอย่างน้อย 3 วัน — ไม่มีคืนเงิน แต่เก็บเป็นเครดิตใช้ได้ภายใน 6 เดือน (เฉพาะค่าห้อง)</li><li>High season (5–20 เม.ย. และ 15 ธ.ค.–5 ม.ค.): ไม่มีคืนเงินและไม่เก็บเครดิตหากยกเลิก</li><li>รับน้องออกก่อนกำหนด: ไม่มีคืนเงิน/เก็บยอดคงเหลือ</li></ul><h5>เงื่อนไขการเข้าพัก / รับบริการ</h5><ul><li>น้องต้องไม่มีเห็บหมัด และได้รับยาป้องกันสม่ำเสมอ</li><li>แจ้งประวัติสุขภาพ / โรคประจำตัว / พฤติกรรมตามจริง เพื่อความปลอดภัยของน้อง</li><li>ทางร้านดูแลน้องอย่างดีที่สุดเสมือนสมาชิกในครอบครัว</li></ul>';
+  var TNC_HTML='<h5>การจอง &amp; มัดจำ</h5><ul><li>อาบน้ำตัดขน: มัดจำ 100 บาท (รับฟรีสปาโอโซน) · ห้องพัก/บริการอื่น: มัดจำ 50% — ส่วนที่เหลือชำระวันรับบริการ</li><li>การจองสมบูรณ์เมื่อได้รับชำระเงินและทีมงานยืนยันคิว</li><li>กรุณาเก็บหลักฐานการชำระเงินทุกครั้ง</li></ul><h5>การยกเลิก / เลื่อน</h5><ul><li>Low season: แจ้งล่วงหน้าอย่างน้อย 3 วัน — ไม่มีคืนเงิน แต่เก็บเป็นเครดิตใช้ได้ภายใน 6 เดือน (เฉพาะค่าห้อง)</li><li>High season (5–20 เม.ย. และ 15 ธ.ค.–5 ม.ค.): ไม่มีคืนเงินและไม่เก็บเครดิตหากยกเลิก</li><li>รับน้องออกก่อนกำหนด: ไม่มีคืนเงิน/เก็บยอดคงเหลือ</li></ul><h5>เงื่อนไขการเข้าพัก / รับบริการ</h5><ul><li>น้องต้องไม่มีเห็บหมัด และได้รับยาป้องกันสม่ำเสมอ</li><li>แจ้งประวัติสุขภาพ / โรคประจำตัว / พฤติกรรมตามจริง เพื่อความปลอดภัยของน้อง</li><li>ทางร้านดูแลน้องอย่างดีที่สุดเสมือนสมาชิกในครอบครัว</li></ul>';
 
   var wsteps=document.querySelectorAll('#s-book .wstep');
   var dots=document.querySelectorAll('#steps .dot');
@@ -1420,19 +1421,27 @@ window.PPHQR=(function(){
   }
 
   // ── STEP 5: มัดจำ + QR PromptPay ──
+  // อาบน้ำตัดขน = มัดจำคงที่ 100 บาท (รับฟรีสปาโอโซน) · บริการอื่น = 50% ของยอดประเมิน
+  function depositFor(){var e=estTotal();return isGroomSvc()?DEPOSIT_FLAT_GROOM:(e.total?Math.round(e.total*DEPOSIT_RATE):0);}
   function buildDeposit(){
-    var e=estTotal(),amtEl=document.getElementById('depAmt'),box=document.getElementById('qrBox');
+    var e=estTotal(),groom=isGroomSvc(),deposit=depositFor();
+    var head=document.getElementById('qrHead'),amtEl=document.getElementById('depAmt'),box=document.getElementById('qrBox');
     document.getElementById('qrName').textContent=PROMPTPAY_NAME;
     function boxAuto(){box.style.width='auto';box.style.height='auto';box.style.border='none';}
     function boxFixed(){box.style.width='216px';box.style.height='216px';box.style.border='1px solid #F0E4D5';}
     box.style.display='';box.innerHTML='';
-    if(!e.total){
+    if(groom){
+      head.innerHTML='โอนมัดจำ 100 บาท เพื่อรับโปรโมชั่น <b>สปาโอโซนฟรี</b> 🎁';
+      amtEl.innerHTML=baht(deposit)+' <small>รับฟรีสปาโอโซน</small>';
+    }else if(!e.total){
+      head.textContent='มัดจำเพื่อยืนยันการจอง';
       amtEl.innerHTML='<small>ทีมงานจะประเมินราคาและแจ้งยอดมัดจำทาง LINE</small>';
       boxAuto();box.innerHTML='<div class="qr-pending">เมื่อทีมงานยืนยันราคา จะแจ้งช่องทางโอนมัดจำทาง LINE</div>';
       return;
+    }else{
+      head.textContent='มัดจำ 50% เพื่อยืนยันการจอง';
+      amtEl.innerHTML=baht(deposit)+' <small>(50% ของ '+baht(e.total)+')</small>';
     }
-    var deposit=Math.round(e.total*DEPOSIT_RATE);
-    amtEl.innerHTML=baht(deposit)+' <small>(50% ของ '+baht(e.total)+')</small>';
     if(PROMPTPAY_ID&&window.PPHQR){
       try{
         boxFixed();
@@ -1481,7 +1490,7 @@ window.PPHQR=(function(){
   var lastMsg='';
   function buildMsg(){
     var v=function(id){return (document.getElementById(id).value||'').trim();};
-    var e=estTotal(),deposit=e.total?Math.round(e.total*DEPOSIT_RATE):0;
+    var e=estTotal(),deposit=depositFor();
     var L=['🐾 ขอจองบริการ Perfect Pet House','──────────────',
       '👤 เจ้าของ: '+v('f-owner'),'📞 เบอร์โทร: '+v('f-phone')];
     if(v('f-line'))L.push('💬 LINE: '+v('f-line'));
@@ -1497,7 +1506,7 @@ window.PPHQR=(function(){
     if(selAddons.length)L.push('✨ บริการเสริม: '+selAddons.join(', '));
     if(v('f-note'))L.push('📝 คำขอพิเศษ: '+v('f-note'));
     if(e.total)L.push('💰 ประเมินราคา: '+baht(e.total)+(e.label?(' ('+e.label+')'):''));
-    if(deposit)L.push('💵 มัดจำ 50%: '+baht(deposit));
+    if(deposit)L.push('💵 มัดจำ: '+baht(deposit)+(isGroomSvc()?' (รับฟรีสปาโอโซน)':' (50%)'));
     L.push('✅ ยอมรับเงื่อนไข & นโยบายการจองแล้ว');
     L.push('📎 (แนบรูปน้อง + สลิปมัดจำในแชตนี้)');
     return L.join('\n');
@@ -1505,7 +1514,7 @@ window.PPHQR=(function(){
   function submitBooking(){
     lastMsg=buildMsg();
     var v=function(id){return (document.getElementById(id).value||'').trim();};
-    var e=estTotal(),deposit=e.total?Math.round(e.total*DEPOSIT_RATE):0;
+    var e=estTotal(),deposit=depositFor();
     var extra=(selAddons.length?(' | เสริม: '+selAddons.join(', ')):'')+(deposit?(' | มัดจำ '+deposit):'');
     var st=document.getElementById('notifyStatus');
     function setSt(msg,color){if(st){st.textContent=msg;st.style.color=color;}}
