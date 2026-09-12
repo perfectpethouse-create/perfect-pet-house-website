@@ -1334,10 +1334,11 @@ window.PPHQR=(function(){
     var load=document.getElementById('slotLoad');
     if(!d)return;
     function apply(busy){
+      var cap=/ออกกำลังกาย|Dog Park/.test(state.service)?3:SLOT_CAPACITY;
       grid.querySelectorAll('.slot').forEach(function(b){
         var t=b.dataset.t,hEnd=parseInt(t,10)+1;hEnd=(hEnd<10?'0':'')+hEnd+':00';
         var n=busy.filter(function(x){return x.s<hEnd&&x.e>t;}).length;
-        var full=n>=SLOT_CAPACITY,left=Math.max(0,SLOT_CAPACITY-n);
+        var full=n>=cap,left=Math.max(0,cap-n);
         b.classList.toggle('full',full);b.disabled=full;
         b.innerHTML=t+' น.'+(full?'<small>เต็มแล้ว</small>':(n>0?'<small>เหลือ '+left+' คิว</small>':''));
         if(full&&b.classList.contains('on')){b.classList.remove('on');document.getElementById('f-time').value='';}

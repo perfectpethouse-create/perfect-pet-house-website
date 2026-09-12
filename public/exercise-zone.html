@@ -306,6 +306,20 @@
   .ezf-submit:hover{background:var(--orange-dark);transform:translateY(-2px);}
   .ezf-alt{text-align:center;font-size:13.5px;color:var(--brown-soft);margin-top:14px;}
   .ezf-alt a{color:var(--water-dark);font-weight:600;}
+  /* round selector buttons */
+  .ez-rounds{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .ezr{display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 8px;border:2px solid #E7D6C5;border-radius:14px;
+    background:#FFFDFB;color:var(--brown);font-family:'Prompt',sans-serif;cursor:pointer;transition:.15s;text-align:center;line-height:1.25;}
+  .ezr b{font-size:15px;font-weight:600;}
+  .ezr .ezr-t{font-size:12.5px;color:var(--brown-soft);}
+  .ezr .ezr-st{font-size:11px;font-weight:600;color:var(--green);min-height:14px;}
+  .ezr:hover:not(:disabled){border-color:var(--water);}
+  .ezr.on{border-color:var(--water-dark);background:var(--water);color:#fff;}
+  .ezr.on .ezr-t,.ezr.on .ezr-st{color:rgba(255,255,255,.9);}
+  .ezr.full,.ezr:disabled{opacity:.55;cursor:not-allowed;background:#F3EDE5;border-color:#E7D6C5;}
+  .ezr.full .ezr-t{text-decoration:line-through;}
+  .ezr.full .ezr-st{color:var(--red);}
+  .ez-rounds-note{font-size:12.5px;color:var(--brown-soft);margin-top:9px;text-align:center;}
   #bkResult{margin-top:14px;}
   #bkResult .bk-box{background:var(--cream);border:1.5px solid #E7D6C5;border-radius:14px;padding:16px;font-size:14px;color:var(--brown);}
   #bkResult textarea{width:100%;margin-top:10px;padding:10px;border-radius:10px;border:1px solid #E7D6C5;font-family:'Prompt',sans-serif;font-size:13px;box-sizing:border-box;}
@@ -541,15 +555,17 @@
         <div class="ezf-field"><label>ชื่อน้อง</label><input id="bkPet" placeholder="เช่น โมจิ"></div>
         <div class="ezf-field"><label>สายพันธุ์ / น้ำหนัก</label><input id="bkBreed" placeholder="โกลเด้น 22 กก."></div>
       </div>
-      <div class="ezf-row">
-        <div class="ezf-field"><label>วันที่สะดวก</label><input id="bkDate" type="date"></div>
-        <div class="ezf-field"><label>รอบเวลา (50 นาที)</label><select id="bkTime">
-          <option value="">— เลือกรอบ —</option>
-          <option value="15:00">รอบ 1 · 15:00–15:50 น.</option>
-          <option value="16:00">รอบ 2 · 16:00–16:50 น.</option>
-          <option value="18:00">รอบ 3 · 18:00–18:50 น.</option>
-          <option value="19:00">รอบ 4 · 19:00–19:50 น.</option>
-        </select></div>
+      <div class="ezf-field full"><label>วันที่สะดวก *</label><input id="bkDate" type="date"></div>
+      <div class="ezf-field full">
+        <label>เลือกรอบที่สะดวก <span style="font-weight:400;color:var(--brown-soft);">(50 นาที · รับรอบละ 3 บ้าน)</span> *</label>
+        <div class="ez-rounds" id="bkRounds">
+          <button type="button" class="ezr" data-t="15:00"><b>รอบ 1</b><span class="ezr-t">15:00–15:50</span><span class="ezr-st"></span></button>
+          <button type="button" class="ezr" data-t="16:00"><b>รอบ 2</b><span class="ezr-t">16:00–16:50</span><span class="ezr-st"></span></button>
+          <button type="button" class="ezr" data-t="18:00"><b>รอบ 3</b><span class="ezr-t">18:00–18:50</span><span class="ezr-st"></span></button>
+          <button type="button" class="ezr" data-t="19:00"><b>รอบ 4</b><span class="ezr-t">19:00–19:50</span><span class="ezr-st"></span></button>
+        </div>
+        <p class="ez-rounds-note" id="bkRoundsNote">เลือกวันที่ก่อน เพื่อเช็กรอบที่ยังว่าง</p>
+        <input type="hidden" id="bkTime">
       </div>
       <div class="ezf-field full"><label>หมายเหตุ (โรคประจำตัว / สายพันธุ์หน้าสั้น ฯลฯ)</label><textarea id="bkNote" rows="2" placeholder="บอกเราได้เลย เราดูแลตามความต้องการของน้อง"></textarea></div>
       <button type="button" class="ezf-submit" id="bkSubmit"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>ส่งคำขอจอง</button>
@@ -777,12 +793,55 @@
   function val(id){var e=document.getElementById(id);return e?e.value.trim():'';}
   function mark(id,bad){var e=document.getElementById(id);if(e)e.classList.toggle('ezf-err',bad);}
   var submitSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:19px;height:19px;"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>';
+
+  /* ---- เลือกรอบ (ปุ่ม) + ความจุ 3 บ้าน/รอบ (จองผ่านเว็บ) ---- */
+  var EX_CAP=3, roundsBusy={};
+  var roundBtns=[].slice.call(document.querySelectorAll('#bkRounds .ezr'));
+  var bkTime=document.getElementById('bkTime'), bkDate=document.getElementById('bkDate'), roundsNote=document.getElementById('bkRoundsNote');
+  function endOf(t){var h=parseInt(t,10)+1;return (h<10?'0':'')+h+':00';}
+  function paintRounds(busy){
+    roundBtns.forEach(function(b){
+      var t=b.dataset.t, hEnd=endOf(t);
+      var n=busy?busy.filter(function(x){return x.s<hEnd && x.e>t;}).length:0;
+      var full=n>=EX_CAP, left=Math.max(0,EX_CAP-n);
+      b.classList.toggle('full',full); b.disabled=full;
+      var st=b.querySelector('.ezr-st');
+      if(st) st.textContent = full ? 'เต็มแล้ว' : (busy ? 'เหลือ '+left+' บ้าน' : '');
+      if(full && b.classList.contains('on')){ b.classList.remove('on'); if(bkTime) bkTime.value=''; }
+    });
+  }
+  function loadRounds(){
+    if(!bkDate) return;
+    var d=bkDate.value;
+    if(!d){ roundBtns.forEach(function(b){b.classList.remove('full');b.disabled=false;var st=b.querySelector('.ezr-st');if(st)st.textContent='';}); roundsNote.textContent='เลือกวันที่ก่อน เพื่อเช็กรอบที่ยังว่าง'; return; }
+    if(roundsBusy[d]){ paintRounds(roundsBusy[d]); roundsNote.textContent='รับรอบละ 3 บ้าน · รอบที่เต็มแล้วเลือกไม่ได้'; return; }
+    paintRounds(null); // เปิดทุกรอบไว้ก่อน แล้วค่อยปิดที่เต็มเมื่อเช็กเสร็จ
+    roundsNote.textContent='รับรอบละ 3 บ้าน · กำลังเช็กรอบที่ว่าง...';
+    var done=false, fb='รับรอบละ 3 บ้าน (ทีมงานจะยืนยันคิวว่างอีกครั้ง)';
+    var to=setTimeout(function(){ if(!done){ done=true; roundsNote.textContent=fb; } }, 7000);
+    fetch(GOOGLE_SCRIPT_URL+'?busy='+d).then(function(r){return r.json();}).then(function(j){
+      if(done)return; done=true; clearTimeout(to);
+      if(j&&j.ok){ roundsBusy[d]=j.busy||[]; paintRounds(roundsBusy[d]); roundsNote.textContent='รับรอบละ 3 บ้าน · รอบที่เต็มแล้วเลือกไม่ได้'; }
+      else { roundsNote.textContent=fb; }
+    }).catch(function(){ if(done)return; done=true; clearTimeout(to); roundsNote.textContent=fb; });
+  }
+  roundBtns.forEach(function(b){
+    b.addEventListener('click',function(){
+      if(b.disabled||b.classList.contains('full'))return;
+      roundBtns.forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on'); if(bkTime) bkTime.value=b.dataset.t;
+    });
+  });
+  if(bkDate) bkDate.addEventListener('change',loadRounds);
+
   if(btn){
     btn.addEventListener('click',function(){
       var owner=val('bkOwner'), phone=val('bkPhone');
       mark('bkOwner',!owner); mark('bkPhone',!phone);
       var res=document.getElementById('bkResult');
       if(!owner||!phone){ res.innerHTML='<div class="bk-box" style="border-color:#E6A417;">กรุณากรอกชื่อเจ้าของและเบอร์โทรก่อนส่งนะคะ</div>'; return; }
+      if(bkDate&&!bkDate.value){ res.innerHTML='<div class="bk-box" style="border-color:#E6A417;">กรุณาเลือกวันที่ก่อนนะคะ</div>'; return; }
+      if(bkTime&&!bkTime.value){ res.innerHTML='<div class="bk-box" style="border-color:#E6A417;">กรุณาเลือกรอบที่สะดวก (รับรอบละ 3 บ้าน)</div>'; return; }
       var p=price();
       var petname=val('bkPet'), breed=val('bkBreed'), date=val('bkDate'), time=val('bkTime'), note=val('bkNote');
       var msg='🐾 คำขอจอง โซนออกกำลังกาย (Dog Park & Paw Splash)\n'
