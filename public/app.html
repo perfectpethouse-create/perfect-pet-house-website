@@ -204,6 +204,10 @@
   .ez-opts{display:grid;gap:8px;}
   .ez-opts.size{grid-template-columns:repeat(4,1fr);}
   .ez-opts.lvl{grid-template-columns:1fr;}
+  .ez-opts.zone{grid-template-columns:1fr 1fr;}
+  .ez-opts.zone button{flex-direction:row;justify-content:center;gap:6px;}
+  .ez-opts.zone button[data-zone="field"].on{border-color:#3B8B57;background:#3B8B57;color:#fff;}
+  .ez-opts.zone button[data-zone="pool"].on{border-color:#1B7E9B;background:#2AA6C9;color:#fff;}
   .ez-opts button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:11px 4px;border:2px solid #EBDDCD;border-radius:12px;background:#fff;color:var(--brown);font-family:'Prompt',sans-serif;font-weight:600;font-size:14px;line-height:1.2;transition:all .15s;text-align:center;}
   .ez-opts.lvl button{flex-direction:row;justify-content:center;gap:6px;}
   .ez-opts button small{font-weight:400;font-size:10.5px;color:var(--brown-soft);}
@@ -606,29 +610,21 @@
           <h4>โซนออกกำลังกาย · Dog Park &amp; Paw Splash</h4>
           <p class="hint">สนามวิ่งเล่นกลางแจ้ง + สระน้ำตื้นไล่ระดับ · ออกกำลังแบบไม่กระแทกข้อต่อ</p>
           <div class="ez-facts">
-            <div><b>รอบละ<br>60 นาที</b><span>เปิด 9.00–19.00</span></div>
+            <div><b>รอบละ<br>50 นาที</b><span>วันละ 4 รอบ</span></div>
             <div><b>สระตื้น<br>25–45 ซม.</b><span>ใส่เสื้อชูชีพ</span></div>
             <div><b>พี่เลี้ยง<br>1 : 3</b><span>ดูแลใกล้ชิดในน้ำ</span></div>
           </div>
-          <div class="ez-step">1 · เลือกขนาดน้อง (ตามน้ำหนัก)</div>
-          <div class="ez-opts size" id="ezaSize">
-            <button type="button" data-size="S">S<small>0–10 กก.</small></button>
-            <button type="button" data-size="M" class="on">M<small>10–20 กก.</small></button>
-            <button type="button" data-size="L">L<small>20–30 กก.</small></button>
-            <button type="button" data-size="XL">XL<small>30 กก.+</small></button>
+          <div class="ez-step">เลือกโซน <span style="font-weight:400;color:var(--brown-soft);">(ราคาเดียวทุกไซส์)</span></div>
+          <div class="ez-opts zone" id="ezaZone">
+            <button type="button" data-zone="field" class="on">🐾 โซนสนาม <small>Dog Park</small></button>
+            <button type="button" data-zone="pool">💦 โซนสระว่ายน้ำ <small>Paw Splash</small></button>
           </div>
-          <div class="ez-step">2 · เลือกบริการที่ต้องการ</div>
-          <div class="ez-opts lvl" id="ezaLevel">
-            <button type="button" data-lvl="1">สนามอย่างเดียว <small>Dog Park</small></button>
-            <button type="button" data-lvl="2" class="on">สนาม + สระน้ำ <small>+ Paw Splash</small></button>
-            <button type="button" data-lvl="3">ครบทั้งหมด <small>สระ+สนาม+อาบน้ำ</small></button>
-          </div>
-          <div class="price-out"><span class="lbl" id="ezaSum">ไซส์ M · สนาม + สระน้ำ</span><span class="val"><span id="ezaPrice">1,090</span>฿<small style="font-size:12px;font-weight:400;">/ครั้ง</small></span></div>
-          <div class="free-line ez"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>10 ท่านแรก: ฟรีอัปเกรดโซน — จ่ายราคาระดับ 1 ได้เล่นระดับ 2 (เพิ่มสระ)</span></div>
-          <a href="/exercise-zone.html" class="rbtn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:16px;padding:14px;border-radius:14px;background:linear-gradient(135deg,#1B7E9B,#2AA6C9);color:#fff;font-family:'Mitr';font-weight:500;">ดูรายละเอียด &amp; ราคาทั้งหมด ›</a>
-          <button class="rbtn" data-line style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;padding:14px;border-radius:14px;background:#06C755;color:#fff;font-family:'Mitr';font-weight:500;">จองรอบ / สอบถามทาง LINE</button>
+          <div class="price-out"><span class="lbl" id="ezaSum">โซนสนาม (Dog Park)</span><span class="val"><span id="ezaPrice">690</span>฿<small style="font-size:12px;font-weight:400;">/ครั้ง</small></span></div>
+          <div class="free-line ez"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>10 ท่านแรก: ฟรีอัปเกรดโซน — จ่ายราคาโซนสนาม ได้เล่นโซนสระว่ายน้ำ</span></div>
+          <a href="/exercise-zone.html" class="rbtn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:16px;padding:14px;border-radius:14px;background:linear-gradient(135deg,#1B7E9B,#2AA6C9);color:#fff;font-family:'Mitr';font-weight:500;">ดูรายละเอียด &amp; จองรอบ ›</a>
+          <button class="rbtn" data-line style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;padding:14px;border-radius:14px;background:#06C755;color:#fff;font-family:'Mitr';font-weight:500;">สอบถามทาง LINE</button>
         </div>
-        <p class="h-sub" style="padding:12px 26px 0;">* ราคาแยกตามขนาดน้อง (S–XL) และระดับบริการ (สนาม / สระ+สนาม / สระ+สนาม+อาบน้ำ) — ดูตารางเต็มในหน้ารายละเอียด</p>
+        <p class="h-sub" style="padding:12px 26px 0;">* 4 รอบ/วัน: 15:00 · 16:00 · 18:00 · 19:00 (รอบละ 50 นาที) · เพิ่มอาบน้ำ/เป่าขนเป็นบริการเสริมได้</p>
       </div>
     </section>
 
@@ -1297,12 +1293,12 @@ window.PPHQR=(function(){
 
   // ── STEP 3: ปุ่มช่วงเวลา + เช็คคิวจริง ──
   function slotHours(){
-    var s=state.service,start=10,end=19,label='อาบน้ำตัดขน 10:00–19:00 น.';
+    var s=state.service,start=10,end=19,label='อาบน้ำตัดขน 10:00–19:00 น.',slots=null;
     if(isStaySvc()&&!/อาบ/.test(s)){start=9;end=18;label='เช็คอิน 9:00–18:00 น. · เช็คเอาท์ก่อน 14:00 น.';}
     else if(/Day Care/.test(s)){start=9;end=18;label='Day Care 9:00–18:00 น.';}
     else if(/อาบน้ำ/.test(s)&&/ฝาก/.test(s)){start=10;end=18;label='ฝากเลี้ยง+อาบน้ำ 10:00–18:00 น.';}
-    else if(/ออกกำลังกาย|Dog Park/.test(s)){start=9;end=19;label='โซนออกกำลังกาย รอบ 9:00–19:00 น.';}
-    return {start:start,end:end,label:label};
+    else if(/ออกกำลังกาย|Dog Park/.test(s)){slots=['15:00','16:00','18:00','19:00'];label='โซนออกกำลังกาย 4 รอบ/วัน · รอบละ 50 นาที';}
+    return {start:start,end:end,label:label,slots:slots};
   }
   function fillSlots(){
     document.getElementById('s3title').textContent=isStaySvc()?'อยากเข้าพักวันไหน?':'อยากใช้บริการวันไหน?';
@@ -1311,8 +1307,9 @@ window.PPHQR=(function(){
     document.getElementById('slotLabel').textContent=isStaySvc()?'เวลาเช็คอินที่สะดวก':'ช่วงเวลาที่สะดวก';
     var h=slotHours(),grid=document.getElementById('slotGrid'),cur=document.getElementById('f-time').value;
     grid.innerHTML='';
-    for(var hr=h.start;hr<=h.end;hr++){
-      var hh=(hr<10?'0':'')+hr+':00';
+    var list=h.slots;
+    if(!list){ list=[]; for(var hr=h.start;hr<=h.end;hr++){ list.push((hr<10?'0':'')+hr+':00'); } }
+    list.forEach(function(hh){
       var b=document.createElement('button');b.type='button';b.className='slot';b.dataset.t=hh;b.innerHTML=hh+' น.';
       if(hh===cur)b.classList.add('on');
       b.addEventListener('click',function(){
@@ -1321,7 +1318,7 @@ window.PPHQR=(function(){
         this.classList.add('on');document.getElementById('f-time').value=this.dataset.t;validate();
       });
       grid.appendChild(b);
-    }
+    });
     document.getElementById('f-timeNote').textContent='🕘 '+h.label;
     markBusySlots();
   }
@@ -1577,15 +1574,14 @@ window.PPHQR=(function(){
 </script>
 <script>
 (function(){
-  var P={S:{"1":690,"2":890,"3":990},M:{"1":790,"2":1090,"3":1290},L:{"1":890,"2":1290,"3":1490},XL:{"1":990,"2":1490,"3":1790}};
-  var SZ={S:'ไซส์ S',M:'ไซส์ M',L:'ไซส์ L',XL:'ไซส์ XL'};
-  var LV={"1":'สนามอย่างเดียว',"2":'สนาม + สระน้ำ',"3":'ครบทั้งหมด (+อาบน้ำ)'};
-  var sel={size:'M',lvl:'2'};
+  var ZP={field:690,pool:890};
+  var ZN={field:'โซนสนาม (Dog Park)',pool:'โซนสระว่ายน้ำ (Paw Splash)'};
+  var sel={zone:'field'};
   var elPrice=document.getElementById('ezaPrice'), elSum=document.getElementById('ezaSum');
   if(!elPrice) return;
   function render(){
-    elPrice.textContent=P[sel.size][sel.lvl].toLocaleString('en-US');
-    elSum.textContent=SZ[sel.size]+' · '+LV[sel.lvl];
+    elPrice.textContent=ZP[sel.zone].toLocaleString('en-US');
+    elSum.textContent=ZN[sel.zone];
   }
   function wire(id,key){
     document.querySelectorAll('#'+id+' button').forEach(function(b){
@@ -1595,7 +1591,7 @@ window.PPHQR=(function(){
       });
     });
   }
-  wire('ezaSize','size'); wire('ezaLevel','lvl'); render();
+  wire('ezaZone','zone'); render();
 })();
 </script>
 <script>

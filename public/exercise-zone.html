@@ -157,6 +157,13 @@
   .ezc-opts{display:grid;gap:10px;}
   .ezc-opts.size{grid-template-columns:repeat(4,1fr);}
   .ezc-opts.lvl{grid-template-columns:repeat(3,1fr);}
+  .ezc-opts.zone{grid-template-columns:1fr 1fr;}
+  .ezc-opts.zone button{padding:16px 10px;font-size:16px;}
+  .ezc-opts.zone button[data-zone="field"].on{border-color:var(--green);background:var(--green);color:#fff;}
+  .ezc-opts.zone button[data-zone="pool"].on{border-color:var(--water-dark);background:var(--water);color:#fff;}
+  .ezc-opts.zone button.on small{color:rgba(255,255,255,.85);}
+  .rounds-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:-18px 0 34px;}
+  .rounds-strip .rt{background:var(--water-soft);color:var(--water-dark);font-weight:600;font-size:13.5px;padding:8px 15px;border-radius:999px;}
   .ezc-opts button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:13px 6px;border:2px solid #EBDDCD;border-radius:14px;background:#FDF7F0;color:var(--brown);font-family:'Prompt',sans-serif;font-weight:600;font-size:15px;cursor:pointer;transition:.15s;line-height:1.2;text-align:center;}
   .ezc-opts button small{font-weight:400;font-size:11px;color:var(--brown-soft);}
   .ezc-opts button:hover{border-color:var(--orange);}
@@ -360,7 +367,7 @@
     </div>
     <div class="trust-row">
       <span><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg> พี่เลี้ยง 1 : น้อง 3 ตัว</span>
-      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> รอบละ 60 นาที</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> รอบละ 50 นาที</span>
       <span><svg viewBox="0 0 24 24"><path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg> สระตื้น ปลอดภัย ใส่เสื้อชูชีพ</span>
     </div>
   </div>
@@ -465,20 +472,26 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>ขั้นตอนการให้บริการ</span>
-      <h2>ดูแลครบทุกจุดใน 60 นาที</h2>
-      <p>6 ขั้นตอน ตั้งแต่จองจนถึงรับน้องกลับบ้าน อย่างเป็นระบบและปลอดภัย</p>
+      <h2>ดูแลครบทุกจุดใน 50 นาที</h2>
+      <p>ดูแลอย่างเป็นระบบและปลอดภัย ตั้งแต่เช็คอินจนถึงรับน้องกลับบ้าน</p>
     </div>
     <div class="stat-pills">
-      <div class="stat-pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>เปิดบริการ 9.00–19.00 น.</div>
-      <div class="stat-pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 13V9M9.5 2h5"/></svg>รอบละ 60 นาที</div>
+      <div class="stat-pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 13V9M9.5 2h5"/></svg>รอบละ 50 นาที</div>
+      <div class="stat-pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>วันละ 4 รอบ (บ่าย–เย็น)</div>
       <div class="stat-pill"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v2"/></svg>พี่เลี้ยง 1 : น้อง 3</div>
+    </div>
+    <div class="rounds-strip">
+      <span class="rt">รอบ 1 · 15:00–15:50</span>
+      <span class="rt">รอบ 2 · 16:00–16:50</span>
+      <span class="rt">รอบ 3 · 18:00–18:50</span>
+      <span class="rt">รอบ 4 · 19:00–19:50</span>
     </div>
     <div class="steps">
       <div class="step"><span class="num">1</span><div class="clock">จองล่วงหน้า</div><h4>Booking</h4><p>ทาง LINE OA เลือกรอบ แจ้งขนาด/สายพันธุ์น้อง</p></div>
       <div class="step"><span class="num">2</span><div class="clock">0–5 นาที</div><h4>เช็คอิน + ประเมิน</h4><p>ชั่งน้ำหนัก ตรวจสุขภาพเบื้องต้นก่อนเริ่ม</p></div>
       <div class="step"><span class="num">3</span><div class="clock">5–10 นาที</div><h4>วอร์มอัป</h4><p>ปรับตัวริมน้ำ อุ่นกล้ามเนื้อก่อนลงจริง</p></div>
       <div class="step"><span class="num">4</span><div class="clock">10–40 นาที</div><h4>เล่นน้ำ + สนาม</h4><p>ช่วงหลัก พี่เลี้ยงดูแลใกล้ชิด เจ้าของร่วมเล่นได้</p></div>
-      <div class="step"><span class="num">5</span><div class="clock">40–60 นาที</div><h4>คูลดาวน์ <span style="font-weight:400;font-size:12.5px;color:var(--brown-soft);">(อาบน้ำ เฉพาะระดับ 3)</span></h4><p>ผ่อนคลายบนสนามให้ชีพจรกลับปกติ · <em>สำหรับระดับ 3</em> ส่งอาบน้ำ+เป่าขนให้สะอาดหอมก่อนกลับบ้าน</p></div>
+      <div class="step"><span class="num">5</span><div class="clock">40–50 นาที</div><h4>คูลดาวน์ <span style="font-weight:400;font-size:12.5px;color:var(--brown-soft);">(เพิ่มอาบน้ำได้)</span></h4><p>ผ่อนคลายบนสนามให้ชีพจรกลับปกติ · <em>เพิ่มบริการอาบน้ำ+เป่าขน</em>ให้สะอาดหอมก่อนกลับบ้านได้ (บริการเสริม)</p></div>
       <div class="step"><span class="num">6</span><div class="clock">รับกลับ</div><h4>Return</h4><p>ส่งรูป/คลิปให้เจ้าของ พร้อมนัดรอบถัดไป</p></div>
     </div>
   </div>
@@ -489,34 +502,27 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow"><svg viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>ราคาต่อครั้ง</span>
-      <h2>เลือกระดับบริการที่เหมาะกับน้อง</h2>
-      <p>ราคาต่อครั้ง แยกตามขนาดน้องและระดับบริการ — เลือกได้ตั้งแต่เล่นสนามอย่างเดียว ไปจนถึงครบ สระ + สนาม + อาบน้ำ</p>
+      <h2>เลือกโซนที่เหมาะกับน้อง</h2>
+      <p>ราคาเดียวทุกไซส์ · รอบละ 50 นาที — เลือกได้ระหว่าง <b>โซนสนาม</b> (วิ่งเล่นกลางแจ้ง) และ <b>โซนสระว่ายน้ำ</b> (เล่นน้ำ) · เพิ่มอาบน้ำเป็นบริการเสริมได้</p>
     </div>
 
     <div class="upgrade-banner">
       <span class="tag">10 ท่านแรก</span>
-      <p><b>ฟรีอัปเกรดโซน!</b> จองราคาระดับ 1 (สนาม) รับสิทธิ์เล่น <b>ระดับ 2 (เพิ่มสระ Paw Splash)</b> ให้น้องได้ลองของเด่น โดยไม่ต้องจ่ายเพิ่ม</p>
+      <p><b>ฟรีอัปเกรดโซน!</b> จองราคา<b>โซนสนาม (690.-)</b> รับสิทธิ์เล่น <b>โซนสระว่ายน้ำ (890.-)</b> ให้น้องได้ลองของเด่น โดยไม่ต้องจ่ายเพิ่ม</p>
     </div>
 
-    <!-- Interactive price selector -->
+    <!-- Interactive price selector (2 โซน · ราคาเดียวทุกไซส์) -->
     <div class="ez-calc">
-      <div class="ezc-step"><span class="ezc-num">1</span> เลือกขนาดน้อง (ตามน้ำหนัก)</div>
-      <div class="ezc-opts size" id="ezSize">
-        <button type="button" data-size="S">S<small>0–10 กก.</small></button>
-        <button type="button" data-size="M" class="on">M<small>10–20 กก.</small></button>
-        <button type="button" data-size="L">L<small>20–30 กก.</small></button>
-        <button type="button" data-size="XL">XL<small>30 กก.+</small></button>
-      </div>
-      <div class="ezc-step"><span class="ezc-num">2</span> เลือกบริการที่ต้องการ</div>
-      <div class="ezc-opts lvl" id="ezLevel">
-        <button type="button" data-lvl="1">สนามอย่างเดียว<small>Dog Park</small></button>
-        <button type="button" data-lvl="2" class="on">สนาม + สระน้ำ<small>+ Paw Splash</small></button>
-        <button type="button" data-lvl="3">ครบทั้งหมด<small>สระ+สนาม+อาบน้ำ</small></button>
+      <div class="ezc-step"><span class="ezc-num">1</span> เลือกโซนที่ต้องการ <span style="font-weight:400;font-size:13px;color:var(--brown-soft);">(ราคาเดียวทุกไซส์)</span></div>
+      <div class="ezc-opts zone" id="ezZone">
+        <button type="button" data-zone="field" class="on">🐾 โซนสนาม<small>Dog Park · วิ่งเล่นกลางแจ้ง</small></button>
+        <button type="button" data-zone="pool">💦 โซนสระว่ายน้ำ<small>Paw Splash · เล่นน้ำ</small></button>
       </div>
       <div class="ezc-result">
-        <div class="ezc-sum"><span>บริการที่เลือก</span><b id="ezSummary">—</b></div>
+        <div class="ezc-sum"><span>โซนที่เลือก</span><b id="ezSummary">—</b></div>
         <div class="ezc-price"><span id="ezPrice">—</span><em>฿ / ครั้ง</em></div>
       </div>
+      <p style="text-align:center;font-size:13px;color:var(--brown-soft);margin:14px 0 0;">รอบละ 50 นาที · <b>เพิ่มอาบน้ำ/เป่าขนได้</b> (บริการเสริม สอบถามราคาทาง LINE)</p>
       <a class="ezc-book" href="https://line.me/R/ti/p/@perfectbkk">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>
         จองราคานี้ผ่าน LINE
@@ -526,7 +532,7 @@
     <!-- Booking form -->
     <div class="ez-form reveal" id="ezForm">
       <h4 class="ezf-title"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>กรอกข้อมูลเพื่อส่งคำขอจอง</h4>
-      <div class="ezf-pick">บริการที่เลือก: <b id="ezfService">น้อง M · สนาม + สระน้ำ · 1,090 ฿/ครั้ง</b><br><span style="font-size:12.5px;">เปลี่ยนได้ที่ปุ่มเลือกด้านบน</span></div>
+      <div class="ezf-pick">โซนที่เลือก: <b id="ezfService">โซนสนาม (Dog Park) · 690 ฿/ครั้ง</b><br><span style="font-size:12.5px;">เปลี่ยนได้ที่ปุ่มเลือกด้านบน</span></div>
       <div class="ezf-row">
         <div class="ezf-field"><label>ชื่อเจ้าของ *</label><input id="bkOwner" placeholder="ชื่อ-นามสกุล"></div>
         <div class="ezf-field"><label>เบอร์โทร *</label><input id="bkPhone" inputmode="tel" placeholder="08x-xxx-xxxx"></div>
@@ -537,9 +543,12 @@
       </div>
       <div class="ezf-row">
         <div class="ezf-field"><label>วันที่สะดวก</label><input id="bkDate" type="date"></div>
-        <div class="ezf-field"><label>รอบเวลา</label><select id="bkTime">
+        <div class="ezf-field"><label>รอบเวลา (50 นาที)</label><select id="bkTime">
           <option value="">— เลือกรอบ —</option>
-          <option>09:00</option><option>10:00</option><option>11:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option><option>18:00</option>
+          <option value="15:00">รอบ 1 · 15:00–15:50 น.</option>
+          <option value="16:00">รอบ 2 · 16:00–16:50 น.</option>
+          <option value="18:00">รอบ 3 · 18:00–18:50 น.</option>
+          <option value="19:00">รอบ 4 · 19:00–19:50 น.</option>
         </select></div>
       </div>
       <div class="ezf-field full"><label>หมายเหตุ (โรคประจำตัว / สายพันธุ์หน้าสั้น ฯลฯ)</label><textarea id="bkNote" rows="2" placeholder="บอกเราได้เลย เราดูแลตามความต้องการของน้อง"></textarea></div>
@@ -549,25 +558,22 @@
     </div>
 
     <details class="ez-table-details">
-      <summary>ดูตารางราคาทั้งหมด (ทุกไซส์ · ทุกระดับ)</summary>
+      <summary>ดูราคาทุกโซน</summary>
       <div class="table-scroll">
         <table class="price">
           <thead>
             <tr>
-              <th class="sz">ไซส์</th>
-              <th class="l1">ระดับ 1<small>สนาม (สำหรับคนอยากลอง)</small></th>
-              <th class="l2">ระดับ 2<small>สระ + สนาม</small></th>
-              <th class="l3">ระดับ 3<small>สระ + สนาม + อาบน้ำ</small></th>
+              <th class="sz">โซน</th>
+              <th class="l2">ราคา / ครั้ง<small>ทุกไซส์ · รอบละ 50 นาที</small></th>
             </tr>
           </thead>
           <tbody>
-            <tr data-sz="S"><th>S<span class="wt">0–10 กก.</span></th><td data-lv="1"><span class="pz">690</span> <span class="unit">฿</span></td><td data-lv="2"><span class="pz">890</span> <span class="unit">฿</span></td><td data-lv="3"><span class="pz">990</span> <span class="unit">฿</span></td></tr>
-            <tr data-sz="M"><th>M<span class="wt">10–20 กก.</span></th><td data-lv="1"><span class="pz">790</span> <span class="unit">฿</span></td><td data-lv="2"><span class="pz">1,090</span> <span class="unit">฿</span></td><td data-lv="3"><span class="pz">1,290</span> <span class="unit">฿</span></td></tr>
-            <tr data-sz="L"><th>L<span class="wt">20–30 กก.</span></th><td data-lv="1"><span class="pz">890</span> <span class="unit">฿</span></td><td data-lv="2"><span class="pz">1,290</span> <span class="unit">฿</span></td><td data-lv="3"><span class="pz">1,490</span> <span class="unit">฿</span></td></tr>
-            <tr data-sz="XL"><th>XL<span class="wt">30 กก. ขึ้นไป</span></th><td data-lv="1"><span class="pz">990</span> <span class="unit">฿</span></td><td data-lv="2"><span class="pz">1,490</span> <span class="unit">฿</span></td><td data-lv="3"><span class="pz">1,790</span> <span class="unit">฿</span></td></tr>
+            <tr><th>🐾 โซนสนาม<span class="wt">Dog Park · วิ่งเล่นกลางแจ้ง</span></th><td><span class="pz">690</span> <span class="unit">฿</span></td></tr>
+            <tr><th>💦 โซนสระว่ายน้ำ<span class="wt">Paw Splash · เล่นน้ำ</span></th><td><span class="pz">890</span> <span class="unit">฿</span></td></tr>
           </tbody>
         </table>
       </div>
+      <p style="text-align:center;font-size:13px;color:var(--brown-soft);margin-top:12px;">+ อาบน้ำ / เป่าขน เป็น<b>บริการเสริม</b> สอบถามราคาเพิ่มเติมทาง LINE</p>
     </details>
 
     <div class="price-note">
@@ -723,18 +729,18 @@
   }
 
 (function(){
-  var P={S:{"1":690,"2":890,"3":990},M:{"1":790,"2":1090,"3":1290},L:{"1":890,"2":1290,"3":1490},XL:{"1":990,"2":1490,"3":1790}};
-  var SZ={S:'ไซส์ S (0–10 กก.)',M:'ไซส์ M (10–20 กก.)',L:'ไซส์ L (20–30 กก.)',XL:'ไซส์ XL (30 กก.+)'};
-  var LV={"1":'สนามอย่างเดียว',"2":'สนาม + สระน้ำ',"3":'ครบทั้งหมด (+อาบน้ำ)'};
+  /* ราคาโซนออกกำลังกาย — ราคาเดียวทุกไซส์ (โซนสนาม 690 / โซนสระว่ายน้ำ 890) */
+  var ZP={field:690,pool:890};
+  var ZN={field:'โซนสนาม (Dog Park)',pool:'โซนสระว่ายน้ำ (Paw Splash)'};
   var LINE_URL='https://line.me/R/ti/p/@perfectbkk';
-  var sel={size:'M',lvl:'2'};
+  var sel={zone:'field'};
   var elPrice=document.getElementById('ezPrice'), elSum=document.getElementById('ezSummary'), elSvc=document.getElementById('ezfService');
-  function price(){return P[sel.size][sel.lvl];}
+  function price(){return ZP[sel.zone];}
   function render(){
     var p=price();
     if(elPrice) elPrice.textContent=p.toLocaleString('en-US');
-    if(elSum) elSum.textContent=SZ[sel.size]+' · '+LV[sel.lvl];
-    if(elSvc) elSvc.textContent='น้อง '+sel.size+' · '+LV[sel.lvl]+' · '+p.toLocaleString('en-US')+' ฿/ครั้ง';
+    if(elSum) elSum.textContent=ZN[sel.zone];
+    if(elSvc) elSvc.textContent=ZN[sel.zone]+' · '+p.toLocaleString('en-US')+' ฿/ครั้ง';
   }
   function wire(id,key){
     document.querySelectorAll('#'+id+' button').forEach(function(b){
@@ -744,38 +750,7 @@
       });
     });
   }
-  wire('ezSize','size'); wire('ezLevel','lvl'); render();
-
-  /* ---- ราคากลางจากระบบหลังร้าน ----
-     เจ้าของร้านแก้ราคาในแอป (หน้า "ตั้งค่า") แล้วหน้านี้เปลี่ยนตามอัตโนมัติ
-     ตัวเลขที่ฝังใน HTML ข้างบนเป็นค่าสำรอง ใช้เมื่อโหลดไม่สำเร็จ/ออฟไลน์
-     จึงไม่มีทางที่หน้าเว็บจะแสดงราคาว่างเปล่า */
-  (function(){
-    var URL='https://firestore.googleapis.com/v1/projects/pph-booking/databases/(default)/documents/publicInfo/prices?key=AIzaSyCi7sSXV0Sz85XqWI0hVTGw-BbNd8Cxox0';
-    function paintTable(){
-      document.querySelectorAll('tr[data-sz]').forEach(function(tr){
-        var sz=tr.dataset.sz;
-        tr.querySelectorAll('td[data-lv]').forEach(function(td){
-          var v=P[sz] && P[sz][td.dataset.lv];
-          var span=td.querySelector('.pz');
-          if(span && typeof v==='number') span.textContent=v.toLocaleString('en-US');
-        });
-      });
-    }
-    fetch(URL).then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
-      var raw = d && d.fields && d.fields.exerciseJson && d.fields.exerciseJson.stringValue;
-      if(!raw) return;
-      var t = JSON.parse(raw), changed = false;
-      ['S','M','L','XL'].forEach(function(sz){
-        ['1','2','3'].forEach(function(lv){
-          var v = t[sz] && t[sz][lv];
-          /* รับเฉพาะตัวเลขบวก — กันข้อมูลเพี้ยนทำให้เว็บโชว์ราคา 0 บาท */
-          if(typeof v==='number' && isFinite(v) && v>0 && P[sz][lv]!==v){ P[sz][lv]=v; changed=true; }
-        });
-      });
-      if(changed){ render(); paintTable(); }
-    }).catch(function(){ /* ออฟไลน์/บล็อก → ใช้ราคาสำรองใน HTML ต่อไป */ });
-  })();
+  wire('ezZone','zone'); render();
 
   /* ---- scroll reveal ---- */
   var revs=[].slice.call(document.querySelectorAll('.sec-head, .bene-card, .zone, .step, .pkg, .elig-card, .ez-calc, .ez-form, .upgrade-banner, .gallery img'));
@@ -798,7 +773,6 @@
 
   /* ---- booking form ---- */
   var GOOGLE_SCRIPT_URL='https://script.google.com/macros/s/AKfycbwnGROqOa9rnr4OEyLNRD-MeKxefqc0ynDn4I3nnKpkIiLvDrYQsH3R-2NdXCiLCmcg/exec';
-  var SZS={S:'S (0–10 กก.)',M:'M (10–20 กก.)',L:'L (20–30 กก.)',XL:'XL (30 กก.+)'};
   var btn=document.getElementById('bkSubmit');
   function val(id){var e=document.getElementById(id);return e?e.value.trim():'';}
   function mark(id,bad){var e=document.getElementById(id);if(e)e.classList.toggle('ezf-err',bad);}
@@ -812,8 +786,8 @@
       var p=price();
       var petname=val('bkPet'), breed=val('bkBreed'), date=val('bkDate'), time=val('bkTime'), note=val('bkNote');
       var msg='🐾 คำขอจอง โซนออกกำลังกาย (Dog Park & Paw Splash)\n'
-        +'บริการ: '+LV[sel.lvl]+' · ไซส์ '+SZS[sel.size]+'\n'
-        +'ราคา: '+p.toLocaleString('en-US')+' บาท/ครั้ง\n'
+        +'โซน: '+ZN[sel.zone]+'\n'
+        +'ราคา: '+p.toLocaleString('en-US')+' บาท/ครั้ง (รอบละ 50 นาที)\n'
         +'ชื่อเจ้าของ: '+owner+'\nเบอร์: '+phone+'\n'
         +(petname?'ชื่อน้อง: '+petname+'\n':'')
         +(breed?'สายพันธุ์/น้ำหนัก: '+breed+'\n':'')
@@ -822,7 +796,7 @@
         +(note?'หมายเหตุ: '+note+'\n':'')
         +'ส่งเมื่อ: '+new Date().toLocaleString('th-TH');
       var data={owner:owner,phone:phone,line:'',email:'',pet:'น้องหมา',petname:petname,breed:breed,
-        service:'โซนออกกำลังกาย – '+LV[sel.lvl]+' (ไซส์ '+sel.size+')',checkin:date,checkout:'',time:time,
+        service:'โซนออกกำลังกาย – '+ZN[sel.zone],checkin:date,checkout:'',time:time,
         note:'ราคา '+p+' บาท/ครั้ง'+(note?' · '+note:''),message:msg,submittedAt:new Date().toLocaleString('th-TH')};
       function panel(head){
         res.innerHTML='<div class="bk-box">'+head
