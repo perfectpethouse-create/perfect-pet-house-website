@@ -662,9 +662,14 @@
           <span class="otext"><b>ฝากเลี้ยง + อาบน้ำตัดขน</b><span>แพ็กคู่ คุ้มกว่า</span></span>
           <span class="ocheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
         </div>
-        <div class="opt" data-service="โซนออกกำลังกาย (Dog Park &amp; Paw Splash)">
+        <div class="opt" data-service="โซนออกกำลังกาย – โซนสนาม (Dog Park)" data-price="690">
+          <span class="oi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V9l7-5 7 5v12"/></svg></span>
+          <span class="otext"><b>โซนสนาม · 690฿</b><span>Dog Park · วิ่งเล่นกลางแจ้ง · รอบละ 50 นาที</span></span>
+          <span class="ocheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+        </div>
+        <div class="opt" data-service="โซนออกกำลังกาย – โซนสระว่ายน้ำ (Paw Splash)" data-price="890">
           <span class="oi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg></span>
-          <span class="otext"><b>โซนออกกำลังกาย</b><span>Dog Park &amp; Paw Splash · สนาม + สระน้ำ</span></span>
+          <span class="otext"><b>โซนสระว่ายน้ำ · 890฿</b><span>Paw Splash · เล่นน้ำ · รอบละ 50 นาที</span></span>
           <span class="ocheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
         </div>
       </div>
@@ -1216,7 +1221,7 @@ window.PPHQR=(function(){
     o.addEventListener('click',function(){
       document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(x){x.classList.remove('on');});
       o.classList.add('on');state.service=o.dataset.service;
-      state.room='';state.roomPrice=0;bkSize=null;bkCoatIdx=null;bkCut=false;
+      state.room='';state.roomPrice=o.dataset.price?+o.dataset.price:0;bkSize=null;bkCoatIdx=null;bkCut=false;
       validate();
     });
   });
@@ -1375,6 +1380,7 @@ window.PPHQR=(function(){
       var n=(ci&&co)?Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000)):1;
       return {label:n+' คืน × '+baht(state.roomPrice),total:n*state.roomPrice};
     }
+    if(/ออกกำลังกาย/.test(state.service)&&state.roomPrice)return {label:'1 ครั้ง · รอบละ 50 นาที',total:state.roomPrice};
     if(state.roomPrice)return {label:'',total:state.roomPrice};
     return {label:'',total:0};
   }
