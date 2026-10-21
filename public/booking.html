@@ -29,6 +29,8 @@ button{cursor:pointer}
 
 .top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
 .top-in{max-width:1080px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hb{width:44px;height:44px;flex:none;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--brand-ink);display:flex;align-items:center;justify-content:center;padding:0}
+.hb:active{transform:scale(.94)}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:600;font-size:16px}
 .brand img{width:28px;height:36px;object-fit:contain}
 .top a.line{font-weight:500;font-size:14px}
@@ -131,7 +133,10 @@ aside .btn{width:100%;margin-top:12px}
 <body>
 <header class="top">
   <div class="top-in">
-    <a class="brand" href="/"><img src="/images/img01.png" alt="">Perfect Pet House</a>
+    <div style="display:flex;align-items:center;gap:8px;min-width:0">
+      <button type="button" class="hb" id="hdrBack" aria-label="ย้อนกลับ"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <a class="brand" href="/"><img src="/images/img01.png" alt="">Perfect Pet House</a>
+    </div>
     <a class="line" href="https://line.me/R/ti/p/@perfectbkk" target="_blank" rel="noopener">ทัก LINE</a>
   </div>
 </header>
@@ -415,7 +420,7 @@ function submit(){
     S.result = { code:code, t:t, holdUntil:holdUntil, msg:msg, ok:ok[0]||ok[1], held:!!holdId,
       label: stay ? D.prices[S.roomType].label : 'Day Care', when: stay ? (thDate(S.checkIn)+' – '+thDate(S.checkOut)+' ('+t.nights+' คืน)') : thDate(S.date) };
     try{ sessionStorage.setItem('pph_last_booking', JSON.stringify(S.result)); }catch(e){}
-    S.step=5; render(); window.scrollTo(0,0);
+    S.step=5; history.pushState({step:5,idx:((history.state&&history.state.idx)||0)+1},''); render(); window.scrollTo(0,0);
   });
 }
 
@@ -456,7 +461,7 @@ function validate(step){
 function go(n){
   if(n>S.step && !validate(S.step)){ render(); var f=document.querySelector('.err'); if(f) f.scrollIntoView({block:'center',behavior:'smooth'}); return; }
   S.errors={};
-  S.step=n; render(); window.scrollTo(0,0);
+  var fwd=n>S.step; S.step=n; if(fwd) history.pushState({step:n,idx:((history.state&&history.state.idx)||0)+1},''); render(); window.scrollTo(0,0);
 }
 
 // ═══ render ═══
@@ -639,7 +644,7 @@ document.addEventListener('click', function(e){
     }
     go(S.step+1); return;
   }
-  if(b.dataset.go){ go(Number(b.dataset.go)); return; }
+  if(b.dataset.go){ var gn=Number(b.dataset.go); if(gn===S.step-1){ stepBack(); } else { go(gn); } return; }
   if(b.dataset.set){
     S[b.dataset.set]=b.dataset.v;
     if(b.dataset.set==='service'){ S.addons={}; }
@@ -694,6 +699,25 @@ try{
 }catch(e){}
 // โหลดข้อมูลร้านไว้ก่อน (ราคา/ห้องว่าง) — ไม่ต้องรอก็ใช้หน้าได้
 loadData().then(function(){ if(S.step<4) render(); });
+var FINAL=5;
+try{ history.replaceState({step:S.step,idx:0},''); }catch(e){}
+// ── ปุ่มย้อนกลับ (หัวหน้า) + ปุ่ม back ของมือถือ ──
+// แต่ละขั้นมีประวัติในเบราว์เซอร์ → ปัดย้อนกลับ/กดปุ่ม back ของ Android แล้วถอยทีละขั้น ไม่หลุดออกจากหน้าจอง
+function leavePage(){
+  try{ if(document.referrer && new URL(document.referrer).origin===location.origin && history.length>1){ history.go(-(((history.state&&history.state.idx)||0)+1)); return; } }catch(e){}
+  location.href='/';
+}
+function stepBack(){
+  if(S.step>1 && S.step<FINAL && history.state && history.state.step===S.step){ history.back(); return; }
+  if(S.step>1 && S.step<FINAL){ go(S.step-1); return; }
+  leavePage();
+}
+window.addEventListener('popstate', function(e){
+  if(S.result && S.step===FINAL){ location.href='/'; return; }
+  var n=(e.state && e.state.step) || 1;
+  if(n<S.step){ S.errors={}; S.step=n; render(); window.scrollTo(0,0); }
+});
+document.getElementById('hdrBack').addEventListener('click', stepBack);
 render();
 })();
 </script>
