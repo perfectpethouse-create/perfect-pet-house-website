@@ -1130,6 +1130,10 @@ window.PPHQR=(function(){
     var coatLabel='';GROOM[groomPet].coats.forEach(function(co){if(co[1]===groomCoatIdx)coatLabel=co[0];});
     var bath=groomSize[groomCoatIdx],cut=groomCut?groomSize[GROOM[groomPet].cutIdx]:0;
     var name='อาบน้ำ '+groomSize[0]+' ('+groomSize[1]+') · '+coatLabel+(groomCut?' + ตัดขนทรง':'');
+    // ส่งไซส์/ขน/บริการที่เลือกไว้ไปหน้าจองคิว Grooming ใหม่
+    var coatId=/พิเศษ|มีเซ็ต/.test(coatLabel)?'longSet':/ยาว/.test(coatLabel)?'long':'short';
+    location.href='/groom.html?pet='+groomPet+'&size='+String(groomSize[0]).toLowerCase()+'&coat='+coatId+'&service='+(groomCut?'bathCut':'bath');
+    return;
     startBooking('อาบน้ำตัดขน',pet,{name:name,price:bath+cut,size:groomSize[1]});
   });
 
@@ -1202,6 +1206,7 @@ window.PPHQR=(function(){
   // start booking from a room/service card
   // ฝากเลี้ยง / Day Care → หน้าจองใหม่ (เห็นห้องว่าง + มัดจำทันที) · Grooming ยังใช้ wizard เดิม
   function toNewBooking(service,pet,room){
+    if(/^อาบน้ำ/.test(service||'')){ location.href='/groom.html?pet='+(/แมว|cat/.test(pet||'')?'cat':'dog')+(service==='อาบน้ำอย่างเดียว'?'&service=bath':''); return true; }
     if(!/ฝากเลี้ยง|Day Care/.test(service||'')) return false;
     var q=[];
     if(/Day Care/.test(service)) q.push('service=daycare');

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>จองอาบน้ำตัดขน | Perfect Pet House</title>
+<meta name="description" content="จองคิวอาบน้ำ–ตัดขนสุนัขและแมวออนไลน์ เห็นรอบว่างและราคาตามไซส์ทันที Perfect Pet House วัชรพล-รามอินทรา">
+<meta name="theme-color" content="#FFF8F0">
+<link rel="icon" href="/images/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#3A2E26; --ink-soft:#6B5B50; --muted:#8C7B6E; --line:#F3D8C2; --cream:#FFF8F0; --white:#fff;
+  --brand:#B85C1E; --brand-ink:#8A4415; --brand-tint:#FCEADB; --accent:#E07B39;
+  --ok:#2F6B45; --ok-tint:#E6F2EA; --full:#5E534B; --full-tint:#E9E4DF; --danger:#A33A36;
+  --font:'Inter','Noto Sans Thai',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font);color:var(--ink);background:var(--cream);font-size:15px;line-height:1.5}
+a{color:var(--brand)}a:hover{color:var(--brand-ink)}
+h1,h2,h3{letter-spacing:-.01em;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.top-in{max-width:1080px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:600;font-size:16px}
+.brand img{width:28px;height:36px;object-fit:contain}
+.top a.line{font-weight:500;font-size:14px}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px 140px;display:grid;gap:28px}
+@media(min-width:960px){.wrap{grid-template-columns:minmax(0,1fr) 340px;padding-bottom:60px;align-items:start}}
+.progress{display:flex;gap:6px;margin:16px 0 6px}
+.progress i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.progress i.on{background:var(--brand)}
+.stepname{font-size:13px;color:var(--ink-soft)}
+.back{background:none;border:0;padding:8px 0;color:var(--brand);font-weight:500;font-size:14px;min-height:44px}
+h1.t{font-size:26px;font-weight:700;margin:8px 0 4px}
+.sub{color:var(--ink-soft);margin:0 0 18px}
+.lbl{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin:0 0 6px}
+.grp{margin-bottom:18px}
+.seg{display:flex;gap:10px}
+.seg button{flex:1;min-height:52px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-weight:500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px}
+.seg button small{font-size:12px;font-weight:400;color:var(--ink-soft)}
+.seg button[aria-pressed="true"]{border-color:var(--brand);background:var(--brand-tint);color:var(--brand-ink)}
+.field{width:100%;min-height:48px;border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;background:#fff;font-size:16px}
+.field:focus,.seg button:focus-visible,.btn:focus-visible{outline:3px solid rgba(184,92,30,.35);outline-offset:1px}
+textarea.field{min-height:72px;resize:vertical}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.hint{font-size:13px;color:var(--ink-soft);margin:6px 0 0}
+.err{font-size:13px;color:var(--danger);margin:6px 0 0;font-weight:500}
+.stepper{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:6px 6px 6px 14px}
+.stepper .ctl{display:flex;align-items:center;gap:6px}
+.stepper button{width:44px;height:44px;border-radius:10px;border:1.5px solid var(--line);background:var(--cream);font-size:20px}
+.stepper output{min-width:40px;text-align:center;font-weight:600}
+.note{display:flex;gap:10px;align-items:flex-start;background:#EEF5F0;border-radius:12px;padding:12px 14px;color:#2F5E40;font-size:14px}
+.note.warn{background:var(--brand-tint);color:#5A3A22}
+
+.rooms{display:grid;gap:14px}
+@media(min-width:700px){.rooms{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}}
+.room{background:#fff;border:1.5px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.room.sel{border:2.5px solid var(--brand);box-shadow:0 8px 24px rgba(184,92,30,.16)}
+.room.full{background:#F7F2EC}
+.room.full img{filter:grayscale(.85);opacity:.7}
+.room img{width:100%;height:160px;object-fit:cover;display:block;background:var(--brand-tint)}
+.room .b{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.room h3{font-size:18px;font-weight:700}
+.pill{display:inline-flex;align-self:flex-start;font-size:13px;font-weight:600;border-radius:999px;padding:4px 10px}
+.pill.ok{background:var(--ok-tint);color:var(--ok)}
+.pill.last{background:var(--brand-tint);color:var(--brand-ink)}
+.pill.full{background:var(--full-tint);color:var(--full)}
+.pill.unk{background:#EEF0F3;color:#45505C}
+.feat{font-size:13px;color:var(--ink-soft)}
+.price{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:auto}
+.strike{font-size:13px;color:var(--muted);text-decoration:line-through}
+.big{font-size:20px;font-weight:700}
+.online{font-size:12px;font-weight:600;color:var(--brand-ink)}
+.btn{min-height:48px;border-radius:12px;border:0;background:var(--brand);color:#fff;font-weight:600;font-size:15px;padding:0 18px}
+.btn.ghost{background:#fff;border:1.5px solid var(--brand);color:var(--brand-ink)}
+.btn.line{background:#06C755;color:#0B2E17}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.upsell{display:flex;gap:10px;align-items:center;background:#fff;border:1.5px dashed var(--accent);border-radius:14px;padding:12px 14px;margin-top:14px}
+
+.addon{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:10px 10px 10px 14px;min-height:64px;margin-bottom:10px}
+.addon.on{border-color:var(--brand);background:#FFF4EA}
+.addon input[type=checkbox]{width:22px;height:22px;accent-color:var(--brand);flex:none;margin:0}
+.addon label{flex:1;cursor:pointer}
+.addon .nm{font-weight:500}
+.addon .pr{font-size:13px;color:var(--ink-soft)}
+.addon .q{display:flex;align-items:center;gap:6px}
+.addon .q button{width:36px;height:36px;border-radius:9px;border:1.5px solid var(--line);background:#fff;font-size:18px}
+.addon .q output{min-width:52px;text-align:center;font-size:14px;font-weight:600}
+
+.policy{background:var(--brand-tint);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.6;color:#5A3A22;margin:14px 0}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:10px 0}
+.chk input{width:20px;height:20px;accent-color:var(--brand);margin:2px 0 0;flex:none}
+
+.card{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:18px}
+.sum{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:3px 0}
+.sum.tot{border-top:1px solid var(--line);margin-top:6px;padding-top:9px;font-weight:600}
+.sum.dep{color:var(--brand-ink);font-weight:700;font-size:16px}
+.sum.muted{color:var(--ink-soft)}
+aside .card{position:sticky;top:84px}
+aside .btn{width:100%;margin-top:12px}
+@media(max-width:959px){aside{display:none}}
+
+.bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:12px 16px calc(14px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;z-index:30}
+.bar .t{flex:1;min-width:0}
+.bar .t small{display:block;font-size:12px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .t b{font-size:19px}
+.bar .btn{min-height:52px;padding:0 26px}
+@media(min-width:960px){.bar{display:none}}
+
+.done-head{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;margin:20px 0 16px}
+.done-ic{width:56px;height:56px;border-radius:50%;background:var(--ok-tint);display:flex;align-items:center;justify-content:center}
+.code{font-size:18px;font-weight:700;letter-spacing:.5px;color:var(--ink)}
+.amount{font-size:34px;font-weight:700;color:var(--brand-ink);text-align:center}
+.acct{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--cream);border-radius:12px;padding:10px 10px 10px 14px;margin:8px 0}
+.acct .no{font-size:21px;font-weight:700;letter-spacing:1px}
+.steps{display:flex;flex-direction:column;gap:12px;margin:16px 0}
+.steps div{display:flex;gap:12px;align-items:flex-start;font-size:14px}
+.steps span{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;flex:none}
+.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;z-index:50}
+</style>
+<style>
+.slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media(min-width:700px){.slots{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.slot{min-height:48px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2}
+.slot small{font-size:11px;font-weight:500;color:var(--ok)}
+.slot[aria-pressed="true"]{border-color:var(--brand);background:var(--brand);color:#fff}
+.slot[aria-pressed="true"] small{color:#fff}
+.slot:disabled{background:#F2EEEA;color:#A99C91;cursor:not-allowed}
+.slot:disabled small{color:#A99C91}
+.seg.three button{font-size:14px}
+.pricebox{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:6px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="/"><img src="/images/img01.png" alt="">Perfect Pet House</a>
+    <a class="line" href="https://line.me/R/ti/p/@perfectbkk" target="_blank" rel="noopener">ทัก LINE</a>
+  </div>
+</header>
+<div class="wrap">
+  <main id="main" aria-live="polite"></main>
+  <aside><div class="card" id="aside"></div></aside>
+</div>
+<div class="bar" id="bar"></div>
+
+<script>
+(function(){
+'use strict';
+var FS='https://firestore.googleapis.com/v1/projects/pph-booking/databases/(default)/documents';
+var KEY='AIzaSyCi7sSXV0Sz85XqWI0hVTGw-BbNd8Cxox0';
+var GAS='https://script.google.com/macros/s/AKfycbwnGROqOa9rnr4OEyLNRD-MeKxefqc0ynDn4I3nnKpkIiLvDrYQsH3R-2NdXCiLCmcg/exec';
+var LINE_OA='@perfectbkk';
+
+// ค่าสำรอง = ตารางเดียวกับ config-shop.js (หลังบ้านส่งค่าจริงมาทับใน publicAvailability)
+var G = {
+  capacity:1, cutLastSlot:'18:00',
+  slots:(function(){var o=[];for(var m=540;m<=1140;m+=30){var h=Math.floor(m/60);if(h===12)continue;o.push((h<10?'0':'')+h+':'+(m%60?'30':'00'));}return o;})(),
+  sizes:{
+    dog:[{id:'xs',label:'XS (<2 กก.)'},{id:'s',label:'S (2-5 กก.)'},{id:'m',label:'M (5-10 กก.)'},{id:'l',label:'L (10-15 กก.)'},{id:'xl',label:'XL (15-20 กก.)'},{id:'2xl',label:'2XL (20-30 กก.)'},{id:'3xl',label:'3XL (30-40 กก.)'},{id:'4xl',label:'4XL (40-50 กก.)'},{id:'5xl',label:'5XL (>50 กก.)'}],
+    cat:[{id:'xs',label:'XS (<2 กก.)'},{id:'s',label:'S (2-3 กก.)'},{id:'m',label:'M (3-5 กก.)'},{id:'l',label:'L (5-7 กก.)'},{id:'xl',label:'XL (7-9 กก.)'},{id:'2xl',label:'2XL (9-11 กก.)'},{id:'3xl',label:'3XL (11-13 กก.)'},{id:'4xl',label:'4XL (13-15 กก.)'},{id:'5xl',label:'5XL (>15 กก.)'}]
+  },
+  coats:{ dog:[{id:'short',label:'ขนสั้น'},{id:'long',label:'ขนยาว'},{id:'longSet',label:'ขนยาวมีเซ็ต'}], cat:[{id:'short',label:'ขนสั้น'},{id:'long',label:'ขนยาว'}] },
+  prices:{
+    dog:{xs:{short:350,long:400,longSet:450,cut:400},s:{short:400,long:500,longSet:600,cut:500},m:{short:500,long:700,longSet:900,cut:600},l:{short:700,long:900,longSet:1000,cut:700},xl:{short:900,long:1100,longSet:1400,cut:900},'2xl':{short:1200,long:1450,longSet:1600,cut:1200},'3xl':{short:1650,long:1850,longSet:1900,cut:1600},'4xl':{short:2200,long:2150,longSet:2400,cut:2200},'5xl':{short:2850,long:3100,longSet:3300,cut:2800}},
+    cat:{xs:{short:450,long:550,cut:450},s:{short:550,long:650,cut:550},m:{short:750,long:850,cut:750},l:{short:950,long:1100,cut:950},xl:{short:1250,long:1400,cut:1250},'2xl':{short:1400,long:1600,cut:1400},'3xl':{short:1750,long:1850,cut:1750},'4xl':{short:2100,long:2250,cut:2100},'5xl':{short:2650,long:2800,cut:2650}}
+  },
+  services:[{id:'bath',label:'อาบน้ำอย่างเดียว'},{id:'cut',label:'ตัดขนอย่างเดียว'},{id:'bathCut',label:'อาบน้ำ + ตัดขน'}],
+  used:{}
+};
+// เกณฑ์น้ำหนัก → ไซส์ (ขอบบนของแต่ละไซส์)
+var CUTS={ dog:[[2,'xs'],[5,'s'],[10,'m'],[15,'l'],[20,'xl'],[30,'2xl'],[40,'3xl'],[50,'4xl']], cat:[[2,'xs'],[3,'s'],[5,'m'],[7,'l'],[9,'xl'],[11,'2xl'],[13,'3xl'],[15,'4xl']] };
+var STEPS=['น้องและบริการ','วันและรอบ','ข้อมูลติดต่อ','รอร้านยืนยัน'];
+var LIVE=false, HOLDS=[];
+var S={ step:1, pet:'dog', weight:'', size:'', sizeManual:false, coat:'short', service:'bath',
+  date:'', time:'', owner:'', phone:'', line:'', email:'', petname:'', breed:'', note:'', accept:false,
+  errors:{}, sending:false, result:null };
+
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function baht(n){return '฿'+Number(n||0).toLocaleString('th-TH');}
+function iso(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
+function today(){return iso(new Date());}
+function thDate(s){if(!s)return '-';return new Date(s+'T00:00:00').toLocaleDateString('th-TH',{weekday:'short',day:'numeric',month:'short'});}
+function hasCut(){return S.service==='cut'||S.service==='bathCut';}
+function weightKg(){var w=parseFloat(String(S.weight).replace(',','.'));return w>0?w:0;}
+function autoSize(){var w=weightKg();if(!w)return '';var c=CUTS[S.pet];for(var i=0;i<c.length;i++){if(w<c[i][0])return c[i][1];}return '5xl';}
+function sizeLabel(id){var z=(G.sizes[S.pet]||[]).filter(function(x){return x.id===id;})[0];return z?z.label:'';}
+function coatLabel(id){var z=(G.coats[S.pet]||[]).filter(function(x){return x.id===id;})[0];return z?z.label:'';}
+function svcLabel(id){var z=G.services.filter(function(x){return x.id===id;})[0];return z?z.label:'';}
+function price(){
+  var row=G.prices[S.pet]&&G.prices[S.pet][S.size]; if(!row) return 0;
+  var bath=row[S.coat]!=null?row[S.coat]:(row.short||0), cut=row.cut||0;
+  return S.service==='cut'?cut:S.service==='bathCut'?bath+cut:bath;
+}
+function durationLabel(){return hasCut()?'ใช้เวลา 2–3 ชั่วโมง':'ใช้เวลา 1–2 ชั่วโมง';}
+function slotsForSvc(){return G.slots.filter(function(t){return !hasCut()||t<=G.cutLastSlot;});}
+function slotState(t){
+  var now=new Date(), nowHM=('0'+now.getHours()).slice(-2)+':'+('0'+now.getMinutes()).slice(-2);
+  if(S.date===today() && t<=nowHM) return 'past';
+  if(!LIVE) return 'unk';
+  var used=(G.used[S.date]&&G.used[S.date][t])||0;
+  HOLDS.forEach(function(h){ if(h.kind==='groom'&&h.checkIn===S.date&&h.slot===t) used+=h.count||1; });
+  return used>=(G.capacity||1)?'full':'ok';
+}
+function toast(t){var el=document.createElement('div');el.className='toast';el.textContent=t;document.body.appendChild(el);setTimeout(function(){el.remove();},2200);}
+
+function fval(f){if(!f)return null;if('stringValue' in f)return f.stringValue;if('integerValue' in f)return Number(f.integerValue);if('timestampValue' in f)return f.timestampValue;return null;}
+function loadData(){
+  var a=fetch(FS+'/publicAvailability/main?key='+KEY).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
+    var d=JSON.parse(fval(j.fields&&j.fields.json)||'null'); if(!d||!d.grooming) throw 0;
+    ['capacity','cutLastSlot','slots','sizes','coats','prices','services','used'].forEach(function(k){ if(d.grooming[k]!=null) G[k]=d.grooming[k]; });
+    LIVE=true;
+  }).catch(function(){LIVE=false;});
+  var b=fetch(FS+'/roomHolds?pageSize=300&key='+KEY).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
+    var now=Date.now();
+    HOLDS=(j.documents||[]).map(function(doc){var f=doc.fields||{},o={};Object.keys(f).forEach(function(k){o[k]=fval(f[k]);});return o;})
+      .filter(function(h){return Date.parse(h.expiresAt)>now;});
+  }).catch(function(){HOLDS=[];});
+  return Promise.all([a,b]);
+}
+function genCode(){var c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',s='';for(var i=0;i<4;i++)s+=c[Math.floor(Math.random()*c.length)];return 'PPG-'+today().slice(2).replace(/-/g,'')+'-'+s;}
+function fsFields(o){var f={};Object.keys(o).forEach(function(k){var v=o[k];
+  if(v&&v.__ts) f[k]={timestampValue:v.__ts}; else if(typeof v==='number'&&Number.isInteger(v)) f[k]={integerValue:String(v)}; else f[k]={stringValue:String(v==null?'':v)};});return {fields:f};}
+function post(col,obj){return fetch(FS+'/'+col+'?key='+KEY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(fsFields(obj))}).then(function(r){if(!r.ok)throw new Error(col+' '+r.status);return r.json();});}
+
+function submit(){
+  if(S.sending) return; S.sending=true; render();
+  var code=genCode(), p=price();
+  var payload={ v:1, code:code, kind:'groom', pet:S.pet, pets:1, size:S.size, sizeLabel:sizeLabel(S.size), coat:S.coat, coatLabel:coatLabel(S.coat),
+    service:S.service, serviceLabel:svcLabel(S.service), date:S.date, time:S.time, durationLabel:durationLabel(),
+    weightKg:S.weight, totals:{grand:p}, acceptedAt:new Date().toISOString(), liveAvailability:LIVE };
+  var msg=['✂️ จองอาบน้ำตัดขนออนไลน์ Perfect Pet House','รหัสจอง: '+code,'──────────────','👤 '+S.owner+' · 📞 '+S.phone]
+    .concat(S.line?['💬 LINE: '+S.line]:[])
+    .concat([(S.pet==='cat'?'🐱 แมว':'🐶 สุนัข')+' · ชื่อน้อง: '+S.petname+(S.breed?' ('+S.breed+')':'')+(S.weight?' · '+S.weight+' กก.':''),
+      '🛁 '+svcLabel(S.service)+' · ไซส์ '+sizeLabel(S.size)+' · '+coatLabel(S.coat),
+      '📅 '+S.date+' รอบ '+S.time+' น. ('+durationLabel()+')','💰 ราคาประมาณ '+baht(p)+' (ประเมินหน้างาน)'])
+    .concat(S.note?['📝 '+S.note]:[]).join('\n');
+  var webData={ owner:S.owner, phone:S.phone, line:S.line, email:S.email, pet:S.pet==='cat'?'น้องแมว':'น้องหมา', petname:S.petname,
+    breed:S.breed+(S.weight?' · '+S.weight+' กก.':''), service: S.service==='bath'?'อาบน้ำอย่างเดียว':'อาบน้ำตัดขน', room:'',
+    checkin:S.date, checkout:'', time:S.time, note:S.note };
+  var holdUntil=new Date(Date.now()+2*3600000).toISOString(), holdId='';
+  post('roomHolds',{ code:code, kind:'groom', pet:S.pet, checkIn:S.date, checkOut:S.date, slot:S.time, count:1, expiresAt:{__ts:holdUntil}, createdAt:new Date().toISOString() })
+  .then(function(j){holdId=(j.name||'').split('/').pop();}).catch(function(){})
+  .then(function(){
+    var p1=post('bookingRequests',Object.assign({},webData,{source:'/groom.html',submittedAt:new Date().toISOString(),status:'new',code:code,holdId:holdId,payloadJson:JSON.stringify(payload)}))
+      .then(function(){return true;},function(){return false;});
+    var p2=fetch(GAS,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({},webData,{message:msg,submittedAt:new Date().toLocaleString('th-TH')}))})
+      .then(function(r){return r.json();}).then(function(j){return !!(j&&j.ok);}).catch(function(){return false;});
+    return Promise.all([p1,p2]);
+  }).then(function(ok){
+    S.sending=false;
+    S.result={code:code,msg:msg,ok:ok[0]||ok[1],price:p,when:thDate(S.date)+' · รอบ '+S.time+' น.',what:svcLabel(S.service)+' · '+(S.pet==='cat'?'แมว':'สุนัข')+' ไซส์ '+S.size.toUpperCase()+' · '+coatLabel(S.coat)};
+    try{sessionStorage.setItem('pph_last_groom',JSON.stringify({r:S.result,at:Date.now()}));}catch(e){}
+    S.step=4; render(); window.scrollTo(0,0);
+  });
+}
+
+function validate(step){
+  var e={};
+  if(step===1){ if(!weightKg()&&!S.size) e.weight='ใส่น้ำหนักน้องโดยประมาณ'; if(!S.size) e.size='เลือกไซส์'; }
+  if(step===2){ if(!S.date) e.date='เลือกวันที่'; else if(S.date<today()) e.date='เลือกวันตั้งแต่วันนี้เป็นต้นไป';
+    if(!S.time) e.time='เลือกรอบเวลา'; else if(['full','past'].indexOf(slotState(S.time))>-1) e.time='รอบนี้ไม่ว่างแล้ว เลือกรอบอื่น'; }
+  if(step===3){ if(!S.owner.trim()) e.owner='กรอกชื่อของคุณ'; var ph=S.phone.replace(/\D/g,''); if(ph.length<9||ph.length>10) e.phone='เบอร์โทร 9–10 หลัก';
+    if(!S.petname.trim()) e.petname='กรอกชื่อน้อง'; if(S.email&&!/^\S+@\S+\.\S+$/.test(S.email)) e.email='อีเมลไม่ถูกต้อง'; if(!S.accept) e.accept='กรุณายอมรับเงื่อนไขก่อนส่ง'; }
+  S.errors=e; return !Object.keys(e).length;
+}
+function go(n){ if(n>S.step&&!validate(S.step)){render();var f=document.querySelector('.err');if(f)f.scrollIntoView({block:'center',behavior:'smooth'});return;} S.errors={}; S.step=n; render(); window.scrollTo(0,0); }
+function err(k){return S.errors[k]?'<p class="err">'+esc(S.errors[k])+'</p>':'';}
+function progress(){var h='<div class="progress" aria-hidden="true">';for(var i=1;i<=4;i++)h+='<i class="'+(i<=S.step?'on':'')+'"></i>';return h+'</div><div class="stepname">ขั้นที่ '+S.step+' จาก 4 · '+STEPS[S.step-1]+'</div>';}
+function backBtn(){return S.step>1&&S.step<4?'<button class="back" data-go="'+(S.step-1)+'">← ย้อนกลับ</button>':'';}
+function seg(key,items,cls){return '<div class="seg'+(cls?' '+cls:'')+'">'+items.map(function(x){return '<button type="button" data-set="'+key+'" data-v="'+x.id+'" aria-pressed="'+(S[key]===x.id)+'">'+esc(x.label)+(x.sub?'<small>'+esc(x.sub)+'</small>':'')+'</button>';}).join('')+'</div>';}
+
+function step1(){
+  var p=price();
+  return progress()+'<h1 class="t">จองอาบน้ำ–ตัดขน</h1><p class="sub">เลือกบริการ เห็นราคาตามไซส์และรอบว่างทันที</p>'+
+  '<div class="grp"><span class="lbl">น้องเป็น</span>'+seg('pet',[{id:'dog',label:'สุนัข'},{id:'cat',label:'แมว'}])+'</div>'+
+  '<div class="grp two"><div><label class="lbl" for="wt">น้ำหนัก (กก.)</label><input class="field" id="wt" data-k="weight" inputmode="decimal" placeholder="เช่น 6" value="'+esc(S.weight)+'">'+err('weight')+'</div>'+
+  '<div><label class="lbl" for="sz">ไซส์</label><select class="field" id="sz" data-k="size"><option value="">— เลือก —</option>'+
+    (G.sizes[S.pet]||[]).map(function(z){return '<option value="'+z.id+'"'+(S.size===z.id?' selected':'')+'>'+esc(z.label)+'</option>';}).join('')+'</select>'+err('size')+'</div></div>'+
+  '<div class="grp"><span class="lbl">ชนิดขน</span>'+seg('coat',G.coats[S.pet]||[],(G.coats[S.pet]||[]).length>2?'three':'')+'</div>'+
+  '<div class="grp"><span class="lbl">บริการ</span>'+seg('service',G.services.map(function(s){return {id:s.id,label:s.label};}),'three')+'</div>'+
+  '<div class="pricebox"><div><div class="feat">ราคาประมาณ</div><div class="big">'+(p?baht(p):'—')+'</div></div><div class="feat" style="text-align:right">'+durationLabel()+'<br>ไม่ต้องโอนมัดจำ</div></div>'+
+  '<p class="hint">ราคาตามตารางร้าน ราคาสุดท้ายช่างประเมินหน้างานตามสภาพขน</p>'+
+  '<p class="hint" style="text-align:center;margin-top:16px">จองโรงแรม / Day Care? <a href="/booking.html">ไปหน้าจองห้องพัก</a></p>';
+}
+function step2(){
+  var t=today(), slots=slotsForSvc();
+  var h=backBtn()+progress()+'<h1 class="t">เลือกวันและรอบ</h1><p class="sub">'+esc(svcLabel(S.service))+' · '+durationLabel()+(hasCut()?' · งานตัดขนรับรอบสุดท้าย '+G.cutLastSlot+' น.':'')+'</p>'+
+    '<div class="grp"><label class="lbl" for="dd">วันที่</label><input class="field" type="date" id="dd" data-k="date" min="'+t+'" value="'+S.date+'">'+err('date')+'</div>';
+  if(S.date){
+    if(!LIVE) h+='<div class="note warn" style="margin-bottom:12px">ตอนนี้เช็ครอบว่างอัตโนมัติไม่ได้ — เลือกรอบที่สะดวก ร้านจะยืนยันทาง LINE</div>';
+    h+='<span class="lbl">รอบเวลา · '+thDate(S.date)+'</span><div class="slots">'+slots.map(function(x){
+      var st=slotState(x), dis=(st==='full'||st==='past');
+      var tag= st==='ok'?'ว่าง':st==='full'?'เต็ม':st==='past'?'ผ่านไปแล้ว':'';
+      return '<button type="button" class="slot" data-slot="'+x+'" aria-pressed="'+(S.time===x)+'"'+(dis?' disabled':'')+'>'+x+(tag?'<small>'+tag+'</small>':'')+'</button>';
+    }).join('')+'</div>'+err('time');
+  }
+  return h;
+}
+function step3(){
+  return backBtn()+progress()+'<h1 class="t">ข้อมูลติดต่อ</h1><p class="sub">ร้านจะทักยืนยันคิวและส่งรูปน้องหลังทำเสร็จ</p>'+
+  '<div class="grp"><label class="lbl" for="ow">ชื่อ–นามสกุล</label><input class="field" id="ow" data-k="owner" autocomplete="name" value="'+esc(S.owner)+'">'+err('owner')+'</div>'+
+  '<div class="grp two"><div><label class="lbl" for="ph">เบอร์โทร</label><input class="field" id="ph" data-k="phone" inputmode="tel" autocomplete="tel" placeholder="08x-xxx-xxxx" value="'+esc(S.phone)+'">'+err('phone')+'</div>'+
+  '<div><label class="lbl" for="ln">LINE ID</label><input class="field" id="ln" data-k="line" value="'+esc(S.line)+'"></div></div>'+
+  '<div class="grp"><label class="lbl" for="em">อีเมล (ไม่บังคับ)</label><input class="field" id="em" data-k="email" type="email" autocomplete="email" value="'+esc(S.email)+'">'+err('email')+'</div>'+
+  '<div class="grp two"><div><label class="lbl" for="pn">ชื่อน้อง</label><input class="field" id="pn" data-k="petname" value="'+esc(S.petname)+'">'+err('petname')+'</div>'+
+  '<div><label class="lbl" for="br">สายพันธุ์</label><input class="field" id="br" data-k="breed" value="'+esc(S.breed)+'"></div></div>'+
+  '<div class="grp"><label class="lbl" for="nt">อยากให้ช่างรู้ (ทรงที่ต้องการ ผิวแพ้ง่าย นิสัย)</label><textarea class="field" id="nt" data-k="note">'+esc(S.note)+'</textarea></div>'+
+  '<div class="card" style="margin:6px 0">'+sumHtml()+'</div>'+
+  '<div class="policy"><b>เงื่อนไขการจอง</b><br>ราคาเป็นราคาประมาณตามไซส์และชนิดขน ราคาสุดท้ายช่างประเมินหน้างาน<br>คิวยืนยันเมื่อร้านทักกลับทาง LINE หรือโทรหา</div>'+
+  '<label class="chk"><input type="checkbox" data-k="accept"'+(S.accept?' checked':'')+'><span>ฉันรับทราบเงื่อนไขการจอง</span></label>'+err('accept');
+}
+function step4(){
+  var r=S.result; if(!r) return '';
+  if(!r.ok) return '<div class="done-head"><h1 class="t">ส่งอัตโนมัติไม่สำเร็จ</h1><p class="sub">กรุณาคัดลอกข้อความด้านล่างส่งทาง LINE '+LINE_OA+' หรือโทร <a href="tel:0823202807">082-320-2807</a></p></div>'+
+    '<div class="card"><pre style="white-space:pre-wrap;font:inherit;font-size:14px;margin:0">'+esc(r.msg)+'</pre></div>'+
+    '<button class="btn" style="width:100%;margin-top:12px" data-copy="1">คัดลอกข้อความ</button>';
+  var lineUrl='https://line.me/R/oaMessage/'+LINE_OA+'/?'+encodeURIComponent('ยืนยันคิวอาบน้ำตัดขน รหัส '+r.code);
+  return '<div class="done-head"><div class="done-ic"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2F6B45" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>'+
+    '<h1 class="t">ส่งคำขอจองคิวแล้ว</h1><div>รหัสจอง <span class="code">'+esc(r.code)+'</span></div><span class="pill last">รอร้านยืนยันคิว · ไม่ต้องโอนมัดจำ</span></div>'+
+    '<div class="card"><div class="sum"><span>วัน/รอบ</span><b>'+esc(r.when)+'</b></div><div class="sum"><span>บริการ</span><span>'+esc(r.what)+'</span></div>'+
+    '<div class="sum tot"><span>ราคาประมาณ</span><span>'+baht(r.price)+'</span></div><p class="feat" style="margin:6px 0 0">ชำระที่ร้านวันรับบริการ ราคาสุดท้ายช่างประเมินหน้างาน</p></div>'+
+    '<a class="btn line" style="display:flex;align-items:center;justify-content:center;text-decoration:none;min-height:52px;font-size:17px;margin-top:16px" href="'+lineUrl+'" target="_blank" rel="noopener">ทัก LINE '+LINE_OA+' ยืนยันคิว</a>'+
+    '<p class="hint" style="text-align:center">ร้านจะทักกลับเพื่อยืนยันคิวโดยเร็วที่สุด</p>';
+}
+function sumHtml(){
+  var p=price();
+  return '<div style="font-weight:700;font-size:17px;margin-bottom:6px">สรุปการจอง</div>'+
+    '<div class="sum"><span>'+esc(svcLabel(S.service))+'</span><span>'+(S.pet==='cat'?'แมว':'สุนัข')+(S.size?' · '+S.size.toUpperCase():'')+'</span></div>'+
+    '<div class="sum muted"><span>ชนิดขน</span><span>'+esc(coatLabel(S.coat))+'</span></div>'+
+    (S.date?'<div class="sum muted"><span>วัน/รอบ</span><span>'+thDate(S.date)+(S.time?' · '+S.time+' น.':'')+'</span></div>':'')+
+    '<div class="sum tot"><span>ราคาประมาณ</span><span>'+(p?baht(p):'—')+'</span></div><div class="sum muted"><span>มัดจำ</span><span>ไม่ต้องโอน</span></div>';
+}
+function render(){
+  $('main').innerHTML=[null,step1,step2,step3,step4][S.step]();
+  var bar=$('bar'), aside=$('aside');
+  if(S.step===4){ bar.classList.add('hidden'); aside.innerHTML=S.result?'<div style="font-weight:700">'+esc(S.result.code)+'</div><p class="feat">รอร้านยืนยันคิวทาง LINE '+LINE_OA+'</p>':''; return; }
+  bar.classList.remove('hidden');
+  var label=['','เลือกวันและรอบ','ถัดไป',S.sending?'กำลังส่ง…':'ส่งคำขอจองคิว'][S.step], p=price();
+  bar.innerHTML='<div class="t"><small>'+esc(svcLabel(S.service))+(S.time?' · '+S.time+' น.':'')+'</small><b>'+(p?baht(p):'')+'</b></div><button class="btn" data-next'+(S.sending?' disabled':'')+'>'+label+'</button>';
+  aside.innerHTML=sumHtml()+'<button class="btn" data-next'+(S.sending?' disabled':'')+'>'+label+'</button><p class="feat" style="margin:10px 0 0">รอบ Grooming 9:00–19:00 น. (พัก 12:00–13:00)</p>';
+}
+
+document.addEventListener('click',function(e){
+  var b=e.target.closest('button'); if(!b) return;
+  if(b.hasAttribute('data-next')){
+    if(S.step===3){ if(validate(3)) submit(); else { render(); var f=document.querySelector('.err'); if(f) f.scrollIntoView({block:'center',behavior:'smooth'}); } return; }
+    if(S.step===1){ if(!validate(1)){render();return;} b.disabled=true; loadData().then(function(){go(2);}); return; }
+    go(S.step+1); return;
+  }
+  if(b.dataset.go){go(Number(b.dataset.go));return;}
+  if(b.dataset.set){
+    S[b.dataset.set]=b.dataset.v;
+    if(b.dataset.set==='pet'){ S.coat='short'; if(!S.sizeManual||!S.weight) S.size=autoSize(); }
+    if(b.dataset.set==='service' && S.time && hasCut() && S.time>G.cutLastSlot) S.time='';
+    render(); return;
+  }
+  if(b.dataset.slot){ S.time=b.dataset.slot; S.errors={}; render(); return; }
+  if(b.dataset.copy){ try{navigator.clipboard.writeText(S.result.msg); toast('คัดลอกแล้ว');}catch(err){} }
+});
+document.addEventListener('change',function(e){
+  var el=e.target; if(!el.dataset.k) return;
+  S[el.dataset.k]= el.type==='checkbox' ? el.checked : el.value;
+  if(el.dataset.k==='weight'){ S.size=autoSize()||S.size; S.sizeManual=false; render(); }
+  else if(el.dataset.k==='size'){ S.sizeManual=true; render(); }
+  else if(el.dataset.k==='date'){ S.time=''; loadData().then(render); }
+  else if(el.type==='checkbox') render();
+});
+document.addEventListener('input',function(e){ var el=e.target; if(el.dataset.k&&el.type!=='checkbox'&&el.tagName!=='SELECT') S[el.dataset.k]=el.value; });
+
+try{ var qs=new URLSearchParams(location.search);
+  if(qs.get('pet')==='cat'||qs.get('pet')==='dog') S.pet=qs.get('pet');
+  if(/^(bath|cut|bathCut)$/.test(qs.get('service')||'')) S.service=qs.get('service');
+  if(qs.get('size')) S.size=qs.get('size');
+  if(/^(short|long|longSet)$/.test(qs.get('coat')||'')) S.coat=qs.get('coat');
+}catch(e){}
+try{ var last=JSON.parse(sessionStorage.getItem('pph_last_groom')||'null'); if(last&&Date.now()-last.at<6*3600000){ S.result=last.r; S.step=4; } }catch(e){}
+loadData().then(function(){ if(S.step<3) render(); });
+render();
+})();
+</script>
+</body>
+</html>

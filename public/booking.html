@@ -495,7 +495,7 @@ function step1(){
   '<div class="grp"><label class="lbl" for="ar">เวลาที่จะพาน้องมาถึง</label><select class="field" id="ar" data-k="arrive">'+arriveOpts()+'</select>'+
     '<p class="hint">'+(stay?'เช็คอินได้ 9:00–18:00 น. · ตัดรอบเช็คเอาท์ 14:00 น.':'รับ 9:00 น. · รับกลับไม่เกิน 20:00 น.')+'</p></div>'+
   '<div class="note"><span>ห้องว่างดึงจากปฏิทินจริงของร้าน — กดถัดไปเพื่อดูว่าวันนี้เหลือห้องไหนบ้าง</span></div>'+
-  '<p class="hint" style="text-align:center;margin-top:16px">จองอาบน้ำตัดขน / โซนออกกำลังกาย? <a href="/#booking">ไปที่ฟอร์มจองคิว</a></p>';
+  '<p class="hint" style="text-align:center;margin-top:16px">จองอาบน้ำตัดขน? <a href="/groom.html">ไปหน้าจองคิว Grooming</a></p>';
 }
 function roomCard(rt){
   var st=roomStatus(rt), lp=listPrice(rt,S.pet), up=unitPrice(rt,S.pet), n=nightsOf(S.checkIn,S.checkOut);

@@ -1005,6 +1005,7 @@
     </div>
 
     <p class="addon-note">มีบริการเสริม เช่น สปาโอโซน, ตัดแต่งหัว-เท้า-ก้น, แชมพูพิเศษ และอื่นๆ — สอบถามราคาตามขนาดน้องได้ทาง <a href="https://line.me/R/ti/p/@perfectbkk">LINE @perfectbkk</a></p>
+    <div style="text-align:center;margin-top:28px;"><a href="/groom.html" class="btn btn-primary" style="padding:14px 28px;">จองคิวอาบน้ำตัดขนออนไลน์ →</a><p style="margin:8px 0 0;font-size:0.85rem;color:var(--brown-soft);">เห็นรอบว่างและราคาตามไซส์ทันที · ไม่ต้องโอนมัดจำ</p></div>
   </div>
 </section>
 
@@ -1495,7 +1496,7 @@
         จองออนไลน์
       </span>
       <h2 class="section-title">จองคิวฝากเลี้ยง / อาบน้ำตัดขน</h2>
-      <p class="section-desc center">ฝากเลี้ยงและ Day Care จองออนไลน์ เห็นห้องว่างทันที · อาบน้ำตัดขนและโซนออกกำลังกาย กรอกฟอร์มด้านล่าง</p>
+      <p class="section-desc center">ฝากเลี้ยง · Day Care · อาบน้ำตัดขน จองออนไลน์ เห็นห้อง/รอบว่างทันที · โซนออกกำลังกายกรอกฟอร์มด้านล่าง</p>
     </div>
 
     <a href="/booking.html" class="bk-new" style="display:flex;align-items:center;gap:16px;max-width:640px;margin:28px auto 0;background:var(--brown);color:#fff;padding:20px 22px;border-radius:20px;text-decoration:none;box-shadow:0 12px 32px rgba(58,46,38,0.18);">
@@ -1503,7 +1504,12 @@
       <span style="flex:1;"><strong style="display:block;font-size:1.1rem;">จองโรงแรม / Day Care ออนไลน์</strong><span style="font-size:0.9rem;opacity:.85;">เช็คห้องว่าง เห็นราคาและยอดมัดจำทันที · VIP ราคาจองออนไลน์ 1,590</span></span>
       <span style="font-weight:600;white-space:nowrap;">จองเลย →</span>
     </a>
-    <p style="text-align:center;margin:22px 0 0;font-weight:600;color:var(--brown);">อาบน้ำตัดขน · โซนออกกำลังกาย · สอบถามอื่นๆ</p>
+    <a href="/groom.html" class="bk-new" style="display:flex;align-items:center;gap:16px;max-width:640px;margin:14px auto 0;background:#fff;color:var(--brown);padding:20px 22px;border-radius:20px;text-decoration:none;border:2px solid var(--orange);box-shadow:0 12px 32px rgba(58,46,38,0.10);">
+      <svg class="icon" style="width:34px;height:34px;flex:none;color:var(--orange-dark);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+      <span style="flex:1;"><strong style="display:block;font-size:1.1rem;">จองอาบน้ำตัดขน ออนไลน์</strong><span style="font-size:0.9rem;color:var(--brown-soft);">เลือกรอบว่าง เห็นราคาตามไซส์ทันที · ไม่ต้องโอนมัดจำ</span></span>
+      <span style="font-weight:600;white-space:nowrap;color:var(--orange-dark);">จองเลย →</span>
+    </a>
+    <p style="text-align:center;margin:22px 0 0;font-weight:600;color:var(--brown);">โซนออกกำลังกาย · สอบถามอื่นๆ</p>
 
     <form id="bookingForm" style="max-width:640px;margin:32px auto 0;background:#fff;padding:28px 24px;border-radius:20px;box-shadow:0 12px 32px rgba(58,46,38,0.10);">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
@@ -1642,9 +1648,11 @@
       serviceSel.parentNode.appendChild(newHint);
       serviceSel.addEventListener('change', function(){
         var v = serviceSel.value;
-        newHint.style.display = (v.indexOf('ฝากเลี้ยง') === 0 || v.indexOf('Day Care') === 0) ? 'block' : 'none';
+        var isGroom = v.indexOf('อาบน้ำ') === 0;
+        newHint.style.display = (v.indexOf('ฝากเลี้ยง') === 0 || v.indexOf('Day Care') === 0 || isGroom) ? 'block' : 'none';
         var a = newHint.querySelector('a');
-        a.href = '/booking.html' + (v.indexOf('Day Care') === 0 ? '?service=daycare' : v.indexOf('อาบน้ำ') > -1 ? '?groom=1' : '');
+        if (isGroom) { newHint.firstChild.textContent = 'จองอาบน้ำตัดขนที่ '; a.textContent = 'หน้าจองคิวออนไลน์'; a.href = '/groom.html' + (v === 'อาบน้ำอย่างเดียว' ? '?service=bath' : '?service=bathCut'); }
+        else { newHint.firstChild.textContent = 'จองฝากเลี้ยง/Day Care ที่ '; a.textContent = 'หน้าจองออนไลน์'; a.href = '/booking.html' + (v.indexOf('Day Care') === 0 ? '?service=daycare' : v.indexOf('อาบน้ำ') > -1 ? '?groom=1' : ''); }
       });
     }
     fillTimes();
