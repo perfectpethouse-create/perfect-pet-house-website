@@ -1032,6 +1032,7 @@ window.PPHQR=(function(){
     document.querySelector('.screen-wrap').scrollTop=0;window.scrollTo(0,0);
   }
   document.querySelectorAll('.navbtn').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.tab);});});
+  if(/^#book/.test(location.hash)) setTimeout(function(){go('book');},0); // ลิงก์ /#booking จากหน้าจองใหม่
   document.querySelectorAll('[data-goroom]').forEach(function(b){b.addEventListener('click',function(){go('rooms');});});
   document.querySelectorAll('[data-gogroom]').forEach(function(b){b.addEventListener('click',function(){go('serv');setServ('groom');});});
   document.querySelectorAll('[data-goday]').forEach(function(b){b.addEventListener('click',function(){go('serv');setServ('day');});});
@@ -1199,7 +1200,20 @@ window.PPHQR=(function(){
   function isGroomSvc(){return state.service==='อาบน้ำตัดขน';}
 
   // start booking from a room/service card
+  // ฝากเลี้ยง / Day Care → หน้าจองใหม่ (เห็นห้องว่าง + มัดจำทันที) · Grooming ยังใช้ wizard เดิม
+  function toNewBooking(service,pet,room){
+    if(!/ฝากเลี้ยง|Day Care/.test(service||'')) return false;
+    var q=[];
+    if(/Day Care/.test(service)) q.push('service=daycare');
+    if(/ตัดขน/.test(service)) q.push('groom=1');
+    if(pet) q.push('pet='+(/แมว|cat/.test(pet)?'cat':'dog'));
+    var rm=room&&room.name?String(room.name).toLowerCase():'';
+    if(/vip/.test(rm)) q.push('room=vip'); else if(/deluxe/.test(rm)) q.push('room=deluxe'); else if(/cozy/.test(rm)) q.push('room=cozy');
+    location.href='/booking.html'+(q.length?'?'+q.join('&'):'');
+    return true;
+  }
   function startBooking(service,pet,room){
+    if(toNewBooking(service,pet,room)) return;
     state.service=service;state.pet=pet;
     document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(o){o.classList.toggle('on',o.dataset.service===service);});
     document.querySelectorAll('#bkPetSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.bkpet===pet);});
@@ -1218,6 +1232,7 @@ window.PPHQR=(function(){
   document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(o){
     o.addEventListener('click',function(){
       document.querySelectorAll('.wstep[data-step="1"] .opt').forEach(function(x){x.classList.remove('on');});
+      if(toNewBooking(o.dataset.service,state.pet,null)) return;
       o.classList.add('on');state.service=o.dataset.service;
       state.room='';state.roomPrice=o.dataset.price?+o.dataset.price:0;bkSize=null;bkCoatIdx=null;bkCut=false;
       validate();

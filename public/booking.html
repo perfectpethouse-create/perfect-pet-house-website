@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<!-- ช่วงทดสอบ: ยังไม่ให้ Google เก็บหน้านี้ — ลบบรรทัดนี้ตอนเปิดใช้จริง -->
-<meta name="robots" content="noindex">
 <title>จองห้องพัก | Perfect Pet House</title>
 <meta name="description" content="จองโรงแรมสัตว์เลี้ยงและ Day Care ออนไลน์ เช็คห้องว่างได้ทันที Perfect Pet House วัชรพล-รามอินทรา">
 <meta name="theme-color" content="#FFF8F0">
@@ -496,7 +494,8 @@ function step1(){
   )+
   '<div class="grp"><label class="lbl" for="ar">เวลาที่จะพาน้องมาถึง</label><select class="field" id="ar" data-k="arrive">'+arriveOpts()+'</select>'+
     '<p class="hint">'+(stay?'เช็คอินได้ 9:00–18:00 น. · ตัดรอบเช็คเอาท์ 14:00 น.':'รับ 9:00 น. · รับกลับไม่เกิน 20:00 น.')+'</p></div>'+
-  '<div class="note"><span>ห้องว่างดึงจากปฏิทินจริงของร้าน — กดถัดไปเพื่อดูว่าวันนี้เหลือห้องไหนบ้าง</span></div>';
+  '<div class="note"><span>ห้องว่างดึงจากปฏิทินจริงของร้าน — กดถัดไปเพื่อดูว่าวันนี้เหลือห้องไหนบ้าง</span></div>'+
+  '<p class="hint" style="text-align:center;margin-top:16px">จองอาบน้ำตัดขน / โซนออกกำลังกาย? <a href="/#booking">ไปที่ฟอร์มจองคิว</a></p>';
 }
 function roomCard(rt){
   var st=roomStatus(rt), lp=listPrice(rt,S.pet), up=unitPrice(rt,S.pet), n=nightsOf(S.checkIn,S.checkOut);
@@ -632,6 +631,7 @@ document.addEventListener('click', function(e){
       if(!validate(1)){ render(); return; }
       b.disabled=true; b.textContent='กำลังเช็คห้องว่าง…';
       loadData().then(function(){
+        if(S.service==='stay' && !S.roomType && PRE_ROOM){ S.roomType=PRE_ROOM; PRE_ROOM=''; }
         if(S.service==='stay' && S.roomType && roomStatus(S.roomType).s==='full') S.roomType='';
         S.rooms=Math.min(S.rooms||1,S.pets); go(2);
       });
@@ -682,6 +682,15 @@ document.addEventListener('input', function(e){
 try{
   var last=JSON.parse(sessionStorage.getItem('pph_last_booking')||'null');
   if(last && Date.parse(last.holdUntil) > Date.now() - 6*3600000){ S.result=last; S.step=5; }
+}catch(e){}
+// ลิงก์จากหน้าแรก: ?service=daycare &pet=cat &room=vip &groom=1
+var PRE_ROOM='';
+try{
+  var qs=new URLSearchParams(location.search);
+  if(qs.get('service')==='daycare') S.service='daycare';
+  if(qs.get('pet')==='cat'||qs.get('pet')==='dog') S.pet=qs.get('pet');
+  if(/^(cozy|deluxe|vip)$/.test(qs.get('room')||'')) PRE_ROOM=qs.get('room');
+  if(qs.get('groom')==='1') S.wantGroom=true;
 }catch(e){}
 // โหลดข้อมูลร้านไว้ก่อน (ราคา/ห้องว่าง) — ไม่ต้องรอก็ใช้หน้าได้
 loadData().then(function(){ if(S.step<4) render(); });
