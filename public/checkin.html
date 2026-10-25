@@ -112,8 +112,6 @@
   .rules-box ul{margin:0 0 4px;padding-left:19px;}
   .rules-box li{margin-bottom:3px;}
   .rules-box .lead{color:var(--brown-soft);font-size:12.5px;margin-bottom:6px;}
-  .rules-fill-note{background:#FFF4E6;border:1px dashed var(--orange);border-radius:11px;padding:10px 12px;
-    font-size:12.5px;color:var(--orange-dark);margin-top:11px;}
   .consent-check{display:flex;gap:11px;align-items:flex-start;background:var(--orange-light);border:1.5px solid var(--orange);
     border-radius:14px;padding:14px;margin-top:15px;cursor:pointer;}
   .consent-check input{position:absolute;opacity:0;}
@@ -492,6 +490,8 @@
       '</div>';
   }
 
+  // กฎระเบียบฉบับย่อที่ลูกค้าเห็น — ปรับนโยบาย: แก้ apps-script/กฎระเบียบและนโยบาย-เข้าพัก.md แล้วซิงก์ข้อความมาที่นี่
+  // (เดิมเป็นกล่องหมายเหตุบนหน้าเว็บ ซึ่งลูกค้ามองเห็น จึงย้ายมาเป็นคอมเมนต์ในโค้ด)
   function rulesHTML(){
     return '<div class="rules-box">'+
       '<p class="lead">เพื่อประสบการณ์ที่ดีที่สุดของน้องและความพึงพอใจของเจ้าของ กรุณาอ่านและทำความเข้าใจข้อกำหนดต่อไปนี้</p>'+
@@ -518,7 +518,6 @@
         '<li>รับกลับหลัง 20:00 คิดเพิ่ม 50% ของห้องพัก · มารับไม่เกิน 21:00 น. เกินกว่านั้นรับวันถัดไป</li></ul>'+
       '<h3>6. การใช้ภาพถ่าย / วิดีโอ</h3><ul>'+
         '<li>โรงแรมอาจถ่ายภาพ/วิดีโอเพื่อประชาสัมพันธ์ผ่านช่องทางออนไลน์ · หากไม่สะดวกกรุณาแจ้งล่วงหน้า</li></ul>'+
-      '<div class="rules-fill-note">📌 หมายเหตุทีมงาน: ช่องนี้แสดงกฎระเบียบฉบับย่อ หากต้องการฉบับเต็ม/ปรับปรุงนโยบาย แก้ที่ไฟล์ <b>apps-script/กฎระเบียบและนโยบาย-เข้าพัก.md</b> แล้วซิงก์เข้าฟังก์ชัน rulesHTML()</div>'+
       '</div>';
   }
 
