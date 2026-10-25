@@ -40,16 +40,25 @@
 
   /* ── Layout ── */
   .wrap{max-width:640px;margin:0 auto;padding:18px 16px calc(var(--foot-h) + 24px);}
-  .intro-hero{text-align:center;padding:14px 6px 4px;}
-  .intro-hero .big{font-size:44px;margin-bottom:6px;}
-  .intro-hero h1{font-size:23px;color:var(--orange-dark);margin-bottom:8px;}
-  .intro-hero p{color:var(--brown-soft);font-size:14.5px;max-width:440px;margin:0 auto;}
-  .intro-points{list-style:none;margin:20px 0 8px;display:grid;gap:11px;}
-  .intro-points li{display:flex;gap:11px;align-items:flex-start;background:var(--white);border:1px solid var(--line);
-    border-radius:15px;padding:13px 15px;box-shadow:var(--shadow-sm);}
-  .intro-points .ic{font-size:20px;flex-shrink:0;}
-  .intro-points b{font-family:'Inter','Noto Sans Thai';font-weight:500;font-size:14.5px;display:block;}
-  .intro-points span{font-size:13px;color:var(--brown-soft);}
+  .intro-hero{text-align:center;padding:18px 6px 0;}
+  .intro-hero .logo-hero{display:block;width:112px;height:auto;margin:0 auto 18px;}
+  .intro-hero h1{font-size:25px;color:var(--brown);letter-spacing:-0.01em;margin-bottom:10px;text-wrap:balance;}
+  .intro-hero p{color:var(--brown-soft);font-size:15px;max-width:400px;margin:0 auto;text-wrap:pretty;}
+  .intro-hero .time{display:inline-block;margin-top:12px;font-size:13px;font-weight:500;color:var(--orange-dark);
+    background:var(--orange-light);padding:4px 12px;border-radius:99px;}
+  .intro-points{list-style:none;margin:26px 0 0;background:var(--white);border:1px solid var(--line);
+    border-radius:18px;box-shadow:var(--shadow-sm);padding:4px 18px;}
+  .intro-points li{display:flex;gap:12px;align-items:flex-start;padding:14px 0;}
+  .intro-points li + li{border-top:1px solid var(--line);}
+  .intro-points svg{width:19px;height:19px;color:var(--orange-dark);flex-shrink:0;margin-top:2px;}
+  .intro-points b{font-family:'Inter','Noto Sans Thai';font-weight:600;font-size:14.5px;display:block;color:var(--brown);}
+  .intro-points span{font-size:13.5px;color:var(--brown-soft);}
+  .btn-start{display:block;width:100%;min-height:54px;margin-top:22px;border-radius:15px;background:var(--orange-dark);
+    color:#fff;font-weight:600;font-size:16px;box-shadow:0 6px 16px rgba(184,92,30,.22);transition:transform .15s ease,box-shadow .15s ease;}
+  .btn-start:active{transform:translateY(1px);box-shadow:0 3px 8px rgba(184,92,30,.2);}
+  .btn-start:focus-visible,.btn-clear:focus-visible{outline:3px solid var(--orange);outline-offset:3px;}
+  .btn-clear{display:block;margin:14px auto 0;padding:8px 12px;font-size:13.5px;color:var(--brown-soft);
+    text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line);}
 
   .card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:17px 16px;
     box-shadow:var(--shadow-sm);margin-bottom:15px;}
@@ -388,18 +397,20 @@
     $('progMeta').hidden = true; $('progTrack').hidden = true; $('footnav').hidden = true;
     $('screen').innerHTML =
       '<div class="intro-hero">'+
-        '<div class="big">🏨🐾</div>'+
+        '<img class="logo-hero" src="images/logo-mark.png" alt="Perfect Pet House" width="211" height="192">'+
         '<h1>ลงทะเบียนข้อมูลก่อนเข้าพัก</h1>'+
-        '<p>กรอกข้อมูลน้องหมาน้องแมวให้ครบก่อนวันเข้าพัก เพื่อให้ทีมงานเตรียมการดูแลได้ดีที่สุด ใช้เวลาประมาณ 3–5 นาที</p>'+
+        '<p>กรอกข้อมูลน้องหมาน้องแมวให้ครบก่อนวันเข้าพัก เพื่อให้ทีมงานเตรียมการดูแลได้ดีที่สุด</p>'+
+        '<span class="time">ใช้เวลาประมาณ 3–5 นาที</span>'+
       '</div>'+
       '<ul class="intro-points">'+
-        '<li><span class="ic">🐶🐱</span><div><b>มีหลายตัว? กรอกครั้งเดียวจบ</b><span>เพิ่มน้องได้ไม่จำกัด ข้อมูลเจ้าของกรอกแค่ครั้งเดียว</span></div></li>'+
-        '<li><span class="ic">🪪</span><div><b>เตรียมบัตรประชาชน + รูปน้อง</b><span>ถ่ายรูปและเซ็นรับทราบบนมือถือได้เลย วันเข้าพักไม่ต้องเซ็นเอกสารที่ร้าน</span></div></li>'+
-        '<li><span class="ic">💾</span><div><b>กรอกค้างไว้ได้</b><span>ระบบบันทึกร่างอัตโนมัติ กลับมากรอกต่อได้ (ยกเว้นเลขบัตร)</span></div></li>'+
-        '<li><span class="ic">🔒</span><div><b>ข้อมูลปลอดภัย</b><span>ส่งตรงถึงทีมงาน Perfect Pet House เท่านั้น</span></div></li>'+
+        [['มีหลายตัว? กรอกครั้งเดียวจบ','เพิ่มน้องได้ไม่จำกัด ข้อมูลเจ้าของกรอกแค่ครั้งเดียว'],
+         ['เตรียมบัตรประชาชน + รูปน้อง','ถ่ายรูปและเซ็นรับทราบบนมือถือได้เลย วันเข้าพักไม่ต้องเซ็นเอกสารที่ร้าน'],
+         ['กรอกค้างไว้ได้','ระบบบันทึกร่างอัตโนมัติ กลับมากรอกต่อได้ (ยกเว้นเลขบัตร)'],
+         ['ข้อมูลปลอดภัย','ส่งตรงถึงทีมงาน Perfect Pet House เท่านั้น']
+        ].map(function(p){ return '<li><svg aria-hidden="true"><use href="#i-check"/></svg><div><b>'+p[0]+'</b><span>'+p[1]+'</span></div></li>'; }).join('')+
       '</ul>'+
-      '<button class="add-pet-btn" id="startBtn" style="border-style:solid;background:var(--orange-dark);color:#fff;border-color:var(--orange-dark);margin-top:16px;">เริ่มกรอกข้อมูล ›</button>'+
-      (hasDraft()?'<button class="add-pet-btn" id="clearDraftBtn" style="margin-top:10px;background:transparent;border-color:var(--line);color:var(--brown-soft);">🗑 ล้างร่างที่บันทึกไว้</button>':'');
+      '<button class="btn-start" id="startBtn">เริ่มกรอกข้อมูล ›</button>'+
+      (hasDraft()?'<button class="btn-clear" id="clearDraftBtn">ล้างร่างที่บันทึกไว้ แล้วเริ่มใหม่</button>':'');
     $('startBtn').onclick = function(){started=true;cur=0;render();};
     var cd = $('clearDraftBtn'); if(cd) cd.onclick = function(){clearDraft();location.reload();};
   }
