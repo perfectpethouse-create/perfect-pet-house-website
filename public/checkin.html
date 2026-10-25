@@ -168,9 +168,82 @@
     background:var(--brown);color:#fff;font-size:12.5px;padding:8px 15px;border-radius:99px;z-index:30;
     opacity:0;transition:opacity .3s;pointer-events:none;font-family:'Inter','Noto Sans Thai';}
   .draft-toast.show{opacity:.94;}
+
+  /* ── ยินยอม PDPA + อ่านกฎครบ ── */
+  .consent-check + .consent-check{margin-top:10px;}
+  .consent-check .txt small{display:block;font-weight:400;font-size:12.5px;color:var(--brown-soft);margin-top:3px;line-height:1.55;}
+  .consent-check.pdpa{background:#fff;border-color:var(--line);}
+  .consent-check.pdpa.on{background:var(--orange-light);border-color:var(--orange);}
+  .consent-check:focus-visible{outline:2px solid var(--orange-dark);outline-offset:2px;}
+  .rules-progress{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--brown-soft);margin-top:9px;font-weight:500;}
+  .rules-progress.done{color:var(--green);}
+  .rules-progress svg{width:16px;height:16px;}
+
+  /* ── แนบบัตร + รูปน้อง ── */
+  .slot{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;
+    border:2px dashed #E3C9AE;border-radius:15px;background:var(--cream);color:var(--orange-dark);text-align:center;}
+  .slot:focus-visible{outline:2px solid var(--orange-dark);outline-offset:2px;}
+  .slot svg{width:26px;height:26px;}
+  .slot b{font-weight:500;font-size:14px;color:var(--brown);}
+  .slot span.s{font-size:12px;color:var(--brown-soft);}
+  .slot.id{aspect-ratio:1.586;}
+  .slot.filled{border:0;background:var(--line);overflow:hidden;}
+  .slot.filled img{width:100%;height:100%;object-fit:cover;display:block;}
+  .slot.busy{opacity:.6;}
+  .slot .x{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;background:rgba(58,46,38,.72);color:#fff;display:grid;place-items:center;}
+  .slot .x svg{width:15px;height:15px;}
+  .slot .redo{position:absolute;left:8px;bottom:8px;background:rgba(255,255,255,.92);color:var(--brown);font-size:12.5px;
+    font-weight:500;padding:6px 11px;border-radius:9px;display:flex;align-items:center;gap:5px;}
+  .slot .redo svg{width:14px;height:14px;}
+  .ok-line{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--green);font-weight:500;margin-top:8px;}
+  .ok-line svg{width:16px;height:16px;flex-shrink:0;}
+  .tips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .tips span{font-size:12px;background:var(--cream);border:1px solid var(--line);border-radius:99px;padding:4px 10px;color:var(--brown-soft);}
+  .pet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+  .pet-grid .slot{aspect-ratio:1;}
+  .pet-grid .slot svg{width:22px;height:22px;}
+  .pet-grid .slot b{font-size:12.5px;}
+  .pet-tag{position:absolute;left:6px;bottom:6px;background:rgba(255,255,255,.94);color:var(--brown);font-size:11.5px;font-weight:600;padding:3px 8px;border-radius:7px;}
+  .field.invalid .slot{border-color:var(--red);}
+
+  /* ── เซ็นรับทราบ ── */
+  .pledge{background:var(--cream);border:1.5px solid var(--line);border-radius:14px;padding:13px 14px;font-size:13.5px;line-height:1.7;}
+  .pledge b{color:var(--orange-dark);font-weight:600;}
+  .pad{position:relative;margin-top:14px;height:210px;border:1.5px solid var(--line);border-radius:16px;background:#fff;
+    box-shadow:inset 0 2px 6px rgba(58,46,38,.05);touch-action:none;overflow:hidden;}
+  .field.invalid .pad{border-color:var(--red);}
+  .pad canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;}
+  .pad .base{position:absolute;left:22px;right:22px;bottom:52px;border-bottom:1.5px dashed #D9C3AC;pointer-events:none;}
+  .pad .xmark{position:absolute;left:22px;bottom:58px;font-size:15px;color:#C9AE93;font-weight:600;pointer-events:none;}
+  .pad .ph{position:absolute;left:0;right:0;bottom:20px;text-align:center;font-size:12.5px;color:var(--brown-soft);pointer-events:none;}
+  .pad-acts{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:12.5px;color:var(--brown-soft);}
+  .pad-acts button{display:inline-flex;align-items:center;gap:6px;background:var(--orange-light);color:var(--orange-dark);font-weight:500;font-size:13px;padding:8px 13px;border-radius:10px;}
+  .pad-acts button svg{width:15px;height:15px;}
+
+  /* ── ตรวจทาน: เอกสาร & ลายเซ็น ── */
+  .rev-docs{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:8px;}
+  .rev-docs .th{border-radius:11px;overflow:hidden;aspect-ratio:1;background:var(--line);}
+  .rev-docs .th.id{aspect-ratio:auto;}
+  .rev-docs .th img{width:100%;height:100%;object-fit:cover;display:block;}
+  .rev-sig{margin-top:10px;border:1.5px dashed var(--line);border-radius:12px;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .rev-sig img{height:56px;max-width:55%;object-fit:contain;}
+  .rev-sig small{font-size:12px;color:var(--brown-soft);text-align:right;line-height:1.5;}
+  .rev-miss{font-size:13px;color:var(--red);}
+  .done-list{list-style:none;max-width:340px;margin:18px auto 0;text-align:left;display:grid;gap:8px;}
+  .done-list li{display:flex;gap:9px;align-items:center;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 13px;}
+  .done-list svg{width:18px;height:18px;color:var(--green);flex-shrink:0;}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="11" r="2"/><path d="M5 16c.6-1.4 1.7-2 3-2s2.4.6 3 2M14 10h4M14 13h3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="m8 12.5 2.6 2.6L16 9.6"/></symbol>
+  <symbol id="i-redo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
+  <symbol id="i-erase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3a1 1 0 0 1 0-1.4l9.6-9.6a1 1 0 0 1 1.4 0l5.6 5.6a1 1 0 0 1 0 1.4L13 21"/><path d="M22 21H7M5 11l9 9"/></symbol>
+</svg>
 
 <header class="topbar">
   <div class="brand"><span class="paw">🐾</span><span>ลงทะเบียนเข้าพัก · Perfect Pet House</span></div>
@@ -198,9 +271,10 @@
   // ── ส่งสำเนาเข้าระบบภายในร้าน (Firestore ของแอปจอง) — fire-and-forget
   //    ไม่กระทบการส่งเข้า Google Sheets เดิม ถ้าล้มเหลวลูกค้าไม่เห็นอะไรผิดปกติ
   var PPH_APP_INBOX = 'https://firestore.googleapis.com/v1/projects/pph-booking/databases/(default)/documents/checkinForms?key=AIzaSyCi7sSXV0Sz85XqWI0hVTGw-BbNd8Cxox0';
-  function sendToInternalApp(payload){
-    try{
-      fetch(PPH_APP_INBOX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields:{
+  // คืน Promise — รูปบัตร/รูปน้อง/ลายเซ็นมีที่เดียวคือที่นี่ (ไม่ส่งเข้า Google Sheet) จึงต้องรู้ผลว่าส่งสำเร็จไหม
+  function sendToInternalApp(payload, m){
+    var sv = function(v){ return {stringValue:v||''}; };
+    return fetch(PPH_APP_INBOX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields:{
         raw:{stringValue:JSON.stringify(payload)},
         ref:{stringValue:payload.ref||''},
         name:{stringValue:(payload.owner&&payload.owner.fullname)||''},
@@ -210,9 +284,13 @@
         petCount:{integerValue:String((payload.pets&&payload.pets.length)||0)},
         bookingId:{stringValue:payload.bookingId||''},
         submittedAt:{stringValue:new Date().toISOString()},
-        status:{stringValue:'new'}
-      }})}).catch(function(){});
-    }catch(e){}
+        status:{stringValue:'new'},
+        signOwner:sv(m.sign),
+        signedOnlineAt:sv(m.signedAt),
+        idPhoto:sv(m.id),
+        petPhotos:{arrayValue:{values:m.pets.map(sv)}},
+        consentPdpa:{booleanValue:!!payload.consent.pdpa}
+      }})}).then(function(r){ if(!r.ok) throw new Error('inbox '+r.status); });
   }
   var LINE_URL = 'https://line.me/R/ti/p/@perfectbkk';
   var DRAFT_KEY = 'pph_checkin_draft_v1';
@@ -239,7 +317,11 @@
   // ── State ──
   var owner = {fullname:'',nickname:'',idcard:'',phone:'',line:'',email:'',address:'',emgName:'',emgPhone:''};
   var stay  = {checkin:'',checkinTime:'',checkout:'',checkoutTime:'',specialRequest:''};
-  var consent = {agreed:false, signName:''};
+  var consent = {agreed:false, pdpa:false, signName:''};
+  // รูป/ลายเซ็น (data URL) — ไม่เก็บลงร่าง localStorage เพราะใหญ่เกิน 5MB ได้ · กลับมากรอกต่อต้องแนบใหม่
+  var media = {id:'', pets:[], sign:'', signedAt:''};
+  var MAX_PET_PHOTOS = 3;
+  var sentInternal = false; // ส่งเข้าระบบร้านสำเร็จแล้ว → กดส่งซ้ำ (หลัง Apps Script ล้ม) จะไม่สร้างใบซ้ำ
   function blankPet(){return {name:'',species:'',breed:'',gender:'',age:'',weight:'',microchip:'',neutered:'',
     health:'',disease:'',medication:'',vaccine:'',vaccineDate:'',flea:'',temperament:[],socialize:'',behaviors:[],
     stressTriggers:'',behaviorNote:'',meals:'',feedTime:'',amount:'',allergyFlag:'',allergyList:'',supplements:'',
@@ -254,7 +336,7 @@
   function screens(){
     var arr = ['owner'];
     for(var i=0;i<pets.length;i++) arr.push('pet:'+i);
-    arr.push('stay','consent','review');
+    arr.push('stay','consent','docs','sign','review');
     return arr;
   }
   function screenTitle(s){
@@ -262,6 +344,8 @@
     if(s.indexOf('pet:')===0){var i=+s.split(':')[1];return 'ข้อมูลน้อง (ตัวที่ '+(i+1)+'/'+pets.length+')';}
     if(s==='stay') return 'วันเข้าพัก & ห้อง';
     if(s==='consent') return 'ยินยอม & ข้อตกลง';
+    if(s==='docs') return 'แนบบัตร & รูปน้อง';
+    if(s==='sign') return 'เซ็นรับทราบ';
     if(s==='review') return 'ตรวจทาน & ส่ง';
     return '';
   }
@@ -313,6 +397,7 @@
       '</div>'+
       '<ul class="intro-points">'+
         '<li><span class="ic">🐶🐱</span><div><b>มีหลายตัว? กรอกครั้งเดียวจบ</b><span>เพิ่มน้องได้ไม่จำกัด ข้อมูลเจ้าของกรอกแค่ครั้งเดียว</span></div></li>'+
+        '<li><span class="ic">🪪</span><div><b>เตรียมบัตรประชาชน + รูปน้อง</b><span>ถ่ายรูปและเซ็นรับทราบบนมือถือได้เลย วันเข้าพักไม่ต้องเซ็นเอกสารที่ร้าน</span></div></li>'+
         '<li><span class="ic">💾</span><div><b>กรอกค้างไว้ได้</b><span>ระบบบันทึกร่างอัตโนมัติ กลับมากรอกต่อได้ (ยกเว้นเลขบัตร)</span></div></li>'+
         '<li><span class="ic">🔒</span><div><b>ข้อมูลปลอดภัย</b><span>ส่งตรงถึงทีมงาน Perfect Pet House เท่านั้น</span></div></li>'+
       '</ul>'+
@@ -446,13 +531,68 @@
         '• ในกรณีฉุกเฉิน โรงแรมมีสิทธิ์นำสัตว์เลี้ยงไปรับการรักษาจากสัตวแพทย์ โดยค่าใช้จ่ายเป็นของเจ้าของ<br>'+
         '• ยินยอมให้โรงแรมถ่ายภาพ/วิดีโอสัตว์เลี้ยงเพื่ออัพเดทรายงาน<br>'+
         '• ข้าพเจ้าอ่านกฎระเบียบและนโยบายของ Perfect Pet House เรียบร้อยแล้ว</div>'+
-      '<label class="consent-check'+(consent.agreed?' on':'')+'" id="consentBox">'+
+      '<div class="rules-progress" id="rulesProg"><svg><use href="#i-check"/></svg><span>เลื่อนอ่านกฎระเบียบให้ครบ</span></div>'+
+      '<label class="consent-check'+(consent.agreed?' on':'')+'" id="consentBox" tabindex="0" role="checkbox" aria-checked="'+consent.agreed+'">'+
         '<input type="checkbox"'+(consent.agreed?' checked':'')+'>'+
         '<span class="box"></span>'+
         '<span class="txt">ยืนยันและยินยอมตามข้อตกลงทั้งหมด<br><span class="en" style="font-weight:400;color:var(--brown-soft)">I confirm and agree to all terms above</span></span>'+
       '</label>'+
-      '<div class="field" data-fkey="agreed" style="margin-top:4px;"><span class="err-msg" style="'+(consent.agreed?'':'')+'">กรุณาติ๊กยอมรับข้อตกลงก่อนส่ง</span></div>'+
-      field(lbl('ชื่อผู้ลงนามรับทราบ','Name for acknowledgement'), inp('signName',consent.signName,'text','พิมพ์ชื่อ-นามสกุลเพื่อรับทราบ'), {key:'signName'}) +
+      '<div class="field" data-fkey="agreed" style="margin-top:4px;"><span class="err-msg">กรุณาติ๊กยอมรับข้อตกลงก่อนไปต่อ</span></div>'+
+      '<label class="consent-check pdpa'+(consent.pdpa?' on':'')+'" id="pdpaBox" tabindex="0" role="checkbox" aria-checked="'+consent.pdpa+'">'+
+        '<input type="checkbox"'+(consent.pdpa?' checked':'')+'>'+
+        '<span class="box"></span>'+
+        '<span class="txt">ยินยอมให้ร้านเก็บสำเนาบัตรประชาชน'+
+          '<small>ใช้ยืนยันตัวตนตอนฝากและรับน้องกลับเท่านั้น · ไม่เผยแพร่ · ลบอัตโนมัติ 90 วันหลังเช็คเอาท์</small></span>'+
+      '</label>'+
+      '<div class="field" data-fkey="pdpa" style="margin-top:4px;"><span class="err-msg">กรุณาติ๊กยินยอมก่อนไปต่อ (ใช้แนบบัตรในขั้นถัดไป)</span></div>'+
+      '</div>';
+  }
+
+  // ── ขั้นแนบบัตร + รูปน้อง ──
+  function renderDocs(){
+    var petName = pets.length===1 ? (pets[0].name||'') : '';
+    var idSlot = media.id
+      ? '<div class="slot id filled"><img src="'+media.id+'" alt="รูปบัตรประชาชนที่แนบ">'+
+          '<button type="button" class="x" data-del="id" aria-label="ลบรูปบัตร"><svg><use href="#i-x"/></svg></button>'+
+          '<button type="button" class="redo" data-pick="id"><svg><use href="#i-redo"/></svg>ถ่ายใหม่</button></div>'+
+        '<div class="ok-line"><svg><use href="#i-check"/></svg>แนบแล้ว · ย่อรูปให้อัตโนมัติ</div>'
+      : '<button type="button" class="slot id" data-pick="id"><svg><use href="#i-id"/></svg><b>ถ่ายรูป / เลือกรูปบัตร</b><span class="s">แตะเพื่อเปิดกล้อง</span></button>';
+    var petSlots = media.pets.map(function(src,i){
+      return '<div class="slot filled"><img src="'+src+'" alt="รูปน้องรูปที่ '+(i+1)+'">'+
+        '<button type="button" class="x" data-del="pet:'+i+'" aria-label="ลบรูปน้องรูปที่ '+(i+1)+'"><svg><use href="#i-x"/></svg></button>'+
+        (petName?'<span class="pet-tag">'+esc(petName)+'</span>':'')+'</div>';
+    }).join('');
+    if(media.pets.length<MAX_PET_PHOTOS){
+      petSlots += media.pets.length
+        ? '<button type="button" class="slot" data-pick="pet"><svg><use href="#i-plus"/></svg><b>เพิ่มรูป</b></button>'
+        : '<button type="button" class="slot" data-pick="pet"><svg><use href="#i-cam"/></svg><b>ถ่ายรูปน้อง</b></button>';
+    }
+    return '<div class="card"><h2><span class="ic-badge">🪪</span>บัตรประชาชนผู้ฝาก</h2>'+
+        '<div class="sub">ถ่ายด้านหน้าบัตร ให้เห็นชื่อและรูปหน้าชัด</div>'+
+        '<div class="field" data-fkey="idPhoto">'+idSlot+'<span class="err-msg">กรุณาแนบรูปบัตรประชาชน</span></div>'+
+      '</div>'+
+      '<div class="card"><h2><span class="ic-badge">📷</span>รูปน้อง</h2>'+
+        '<div class="sub">อย่างน้อย 1 รูป · เห็นหน้าและตัวน้องชัด · สูงสุด '+MAX_PET_PHOTOS+' รูป</div>'+
+        '<div class="field" data-fkey="petPhotos"><div class="pet-grid">'+petSlots+'</div><span class="err-msg">กรุณาแนบรูปน้องอย่างน้อย 1 รูป</span></div>'+
+        '<div class="tips"><span>ช่วยพี่เลี้ยงจำน้องได้</span><span>เทียบสภาพขนตอนรับ-ส่ง</span></div>'+
+      '</div>'+
+      '<input type="file" accept="image/*" id="filePick" hidden>';
+  }
+
+  // ── ขั้นเซ็นรับทราบ ──
+  function renderSign(){
+    var names = pets.map(function(p){return p.name;}).filter(Boolean).map(function(n){return 'น้อง'+n;}).join(', ');
+    return '<div class="card"><h2><span class="ic-badge">✍️</span>เซ็นรับทราบ</h2>'+
+      '<div class="sub">ใช้แทนการเซ็นเอกสารที่หน้าร้าน</div>'+
+      '<div class="pledge">ข้าพเจ้า <b>'+esc(owner.fullname||'-')+'</b> ผู้ฝาก <b>'+esc(names||'-')+'</b> เข้าพัก <b>'+esc(thDate(stay.checkin))+(stay.checkout?' – '+esc(thDate(stay.checkout)):'')+'</b> '+
+        'ยืนยันว่าข้อมูลถูกต้อง และยอมรับกฎระเบียบของ Perfect Pet House</div>'+
+      '<div class="field" data-fkey="signature" style="margin:0">'+
+        '<div class="pad" id="signPad"><span class="xmark" aria-hidden="true">✕</span><div class="base"></div>'+
+          '<div class="ph" id="signPh"'+(media.sign?' hidden':'')+'>เซ็นชื่อด้วยนิ้วในกรอบนี้</div>'+
+          '<canvas id="signCanvas" aria-label="ช่องเซ็นชื่อ"></canvas></div>'+
+        '<span class="err-msg">กรุณาเซ็นชื่อก่อนไปต่อ</span></div>'+
+      '<div class="pad-acts"><span id="signTime">'+(media.signedAt?esc(thDateTime(media.signedAt)):'')+'</span>'+
+        '<button type="button" id="signClear"><svg><use href="#i-erase"/></svg>ล้าง เซ็นใหม่</button></div>'+
       '</div>';
   }
 
@@ -485,6 +625,17 @@
     });
     h += '<button class="add-pet-btn" id="addPetReview">➕ เพิ่มสัตว์เลี้ยงอีกตัว</button>';
     h += '</div>';
+    // เอกสาร & ลายเซ็น
+    h += '<div class="rev-group"><div class="rg-h">🪪 เอกสาร & ลายเซ็น <button class="rev-edit" data-go="docs">แก้ไข</button></div>';
+    if(media.id || media.pets.length){
+      h += '<div class="rev-docs">'+(media.id?'<div class="th id"><img src="'+media.id+'" alt="รูปบัตร"></div>':'')+
+        media.pets.slice(0,2).map(function(src){return '<div class="th"><img src="'+src+'" alt="รูปน้อง"></div>';}).join('')+'</div>';
+    }
+    h += media.sign
+      ? '<div class="rev-sig"><img src="'+media.sign+'" alt="ลายเซ็น"><small>ยอมรับกฎระเบียบแล้ว<br>เซ็น '+esc(thDateTime(media.signedAt))+'</small></div>'
+      : '';
+    if(!media.id || !media.pets.length || !media.sign) h += '<p class="rev-miss">ยังแนบรูป/เซ็นไม่ครบ — กด "ส่งข้อมูล" ระบบจะพาไปขั้นที่ยังขาด</p>';
+    h += '</div>';
     h += '<div class="card"><div id="status">ตรวจสอบข้อมูลครบแล้ว กด "ส่งข้อมูล" ด้านล่างได้เลย</div>'+
       '<div class="line-fallback" id="lineFallback">'+
         '<p style="font-size:13px;color:var(--brown-soft);text-align:center;margin-bottom:10px;">ระบบอัตโนมัติขัดข้อง — เราคัดลอกสรุปให้แล้ว กรุณาวางในแชท LINE เพื่อยืนยัน</p>'+
@@ -505,6 +656,8 @@
     else if(s.indexOf('pet:')===0) html=renderPet(+s.split(':')[1]);
     else if(s==='stay') html=renderStay();
     else if(s==='consent') html=renderConsent();
+    else if(s==='docs') html=renderDocs();
+    else if(s==='sign') html=renderSign();
     else html=renderReview();
     $('screen').innerHTML = html;
     window.scrollTo(0,0);
@@ -547,10 +700,20 @@
       });
     });
     // consent checkbox
-    var cb = $('consentBox');
-    if(cb){ cb.addEventListener('click', function(e){ e.preventDefault(); cb.classList.toggle('on');
-      cb.querySelector('input').checked = cb.classList.contains('on'); consent.agreed = cb.classList.contains('on');
-      clearInvalid($('screen').querySelector('[data-fkey="agreed"]')); scheduleSave(); }); }
+    [['consentBox','agreed'],['pdpaBox','pdpa']].forEach(function(x){
+      var cb = $(x[0]); if(!cb) return;
+      var toggle = function(){ cb.classList.toggle('on'); var on = cb.classList.contains('on');
+        cb.querySelector('input').checked = on; cb.setAttribute('aria-checked', String(on)); consent[x[1]] = on;
+        clearInvalid($('screen').querySelector('[data-fkey="'+x[1]+'"]')); scheduleSave(); };
+      cb.addEventListener('click', function(e){ e.preventDefault(); toggle(); });
+      cb.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
+    });
+    // อ่านกฎครบ = เลื่อนกล่องกฎถึงล่างสุด (แค่บอกสถานะ ไม่บังคับ)
+    var rb = $('screen').querySelector('.rules-box'), rp = $('rulesProg');
+    if(rb && rp){ var chk = function(){ if(rb.scrollTop + rb.clientHeight >= rb.scrollHeight - 8){ rp.classList.add('done'); rp.querySelector('span').textContent='อ่านครบแล้ว'; } };
+      rb.addEventListener('scroll', chk, {passive:true}); chk(); }
+    if(s==='docs') wireDocs();
+    if(s==='sign') wireSign();
     // text inputs autosave
     $('screen').querySelectorAll('.inp').forEach(function(el){
       el.addEventListener('input', function(){ clearInvalid(el.closest('.field')); scheduleSave(); });
@@ -577,7 +740,7 @@
     if(s==='owner') readInto(owner);
     else if(s.indexOf('pet:')===0) readPet(+s.split(':')[1]);
     else if(s==='stay') readInto(stay);
-    else if(s==='consent'){ readInto(consent); var cb=$('consentBox'); if(cb) consent.agreed=cb.classList.contains('on'); }
+    else if(s==='consent'){ var cb=$('consentBox'); if(cb) consent.agreed=cb.classList.contains('on'); var pb=$('pdpaBox'); if(pb) consent.pdpa=pb.classList.contains('on'); }
   }
   function readInto(obj){
     $('screen').querySelectorAll('.inp[data-k]').forEach(function(el){ obj[el.getAttribute('data-k')] = el.value.trim(); });
@@ -613,7 +776,9 @@
     owner:['fullname','idcard','phone','emgName','emgPhone'],
     pet:['name','species','breed','gender','age','neutered','health','vaccine','meals','allergyFlag','room'],
     stay:['checkin','checkout'],
-    consent:['agreed']
+    consent:['agreed','pdpa'],
+    docs:['idPhoto','petPhotos'],
+    sign:['signature']
   };
   function validate(s){
     var need;
@@ -621,6 +786,8 @@
     else if(s.indexOf('pet:')===0) need=REQ.pet;
     else if(s==='stay') need=REQ.stay;
     else if(s==='consent') need=REQ.consent;
+    else if(s==='docs') need=REQ.docs;
+    else if(s==='sign') need=REQ.sign;
     else return true;
     readCurrent();
     var firstBad=null;
@@ -629,6 +796,10 @@
     need.forEach(function(k){
       var val = getVal(s,k), bad=false;
       if(k==='agreed') bad = !consent.agreed;
+      else if(k==='pdpa') bad = !consent.pdpa;
+      else if(k==='idPhoto') bad = !media.id;
+      else if(k==='petPhotos') bad = !media.pets.length;
+      else if(k==='signature') bad = !media.sign;
       else bad = !val || (val.length===0);
       if(bad){ var f=$('screen').querySelector('.field[data-fkey="'+k+'"]'); if(f){f.classList.add('invalid'); if(!firstBad)firstBad=f;} }
     });
@@ -646,7 +817,12 @@
   // ═══════ NAV ═══════
   $('btnNext').onclick = function(){
     var s = screens()[cur];
-    if(s==='review'){ submit(); return; }
+    if(s==='review'){
+      // กลับมาจากร่าง (รูป/ลายเซ็นไม่ถูกเก็บในร่าง) → พากลับไปขั้นที่ยังขาด
+      var miss = !consent.agreed||!consent.pdpa ? 'consent' : (!media.id||!media.pets.length) ? 'docs' : !media.sign ? 'sign' : '';
+      if(miss){ cur = screens().indexOf(miss); render(); validate(miss); return; }
+      submit(); return;
+    }
     if(!validate(s)) return;
     readCurrent(); save();
     cur = Math.min(cur+1, screens().length-1); render();
@@ -668,7 +844,7 @@
       var d=JSON.parse(localStorage.getItem(DRAFT_KEY)); if(!d)return false;
       for(var k in d.owner) owner[k]=d.owner[k];
       if(d.stay)for(var k2 in d.stay)stay[k2]=d.stay[k2];
-      if(d.consent){consent.agreed=!!d.consent.agreed;consent.signName=d.consent.signName||'';}
+      if(d.consent){consent.agreed=!!d.consent.agreed;consent.pdpa=!!d.consent.pdpa;consent.signName=d.consent.signName||'';}
       if(d.pets&&d.pets.length)pets=d.pets;
       return true;
     }catch(e){return false;}
@@ -676,6 +852,91 @@
   function clearDraft(){try{localStorage.removeItem(DRAFT_KEY);}catch(e){}}
   var toastTimer=null;
   function showToast(){var t=$('draftToast');t.classList.add('show');if(toastTimer)clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('show');},1400);}
+
+  // ═══════ รูป + ลายเซ็น ═══════
+  var TH_MON = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  function thDate(iso){ if(!iso) return '-'; var d=new Date(iso+'T00:00:00'); if(isNaN(d)) return iso; return d.getDate()+' '+TH_MON[d.getMonth()]+' '+(d.getFullYear()+543); }
+  function thDateTime(iso){ if(!iso) return ''; var d=new Date(iso); if(isNaN(d)) return '';
+    var p=function(n){return (n<10?'0':'')+n;}; return d.getDate()+' '+TH_MON[d.getMonth()]+' '+(d.getFullYear()+543)+' · '+p(d.getHours())+':'+p(d.getMinutes())+' น.'; }
+
+  // ย่อรูปบนเครื่องลูกค้า: ด้านยาว ≤ maxSide · ลด quality จนไม่เกิน maxChars (สูตรเดียวกับ compressImage ในแอปร้าน)
+  function shrinkImage(file, maxSide, maxChars, cb){
+    var rd = new FileReader();
+    rd.onerror = function(){ cb(''); };
+    rd.onload = function(){
+      var img = new Image();
+      img.onerror = function(){ cb(''); };
+      img.onload = function(){
+        var w=img.width, h=img.height, sc=Math.min(1, maxSide/Math.max(w,h));
+        var cv=document.createElement('canvas'); cv.width=Math.round(w*sc); cv.height=Math.round(h*sc);
+        var cx=cv.getContext('2d'); cx.fillStyle='#fff'; cx.fillRect(0,0,cv.width,cv.height); cx.drawImage(img,0,0,cv.width,cv.height);
+        var q=0.78, out=cv.toDataURL('image/jpeg',q);
+        while(out.length>maxChars && q>0.35){ q-=0.1; out=cv.toDataURL('image/jpeg',q); }
+        cb(out);
+      };
+      img.src = rd.result;
+    };
+    rd.readAsDataURL(file);
+  }
+  // กันเอกสารเกินลิมิต Firestore 1MB: รวมรูปทั้งหมด ≤ ~800k ตัวอักษร — เกินก็ย่อรูปน้องซ้ำ
+  function fitMedia(){
+    return new Promise(function(resolve){
+      var total = function(){ return media.id.length + media.sign.length + media.pets.reduce(function(a,x){return a+x.length;},0); };
+      if(total() <= 800*1024) return resolve(media);
+      var i = 0;
+      (function step(){
+        if(total() <= 800*1024 || i >= media.pets.length) return resolve(media);
+        var im = new Image(); im.onload = function(){
+          var cv=document.createElement('canvas'); var sc=Math.min(1, 720/Math.max(im.width,im.height));
+          cv.width=Math.round(im.width*sc); cv.height=Math.round(im.height*sc);
+          cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height); media.pets[i]=cv.toDataURL('image/jpeg',0.55); i++; step(); };
+        im.onerror = function(){ i++; step(); };
+        im.src = media.pets[i];
+      })();
+    });
+  }
+  function wireDocs(){
+    var input = $('filePick'), target = '';
+    $('screen').querySelectorAll('[data-pick]').forEach(function(b){ b.onclick = function(){ target = b.getAttribute('data-pick');
+      input.value=''; input.click(); }; });
+    input.onchange = function(){
+      var f = input.files && input.files[0]; if(!f) return;
+      var slot = $('screen').querySelector('[data-pick="'+target+'"]'); if(slot) slot.classList.add('busy');
+      shrinkImage(f, target==='id'?1200:1000, 160*1024, function(url){
+        if(!url){ alert('อ่านรูปนี้ไม่ได้ ลองเลือกรูปอื่น'); render(); return; }
+        if(target==='id') media.id = url; else if(media.pets.length<MAX_PET_PHOTOS) media.pets.push(url);
+        render();
+      });
+    };
+    $('screen').querySelectorAll('[data-del]').forEach(function(b){ b.onclick = function(){ var k=b.getAttribute('data-del');
+      if(k==='id') media.id=''; else media.pets.splice(+k.split(':')[1],1); render(); }; });
+  }
+  function wireSign(){
+    var cv = $('signCanvas'), pad = $('signPad'); if(!cv) return;
+    var dpr = window.devicePixelRatio || 1, ctx = cv.getContext('2d'), drawing = false, inked = false, last = null;
+    var size = function(){ var r = pad.getBoundingClientRect(); cv.width = Math.round(r.width*dpr); cv.height = Math.round(r.height*dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0); ctx.lineWidth=2.6; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle='#1d2a6b'; };
+    size();
+    if(media.sign){ var im=new Image(); im.onload=function(){ var r=pad.getBoundingClientRect(); ctx.drawImage(im,0,0,r.width,r.height); }; im.src=media.sign; inked=true; }
+    var pt = function(e){ var r = cv.getBoundingClientRect(); return {x:e.clientX-r.left, y:e.clientY-r.top}; };
+    cv.addEventListener('pointerdown', function(e){ e.preventDefault(); drawing=true; last=pt(e); cv.setPointerCapture(e.pointerId);
+      ctx.beginPath(); ctx.arc(last.x,last.y,1.2,0,Math.PI*2); ctx.fillStyle='#1d2a6b'; ctx.fill(); });
+    cv.addEventListener('pointermove', function(e){ if(!drawing) return; e.preventDefault(); var p=pt(e);
+      ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke(); last=p; inked=true; $('signPh').hidden=true; });
+    var end = function(){ if(!drawing) return; drawing=false; if(!inked) return;
+      media.sign = exportSign(cv); media.signedAt = new Date().toISOString();
+      $('signTime').textContent = thDateTime(media.signedAt); clearInvalid($('screen').querySelector('[data-fkey="signature"]')); };
+    cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
+    $('signClear').onclick = function(){ ctx.clearRect(0,0,cv.width,cv.height); inked=false; media.sign=''; media.signedAt='';
+      $('signPh').hidden=false; $('signTime').textContent=''; };
+  }
+  // ลายเซ็นเป็น PNG พื้นขาว กว้าง ≤ 600px (พิมพ์ชัด ไฟล์เล็ก)
+  function exportSign(cv){
+    var sc = Math.min(1, 600/cv.width), out = document.createElement('canvas');
+    out.width = Math.round(cv.width*sc); out.height = Math.round(cv.height*sc);
+    var c = out.getContext('2d'); c.fillStyle='#fff'; c.fillRect(0,0,out.width,out.height); c.drawImage(cv,0,0,out.width,out.height);
+    return out.toDataURL('image/png');
+  }
 
   // ═══════ SUBMIT ═══════
   // รหัสการจองเดียว ใช้ร่วมทุกระบบ (แอปภายใน + Google Sheet + อีเมล + เอกสารพิมพ์)
@@ -685,7 +946,11 @@
     var p = function(n){ return (n<10?'0':'')+n; };
     return 'PPH-'+p(d.getFullYear()%100)+p(d.getMonth()+1)+p(d.getDate())+'-'+p(d.getHours())+p(d.getMinutes());
   }
+  var payloadRef = null;
   function buildPayload(){
+    // ชื่อผู้ลงนาม = ชื่อเจ้าของ (มีลายเซ็นจริงแทนช่องพิมพ์ชื่อแล้ว) · Apps Script ยังอ่าน signName เหมือนเดิม
+    consent.signName = owner.fullname;
+    consent.signedAt = media.signedAt;
     return { type:'checkin', ref:makeRef(), submittedAt:new Date().toLocaleString('th-TH'),
       bookingId:BOOKING_ID, owner:owner, stay:stay, consent:consent, pets:pets };
   }
@@ -703,19 +968,26 @@
   function submit(){
     var st=$('status'); var next=$('btnNext');
     function setSt(m,c){ if(st){st.textContent=m; st.style.color=c||'var(--brown-soft)';} }
-    var payload=buildPayload();
-    sendToInternalApp(payload);
-    if(!CHECKIN_SCRIPT_URL || CHECKIN_SCRIPT_URL.indexOf('http')!==0){
-      // backend ยังไม่ตั้งค่า → fallback LINE
-      setSt('⚠ ระบบยังไม่ได้เชื่อมต่อฐานข้อมูล — กรุณายืนยันทาง LINE','var(--orange-dark)');
-      $('lineFallback').classList.add('show'); openLine(); return;
-    }
-    next.disabled=true; setSt('กำลังส่งข้อมูล...','var(--brown-soft)');
-    fetch(CHECKIN_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
-      .then(function(r){return r.json();})
-      .then(function(j){ if(!j||!j.ok)throw new Error('fail'); clearDraft(); renderSuccess(j.regId); })
-      .catch(function(){ next.disabled=false; setSt('⚠ ส่งอัตโนมัติไม่สำเร็จ — เราคัดลอกสรุปให้แล้ว กรุณาวางใน LINE','var(--orange-dark)');
-        $('lineFallback').classList.add('show'); openLine(); });
+    if(!payloadRef) payloadRef = buildPayload(); // ref เดิมเมื่อกดส่งซ้ำ
+    var payload = payloadRef;
+    next.disabled=true; setSt('กำลังส่งข้อมูล รูป และลายเซ็น...','var(--brown-soft)');
+    // 1) ระบบร้าน (มีรูป+ลายเซ็น) ต้องสำเร็จก่อน — ล้มเหลวให้ลูกค้ากดส่งใหม่ ไม่ปล่อยลายเซ็นหายเงียบ
+    var internal = sentInternal ? Promise.resolve() : fitMedia().then(function(m){ return sendToInternalApp(payload, m); }).then(function(){ sentInternal = true; });
+    internal.then(function(){
+      if(!CHECKIN_SCRIPT_URL || CHECKIN_SCRIPT_URL.indexOf('http')!==0){ clearDraft(); renderSuccess(payload.ref); return; }
+      // 2) Google Sheet + อีเมล — ไม่มีรูป (เซลล์ชีตรับได้ ~50k ตัวอักษร) ส่งแค่สถานะ
+      var light = JSON.parse(JSON.stringify(payload));
+      light.docs = { hasIdPhoto: !!media.id, petPhotoCount: media.pets.length, signedOnline: !!media.sign, signedAt: media.signedAt };
+      return fetch(CHECKIN_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(light)})
+        .then(function(r){return r.json();})
+        .then(function(j){ clearDraft(); renderSuccess((j&&j.ok&&j.regId)||payload.ref); })
+        // ข้อมูลถึงร้านแล้ว (ขั้น 1) — ชีต/อีเมลล้มก็ไม่ต้องให้ลูกค้าทำอะไรเพิ่ม
+        .catch(function(){ clearDraft(); renderSuccess(payload.ref); });
+    }).catch(function(){
+      next.disabled=false;
+      setSt('⚠ ส่งรูป/ลายเซ็นไม่สำเร็จ — ตรวจสัญญาณเน็ตแล้วกด "ส่งข้อมูล" อีกครั้ง','var(--orange-dark)');
+      $('lineFallback').classList.add('show');
+    });
   }
   function renderSuccess(regId){
     $('progMeta').hidden=true; $('progTrack').hidden=true; $('footnav').hidden=true;
@@ -723,8 +995,13 @@
     $('screen').innerHTML='<div class="success">'+
       '<div class="tick">✓</div>'+
       '<h1>ส่งข้อมูลเรียบร้อย!</h1>'+
-      '<p>ขอบคุณที่ไว้วางใจให้ Perfect Pet House ดูแลน้องๆ ทีมงานได้รับข้อมูลน้อง '+pets.length+' ตัวแล้ว และจะเตรียมการดูแลตามที่คุณระบุ</p>'+
+      '<p>ขอบคุณที่ไว้วางใจให้ Perfect Pet House ดูแลน้องๆ วันเข้าพักพาน้องมาส่งได้เลย ไม่ต้องกรอกหรือเซ็นเอกสารที่ร้านอีก</p>'+
       (regId?'<span class="reg">รหัสลงทะเบียน: '+esc(regId)+'</span>':'')+
+      '<ul class="done-list">'+
+        '<li><svg><use href="#i-check"/></svg>ข้อมูลน้อง '+pets.length+' ตัว</li>'+
+        '<li><svg><use href="#i-check"/></svg>ยอมรับกฎระเบียบ + เซ็นรับทราบแล้ว</li>'+
+        '<li><svg><use href="#i-check"/></svg>แนบบัตรประชาชน + รูปน้อง '+media.pets.length+' รูป</li>'+
+      '</ul>'+
       (owner.email?'<p style="margin-top:14px;">📧 เราส่งอีเมลยืนยันไปที่ '+esc(owner.email)+' แล้ว</p>':'')+
       '<p style="margin-top:6px;font-size:13px;">หากต้องแก้ไขข้อมูล ทักได้ที่ LINE @perfectbkk</p>'+
       '<a class="home-btn" href="/">กลับสู่หน้าแรก ›</a>'+
