@@ -213,10 +213,16 @@ function slotState(t){
   var now=new Date(), nowHM=('0'+now.getHours()).slice(-2)+':'+('0'+now.getMinutes()).slice(-2);
   if(S.date===today() && t<=nowHM) return 'past';
   if(!LIVE) return 'unk';
-  var used=(G.used[S.date]&&G.used[S.date][t])||0;
-  HOLDS.forEach(function(h){ if(h.kind==='groom'&&h.checkIn===S.date&&h.slot===t) used+=h.count||1; });
-  return used>=(G.capacity||1)?'full':'ok';
+  // คิวกันเวลาต่อเนื่อง (อาบ 1 ชม. · มีตัดขน 2 ชม. = 2/4 รอบ ข้ามพักเที่ยงเอง) — ทุกรอบในช่วงต้องว่าง
+  var full=false;
+  coveredSlots(t,hasCut()?4:2).forEach(function(x){
+    var used=(G.used[S.date]&&G.used[S.date][x])||0;
+    HOLDS.forEach(function(h){ if(h.kind==='groom'&&h.checkIn===S.date&&coveredSlots(h.slot,2).indexOf(x)>=0) used+=h.count||1; });
+    if(used>=(G.capacity||1)) full=true;
+  });
+  return full?'full':'ok';
 }
+function coveredSlots(t,n){var i=G.slots.indexOf(t);return i<0?[t]:G.slots.slice(i,i+n);}
 function toast(t){var el=document.createElement('div');el.className='toast';el.textContent=t;document.body.appendChild(el);setTimeout(function(){el.remove();},2200);}
 
 function fval(f){if(!f)return null;if('stringValue' in f)return f.stringValue;if('integerValue' in f)return Number(f.integerValue);if('timestampValue' in f)return f.timestampValue;return null;}
