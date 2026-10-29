@@ -1,0 +1,341 @@
+/* =====================================================================
+   fw.css — ชั้นดีไซน์ใหม่สไตล์ fastwork /selling สำหรับ perfectbkk.com
+   ใช้คู่กับ <body class="fw"> · ทุกกฎขึ้นต้นด้วย .fw เพื่อชนะสไตล์เดิมในหน้า
+   โครง/จังหวะแบบ fastwork · สีแบรนด์ PPH (ส้ม-ครีม-น้ำตาล)
+   ===================================================================== */
+.fw{
+  --fw-ink:#2A1F18;
+  --fw-ink-soft:#6B5B50;
+  --fw-muted:#9A8B7F;
+  --fw-paper:#FFFFFF;
+  --fw-cream:#FFF8F0;
+  --fw-warm:#F4EEE7;
+  --fw-dark:#211812;
+  --fw-dark-2:#2D2119;
+  --fw-dark-line:rgba(255,236,214,.10);
+  --fw-orange:#E07B39;
+  --fw-orange-dark:#B85C1E;
+  --fw-orange-light:#FCEADB;
+  --fw-line:rgba(58,46,38,.10);
+  --fw-ease:cubic-bezier(.22,1,.36,1);
+  --fw-hand:'Mali','Noto Sans Thai',cursive;
+  --fw-shadow:0 18px 44px rgba(42,31,24,.12);
+  background:var(--fw-cream);
+  color:var(--fw-ink);
+}
+.fw .bg-shader{display:none;}
+.fw .section{background:transparent;backdrop-filter:none;}
+.fw section.section[style*="#fff"],.fw section.section[style*="orange-light"]{background:transparent!important;}
+.fw .fw-hand{font-family:var(--fw-hand);font-weight:500;}
+.fw .fw-wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+.fw .fw-kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--fw-orange-dark);
+  background:var(--fw-orange-light);padding:6px 14px;border-radius:999px;}
+.fw .fw-h2{font-size:clamp(32px,4.6vw,58px);line-height:1.15;font-weight:700;letter-spacing:-.015em;color:var(--fw-ink);}
+.fw .fw-sub{font-size:clamp(15px,1.4vw,18px);line-height:1.7;color:var(--fw-ink-soft);}
+.fw .fw-center{text-align:center;margin-left:auto;margin-right:auto;}
+
+/* ---------- ปุ่ม (ดำ = ปุ่มหลักแบบ fastwork "Get started") ---------- */
+.fw .fw-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 26px;border-radius:999px;
+  font-size:15.5px;font-weight:600;text-decoration:none;white-space:nowrap;transition:transform .2s var(--fw-ease),box-shadow .2s,background .2s;}
+.fw .fw-btn svg{width:18px;height:18px;}
+.fw .fw-btn:hover{transform:translateY(-2px);}
+.fw .fw-btn-dark{background:var(--fw-ink);color:#fff;box-shadow:0 10px 24px rgba(42,31,24,.22);}
+.fw .fw-btn-orange{background:linear-gradient(135deg,#E07B39,#B85C1E);color:#fff;box-shadow:0 10px 24px rgba(184,92,30,.28);}
+.fw .fw-btn-ghost{background:rgba(255,255,255,.7);color:var(--fw-ink);border:1px solid var(--fw-line);}
+.fw .fw-btn-light{background:#fff;color:var(--fw-ink);}
+
+/* ---------- แถบโปร + Nav แคปซูลลอย ---------- */
+.fw header{background:transparent;border:0;backdrop-filter:none;pointer-events:none;}
+.fw header > *{pointer-events:auto;}
+.fw .promo-bar{background:var(--fw-ink);color:#FFE3C8;}
+.fw .promo-bar .promo-item,.fw .promo-bar .promo-item strong{color:#FFE3C8;}
+.fw .promo-bar .promo-close{color:#FFE3C8;}
+.fw .nav-wrap{width:calc(100% - 32px);max-width:1180px;height:64px;margin:10px auto 0;padding:0 10px 0 22px;border-radius:999px;
+  background:rgba(255,255,255,.78);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+  border:1px solid rgba(58,46,38,.08);box-shadow:0 10px 30px rgba(42,31,24,.08);transition:background .35s,border-color .35s;}
+.fw .nav-wrap .brand img{height:42px;}
+.fw header nav ul{gap:24px;}
+.fw header nav a{font-size:14.5px;color:var(--fw-ink);}
+.fw .nav-cta .btn{background:var(--fw-ink);color:#fff;min-height:44px;padding:0 20px!important;border-radius:999px;}
+.fw header.is-dark .nav-wrap{background:rgba(33,24,18,.72);border-color:rgba(255,236,214,.12);}
+.fw header.is-dark nav a{color:#FFF1E2;}
+.fw header.is-dark .nav-cta .btn{background:#fff;color:var(--fw-ink);}
+.fw header.is-dark .menu-toggle{color:#fff;}
+@media (max-width:920px){
+  .fw header nav{top:86px;left:16px;right:16px;border-radius:24px;}
+  .fw header.is-dark nav a{color:var(--fw-ink);}
+}
+
+/* =====================================================================
+   1) HERO — การ์ดรูปลอยรอบจอ + หัวข้อคำหมุน + กล่องตัวเลขหมุน
+   ===================================================================== */
+.fw .fw-hero{position:relative;height:200vh;--p:0;}
+.fw .fw-hero-stage{position:sticky;top:0;height:100vh;min-height:640px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(1200px 600px at 50% 40%,#FFFDF9 0%,var(--fw-cream) 60%,#FBEFE2 100%);}
+.fw .fw-hero-center{position:relative;z-index:3;width:min(820px,calc(100% - 48px));text-align:center;padding-top:56px;
+  filter:blur(calc(var(--p) * 16px));opacity:calc(1 - var(--p) * 1.5);transform:scale(calc(1 - var(--p) * .06));
+  animation:fw-unblur 1.1s var(--fw-ease) backwards;}
+@keyframes fw-unblur{from{filter:blur(14px);opacity:0;transform:scale(1.04);}}
+.fw .fw-hero-loc{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--fw-orange-dark);margin-bottom:14px;}
+.fw .fw-hero h1{font-size:clamp(40px,min(5.6vw,8.4vh),76px);line-height:1.12;font-weight:700;letter-spacing:-.02em;color:var(--fw-ink);margin:0 0 14px;}
+.fw .fw-rot{position:relative;display:inline-block;vertical-align:bottom;color:var(--fw-orange);font-family:var(--fw-hand);font-weight:600;
+  transition:width .5s var(--fw-ease);white-space:nowrap;overflow:hidden;padding:0 .08em;height:1.25em;line-height:1.25em;}
+.fw .fw-rot span{display:block;transition:transform .55s var(--fw-ease),opacity .4s;}
+.fw .fw-rot span.is-out{transform:translateY(-100%);opacity:0;}
+.fw .fw-rot span.is-in{transform:translateY(100%);opacity:0;}
+.fw .fw-hero-sub{font-size:clamp(15px,1.4vw,18px);color:var(--fw-ink-soft);max-width:620px;margin:0 auto 22px;line-height:1.6;}
+
+/* กล่องตัวเลข (เลียนนาฬิกา fastwork แต่โชว์ยอดสมาชิก) */
+.fw .fw-odo{display:inline-flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:22px;}
+.fw .fw-odo-boxes{display:flex;gap:10px;}
+.fw .fw-odo-box{width:70px;height:min(84px,10vh);border-radius:18px;background:var(--fw-warm);display:flex;align-items:center;justify-content:center;
+  font-size:46px;font-weight:500;color:var(--fw-ink);font-variant-numeric:tabular-nums;box-shadow:inset 0 0 0 1px rgba(58,46,38,.05);}
+.fw .fw-odo-reel{height:1.15em;overflow:hidden;line-height:1.15em;}
+.fw .fw-odo-col{display:flex;flex-direction:column;transform:translateY(calc(var(--d,0) * -1.15em));transition:transform 1.6s var(--fw-ease);}
+.fw .fw-odo-col span{height:1.15em;}
+.fw .fw-odo-box.is-sep{width:auto;background:none;box-shadow:none;font-size:40px;padding:0 2px;}
+.fw .fw-odo-cap{font-size:14px;color:var(--fw-ink-soft);}
+.fw .fw-odo-cap b{color:var(--fw-ink);}
+.fw .fw-odo.is-pending .fw-odo-box{color:#C9BBAE;}
+.fw .fw-odo-note{font-size:11.5px;color:var(--fw-orange-dark);background:var(--fw-orange-light);padding:3px 10px;border-radius:999px;}
+
+.fw .fw-hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.fw .fw-hero-rate{margin-top:18px;font-size:13.5px;color:var(--fw-ink-soft);}
+.fw .fw-hero-rate b{color:var(--fw-ink);}
+.fw .fw-hero-rate .fw-stars{color:#F2A33A;letter-spacing:2px;margin-right:6px;}
+.fw .fw-scrollhint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;font-size:13px;color:var(--fw-muted);
+  display:flex;flex-direction:column;align-items:center;gap:2px;opacity:calc(1 - var(--p) * 4);}
+.fw .fw-scrollhint svg{width:18px;height:18px;animation:fw-bob 1.6s ease-in-out infinite;}
+@keyframes fw-bob{50%{transform:translateY(4px);}}
+
+/* การ์ดผลงาน (รูป/คลิปจริงของร้าน) ลอยรอบจอ */
+.fw .fw-pcs{position:absolute;inset:0;z-index:2;pointer-events:none;}
+.fw .fw-pc{position:absolute;left:var(--x);top:var(--y);width:var(--w,200px);padding:7px 7px 10px;background:#fff;border-radius:18px;
+  box-shadow:0 18px 40px rgba(42,31,24,.14);pointer-events:auto;
+  transform:translate(calc(var(--dx) * var(--p) * 1px),calc(var(--dy) * var(--p) * 1px)) rotate(var(--r,0deg));
+  animation:fw-pc-in 1s var(--fw-ease) backwards;animation-delay:calc(var(--i,0) * 70ms);}
+@keyframes fw-pc-in{from{opacity:0;translate:0 40px;scale:.9;}}
+.fw .fw-pc-media{display:block;width:100%;aspect-ratio:var(--ar,4/5);object-fit:cover;border-radius:12px;background:var(--fw-warm);}
+.fw .fw-pc-meta{display:flex;align-items:center;gap:8px;padding:8px 4px 0;line-height:1.3;}
+.fw .fw-pc-meta > span:last-child{min-width:0;}
+.fw .fw-pc-av{width:24px;height:24px;border-radius:50%;flex:0 0 auto;background:#fff;border:1px solid var(--fw-line);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.fw .fw-pc-av img{width:18px;height:auto;}
+.fw .fw-pc-t,.fw .fw-pc-s{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fw .fw-pc-t{font-size:12.5px;font-weight:600;line-height:1.3;color:var(--fw-ink);}
+.fw .fw-pc-s{font-size:10.5px;color:var(--fw-muted);line-height:1.3;}
+
+/* =====================================================================
+   2) STAGE ขาว — "คนที่เข้าใจ" + Room Showcase (หดมุมมนก่อนเข้าส่วนเข้ม)
+   ===================================================================== */
+.fw .fw-stage{position:relative;z-index:2;background:#FFFDF9;border-radius:0 0 48px 48px;
+  transform:scale(calc(1 - var(--shrink,0) * .045));transform-origin:50% 100%;
+  box-shadow:0 30px 60px rgba(33,24,18,.18);}
+.fw .fw-people{padding:110px 0 40px;}
+.fw .fw-people .fw-h2{max-width:980px;margin:0 auto;}
+.fw .fw-avs{display:inline-flex;vertical-align:middle;margin:0 .12em;}
+.fw .fw-avs img,.fw .fw-avs video{width:.95em;height:.95em;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 4px 12px rgba(42,31,24,.18);}
+.fw .fw-avs > * + *{margin-left:-.28em;}
+.fw .fw-people .fw-sub{max-width:640px;margin:18px auto 0;}
+.fw #about{padding:40px 0 70px;}
+.fw #about .about-grid{gap:56px;}
+.fw #about .section-title{font-size:clamp(26px,3vw,36px);}
+.fw #about .mission-card{border-radius:22px;}
+.fw #about .about-shot img{border-radius:22px;}
+.fw #rooms{padding:40px 0 30px;}
+.fw #rooms .section-title{font-size:clamp(28px,3.6vw,46px);}
+.fw .policy-note,.fw #rooms .table-wrap{border-radius:22px;}
+.fw .fw-stage-foot{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:34px 24px 80px;}
+.fw .fw-pill{display:inline-flex;align-items:center;gap:10px;padding:8px 10px 8px 8px;border-radius:999px;background:#fff;border:1px solid var(--fw-line);box-shadow:var(--fw-shadow);}
+.fw .fw-pill .fw-avs{font-size:34px;}
+.fw .fw-pill .fw-avs img{border-width:2px;}
+.fw .fw-pill-t{font-size:14px;color:var(--fw-ink-soft);padding-right:4px;}
+.fw .fw-pill-t b{color:var(--fw-ink);}
+.fw .fw-pill .fw-btn{min-height:40px;padding:0 18px;font-size:14px;}
+
+/* =====================================================================
+   3) PAIN (พื้นเข้ม) — โน้ตความกังวล หล่นทีละแผ่น → พลิกเป็นคำตอบ
+   ===================================================================== */
+.fw .fw-pain{position:relative;z-index:1;background:var(--fw-dark);color:#FFF1E2;margin-top:-48px;height:330vh;--q:0;}
+.fw .fw-pain-stage{position:sticky;top:0;height:100vh;min-height:680px;display:flex;flex-direction:column;align-items:center;padding-top:118px;overflow:hidden;}
+.fw .fw-pain h2{font-size:clamp(32px,4.4vw,56px);font-weight:700;color:#fff;text-align:center;letter-spacing:-.01em;}
+.fw .fw-pain .fw-sub{color:rgba(255,241,226,.7);text-align:center;margin-top:8px;}
+.fw .fw-notes{position:relative;width:min(980px,calc(100% - 48px));height:min(470px,52vh);margin-top:34px;}
+.fw .fw-note{position:absolute;left:var(--x);top:var(--y);width:min(250px,30%);aspect-ratio:1/.9;perspective:900px;
+  transform:translateY(-120vh) rotate(calc(var(--r) * 3));opacity:0;
+  transition:transform .8s cubic-bezier(.2,.9,.3,1.15),opacity .3s;cursor:pointer;}
+.fw .fw-note.is-in{transform:rotate(var(--r));opacity:1;}
+.fw .fw-note-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s var(--fw-ease);}
+.fw .fw-note.is-flip .fw-note-in{transform:rotateY(180deg);}
+.fw .fw-note-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:22px 22px;
+  box-shadow:0 18px 40px rgba(0,0,0,.35);display:flex;flex-direction:column;}
+.fw .fw-note-front{background:var(--c);color:#2A1F18;font-family:var(--fw-hand);font-size:clamp(17px,1.6vw,22px);line-height:1.4;font-weight:500;}
+.fw .fw-note-back{background:#FFFDF9;color:var(--fw-ink);transform:rotateY(180deg);gap:8px;font-size:14.5px;line-height:1.55;}
+.fw .fw-note-back b{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--fw-orange-dark);letter-spacing:.03em;}
+.fw .fw-note-back b svg{width:16px;height:16px;}
+.fw .fw-pain-hint{margin-top:22px;font-size:13px;color:rgba(255,241,226,.55);}
+
+/* ขั้นตอนเข้าพัก (#safety เดิม) อยู่ต่อท้ายส่วนเข้ม — ซ่อนการ์ดมาตรฐานที่ซ้ำกับคำตอบในโน้ต */
+.fw .pph-care{background:var(--fw-dark)!important;padding:20px 20px 120px!important;}
+.fw .pph-care .pph-std-h,.fw .pph-care .pph-std{display:none;}
+.fw .pph-care .pph-wrap{border-radius:32px;}
+.fw .pph-care .pph-box{border-radius:22px;}
+
+/* =====================================================================
+   4) โปรโมชั่น — "ยิ่งพักนาน ยิ่งคุ้ม" (แบบ Commission: ขาว ทับขึ้นมาจากส่วนเข้ม)
+   ===================================================================== */
+.fw .fw-keep{position:relative;z-index:2;background:#FFFDF9;border-radius:48px 48px 0 0;margin-top:-48px;padding:110px 0 40px;}
+.fw .fw-keep-h{text-align:center;}
+.fw .fw-keep-h .l1{display:block;font-size:clamp(26px,3.4vw,42px);font-weight:600;color:var(--fw-muted);}
+.fw .fw-keep-h .l2{position:relative;display:inline-block;font-size:clamp(32px,4.4vw,56px);font-weight:700;color:var(--fw-ink);padding-bottom:10px;}
+.fw .fw-underline{position:absolute;left:-2%;bottom:-6px;width:104%;height:22px;color:var(--fw-orange);}
+.fw .fw-underline path{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 1.2s var(--fw-ease) .2s;}
+.fw .is-shown .fw-underline path{stroke-dashoffset:0;}
+.fw .fw-rows{max-width:1080px;margin:60px auto 0;padding:0 24px;}
+.fw .fw-row{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:40px 0;border-top:1px solid var(--fw-line);}
+.fw .fw-row:first-child{border-top:0;}
+.fw .fw-row-art{display:flex;align-items:center;justify-content:center;gap:18px;min-height:180px;}
+.fw .fw-big{font-family:var(--fw-hand);font-size:clamp(76px,9vw,128px);line-height:1;color:var(--fw-ink);font-weight:500;}
+.fw .fw-big small{font-size:.4em;}
+.fw .fw-tag{font-family:var(--fw-hand);font-size:18px;color:var(--fw-ink-soft);display:flex;flex-direction:column;align-items:flex-start;gap:4px;}
+.fw .fw-tag svg{width:64px;height:40px;color:var(--fw-orange);}
+.fw .fw-row h3{font-size:clamp(22px,2.4vw,30px);font-weight:600;line-height:1.3;margin-bottom:10px;}
+.fw .fw-row h3 b{color:var(--fw-orange-dark);font-weight:700;}
+.fw .fw-row p{color:var(--fw-ink-soft);font-size:15.5px;line-height:1.7;}
+.fw .fw-row a.fw-link{display:inline-block;margin-top:12px;font-weight:600;font-size:14.5px;color:var(--fw-ink);border-bottom:1.5px solid currentColor;}
+.fw #calculator{padding:30px 0 100px;}
+.fw #calculator .calc-form,.fw #calculator .calc-result{border-radius:24px;}
+.fw #calculator .calc-result{background:var(--fw-ink);}
+
+/* =====================================================================
+   5) ครบในที่เดียว (พื้นเข้ม) — แถวสลับซ้าย-ขวา + คำหลักไล่สี
+   ===================================================================== */
+.fw .fw-plat{position:relative;background:var(--fw-dark);color:#FFF1E2;padding:130px 0 120px;margin-top:-48px;}
+.fw .fw-plat > .fw-wrap > .fw-h2{color:#fff;text-align:center;}
+.fw .fw-plat > .fw-wrap > .fw-sub{color:rgba(255,241,226,.65);text-align:center;margin:10px auto 0;max-width:620px;}
+.fw .fw-zz{display:grid;grid-template-columns:1fr 1.08fr;gap:64px;align-items:center;padding:70px 0;}
+.fw .fw-zz.is-rev{grid-template-columns:1.08fr 1fr;}
+.fw .fw-zz.is-rev .fw-zz-text{order:2;}
+.fw .fw-zz-text .fw-zz-k{font-size:13px;font-weight:600;letter-spacing:.05em;color:#FFB98A;margin-bottom:10px;}
+.fw .fw-zz-text h3{font-size:clamp(30px,3.6vw,48px);line-height:1.15;font-weight:700;color:#fff;margin-bottom:16px;letter-spacing:-.01em;}
+.fw .fw-zz-text p{color:rgba(255,241,226,.72);font-size:16px;line-height:1.75;max-width:480px;}
+.fw .fw-zz-text ul{margin:16px 0 0;display:flex;flex-direction:column;gap:8px;}
+.fw .fw-zz-text li{display:flex;gap:10px;color:#FFF1E2;font-size:15px;}
+.fw .fw-zz-text li::before{content:"";flex:0 0 7px;height:7px;margin-top:9px;border-radius:50%;background:var(--fw-orange);}
+.fw .fw-zz-text .fw-btn{margin-top:24px;}
+.fw .fw-grad{background:linear-gradient(90deg,#FFE3C8 0%,#FFB98A 25%,#E07B39 50%,#FFB98A 75%,#FFE3C8 100%);background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:fw-sweep 5s linear infinite;}
+@keyframes fw-sweep{to{background-position:-200% 0;}}
+.fw .fw-panel{position:relative;border-radius:28px;padding:24px;min-height:360px;overflow:hidden;
+  background:radial-gradient(500px 300px at 20% 10%,#FFF4E8,transparent 70%),linear-gradient(145deg,#F8EADB,#EFD9C4);color:var(--fw-ink);}
+.fw .fw-panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fw .fw-panel video,.fw .fw-panel .fw-ph{width:100%;height:100%;object-fit:cover;border-radius:18px;display:block;}
+.fw .fw-tall{aspect-ratio:9/14;}
+.fw .fw-mini{position:absolute;background:#fff;border-radius:16px;padding:12px 14px;box-shadow:0 14px 30px rgba(42,31,24,.18);font-size:13px;line-height:1.4;}
+.fw .fw-mini b{display:block;font-size:20px;color:var(--fw-ink);}
+.fw .fw-mini span{color:var(--fw-muted);font-size:11.5px;}
+.fw .fw-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.fw .fw-chip{padding:7px 12px;border-radius:999px;background:#fff;font-size:13px;font-weight:600;color:var(--fw-ink);box-shadow:0 4px 10px rgba(42,31,24,.08);}
+/* ตารางราคา Grooming / รางวัล / ตารางวัน (markup เดิม) ในพื้นเข้ม */
+.fw .fw-plat #grooming{padding:0 0 30px;}
+.fw .fw-plat #grooming .container{max-width:1180px;}
+.fw .fw-plat .fw-pricecard{background:#FFFDF9;color:var(--fw-ink);border-radius:28px;padding:28px 24px;}
+.fw .fw-plat .fw-pricecard .addon-note{color:var(--fw-ink-soft);}
+.fw .fw-plat .tabs{margin-bottom:16px;}
+.fw .fw-plat .award-carousel{margin:0;max-width:none;}
+.fw .fw-plat .award-slide img{height:420px;border-radius:24px;}
+.fw .fw-plat .award-dot{background:rgba(255,241,226,.3);}
+.fw .fw-plat .award-dot.active{background:var(--fw-orange);}
+.fw .fw-tl{display:flex;flex-direction:column;gap:10px;}
+.fw .fw-tl .tl-card{display:grid;grid-template-columns:62px 28px 1fr;align-items:center;gap:10px;background:#fff;border-radius:16px;padding:12px 14px;box-shadow:0 6px 16px rgba(42,31,24,.08);text-align:left;}
+.fw .fw-tl .tl-card .tl-time{font-weight:700;color:var(--fw-orange-dark);font-variant-numeric:tabular-nums;}
+.fw .fw-tl .tl-card svg{width:22px;height:22px;color:var(--fw-ink-soft);}
+.fw .fw-tl .tl-card p{margin:0;font-size:14px;color:var(--fw-ink);}
+
+/* =====================================================================
+   6) แกลเลอรี = แถบรูปเลื่อนเองแบบ marquee · รีวิว · บทความ · ปิดท้าย CTA
+   ===================================================================== */
+.fw #gallery{padding:110px 0 70px;}
+.fw .fw-marquee{overflow:hidden;margin-top:34px;-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);}
+.fw .fw-marquee + .fw-marquee{margin-top:14px;}
+.fw .fw-mq-track{display:flex;gap:14px;width:max-content;animation:fw-mq var(--dur,70s) linear infinite;}
+.fw .fw-marquee.is-rev .fw-mq-track{animation-direction:reverse;}
+.fw .fw-marquee:hover .fw-mq-track{animation-play-state:paused;}
+.fw .fw-mq-track img{height:260px;width:auto;border-radius:20px;object-fit:cover;flex:0 0 auto;}
+@keyframes fw-mq{to{transform:translateX(-50%);}}
+.fw #gallery .gallery-grid,.fw #gallery .slider-hint{display:none;}
+.fw #reviews{padding:90px 0;}
+.fw #reviews .review-card{border-radius:26px;border:1px solid var(--fw-line);box-shadow:var(--fw-shadow);position:relative;padding-top:46px;}
+.fw #reviews .review-card::before{content:"“";position:absolute;top:6px;left:22px;font-family:Georgia,serif;font-size:72px;line-height:1;color:var(--fw-orange);}
+.fw #reviews .review-shots-grid img{border-radius:18px;}
+.fw #blog{padding:90px 0;}
+.fw #blog .bloghome-card{border-radius:24px;border:1px solid var(--fw-line);}
+.fw #booking{padding:30px 0 100px;}
+.fw #booking > .container{max-width:1180px;background:var(--fw-dark);border-radius:40px;padding:80px 40px;color:#FFF1E2;text-align:center;}
+.fw #booking .section-title{color:#fff;font-size:clamp(30px,4vw,52px);}
+.fw #booking .section-desc{color:rgba(255,241,226,.7);}
+.fw #booking .eyebrow{background:rgba(255,236,214,.12);color:#FFB98A;}
+.fw #booking .bk-choices{margin-top:30px;}
+.fw #booking > .container > p,.fw #booking > .container > p a{color:rgba(255,241,226,.7)!important;}
+.fw #booking .fw-pill{margin-top:22px;background:rgba(255,255,255,.06);border-color:rgba(255,236,214,.14);box-shadow:none;}
+.fw #booking .fw-pill-t{color:rgba(255,241,226,.75);}
+.fw #booking .fw-pill-t b{color:#fff;}
+.fw .float-cta{background:var(--fw-ink)!important;border-radius:999px!important;}
+
+/* ---------- ปรากฏตัวตอนเลื่อนถึง ---------- */
+.fw .fw-rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--fw-ease),transform .8s var(--fw-ease);}
+.fw .fw-rv.is-shown{opacity:1;transform:none;}
+
+/* =====================================================================
+   จอแคบ (แท็บเล็ต/มือถือที่ขอเว็บเต็ม)
+   ===================================================================== */
+@media (max-width:900px){
+  .fw .fw-hero{height:150vh;}
+  .fw .fw-hero-stage{align-items:flex-start;}
+  .fw .fw-hero-center{padding-top:max(130px,14vh);}
+  .fw .fw-pc{--w:150px!important;--y:auto!important;bottom:-60px;}
+  .fw .fw-pc:nth-child(1){--x:-4%!important;bottom:-10px;}
+  .fw .fw-pc:nth-child(2){--x:16%!important;bottom:-70px;}
+  .fw .fw-pc:nth-child(3){--x:38%!important;bottom:-100px;}
+  .fw .fw-pc:nth-child(4){--x:60%!important;bottom:-60px;}
+  .fw .fw-pc:nth-child(5){--x:80%!important;bottom:-20px;}
+  .fw .fw-pc:nth-child(n+6){display:none;}
+  .fw .fw-scrollhint{display:none;}
+  .fw .fw-odo-box{width:58px;height:72px;font-size:34px;border-radius:14px;}
+  .fw .fw-pain{height:auto;}
+  .fw .fw-pain-stage{position:relative;height:auto;min-height:0;padding:120px 0 60px;}
+  .fw .fw-notes{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .fw .fw-note{position:relative;left:auto;top:auto;width:auto;transform:rotate(var(--r));opacity:1;}
+  .fw .fw-row,.fw .fw-zz,.fw .fw-zz.is-rev{grid-template-columns:1fr;gap:28px;}
+  .fw .fw-zz.is-rev .fw-zz-text{order:0;}
+  .fw .fw-mq-track img{height:180px;}
+  .fw #booking > .container{border-radius:28px;padding:56px 20px;margin:0 16px;}
+}
+@media (max-width:560px){
+  .fw .fw-notes{grid-template-columns:1fr;}
+  .fw .fw-pc{--w:128px!important;}
+  .fw .fw-pc:nth-child(1){--x:-6%!important;}
+  .fw .fw-pc:nth-child(2){--x:22%!important;}
+  .fw .fw-pc:nth-child(3){--x:52%!important;}
+  .fw .fw-pc:nth-child(4){--x:80%!important;}
+  .fw .fw-pc:nth-child(n+5){display:none;}
+}
+
+/* ผู้ใช้ที่ตั้งค่าลดการเคลื่อนไหว → ไม่มี sticky/การลอย/โน้ตหล่น เนื้อหาครบเหมือนเดิม */
+@media (prefers-reduced-motion: reduce){
+  .fw *,.fw *::before{animation:none!important;transition:none!important;}
+  .fw .fw-hero{height:auto;}
+  .fw .fw-hero-stage{position:relative;height:auto;min-height:100vh;padding:140px 0 80px;}
+  .fw .fw-hero-center,.fw .fw-pc,.fw .fw-stage{filter:none;opacity:1;transform:none;}
+  .fw .fw-pain{height:auto;}
+  .fw .fw-pain-stage{position:relative;height:auto;}
+  .fw .fw-note{transform:rotate(var(--r));opacity:1;}
+  .fw .fw-rv{opacity:1;transform:none;}
+  .fw .fw-grad{color:#FFB98A;background:none;}
+}
+
+/* ---------- เก็บรายละเอียด ---------- */
+.fw .fw-odo:not(.is-pending) .fw-odo-note{display:none;}
+.fw #calculator{background:#FFFDF9!important;}
+.fw .fw-pricecard #grooming > .container > .center{display:none;}
+.fw .fw-pricecard #grooming{background:transparent!important;padding:0!important;}
+.fw .fw-plat .fw-pricecard{margin:-20px 0 30px;}

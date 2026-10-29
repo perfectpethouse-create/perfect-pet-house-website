@@ -1,0 +1,175 @@
+/* =====================================================================
+   Room Showcase — ห้องพัก 6 แบบ สไตล์ fastwork profile showcase
+   คอม  (.rs--desktop): เลื่อนหน้า = เปลี่ยนการ์ด · เมนูซ้ายเลื่อนเข้า · การ์ด sticky
+   มือถือ (.rs--mobile): ปุ่มแคปซูลแนวนอน + ปัดการ์ดซ้ายขวา (scroll-snap)
+   ใช้ token สีเดิมของเว็บ (--orange, --cream, --brown ...) ถ้าไม่มีจะใช้ค่าสำรอง
+   ===================================================================== */
+.rs{
+  --rs-top:88px;                       /* ระยะ sticky จากบนจอ (เผื่อหัวเว็บ) */
+  --rs-ease:cubic-bezier(.22,1,.36,1); /* เส้นโค้งเดียวกับ fastwork */
+  --rs-orange:var(--orange,#E07B39);
+  --rs-orange-dark:var(--orange-dark,#B85C1E);
+  --rs-orange-light:var(--orange-light,#FCEADB);
+  --rs-cream:var(--cream,#FFF8F0);
+  --rs-brown:var(--brown,#3A2E26);
+  --rs-brown-soft:var(--brown-soft,#6B5B50);
+  --rs-muted:#A89A8E;
+  --rs-line:#F0E4D8;
+  position:relative;width:100%;max-width:1200px;margin:0 auto;
+  font-family:'Inter','Noto Sans Thai',sans-serif;color:var(--rs-brown);
+}
+.rs *{box-sizing:border-box;}
+.rs img{display:block;max-width:100%;}
+.rs button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
+.rs button:focus-visible,.rs a:focus-visible{outline:2px solid var(--rs-orange);outline-offset:3px;}
+
+/* ---------- เมนูห้อง (tabs) ---------- */
+.rs-tabs{position:relative;display:flex;}
+.rs-group{font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--rs-muted);}
+.rs-tab{display:flex;align-items:center;gap:8px;white-space:nowrap;}
+.rs-count{font-size:13px;color:var(--rs-muted);font-variant-numeric:tabular-nums;}
+.rs-count b{color:var(--rs-brown);font-weight:600;}
+
+/* ---------- การ์ดห้อง ---------- */
+.rs-card{
+  background:#fff;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;
+  border:1px solid rgba(58,46,38,.08);box-shadow:0 12px 32px rgba(58,46,38,.10);
+}
+.rs-cover{position:relative;flex:0 0 auto;background:var(--rs-orange-light);}
+.rs-cover img{width:100%;height:100%;object-fit:cover;}
+.rs-cover::after{content:"";position:absolute;inset:auto 0 0 0;height:45%;
+  background:linear-gradient(to top,rgba(58,46,38,.28),transparent);pointer-events:none;}
+.rs-badges{position:absolute;top:14px;left:14px;display:flex;gap:6px;z-index:1;}
+.rs-badge{font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;
+  background:rgba(255,255,255,.92);color:var(--rs-brown);backdrop-filter:blur(6px);}
+.rs-badge.is-feat{background:var(--rs-orange);color:#fff;}
+
+.rs-body{display:flex;flex-direction:column;gap:14px;min-width:0;}
+.rs-id{display:flex;align-items:center;gap:14px;}
+.rs-avatar{flex:0 0 auto;width:60px;height:60px;border-radius:50%;background:#fff;
+  border:3px solid #fff;box-shadow:0 4px 12px rgba(58,46,38,.12);display:flex;align-items:center;justify-content:center;}
+.rs-avatar img{width:40px;height:auto;}
+.rs-name{margin:0;font-size:22px;font-weight:600;line-height:1.2;}
+.rs-handle{margin:3px 0 0;font-size:12.5px;color:var(--rs-brown-soft);display:flex;align-items:center;gap:2px 12px;flex-wrap:wrap;}
+.rs-handle > span{white-space:nowrap;}
+.rs-hours{display:inline-flex;align-items:center;gap:6px;}
+.rs-open{width:8px;height:8px;border-radius:50%;background:var(--green,#5B8A6B);}
+.rs-bio{margin:0;font-size:14px;line-height:1.6;color:var(--rs-brown-soft);}
+.rs-loc{margin:0;font-size:13px;color:var(--rs-brown-soft);display:flex;align-items:center;gap:5px;}
+.rs-loc svg{width:14px;height:14px;flex:0 0 auto;color:var(--rs-orange-dark);}
+
+.rs-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--rs-line);border-radius:14px;}
+.rs-stats > div{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:10px 6px;text-align:center;}
+.rs-stats > div + div{border-left:1px solid var(--rs-line);}
+.rs-stats strong{font-size:15.5px;font-weight:600;line-height:1.25;white-space:nowrap;}
+.rs-stats span{font-size:11.5px;color:var(--rs-muted);white-space:nowrap;}
+.rs-stats .is-price strong{color:var(--rs-orange-dark);}
+
+/* แท็บย่อยในการ์ด (เทียบ Portfolio / Services / Reviews ของ fastwork) */
+.rs-subs{display:flex;gap:22px;border-bottom:1px solid var(--rs-line);overflow-x:auto;scrollbar-width:none;}
+.rs-subs::-webkit-scrollbar{display:none;}
+.rs-sub{flex:0 0 auto;white-space:nowrap;padding:6px 0 10px;font-size:14px;color:var(--rs-muted);position:relative;}
+.rs-sub.is-on{color:var(--rs-brown);font-weight:600;}
+.rs-sub.is-on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;border-radius:2px;background:var(--rs-brown);}
+.rs-pane{display:none;animation:rs-fade .36s var(--rs-ease);}
+.rs-pane.is-on{display:block;}
+.rs-gal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+.rs-gal figure{position:relative;margin:0;border-radius:12px;overflow:hidden;aspect-ratio:3/4;background:var(--rs-cream);}
+.rs-gal img{width:100%;height:100%;object-fit:cover;transition:transform .4s var(--rs-ease);}
+.rs-gal figure:hover img{transform:scale(1.05);}
+.rs-gal figcaption{position:absolute;left:6px;bottom:6px;max-width:calc(100% - 12px);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rs-amen{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.rs-amen > div{display:flex;align-items:center;gap:10px;padding:12px;border-radius:14px;background:var(--rs-cream);font-size:13.5px;font-weight:500;}
+.rs-amen svg{width:22px;height:22px;flex:0 0 auto;color:var(--rs-orange-dark);}
+.rs-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:13.5px;line-height:1.5;color:var(--rs-brown-soft);}
+.rs-list li{display:flex;gap:9px;}
+.rs-list li::before{content:"";flex:0 0 6px;height:6px;margin-top:8px;border-radius:50%;background:var(--rs-orange);}
+
+.rs-cta{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:14px;border-top:1px solid var(--rs-line);}
+.rs-cta-price{margin-right:auto;font-size:13px;color:var(--rs-brown-soft);}
+.rs-cta-price b{display:block;font-size:20px;color:var(--rs-brown);font-weight:600;line-height:1.2;}
+.rs-line{padding:11px 16px;border-radius:999px;border:1.5px solid rgba(58,46,38,.14);font-size:14px;font-weight:600;text-decoration:none;color:var(--rs-brown);white-space:nowrap;}
+.rs-book{display:inline-flex;align-items:center;gap:7px;padding:12px 22px;border-radius:999px;font-size:15px;font-weight:600;
+  text-decoration:none;color:#fff;white-space:nowrap;background:linear-gradient(135deg,#E07B39,#B85C1E);
+  box-shadow:0 8px 20px rgba(184,92,30,.30);transition:transform .18s;}
+.rs-book svg{width:18px;height:18px;}
+.rs-book:active{transform:scale(.96);}
+
+@keyframes rs-fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+/* =====================================================================
+   คอม — sticky + เมนูซ้าย (เหมือน fastwork ตอนจอกว้าง)
+   ===================================================================== */
+.rs--desktop .rs-sticky{position:sticky;top:var(--rs-top);height:calc(100vh - var(--rs-top) - 24px);min-height:560px;max-height:760px;}
+.rs--desktop .rs-chrome{display:flex;align-items:center;justify-content:center;gap:0;height:100%;transition:gap .48s var(--rs-ease);}
+.rs--desktop .rs-chrome.is-rail-in{gap:48px;}
+
+.rs--desktop .rs-rail{flex:0 0 0;width:0;opacity:0;visibility:hidden;overflow:hidden;
+  display:flex;flex-direction:column;gap:28px;
+  transition:flex-basis .48s var(--rs-ease),width .48s var(--rs-ease),opacity .3s,visibility 0s linear .48s;}
+.rs--desktop .rs-chrome.is-rail-in .rs-rail{flex-basis:250px;width:250px;opacity:1;visibility:visible;overflow:visible;transition-delay:0s;}
+.rs--desktop .rs-tabs{flex-direction:column;align-items:flex-start;gap:4px;}
+.rs--desktop .rs-group{margin:14px 0 2px;}
+.rs--desktop .rs-group:first-child{margin-top:0;}
+.rs--desktop .rs-tab{position:relative;min-height:44px;padding-left:16px;font-size:20px;font-weight:500;color:var(--rs-muted);
+  opacity:0;transform:translateX(-12px);
+  transition:color .28s var(--rs-ease),font-size .28s var(--rs-ease),opacity .4s var(--rs-ease),transform .4s var(--rs-ease);}
+.rs--desktop .rs-chrome.is-rail-in .rs-tab{opacity:1;transform:none;transition-delay:0s,0s,calc(var(--tab-i,0) * 70ms),calc(var(--tab-i,0) * 70ms);}
+.rs--desktop .rs-tab:hover{color:var(--rs-brown-soft);}
+.rs--desktop .rs-tab.is-active{color:var(--rs-brown);font-size:28px;font-weight:600;}
+.rs--desktop .rs-tab::before{content:"";position:absolute;left:0;top:50%;width:4px;height:0;border-radius:4px;background:var(--rs-orange);
+  transform:translateY(-50%);transition:height .28s var(--rs-ease);}
+.rs--desktop .rs-tab.is-active::before{height:26px;}
+.rs--desktop .rs-tab-emoji{font-size:.8em;}
+
+.rs--desktop .rs-deck{position:relative;flex:0 1 920px;height:100%;
+  transform:scale(var(--rs-scale,1));transform-origin:50% 0;will-change:transform;}
+.rs--desktop .rs-chrome.is-rail-in .rs-deck{flex:1 1 auto;}
+.rs--desktop .rs-card{position:absolute;inset:0;flex-direction:row;
+  opacity:0;visibility:hidden;transform:translateY(18px) scale(.985);pointer-events:none;
+  transition:opacity .48s var(--rs-ease),transform .48s var(--rs-ease),visibility 0s linear .48s;}
+.rs--desktop .rs-card.is-active{opacity:1;visibility:visible;transform:none;pointer-events:auto;transition-delay:0s;}
+.rs--desktop .rs-cover{flex:0 0 46%;height:100%;}
+.rs--desktop .rs-body{flex:1 1 auto;padding:28px 30px 24px;overflow:hidden;}
+.rs--desktop .rs-panes{flex:1 1 auto;min-height:0;overflow:auto;scrollbar-width:none;}
+.rs--desktop .rs-panes::-webkit-scrollbar{display:none;}
+
+/* =====================================================================
+   มือถือ / แท็บเล็ต — แคปซูล + ปัดการ์ด (เหมือน fastwork ตอนจอแคบ)
+   ===================================================================== */
+.rs--mobile .rs-rail{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.rs--mobile .rs-group{display:none;}
+.rs--mobile .rs-count{display:none;}
+.rs--mobile .rs-tabs{gap:8px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;
+  margin-inline:-16px;padding:2px 16px;touch-action:pan-x pan-y;}
+.rs--mobile .rs-tabs::-webkit-scrollbar{display:none;}
+.rs--mobile .rs-tab{flex:0 0 auto;height:38px;padding:0 16px;border-radius:999px;font-size:14px;font-weight:500;
+  background:#fff;border:1px solid rgba(58,46,38,.10);transition:background .2s,color .2s;}
+.rs--mobile .rs-tab.is-active{background:var(--rs-brown);border-color:var(--rs-brown);color:#fff;}
+
+.rs--mobile .rs-deck{display:flex;align-items:stretch;gap:12px;overflow-x:auto;overflow-y:hidden;
+  margin-inline:-16px;padding:4px 16px 18px;scroll-padding-inline:16px;
+  scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;}
+.rs--mobile .rs-deck::-webkit-scrollbar{display:none;}
+.rs--mobile .rs-card{flex:0 0 calc(100% - 28px);scroll-snap-align:start;box-shadow:0 8px 22px rgba(58,46,38,.09);}
+.rs--mobile .rs-cover{height:200px;}
+.rs--mobile .rs-body{padding:0 18px 18px;gap:12px;}
+.rs--mobile .rs-avatar{margin-top:-30px;}
+.rs--mobile .rs-id{align-items:flex-end;}
+.rs--mobile .rs-name{font-size:20px;}
+.rs--mobile .rs-stats > div{padding:10px 3px;}
+.rs--mobile .rs-stats strong{font-size:14px;}
+.rs--mobile .rs-stats span{font-size:10.5px;}
+.rs--mobile .rs-panes{min-height:150px;}
+.rs--mobile .rs-subs{gap:18px;}
+.rs--mobile .rs-sub{font-size:13.5px;}
+.rs--mobile .rs-amen > div{padding:10px;font-size:12.5px;}
+.rs--mobile .rs-cta-price b{font-size:18px;}
+.rs--mobile .rs-line{padding:10px 13px;font-size:13px;}
+.rs--mobile .rs-book{padding:11px 18px;font-size:14px;}
+
+/* ผู้ใช้ที่ตั้งค่าลดการเคลื่อนไหว → ตัดแอนิเมชันทั้งหมด */
+@media (prefers-reduced-motion: reduce){
+  .rs *,.rs *::before{transition:none !important;animation:none !important;}
+  .rs--desktop .rs-deck{transform:none;}
+}

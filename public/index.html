@@ -471,8 +471,12 @@
   .reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease, transform .5s ease;}
   .reveal.show{opacity:1;transform:translateY(0);}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@500;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="showcase.css?v=e2b565d1">
+<link rel="stylesheet" href="fw.css?v=e69fa70e">
 </head>
-<body>
+<body class="fw">
 <!-- พื้นหลังกราเดียนต์เคลื่อนไหว (จำลอง ShaderGradient ด้วย CSS) -->
 <div class="bg-shader" aria-hidden="true">
   <span class="blob b1"></span>
@@ -483,16 +487,7 @@
 <header>
   <div class="promo-bar" id="promoBar">
     <div class="promo-marquee" aria-label="โปรโมชั่นทั้งหมด">
-      <div class="promo-track">
-        <a class="promo-item" href="#promotions"><span class="pi-e">🎁</span><strong>แนะนำเพื่อน รับฟรีทั้งคู่</strong>&nbsp;เพื่อนใหม่อาบน้ำครั้งแรก ลด 10% + ฟรีสปาโอโซน</a>
-        <a class="promo-item" href="#promotions"><span class="pi-e">🏨</span><strong>พักยาว ลดสูงสุด 10%</strong>&nbsp;พัก 5–9 คืน ลด 5% · 10 คืนขึ้นไป ลด 10%</a>
-        <a class="promo-item" href="/exercise-zone.html"><span class="pi-e">💦</span><strong>โซนใหม่! Dog Park &amp; Paw Splash</strong>&nbsp;10 ท่านแรก ฟรีอัปเกรดโซน</a>
-        <a class="promo-item" href="#promotions"><span class="pi-e">🏊</span><strong>Founding Member</strong>&nbsp;สนาม+สระว่ายน้ำน้องหมา เปิดจองรุ่นแรกราคาพิเศษ (เร็วๆ นี้)</a>
-        <a class="promo-item" href="#promotions" aria-hidden="true" tabindex="-1"><span class="pi-e">🎁</span><strong>แนะนำเพื่อน รับฟรีทั้งคู่</strong>&nbsp;เพื่อนใหม่อาบน้ำครั้งแรก ลด 10% + ฟรีสปาโอโซน</a>
-        <a class="promo-item" href="#promotions" aria-hidden="true" tabindex="-1"><span class="pi-e">🏨</span><strong>พักยาว ลดสูงสุด 10%</strong>&nbsp;พัก 5–9 คืน ลด 5% · 10 คืนขึ้นไป ลด 10%</a>
-        <a class="promo-item" href="/exercise-zone.html" aria-hidden="true" tabindex="-1"><span class="pi-e">💦</span><strong>โซนใหม่! Dog Park &amp; Paw Splash</strong>&nbsp;10 ท่านแรก ฟรีอัปเกรดโซน</a>
-        <a class="promo-item" href="#promotions" aria-hidden="true" tabindex="-1"><span class="pi-e">🏊</span><strong>Founding Member</strong>&nbsp;สนาม+สระว่ายน้ำน้องหมา เปิดจองรุ่นแรกราคาพิเศษ (เร็วๆ นี้)</a>
-      </div>
+      <div class="promo-track"><a class="promo-item" href="#promotions"><span class="pi-e">🏨</span><strong>พักยาว ลดสูงสุด 10%</strong>&nbsp;พัก 5–9 คืน ลด 5% · 10 คืนขึ้นไป ลด 10%</a><a class="promo-item" href="#promotions"><span class="pi-e">✂️</span><strong>สมาชิก Grooming</strong>&nbsp;สมัครสมาชิก รับคูปองส่วนลด 100 บาท</a><a class="promo-item" href="/exercise-zone.html"><span class="pi-e">💦</span><strong>Dog Park &amp; Paw Splash</strong>&nbsp;วันละ 4 รอบ · 15:00 · 16:00 · 18:00 · 19:00</a><a class="promo-item" href="#promotions" aria-hidden="true" tabindex="-1"><span class="pi-e">🏨</span><strong>พักยาว ลดสูงสุด 10%</strong>&nbsp;พัก 5–9 คืน ลด 5% · 10 คืนขึ้นไป ลด 10%</a><a class="promo-item" href="#promotions" aria-hidden="true" tabindex="-1"><span class="pi-e">✂️</span><strong>สมาชิก Grooming</strong>&nbsp;สมัครสมาชิก รับคูปองส่วนลด 100 บาท</a><a class="promo-item" href="/exercise-zone.html" aria-hidden="true" tabindex="-1"><span class="pi-e">💦</span><strong>Dog Park &amp; Paw Splash</strong>&nbsp;วันละ 4 รอบ · 15:00 · 16:00 · 18:00 · 19:00</a></div>
     </div>
     <button class="promo-close" id="promoClose" aria-label="ปิด">✕</button>
   </div>
@@ -502,9 +497,9 @@
       <ul>
         <li><a href="#about">เรื่องราวของเรา</a></li>
         <li><a href="#rooms">ห้องพัก</a></li>
+        <li><a href="#care">ดูแลยังไง</a></li>
         <li><a href="#promotions">โปรโมชั่น</a></li>
-        <li><a href="#grooming">อาบน้ำตัดขน</a></li>
-        <li><a href="#exercise">สนามออกกำลังกาย</a></li>
+        <li><a href="#services">บริการ</a></li>
         <li><a href="#reviews">รีวิว</a></li>
         <li><a href="/blog/">บทความ</a></li>
         <li><a href="#contact">ติดต่อเรา</a></li>
@@ -520,56 +515,32 @@
   </div>
 </header>
 
-<section class="hero" id="hero">
-  <div class="hero-left">
-    <!-- Main content -->
-    <div>
-      <span class="eyebrow hero-anim hero-d2">
-        <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.35-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.65-9.5 9-9.5 9z"/></svg>
-        วัชรพล–รามอินทรา กรุงเทพฯ
-      </span>
-      <h1 class="hero-anim hero-d2">ดูแลน้องหมาน้องแมว<br>เหมือนคนสำคัญในครอบครัว</h1>
-      <div class="hero-rule hero-anim hero-d3"></div>
-      <p class="hero-sub hero-anim hero-d4">โรงแรมสัตว์เลี้ยง + อาบน้ำตัดขน ครบในที่เดียว ห้องพักสะอาด ปลอดภัย มีพื้นที่ออกกำลังกายกลางแจ้ง พร้อมอัปเดตรูปน้องให้ทุกวัน</p>
-
-      <div class="hero-cta-row hero-anim hero-d5">
-        <a href="https://line.me/R/ti/p/@perfectbkk" class="hero-cta">
-          แชทผ่าน LINE @perfectbkk
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="/booking.html" class="hero-cta-alt">
-          <svg class="icon" style="width:18px;height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          จองคิวออนไลน์
-        </a>
-      </div>
-
-      <div class="rating-badge hero-anim hero-d6" style="margin-top:22px;">
-        <span class="rating-stars">★★★★★</span>
-        <span class="rating-text"><strong>5.0</strong> · รีวิวจริงจากลูกค้า 100+ รีวิว บนเพจเฟซบุ๊ก</span>
-      </div>
+<section class="fw-hero" id="hero" aria-label="Perfect Pet House โรงแรมสัตว์เลี้ยงและอาบน้ำตัดขน">
+  <div class="fw-hero-stage">
+    <div class="fw-pcs">
+      <figure class="fw-pc" style="--i:0;--x:-2%;--y:15%;--w:240px;--ar:4/3;--r:-4deg;--dx:-380;--dy:-160"><img class="fw-pc-media" src="images/pph/storefront.jpg" alt="Perfect Pet House" loading="eager" decoding="async"><figcaption class="fw-pc-meta"><span class="fw-pc-av"><img src="images/logo-mark.png" alt=""></span><span><span class="fw-pc-t">Perfect Pet House</span><br><span class="fw-pc-s">หน้าร้าน · วัชรพล–รามอินทรา</span></span></figcaption></figure><figure class="fw-pc" style="--i:1;--x:5%;--y:45%;--w:178px;--ar:3/4;--r:3deg;--dx:-420;--dy:40"><video class="fw-pc-media" data-fw src="images/pph/vid-groomed-pom.mp4" poster="images/pph/vid-groomed-pom.jpg" muted loop playsinline preload="metadata"></video><figcaption class="fw-pc-meta"><span class="fw-pc-av"><img src="images/logo-mark.png" alt=""></span><span><span class="fw-pc-t">หลังอาบน้ำตัดขน</span><br><span class="fw-pc-s">Grooming · ทีมช่างระดับรางวัล</span></span></figcaption></figure><figure class="fw-pc" style="--i:2;--x:11%;--y:76%;--w:190px;--ar:4/5;--r:-2deg;--dx:-300;--dy:300"><img class="fw-pc-media" src="images/pph/dog-cozy-3.jpg" alt="Cozy Room" loading="eager" decoding="async"><figcaption class="fw-pc-meta"><span class="fw-pc-av"><img src="images/logo-mark.png" alt=""></span><span><span class="fw-pc-t">Cozy Room</span><br><span class="fw-pc-s">ห้องพักสุนัข · ฿790/คืน</span></span></figcaption></figure><figure class="fw-pc" style="--i:3;--x:27%;--y:90%;--w:230px;--ar:4/3;--r:2deg;--dx:-80;--dy:380"><img class="fw-pc-media" src="images/pph/park-1.jpg" alt="Dog Park" loading="eager" decoding="async"><figcaption class="fw-pc-meta"><span class="fw-pc-av"><img src="images/logo-mark.png" alt=""></span><span><span class="fw-pc-t">Dog Park</span><br><span class="fw-pc-s">สนามกลางแจ้งมีรั้ว · ฿690/ครั้ง</span></span></figcaption></figure><figure class="fw-pc" style="--i:4;--x:81%;--y:13%;--w:178px;--ar:3/4;--r:4deg;--dx:380;--dy:-160"><video class="fw-pc-media" data-fw src="images/pph/vid-park-play.mp4" poster="images/pph/vid-park-play.jpg" muted loop playsinline preload="metadata"></video><figcaption class="fw-pc-meta"><span class="fw-pc-av"><img src="images/logo-mark.png" alt=""></span><span><span class="fw-pc-t">เวลาเล่นที่สนาม</span><br><span class="fw-pc-s">Dog Park · วันละ 4 รอบ</span></span></figcaption></figure><figure class="fw-pc" style="--i:5;--x:89%;--y:42%;--w:190px;--ar:3/4;--r:-3deg;--dx:420;--dy:20"><img class="fw-pc-media" src="images/pph/cat-vip-main.jpg" alt="VIP Villa Room" loading="lazy" decoding="async"><figcaption class="fw-pc-meta"><span class="fw-pc-av"><img src="images/logo-mark.png" alt=""></span><span><span class="fw-pc-t">VIP Villa Room</span><br><span class="fw-pc-s">ห้องพักแมว · ฿1,890/คืน</span></span></figcaption></figure><figure class="fw-pc" style="--i:6;--x:77%;--y:72%;--w:200px;--ar:4/5;--r:3deg;--dx:300;--dy:300"><img class="fw-pc-media" src="images/pph/grooming-room.jpg" alt="ห้อง Grooming" loading="lazy" decoding="async"><figcaption class="fw-pc-meta"><span class="fw-pc-av"><img src="images/logo-mark.png" alt=""></span><span><span class="fw-pc-t">ห้อง Grooming</span><br><span class="fw-pc-s">อาบน้ำ-ตัดขนในร้าน</span></span></figcaption></figure><figure class="fw-pc" style="--i:7;--x:57%;--y:91%;--w:230px;--ar:4/3;--r:-2deg;--dx:80;--dy:380"><img class="fw-pc-media" src="images/pph/cat-playroom.jpg" alt="ห้องเล่นแมว" loading="lazy" decoding="async"><figcaption class="fw-pc-meta"><span class="fw-pc-av"><img src="images/logo-mark.png" alt=""></span><span><span class="fw-pc-t">ห้องเล่นแมว</span><br><span class="fw-pc-s">โซนแมว</span></span></figcaption></figure><figure class="fw-pc" style="--i:8;--x:95%;--y:76%;--w:180px;--ar:3/4;--r:2deg;--dx:420;--dy:260"><img class="fw-pc-media" src="images/pawsplash.jpg" alt="Paw Splash" loading="lazy" decoding="async"><figcaption class="fw-pc-meta"><span class="fw-pc-av"><img src="images/logo-mark.png" alt=""></span><span><span class="fw-pc-t">Paw Splash</span><br><span class="fw-pc-s">สระตื้น 25–45 ซม. · ฿890/ครั้ง</span></span></figcaption></figure><figure class="fw-pc" style="--i:9;--x:-1%;--y:92%;--w:200px;--ar:4/3;--r:-3deg;--dx:-420;--dy:380"><img class="fw-pc-media" src="images/pph/dog-vip-main.jpg" alt="VIP Villa Room" loading="lazy" decoding="async"><figcaption class="fw-pc-meta"><span class="fw-pc-av"><img src="images/logo-mark.png" alt=""></span><span><span class="fw-pc-t">VIP Villa Room</span><br><span class="fw-pc-s">ห้องพักสุนัข · ฿1,890/คืน</span></span></figcaption></figure>
     </div>
-
-    <!-- Bottom: contact strip -->
-    <div class="hero-contact hero-anim hero-d7">
-      <div class="hero-contact-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-        <span><strong>เว็บไซต์</strong>perfectbkk.com</span>
+    <div class="fw-hero-center">
+      <span class="fw-hero-loc"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> วัชรพล–รามอินทรา กรุงเทพฯ</span>
+      <h1>ดูแล<span class="fw-rot" data-words="น้องหมา|น้องแมว|ลูกรัก"><span>น้องหมา</span></span>ของคุณ<br>เหมือนคนในครอบครัว</h1>
+      <p class="fw-hero-sub">โรงแรม + อาบน้ำตัดขน + สนามออกกำลังกาย ครบในที่เดียว · CCTV และแอร์ 24 ชม.</p>
+      <div class="fw-odo is-pending" data-members-wrap><div class="fw-odo-boxes"><div class="fw-odo-box">–</div><div class="fw-odo-box">–</div><div class="fw-odo-box">–</div><div class="fw-odo-box">–</div></div><div class="fw-odo-cap">สมาชิกที่ไว้ใจให้เราดูแลน้อง</div><span class="fw-odo-note">ตัวอย่าง: รอตัวเลขจริงจากระบบจอง</span></div>
+      <div class="fw-hero-ctas">
+        <a class="fw-btn fw-btn-dark" href="/booking.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>จองห้องพัก</a>
+        <a class="fw-btn fw-btn-ghost" href="/groom.html">จองอาบน้ำตัดขน</a>
       </div>
-      <div class="hero-contact-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        <span><strong>โทรศัพท์</strong>082-320-2807</span>
-      </div>
-      <div class="hero-contact-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span><strong>ที่ตั้ง</strong>ท่าแร้ง บางเขน กรุงเทพฯ 10220</span>
-      </div>
+      <p class="fw-hero-rate"><span class="fw-stars">★★★★★</span><b>5.0</b> · รีวิวจริงจากลูกค้า 100+ รีวิว บนเพจเฟซบุ๊ก</p>
     </div>
+    <div class="fw-scrollhint">เลื่อนลง<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
   </div>
-
-  <!-- Right: image with diagonal clip-path reveal -->
-  <div class="hero-img" role="img" aria-label="บรรยากาศการดูแลน้องหมาน้องแมวที่ Perfect Pet House" style="background-image:url('images/IMG_4972.jpg');"></div>
 </section>
 
+<div class="fw-stage">
+<div class="fw-people fw-wrap fw-center">
+  <span class="fw-kicker fw-rv">เรื่องราวของเรา</span>
+  <h2 class="fw-h2 fw-rv" style="margin-top:18px;">น้องไม่ได้ต้องการแค่ห้องพัก<br>แต่ต้องการ<span class="fw-avs" aria-hidden="true"><img src="images/pph/vid-groomed-pom.jpg" alt=""><img src="images/pph/vid-park-pom.jpg" alt=""><img src="images/pph/vid-park-play.jpg" alt=""></span>คนที่เข้าใจ</h2>
+  <p class="fw-sub fw-rv">เราเริ่มจากการเลี้ยงน้องหมาที่มีปัญหาข้อและสะโพกมาก่อน จึงตั้งใจทำที่ฝากที่ใส่ใจทั้งความสบาย ความปลอดภัย และสุขภาพของน้องในระยะยาว</p>
+</div>
 <section class="about section" id="about">
   <div class="container">
     <div class="about-grid">
@@ -621,26 +592,7 @@
   </div>
 </section>
 
-<section class="timeline section" id="daily-care">
-  <div class="container">
-    <div class="center" style="max-width:560px;">
-      <span class="eyebrow">
-        <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        ตารางดูแลประจำวัน
-      </span>
-      <h2 class="section-title">น้องๆ ใช้เวลาแต่ละวันกับเราอย่างไร</h2>
-      <p class="section-desc center">ทุกขั้นตอนถูกออกแบบมาให้น้องรู้สึกเหมือนอยู่บ้าน พร้อมรายงานให้เจ้าของรับทราบทุกวัน</p>
-    </div>
-    <div class="tl-grid">
-      <div class="tl-card"><span class="tl-time">07:00</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg><p>อาหารเช้า + ทำความสะอาดห้อง</p></div>
-      <div class="tl-card"><span class="tl-time">09:00</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22s4-8 10-8 10 8 10 8"/><circle cx="12" cy="6" r="4"/></svg><p>เวลาออกกำลังกาย / เล่นที่สนามกลางแจ้ง</p></div>
-      <div class="tl-card"><span class="tl-time">12:00</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><p>อาหารกลางวัน + ตรวจสุขภาพ</p></div>
-      <div class="tl-card"><span class="tl-time">15:00</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10l7 4"/></svg><p>พักผ่อน / ขนมเบาๆ</p></div>
-      <div class="tl-card"><span class="tl-time">17:00</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><p>อาหารเย็น + ส่งรายงานให้เจ้าของ</p></div>
-      <div class="tl-card"><span class="tl-time">21:00</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><p>ตรวจห้องก่อนนอน + ปิดไฟ</p></div>
-    </div>
-  </div>
-</section>
+
 
 <section class="section" id="rooms">
   <div class="container">
@@ -652,89 +604,7 @@
       <h2 class="section-title">เลือกห้องพักที่ใช่สำหรับน้อง</h2>
       <p class="section-desc center">ทุกห้องสะอาด ปลอดภัย พร้อม CCTV และแอร์เย็นตลอด 24 ชม.</p>
     </div>
-    <!-- แถวสุนัข -->
-    <h3 class="room-cat-head">ห้องพักสำหรับสุนัข</h3>
-    <div class="room-grid">
-      <div class="room-card">
-        <div class="room-photo"><img src="images/room-cozy-dog.jpg" alt="ห้อง Cozy Room สำหรับสุนัข" loading="lazy" decoding="async"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:17px;height:17px;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
-        <div class="room-body">
-          <h3>Cozy Room</h3>
-          <p class="room-size">ขนาดห้อง: 1×1.5 ม.</p>
-          <div class="room-prices">
-            <div class="room-price-row"><span>สุนัข</span><strong>฿790 / คืน</strong></div>
-          </div>
-          <p class="room-amenities">CCTV 24 ชม. · แอร์เย็น 24 ชม. · อัปเดตรูปทุกวัน · เตียงนุ่มสะอาด</p>
-          <a href="/booking.html?pet=dog&amp;room=cozy" class="room-cta">จองห้องนี้</a>
-        </div>
-      </div>
-      <div class="room-card">
-        <div class="room-photo"><img src="images/room-deluxe-dog.jpg" alt="ห้อง Deluxe Room สำหรับสุนัข" loading="lazy" decoding="async"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:17px;height:17px;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
-        <div class="room-body">
-          <h3>Deluxe Room</h3>
-          <p class="room-size">ขนาดห้อง: 1×2 ม.</p>
-          <div class="room-prices">
-            <div class="room-price-row"><span>สุนัข</span><strong>฿990 / คืน</strong></div>
-          </div>
-          <p class="room-amenities">CCTV 24 ชม. · แอร์เย็น 24 ชม. · อัปเดตรูปทุกวัน · เตียงนุ่มสะอาด</p>
-          <a href="/booking.html?pet=dog&amp;room=deluxe" class="room-cta">จองห้องนี้</a>
-        </div>
-      </div>
-      <div class="room-card room-card--featured">
-        <span class="room-badge">แนะนำ</span>
-        <div class="room-photo"><img src="images/room-vip-dog.jpg" alt="ห้อง VIP Villa สำหรับสุนัข" loading="lazy" decoding="async"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:17px;height:17px;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
-        <div class="room-body">
-          <h3>VIP Villa Room</h3>
-          <p class="room-size">ขนาดห้อง: 1.5×2.5 ม.</p>
-          <div class="room-prices">
-            <div class="room-price-row"><span>สุนัข</span><strong>฿1,890 / คืน</strong></div>
-          </div>
-          <p class="room-amenities">CCTV 24 ชม. · แอร์เย็น 24 ชม. · อัปเดตรูปทุกวัน · เตียงนุ่มสะอาด</p>
-          <a href="/booking.html?pet=dog&amp;room=vip" class="room-cta">จองห้องนี้</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- แถวแมว -->
-    <h3 class="room-cat-head" style="margin-top:48px;">ห้องพักสำหรับแมว</h3>
-    <div class="room-grid">
-      <div class="room-card">
-        <div class="room-photo"><img src="images/room-cozy-cat.jpg" alt="ห้อง Cozy Room สำหรับแมว" loading="lazy" decoding="async"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:17px;height:17px;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
-        <div class="room-body">
-          <h3>Cozy Room</h3>
-          <p class="room-size">ขนาดห้อง: 1×1 ม.</p>
-          <div class="room-prices">
-            <div class="room-price-row"><span>แมว</span><strong>฿690 / คืน</strong></div>
-          </div>
-          <p class="room-amenities">CCTV 24 ชม. · แอร์เย็น 24 ชม. · อัปเดตรูปทุกวัน · เตียงนุ่มสะอาด</p>
-          <a href="/booking.html?pet=cat&amp;room=cozy" class="room-cta">จองห้องนี้</a>
-        </div>
-      </div>
-      <div class="room-card">
-        <div class="room-photo"><img src="images/room-deluxe-cat.jpg" alt="ห้อง Deluxe Room สำหรับแมว" loading="lazy" decoding="async"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:17px;height:17px;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
-        <div class="room-body">
-          <h3>Deluxe Room</h3>
-          <p class="room-size">ขนาดห้อง: 1×1×2.5 ม. (แนวตั้ง)</p>
-          <div class="room-prices">
-            <div class="room-price-row"><span>แมว</span><strong>฿990 / คืน</strong></div>
-          </div>
-          <p class="room-amenities">CCTV 24 ชม. · แอร์เย็น 24 ชม. · อัปเดตรูปทุกวัน · เตียงนุ่มสะอาด</p>
-          <a href="/booking.html?pet=cat&amp;room=deluxe" class="room-cta">จองห้องนี้</a>
-        </div>
-      </div>
-      <div class="room-card room-card--featured">
-        <span class="room-badge">แนะนำ</span>
-        <div class="room-photo"><img src="images/room-vip-cat.jpg" alt="ห้อง VIP Villa สำหรับแมว" loading="lazy" decoding="async"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:17px;height:17px;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
-        <div class="room-body">
-          <h3>VIP Villa Room</h3>
-          <p class="room-size">ขนาดห้อง: 1.5×2.5 ม.</p>
-          <div class="room-prices">
-            <div class="room-price-row"><span>แมว</span><strong>฿1,890 / คืน</strong></div>
-          </div>
-          <p class="room-amenities">CCTV 24 ชม. · แอร์เย็น 24 ชม. · อัปเดตรูปทุกวัน · เตียงนุ่มสะอาด</p>
-          <a href="/booking.html?pet=cat&amp;room=vip" class="room-cta">จองห้องนี้</a>
-        </div>
-      </div>
-    </div>
+    <section id="room-showcase" data-room-showcase data-img-base="images/" data-offset-el="header" aria-label="ห้องพักทั้ง 6 แบบ" style="margin:32px auto 56px;"></section>
 
     <div class="policy-note">
       <h4>นโยบายเช็คอิน / เช็คเอาท์ / มัดจำ</h4>
@@ -773,377 +643,26 @@
   </div>
 </section>
 
-<!-- โปรโมชั่น -->
-<section class="section" id="promotions" style="background:var(--orange-light);">
-  <div class="container">
-    <div class="center" style="max-width:560px;">
-      <span class="eyebrow">
-        <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-        โปรโมชั่นพิเศษ
-      </span>
-      <h2 class="section-title">ดีลดีๆ สำหรับน้อง</h2>
-    </div>
 
-    <!-- ⭐ FEATURED: แนะนำเพื่อน (PPH Friends) -->
-    <div class="promo-hero" id="pphFriends">
-      <span class="promo-ribbon">NEW · PPH FRIENDS</span>
-      <div class="promo-hero-inner">
-        <div class="promo-hero-left">
-          <h3>แนะนำเพื่อน<br>รับฟรี<span> ทั้งคู่!</span></h3>
-          <p>ชวนเพื่อนที่มีน้องหมา–แมว มาลองบริการครั้งแรก แล้วรับของขวัญด้วยกันทั้งสองฝ่าย ยิ่งแนะนำ ยิ่งได้ ไม่จำกัดจำนวนเพื่อน</p>
-          <a href="#booking" class="btn promo-hero-btn">ทักไลน์ พิมพ์ “แนะนำเพื่อน”</a>
-        </div>
-        <div class="promo-hero-cards">
-          <div class="ph-mini">
-            <span class="ph-tag">เพื่อนใหม่ได้</span>
-            <b>อาบน้ำครั้งแรก<br>ลด 10%</b>
-            <small>+ ฟรีสปาโอโซน</small>
-          </div>
-          <div class="ph-plus">＋</div>
-          <div class="ph-mini">
-            <span class="ph-tag">คุณได้</span>
-            <b>ฟรีสปาโอโซน</b>
-            <small>ในครั้งถัดไป</small>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="fw-stage-foot">
+  <div class="fw-pill" data-members-wrap><span class="fw-avs" aria-hidden="true"><img src="images/pph/vid-groomed-pom.jpg" alt=""><img src="images/pph/vid-park-pom.jpg" alt=""><img src="images/pph/vid-park-play.jpg" alt=""></span><span class="fw-pill-t">สมาชิก <b data-members>—</b> คนไว้ใจเรา</span><a class="fw-btn fw-btn-dark" href="/booking.html">จองห้องพัก</a></div>
+</div>
+</div><!-- /fw-stage -->
 
-    <div class="promo-grid">
-      <div class="promo-card promo-card--soon">
-        <span class="soon-badge">เร็วๆ นี้</span>
-        <div class="promo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M2 16c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0"/><path d="M2 20c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0"/><circle cx="16" cy="6" r="2.5"/></svg></div>
-        <h3>Founding Member</h3>
-        <p>สนามออกกำลังกาย + สระว่ายน้ำสำหรับน้องหมา เปิดจอง <strong>รุ่นแรกราคาพิเศษ</strong> รับจำนวนจำกัด · <a href="#exercise">ดูรายละเอียด →</a></p>
-      </div>
-    </div>
+<section class="fw-pain" id="care" data-nav="dark" aria-label="เรื่องที่เจ้าของน้องกังวล และวิธีที่เราดูแล">
+  <div class="fw-pain-stage">
+    <h2>ฝากน้องสักครั้ง ไม่ใช่เรื่องง่าย…</h2>
+    <p class="fw-sub">ให้เราดูแลเรื่องเหล่านี้แทนคุณ</p>
+    <div class="fw-notes"><div class="fw-note" role="button" tabindex="0" aria-label="ความกังวล: ฝากเพื่อนดูแล แต่ก็ไม่สบายใจทุกครั้ง…" style="--x:1%;--y:4%;--r:-4deg;--c:#C8EBC4"><div class="fw-note-in"><div class="fw-note-face fw-note-front">ฝากเพื่อนดูแล<br>แต่ก็ไม่สบายใจทุกครั้ง…</div><div class="fw-note-face fw-note-back"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>ที่ Perfect Pet House</b>CCTV ตลอด 24 ชม. · ตรวจนับน้องทุก 2 ชม. และล็อกประตูทุกครั้ง</div></div></div><div class="fw-note" role="button" tabindex="0" aria-label="ความกังวล: ไม่รู้เลยว่าน้อง กินข้าวไหม เครียดหรือเปล่า" style="--x:25%;--y:11%;--r:3deg;--c:#D3C6F2"><div class="fw-note-in"><div class="fw-note-face fw-note-front">ไม่รู้เลยว่าน้อง<br>กินข้าวไหม เครียดหรือเปล่า</div><div class="fw-note-face fw-note-back"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>ที่ Perfect Pet House</b>บันทึกอาหาร น้ำหนัก พฤติกรรมทุกวัน · ส่งรายงานให้เจ้าของตอน 17:00</div></div></div><div class="fw-note" role="button" tabindex="0" aria-label="ความกังวล: กลัวน้องติดโรค จากตัวอื่น" style="--x:50%;--y:0%;--r:-2deg;--c:#F4B9A8"><div class="fw-note-in"><div class="fw-note-face fw-note-front">กลัวน้องติดโรค<br>จากตัวอื่น</div><div class="fw-note-face fw-note-back"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>ที่ Perfect Pet House</b>ทำความสะอาดทุก 2 ชม. ด้วยน้ำยาเกรดสัตวแพทย์ · แยกตัวป่วยทันที · ไม่รับน้องที่ยังไม่ฉีดวัคซีน</div></div></div><div class="fw-note" role="button" tabindex="0" aria-label="ความกังวล: ถ้าน้องไม่สบาย ตอนเราไม่อยู่ล่ะ?" style="--x:74%;--y:9%;--r:4deg;--c:#BDEBEA"><div class="fw-note-in"><div class="fw-note-face fw-note-front">ถ้าน้องไม่สบาย<br>ตอนเราไม่อยู่ล่ะ?</div><div class="fw-note-face fw-note-back"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>ที่ Perfect Pet House</b>มีเบอร์สัตวแพทย์พร้อมตลอดเวลา · แจ้งเจ้าของทันทีถ้าผิดปกติ</div></div></div><div class="fw-note" role="button" tabindex="0" aria-label="ความกังวล: อยู่คอนโด น้องไม่มีที่วิ่งเลย" style="--x:13%;--y:50%;--r:3deg;--c:#F9E1A0"><div class="fw-note-in"><div class="fw-note-face fw-note-front">อยู่คอนโด<br>น้องไม่มีที่วิ่งเลย</div><div class="fw-note-face fw-note-back"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>ที่ Perfect Pet House</b>สนามกลางแจ้งมีรั้ว + สระ Paw Splash · วันละ 4 รอบ มีพนักงานดูแลตลอด</div></div></div><div class="fw-note" role="button" tabindex="0" aria-label="ความกังวล: หาที่อาบน้ำตัดขน ที่ไว้ใจได้ยาก" style="--x:58%;--y:48%;--r:-3deg;--c:#F7D3B5"><div class="fw-note-in"><div class="fw-note-face fw-note-front">หาที่อาบน้ำตัดขน<br>ที่ไว้ใจได้ยาก</div><div class="fw-note-face fw-note-back"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>ที่ Perfect Pet House</b>ทีมช่างเคยได้รางวัลชนะเลิศการประกวด Grooming · ฟรีตัดเล็บ + เช็ดหูทุกครั้ง</div></div></div></div>
+    <p class="fw-pain-hint">แตะโน้ตเพื่อดูว่าเราดูแลยังไง</p>
   </div>
 </section>
-
-<!-- เครื่องคำนวณราคา -->
-<section class="section" id="calculator">
-  <div class="container">
-    <div class="center" style="max-width:560px;">
-      <span class="eyebrow">
-        <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10"/><line x1="12" y1="10" x2="12" y2="10"/><line x1="16" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="8" y2="14"/><line x1="12" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
-        คำนวณราคา
-      </span>
-      <h2 class="section-title">ประเมินค่าใช้จ่ายก่อนเข้าพัก</h2>
-      <p class="section-desc center">เลือกประเภทน้อง ห้องพัก และจำนวนคืน เพื่อดูราคาโดยประมาณ</p>
-    </div>
-
-    <div class="calc-wrap">
-      <div class="calc-form">
-        <div>
-          <label class="bk-label">ประเภทน้อง</label>
-          <select class="bk-input" id="calcPet">
-            <option value="dog">สุนัข</option>
-            <option value="cat">แมว</option>
-          </select>
-        </div>
-        <div>
-          <label class="bk-label">ห้องพัก</label>
-          <select class="bk-input" id="calcRoom">
-            <option value="cozy">Cozy Room</option>
-            <option value="deluxe">Deluxe Room</option>
-            <option value="vip">VIP Villa Room</option>
-          </select>
-        </div>
-        <div>
-          <label class="bk-label">จำนวนคืน</label>
-          <input class="bk-input" id="calcNights" type="number" min="1" value="1" inputmode="numeric">
-        </div>
-      </div>
-
-      <div class="calc-result" id="calcResult">
-        <div class="calc-row"><span>ค่าห้อง/คืน</span><span id="calcRate">—</span></div>
-        <div class="calc-row"><span>จำนวนคืน</span><span id="calcN">—</span></div>
-        <div class="calc-row"><span>ราคารวม</span><span id="calcSub">—</span></div>
-        <div class="calc-row calc-discount" id="calcDiscRow" style="display:none;"><span id="calcDiscLbl">ส่วนลดพักยาว</span><span id="calcDisc">—</span></div>
-        <div class="calc-row calc-total"><span>ราคาสุทธิ (ประมาณ)</span><span id="calcTotal">—</span></div>
-        <div class="calc-row calc-deposit"><span>มัดจำ 50% เพื่อยืนยันการจอง</span><span id="calcDeposit">—</span></div>
-        <p class="calc-note">* ราคาประเมินเบื้องต้น ไม่รวมบริการเสริม ราคาจริงยืนยันโดยทางร้านอีกครั้ง</p>
-        <a href="/booking.html" id="calcBook" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;">จองออนไลน์ เช็คห้องว่าง</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<style>
-  .promo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:24px;max-width:960px;margin-left:auto;margin-right:auto;}
-  @media(max-width:640px){.promo-grid{grid-template-columns:1fr;}}
-  .promo-card{position:relative;background:#fff;border-radius:20px;padding:28px 24px;box-shadow:0 8px 24px rgba(58,46,38,0.10);border:2px dashed var(--orange);text-align:center;transition:transform .25s ease,box-shadow .25s ease;}
-  .promo-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(58,46,38,0.18);}
-  .promo-icon{margin-bottom:14px;}
-  .promo-icon svg{width:40px;height:40px;color:var(--orange-dark);}
-  .promo-card h3{font-family:'Inter','Noto Sans Thai',sans-serif;color:var(--orange-dark);font-size:1.25rem;margin-bottom:8px;}
-  .promo-card p{color:var(--brown-soft);font-size:0.95rem;}
-  .promo-card strong{color:var(--orange-dark);}
-  .promo-card a{color:var(--orange-dark);font-weight:600;text-decoration:none;}
-  .promo-card--soon{border-color:var(--green);border-style:solid;}
-  .soon-badge{position:absolute;top:14px;right:14px;background:var(--green);color:#fff;font-size:0.7rem;font-weight:600;padding:3px 11px;border-radius:99px;font-family:'Inter','Noto Sans Thai',sans-serif;}
-  /* Featured referral banner */
-  .promo-hero{position:relative;max-width:960px;margin:40px auto 4px;border-radius:28px;padding:40px 36px;color:#fff;background:linear-gradient(135deg,#E07B39,#B85C1E);box-shadow:0 22px 50px rgba(184,92,30,0.30);overflow:hidden;}
-  .promo-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 12%,rgba(255,255,255,0.24),transparent 46%);pointer-events:none;}
-  .promo-ribbon{position:absolute;top:18px;left:18px;z-index:2;background:#fff;color:var(--orange-dark);font-family:'Inter','Noto Sans Thai',sans-serif;font-size:0.76rem;font-weight:600;padding:6px 14px;border-radius:99px;letter-spacing:0.5px;box-shadow:0 4px 12px rgba(0,0,0,0.12);}
-  .promo-hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr 1fr;gap:30px;align-items:center;margin-top:18px;}
-  .promo-hero-left h3{font-family:'Inter','Noto Sans Thai',sans-serif;font-size:2.05rem;line-height:1.2;margin-bottom:12px;color:#fff;}
-  .promo-hero-left h3 span{color:#FFE3B0;}
-  .promo-hero-left p{opacity:0.96;font-size:0.98rem;margin-bottom:20px;}
-  .promo-hero-btn{background:#fff;color:var(--orange-dark);font-weight:600;padding:12px 22px;box-shadow:0 8px 20px rgba(0,0,0,0.14);}
-  .promo-hero-btn:hover{transform:translateY(-2px);}
-  .promo-hero-cards{display:flex;align-items:center;gap:12px;justify-content:center;}
-  .ph-mini{background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.32);border-radius:18px;padding:20px 14px;text-align:center;flex:1;}
-  .ph-mini .ph-tag{display:inline-block;background:#fff;color:var(--orange-dark);font-size:0.7rem;font-weight:600;padding:3px 10px;border-radius:99px;margin-bottom:10px;font-family:'Inter','Noto Sans Thai',sans-serif;}
-  .ph-mini b{display:block;font-size:1.02rem;line-height:1.3;margin-bottom:4px;}
-  .ph-mini small{opacity:0.92;font-size:0.82rem;}
-  .ph-plus{font-size:1.7rem;font-weight:700;opacity:0.95;}
-  @media(max-width:640px){.promo-hero{padding:30px 22px;}.promo-hero-inner{grid-template-columns:1fr;gap:22px;}.promo-hero-left h3{font-size:1.65rem;}}
-  .calc-wrap{max-width:760px;margin:36px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
-  @media(max-width:720px){.calc-wrap{grid-template-columns:1fr;}}
-  .calc-form{display:flex;flex-direction:column;gap:16px;background:#fff;padding:24px;border-radius:18px;box-shadow:0 8px 24px rgba(58,46,38,0.08);}
-  .calc-result{background:var(--brown);color:#fff;padding:24px;border-radius:18px;box-shadow:0 8px 24px rgba(58,46,38,0.18);}
-  .calc-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.12);font-size:0.95rem;}
-  .calc-row span:last-child{font-weight:600;text-align:right;}
-  .calc-discount span:last-child{color:#FFD9A8;}
-  .calc-free span:last-child{color:#9BE6B4;font-weight:600;}
-  .calc-total{font-size:1.15rem;border-bottom:none;padding-top:14px;}
-  .calc-total span:last-child{color:#FFD9A8;font-size:1.35rem;}
-  .calc-deposit{border-bottom:none;color:#FCEADB;font-size:0.9rem;padding-top:0;}
-  .calc-note{font-size:0.75rem;color:rgba(255,255,255,0.6);margin:10px 0 14px;line-height:1.5;}
-</style>
-
-<script>
-  (function(){
-    var PRICES = { dog:{cozy:790,deluxe:990,vip:1890}, cat:{cozy:690,deluxe:990,vip:1890} };
-    var pet=document.getElementById('calcPet'), room=document.getElementById('calcRoom'),
-        nights=document.getElementById('calcNights');
-    if(!pet) return;
-    var fmt=function(n){ return '฿'+n.toLocaleString('th-TH'); };
-    function calc(){
-      var n=Math.max(1, parseInt(nights.value,10)||1);
-      var rate=PRICES[pet.value][room.value];
-      var sub=rate*n;
-      // ส่วนลดพักยาว (ลดเฉพาะค่าห้อง): 5–9 คืน 5% · 10 คืนขึ้นไป 10%
-      var pct = n>=10 ? 10 : n>=5 ? 5 : 0;
-      var disc=Math.round(sub*pct/100);
-      var total=sub-disc;
-      document.getElementById('calcRate').textContent=fmt(rate);
-      document.getElementById('calcN').textContent=n+' คืน';
-      document.getElementById('calcSub').textContent=fmt(sub);
-      var dr=document.getElementById('calcDiscRow');
-      if(disc>0){ document.getElementById('calcDiscLbl').textContent='ส่วนลดพักยาว '+pct+'%'; dr.style.display='flex'; document.getElementById('calcDisc').textContent='-'+fmt(disc); } else { dr.style.display='none'; }
-      document.getElementById('calcTotal').textContent=fmt(total);
-      document.getElementById('calcDeposit').textContent=fmt(Math.round(total*0.5));
-      var cb=document.getElementById('calcBook'); if(cb) cb.href='/booking.html?pet='+pet.value+'&room='+room.value;
-    }
-    [pet,room,nights].forEach(function(el){ el.addEventListener('input',calc); el.addEventListener('change',calc); });
-    calc();
-  })();
-</script>
-
-<section class="section" id="grooming" style="background:#fff;">
-  <div class="container">
-    <div class="center" style="max-width:560px;">
-      <span class="eyebrow">
-        <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9a6 6 0 1 0 12 0 6 6 0 0 0-12 0z"/><path d="M12 15v6"/><path d="M9 21h6"/></svg>
-        อาบน้ำตัดขน
-      </span>
-      <h2 class="section-title">Grooming ดูแลขนน้องให้สะอาด หอม ฟู</h2>
-      <p class="section-desc center">ราคาแบ่งตามน้ำหนัก/ขนาด เลือกแท็บสุนัขหรือแมวด้านล่าง</p>
-    </div>
-
-    <div class="tabs center" style="justify-content:center;display:flex;">
-      <button class="tab-btn active" data-tab="dog">สุนัข</button>
-      <button class="tab-btn" data-tab="cat">แมว</button>
-    </div>
-
-    <div class="tab-panel active" id="tab-dog">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>ขนาด</th><th>ขนสั้น</th><th>ขนยาว</th><th>ขนยาวพิเศษ</th><th>ตัดขน(เพิ่ม)</th></tr></thead>
-          <tbody>
-            <tr><td>XS (&lt;2kg)</td><td>350</td><td>400</td><td>450</td><td>+400</td></tr>
-            <tr><td>S (2-5kg)</td><td>400</td><td>500</td><td>600</td><td>+500</td></tr>
-            <tr><td>M (5-10kg)</td><td>500</td><td>700</td><td>900</td><td>+600</td></tr>
-            <tr><td>L (10-15kg)</td><td>700</td><td>900</td><td>1,000</td><td>+700</td></tr>
-            <tr><td>XL (15-20kg)</td><td>900</td><td>1,100</td><td>1,400</td><td>+900</td></tr>
-            <tr><td>2XL (20-30kg)</td><td>1,200</td><td>1,450</td><td>1,600</td><td>+1,200</td></tr>
-            <tr><td>3XL (30-40kg)</td><td>1,650</td><td>1,850</td><td>1,900</td><td>+1,600</td></tr>
-            <tr><td>4XL (40-50kg)</td><td>2,150</td><td>2,200</td><td>2,400</td><td>+2,200</td></tr>
-            <tr><td>5XL (&gt;50kg)</td><td>2,850</td><td>3,100</td><td>3,300</td><td>+2,800</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="free-note">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-        ฟรีทุกครั้ง: ตัดเล็บ + เช็ดหู + ไถเท้า + ไถท้อง + ไถก้น
-      </div>
-    </div>
-
-    <div class="tab-panel" id="tab-cat">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>ขนาด</th><th>ขนสั้น</th><th>ขนยาว</th><th>ตัดขน(เพิ่ม)</th></tr></thead>
-          <tbody>
-            <tr><td>XS (&lt;2kg)</td><td>450</td><td>550</td><td>+450</td></tr>
-            <tr><td>S (2-3kg)</td><td>550</td><td>650</td><td>+550</td></tr>
-            <tr><td>M (3-5kg)</td><td>750</td><td>850</td><td>+750</td></tr>
-            <tr><td>L (5-7kg)</td><td>950</td><td>1,100</td><td>+950</td></tr>
-            <tr><td>XL (7-9kg)</td><td>1,250</td><td>1,400</td><td>+1,250</td></tr>
-            <tr><td>2XL (9-11kg)</td><td>1,400</td><td>1,600</td><td>+1,400</td></tr>
-            <tr><td>3XL (11-13kg)</td><td>1,750</td><td>1,850</td><td>+1,750</td></tr>
-            <tr><td>4XL (13-15kg)</td><td>2,100</td><td>2,250</td><td>+2,100</td></tr>
-            <tr><td>5XL (&gt;15kg)</td><td>2,650</td><td>2,800</td><td>+2,650</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="free-note">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-        ฟรีทุกครั้ง: ตัดเล็บ + เช็ดหู
-      </div>
-    </div>
-
-    <p class="addon-note">มีบริการเสริม เช่น สปาโอโซน, ตัดแต่งหัว-เท้า-ก้น, แชมพูพิเศษ และอื่นๆ — สอบถามราคาตามขนาดน้องได้ทาง <a href="https://line.me/R/ti/p/@perfectbkk">LINE @perfectbkk</a></p>
-    <div style="text-align:center;margin-top:28px;"><a href="/groom.html" class="btn btn-primary" style="padding:14px 28px;">จองคิวอาบน้ำตัดขนออนไลน์ →</a><p style="margin:8px 0 0;font-size:0.85rem;color:var(--brown-soft);">เห็นรอบว่างและราคาตามไซส์ทันที · ไม่ต้องโอนมัดจำ</p></div>
-  </div>
-</section>
-
-<!-- ผลงานรางวัล Grooming ชนะเลิศอันดับ 1 -->
-<section class="section" id="awards" style="background:var(--orange-light);">
-  <div class="container">
-    <div class="center" style="max-width:600px;">
-      <span class="eyebrow">
-        <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6m12 5h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22m10 0c0-1.76-.85-3.25-2.03-3.79-.5-.23-.97-.66-.97-1.21v-2.34M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
-        ผลงานการแข่งขัน
-      </span>
-      <h2 class="section-title">รางวัลชนะเลิศอันดับ 1 การ Grooming 🏆</h2>
-      <p class="section-desc center">ผลงานจริงจากเวทีการแข่งขันที่การันตีฝีมือทีมช่างของเรา</p>
-    </div>
-
-    <div class="award-carousel">
-      <div class="award-track" id="awardTrack">
-        <div class="award-slide"><img src="images/award01.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
-        <div class="award-slide"><img src="images/award02.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
-        <div class="award-slide"><img src="images/award03.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
-        <div class="award-slide"><img src="images/award04.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
-        <div class="award-slide"><img src="images/award05.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
-        <div class="award-slide"><img src="images/award06.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
-        <div class="award-slide"><img src="images/award07.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
-        <div class="award-slide"><img src="images/award08.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
-      </div>
-      <button class="award-nav award-prev" id="awardPrev" aria-label="ก่อนหน้า">‹</button>
-      <button class="award-nav award-next" id="awardNext" aria-label="ถัดไป">›</button>
-    </div>
-    <div class="award-dots" id="awardDots"></div>
-  </div>
-</section>
-
-<style>
-  .award-carousel{position:relative;max-width:560px;margin:36px auto 0;}
-  .award-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;border-radius:20px;scrollbar-width:none;}
-  .award-track::-webkit-scrollbar{display:none;}
-  .award-slide{flex:0 0 100%;scroll-snap-align:center;}
-  .award-slide img{width:100%;height:420px;object-fit:cover;display:block;border-radius:20px;}
-  @media(max-width:560px){.award-slide img{height:340px;}}
-  .award-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
-    border:none;background:rgba(255,255,255,0.92);color:var(--orange-dark);font-size:1.6rem;line-height:1;
-    cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:center;z-index:2;}
-  .award-nav:hover{background:#fff;}
-  .award-prev{left:10px;} .award-next{right:10px;}
-  .award-dots{display:flex;justify-content:center;gap:8px;margin-top:16px;}
-  .award-dot{width:9px;height:9px;border-radius:50%;background:rgba(58,46,38,0.25);border:none;cursor:pointer;padding:0;transition:background .2s,transform .2s;}
-  .award-dot.active{background:var(--orange);transform:scale(1.3);}
-</style>
-
-<script>
-  (function(){
-    var track=document.getElementById('awardTrack');
-    if(!track) return;
-    var slides=track.querySelectorAll('.award-slide');
-    var dotsWrap=document.getElementById('awardDots');
-    var cur=0;
-    slides.forEach(function(_,i){
-      var d=document.createElement('button');
-      d.className='award-dot'+(i===0?' active':'');
-      d.setAttribute('aria-label','รูปที่ '+(i+1));
-      d.addEventListener('click',function(){ go(i); });
-      dotsWrap.appendChild(d);
-    });
-    var dots=dotsWrap.querySelectorAll('.award-dot');
-    function go(i){
-      cur=Math.max(0,Math.min(slides.length-1,i));
-      track.scrollTo({left:slides[cur].offsetLeft - track.offsetLeft, behavior:'smooth'});
-      update();
-    }
-    function update(){ dots.forEach(function(d,i){ d.classList.toggle('active',i===cur); }); }
-    document.getElementById('awardPrev').addEventListener('click',function(){ go(cur-1); });
-    document.getElementById('awardNext').addEventListener('click',function(){ go(cur+1); });
-    // sync dots เมื่อปัดด้วยนิ้ว
-    var t;
-    track.addEventListener('scroll',function(){
-      clearTimeout(t);
-      t=setTimeout(function(){
-        var idx=Math.round((track.scrollLeft)/slides[0].offsetWidth);
-        cur=Math.max(0,Math.min(slides.length-1,idx)); update();
-      },120);
-    });
-  })();
-</script>
-
-<section class="exercise section" id="exercise">
-  <div class="container">
-    <div class="exercise-grid">
-      <div class="reveal">
-        <span class="eyebrow"><svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22s4-8 10-8 10 8 10 8"/><circle cx="12" cy="6" r="4"/></svg>สนามออกกำลังกาย & กิจกรรมในน้ำ</span>
-        <h2 class="section-title">เพราะ "เล่น" ก็คือการดูแลสุขภาพ</h2>
-        <p>นอกจากที่พักสบายแล้ว น้องๆ ทุกตัวจะได้ใช้เวลาที่<strong>สนามเล่นกลางแจ้งขนาดใหญ่</strong>ของเราทุกวัน เพื่อขยับร่างกาย เสริมสร้างกล้ามเนื้อ และผ่อนคลายความเครียดจากการเดินทาง</p>
-        <p>เรายังมีกิจกรรมออกกำลังกายในรูปแบบที่เกี่ยวข้องกับน้ำ ซึ่งเหมาะกับน้องที่ต้องการขยับข้อต่อแบบไม่กระแทกหนัก โดยเฉพาะน้องที่มีปัญหาข้อสะโพกหรือข้อเข่า — เป็นแนวคิดเดียวกับที่เราเคยทำแคมเปญ "Happy Fit & Splash" เพื่อส่งเสริมการออกกำลังกายของน้องหมาน้องแมว</p>
-        <span class="no-price-tag">
-          <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          สนใจรายละเอียดและความเหมาะสมกับน้อง ทักสอบถามทีมงานได้โดยตรง
-        </span>
-      </div>
-      <div class="exercise-icons reveal">
-        <div class="ex-card">
-          <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 22s4-8 10-8 10 8 10 8"/><circle cx="12" cy="6" r="4"/></svg>
-          <h4>วิ่งเล่นกลางแจ้ง</h4>
-          <p>พื้นที่กว้าง ปลอดภัย มีคนดูแลตลอดเวลา</p>
-        </div>
-        <div class="ex-card">
-          <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>
-          <h4>กิจกรรมในน้ำ</h4>
-          <p>ขยับข้อต่อเต็มช่วงการเคลื่อนไหวแบบไม่กระแทก</p>
-        </div>
-        <div class="ex-card">
-          <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l8.42 8.42 8.42-8.42a5.4 5.4 0 0 0 0-7.65z"/></svg>
-          <h4>เสริมสร้างกล้ามเนื้อ</h4>
-          <p>ช่วยพยุงข้อต่อให้แข็งแรงในระยะยาว</p>
-        </div>
-        <div class="ex-card">
-          <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="7" width="15" height="10" rx="2"/><polygon points="22,8 17,12 22,16"/></svg>
-          <h4>มีคนดูแลตลอด</h4>
-          <p>ทีมงานเฝ้าดูแลความปลอดภัยทุกกิจกรรม</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="ex-teaser-cta reveal" style="text-align:center;margin-top:46px;padding:34px 24px;background:rgba(255,248,240,0.95);border:1px solid #F0DCC8;border-radius:var(--radius-lg);box-shadow:0 18px 40px rgba(0,0,0,0.18);">
-      <span class="ex-promo-badge">🎁 โปรเปิดตัว · 10 ท่านแรก</span>
-      <h3 style="font-size:clamp(20px,3vw,26px);color:var(--brown);margin-bottom:12px;">โซน Dog Park &amp; Paw Splash</h3>
-      <p class="ex-promo-line"><strong>ฟรีอัปเกรดโซน!</strong> จองราคา<strong>โซนสนาม (690.-)</strong> รับสิทธิ์เล่น <strong>โซนสระว่ายน้ำ (890.-)</strong> ให้น้องได้ลองของเด่น โดยไม่ต้องจ่ายเพิ่ม</p>
-      <p class="ex-teaser-sub" style="max-width:600px;margin:0 auto 22px;">ดูข้อมูลครบทั้งประโยชน์การออกกำลังในน้ำ, สระน้ำตื้นไล่ระดับ, ขั้นตอนบริการ 50 นาที, <strong>ราคาต่อครั้ง</strong> และแพ็กเกจ</p>
-      <a href="/exercise-zone.html" class="btn btn-primary" style="padding:14px 30px;">ดูรายละเอียด ราคา &amp; แพ็กเกจ →</a>
-    </div>
-  </div>
-</section>
-
 <!-- ============================================================
      Section "มาตรฐานการดูแล & ขั้นตอนเข้าพัก" — ดีไซน์ใหม่แบบ workflow timeline
      (แทน section เดิม; CSS scope ใต้ .pph-care จึงไม่ชนสไตล์เว็บอื่น)
      ============================================================ -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
-<section class="pph-care" id="safety" aria-label="มาตรฐานการดูแลและขั้นตอนการเข้าพัก">
+<section class="pph-care" id="safety" data-nav="dark" data-nav-overlap="48" aria-label="มาตรฐานการดูแลและขั้นตอนการเข้าพัก">
   <style>
     .pph-care{
       --pph-orange:#E27B2E; --pph-orange-dark:#C2632A; --pph-brown:#6E3411;
@@ -1316,6 +835,353 @@
   </script>
 </section>
 
+<!-- โปรโมชั่น -->
+<section class="fw-keep" id="promotions" aria-label="โปรโมชั่น">
+  <h2 class="fw-keep-h fw-rv"><span class="l1">ยิ่งพักนาน</span><span class="l2">ยิ่งคุ้มขึ้น<svg class="fw-underline" viewBox="0 0 400 22" preserveAspectRatio="none" aria-hidden="true"><path d="M4 15C90 4 210 21 396 8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span></h2>
+  <div class="fw-rows">
+    <div class="fw-row fw-rv">
+      <div class="fw-row-art"><span class="fw-big">-5<small>%</small></span><span class="fw-tag"><svg viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 8c14 22 34 26 54 22"/><path d="m50 22 8 8-10 4"/></svg>พัก 5–9 คืน</span></div>
+      <div><h3>พัก 5–9 คืน <b>ลด 5%</b></h3><p>ส่วนลดคิดจากค่าห้องพัก · ลองคำนวณราคาของน้องได้ด้านล่าง</p><a class="fw-link" href="#calculator">คำนวณราคา ↓</a></div>
+    </div>
+    <div class="fw-row fw-rv">
+      <div class="fw-row-art"><span class="fw-big">-10<small>%</small></span><span class="fw-tag"><svg viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 8c14 22 34 26 54 22"/><path d="m50 22 8 8-10 4"/></svg>10 คืนขึ้นไป</span></div>
+      <div><h3>พัก 10 คืนขึ้นไป <b>ลด 10%</b></h3><p>ส่วนลดคิดจากค่าห้องพัก · ทุกห้องมี CCTV และแอร์ 24 ชม. พร้อมอัปเดตรูปน้องทุกวัน</p><a class="fw-link" href="/booking.html">เช็คห้องว่าง →</a></div>
+    </div>
+    <div class="fw-row fw-rv">
+      <div class="fw-row-art"><span class="fw-big"><small>฿</small>100</span><span class="fw-tag"><svg viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 8c14 22 34 26 54 22"/><path d="m50 22 8 8-10 4"/></svg>คูปอง Grooming</span></div>
+      <div><h3>สมัครสมาชิก Grooming <b>รับคูปอง 100 บาท</b></h3><p>สอบถามการสมัครสมาชิกได้ที่ร้าน หรือทาง LINE @perfectbkk</p><a class="fw-link" href="https://line.me/R/ti/p/@perfectbkk" target="_blank" rel="noopener">ทัก LINE →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- เครื่องคำนวณราคา -->
+<section class="section" id="calculator">
+  <div class="container">
+    <div class="center" style="max-width:560px;">
+      <span class="eyebrow">
+        <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10"/><line x1="12" y1="10" x2="12" y2="10"/><line x1="16" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="8" y2="14"/><line x1="12" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+        คำนวณราคา
+      </span>
+      <h2 class="section-title">ประเมินค่าใช้จ่ายก่อนเข้าพัก</h2>
+      <p class="section-desc center">เลือกประเภทน้อง ห้องพัก และจำนวนคืน เพื่อดูราคาโดยประมาณ</p>
+    </div>
+
+    <div class="calc-wrap">
+      <div class="calc-form">
+        <div>
+          <label class="bk-label">ประเภทน้อง</label>
+          <select class="bk-input" id="calcPet">
+            <option value="dog">สุนัข</option>
+            <option value="cat">แมว</option>
+          </select>
+        </div>
+        <div>
+          <label class="bk-label">ห้องพัก</label>
+          <select class="bk-input" id="calcRoom">
+            <option value="cozy">Cozy Room</option>
+            <option value="deluxe">Deluxe Room</option>
+            <option value="vip">VIP Villa Room</option>
+          </select>
+        </div>
+        <div>
+          <label class="bk-label">จำนวนคืน</label>
+          <input class="bk-input" id="calcNights" type="number" min="1" value="1" inputmode="numeric">
+        </div>
+      </div>
+
+      <div class="calc-result" id="calcResult">
+        <div class="calc-row"><span>ค่าห้อง/คืน</span><span id="calcRate">—</span></div>
+        <div class="calc-row"><span>จำนวนคืน</span><span id="calcN">—</span></div>
+        <div class="calc-row"><span>ราคารวม</span><span id="calcSub">—</span></div>
+        <div class="calc-row calc-discount" id="calcDiscRow" style="display:none;"><span id="calcDiscLbl">ส่วนลดพักยาว</span><span id="calcDisc">—</span></div>
+        <div class="calc-row calc-total"><span>ราคาสุทธิ (ประมาณ)</span><span id="calcTotal">—</span></div>
+        <div class="calc-row calc-deposit"><span>มัดจำ 50% เพื่อยืนยันการจอง</span><span id="calcDeposit">—</span></div>
+        <p class="calc-note">* ราคาประเมินเบื้องต้น ไม่รวมบริการเสริม ราคาจริงยืนยันโดยทางร้านอีกครั้ง</p>
+        <a href="/booking.html" id="calcBook" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;">จองออนไลน์ เช็คห้องว่าง</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .promo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:24px;max-width:960px;margin-left:auto;margin-right:auto;}
+  @media(max-width:640px){.promo-grid{grid-template-columns:1fr;}}
+  .promo-card{position:relative;background:#fff;border-radius:20px;padding:28px 24px;box-shadow:0 8px 24px rgba(58,46,38,0.10);border:2px dashed var(--orange);text-align:center;transition:transform .25s ease,box-shadow .25s ease;}
+  .promo-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(58,46,38,0.18);}
+  .promo-icon{margin-bottom:14px;}
+  .promo-icon svg{width:40px;height:40px;color:var(--orange-dark);}
+  .promo-card h3{font-family:'Inter','Noto Sans Thai',sans-serif;color:var(--orange-dark);font-size:1.25rem;margin-bottom:8px;}
+  .promo-card p{color:var(--brown-soft);font-size:0.95rem;}
+  .promo-card strong{color:var(--orange-dark);}
+  .promo-card a{color:var(--orange-dark);font-weight:600;text-decoration:none;}
+  .promo-card--soon{border-color:var(--green);border-style:solid;}
+  .soon-badge{position:absolute;top:14px;right:14px;background:var(--green);color:#fff;font-size:0.7rem;font-weight:600;padding:3px 11px;border-radius:99px;font-family:'Inter','Noto Sans Thai',sans-serif;}
+  /* Featured referral banner */
+  .promo-hero{position:relative;max-width:960px;margin:40px auto 4px;border-radius:28px;padding:40px 36px;color:#fff;background:linear-gradient(135deg,#E07B39,#B85C1E);box-shadow:0 22px 50px rgba(184,92,30,0.30);overflow:hidden;}
+  .promo-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 12%,rgba(255,255,255,0.24),transparent 46%);pointer-events:none;}
+  .promo-ribbon{position:absolute;top:18px;left:18px;z-index:2;background:#fff;color:var(--orange-dark);font-family:'Inter','Noto Sans Thai',sans-serif;font-size:0.76rem;font-weight:600;padding:6px 14px;border-radius:99px;letter-spacing:0.5px;box-shadow:0 4px 12px rgba(0,0,0,0.12);}
+  .promo-hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr 1fr;gap:30px;align-items:center;margin-top:18px;}
+  .promo-hero-left h3{font-family:'Inter','Noto Sans Thai',sans-serif;font-size:2.05rem;line-height:1.2;margin-bottom:12px;color:#fff;}
+  .promo-hero-left h3 span{color:#FFE3B0;}
+  .promo-hero-left p{opacity:0.96;font-size:0.98rem;margin-bottom:20px;}
+  .promo-hero-btn{background:#fff;color:var(--orange-dark);font-weight:600;padding:12px 22px;box-shadow:0 8px 20px rgba(0,0,0,0.14);}
+  .promo-hero-btn:hover{transform:translateY(-2px);}
+  .promo-hero-cards{display:flex;align-items:center;gap:12px;justify-content:center;}
+  .ph-mini{background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.32);border-radius:18px;padding:20px 14px;text-align:center;flex:1;}
+  .ph-mini .ph-tag{display:inline-block;background:#fff;color:var(--orange-dark);font-size:0.7rem;font-weight:600;padding:3px 10px;border-radius:99px;margin-bottom:10px;font-family:'Inter','Noto Sans Thai',sans-serif;}
+  .ph-mini b{display:block;font-size:1.02rem;line-height:1.3;margin-bottom:4px;}
+  .ph-mini small{opacity:0.92;font-size:0.82rem;}
+  .ph-plus{font-size:1.7rem;font-weight:700;opacity:0.95;}
+  @media(max-width:640px){.promo-hero{padding:30px 22px;}.promo-hero-inner{grid-template-columns:1fr;gap:22px;}.promo-hero-left h3{font-size:1.65rem;}}
+  .calc-wrap{max-width:760px;margin:36px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
+  @media(max-width:720px){.calc-wrap{grid-template-columns:1fr;}}
+  .calc-form{display:flex;flex-direction:column;gap:16px;background:#fff;padding:24px;border-radius:18px;box-shadow:0 8px 24px rgba(58,46,38,0.08);}
+  .calc-result{background:var(--brown);color:#fff;padding:24px;border-radius:18px;box-shadow:0 8px 24px rgba(58,46,38,0.18);}
+  .calc-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.12);font-size:0.95rem;}
+  .calc-row span:last-child{font-weight:600;text-align:right;}
+  .calc-discount span:last-child{color:#FFD9A8;}
+  .calc-free span:last-child{color:#9BE6B4;font-weight:600;}
+  .calc-total{font-size:1.15rem;border-bottom:none;padding-top:14px;}
+  .calc-total span:last-child{color:#FFD9A8;font-size:1.35rem;}
+  .calc-deposit{border-bottom:none;color:#FCEADB;font-size:0.9rem;padding-top:0;}
+  .calc-note{font-size:0.75rem;color:rgba(255,255,255,0.6);margin:10px 0 14px;line-height:1.5;}
+</style>
+
+<script>
+  (function(){
+    var PRICES = { dog:{cozy:790,deluxe:990,vip:1890}, cat:{cozy:690,deluxe:990,vip:1890} };
+    var pet=document.getElementById('calcPet'), room=document.getElementById('calcRoom'),
+        nights=document.getElementById('calcNights');
+    if(!pet) return;
+    var fmt=function(n){ return '฿'+n.toLocaleString('th-TH'); };
+    function calc(){
+      var n=Math.max(1, parseInt(nights.value,10)||1);
+      var rate=PRICES[pet.value][room.value];
+      var sub=rate*n;
+      // ส่วนลดพักยาว (ลดเฉพาะค่าห้อง): 5–9 คืน 5% · 10 คืนขึ้นไป 10%
+      var pct = n>=10 ? 10 : n>=5 ? 5 : 0;
+      var disc=Math.round(sub*pct/100);
+      var total=sub-disc;
+      document.getElementById('calcRate').textContent=fmt(rate);
+      document.getElementById('calcN').textContent=n+' คืน';
+      document.getElementById('calcSub').textContent=fmt(sub);
+      var dr=document.getElementById('calcDiscRow');
+      if(disc>0){ document.getElementById('calcDiscLbl').textContent='ส่วนลดพักยาว '+pct+'%'; dr.style.display='flex'; document.getElementById('calcDisc').textContent='-'+fmt(disc); } else { dr.style.display='none'; }
+      document.getElementById('calcTotal').textContent=fmt(total);
+      document.getElementById('calcDeposit').textContent=fmt(Math.round(total*0.5));
+      var cb=document.getElementById('calcBook'); if(cb) cb.href='/booking.html?pet='+pet.value+'&room='+room.value;
+    }
+    [pet,room,nights].forEach(function(el){ el.addEventListener('input',calc); el.addEventListener('change',calc); });
+    calc();
+  })();
+</script>
+
+<section class="fw-plat" id="services" data-nav="dark" aria-label="บริการทั้งหมด">
+ <div class="fw-wrap">
+  <h2 class="fw-h2 fw-rv">ครบในที่เดียว</h2>
+  <p class="fw-sub fw-rv">ห้องพัก อาบน้ำตัดขน สนามออกกำลังกาย และ Day Care — ดูแลโดยทีมเดียวกัน</p>
+
+  <div class="fw-zz">
+    <div class="fw-zz-text fw-rv">
+      <p class="fw-zz-k">อาบน้ำตัดขน · GROOMING</p>
+      <h3>สะอาด หอม ฟู<br><span class="fw-grad">ด้วยมือช่างระดับรางวัล</span></h3>
+      <p>ราคาแบ่งตามน้ำหนักและประเภทขน เห็นรอบว่างและราคาตามไซส์ทันทีในหน้าจอง</p>
+      <ul><li>ทีมช่างเคยได้รางวัลชนะเลิศการประกวด Grooming</li><li>สุนัขเริ่ม ฿350 · แมวเริ่ม ฿450 (ไซส์ XS ขนสั้น)</li><li>ฟรีทุกครั้ง: ตัดเล็บ + เช็ดหู · ไม่ต้องโอนมัดจำ</li></ul>
+      <a class="fw-btn fw-btn-orange" href="/groom.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>จองคิวอาบน้ำตัดขน</a>
+    </div>
+    <div class="fw-panel fw-rv">
+      <div class="fw-panel-grid">
+        <video class="fw-tall" data-fw src="images/pph/vid-grooming-table.mp4" poster="images/pph/vid-grooming-table.jpg" muted loop playsinline preload="metadata"></video>
+        <video class="fw-tall" data-fw src="images/pph/vid-bath.mp4" poster="images/pph/vid-bath.jpg" muted loop playsinline preload="metadata"></video>
+      </div>
+      <div class="fw-mini" style="right:16px;bottom:16px;"><span>สุนัขไซส์ XS ขนสั้น</span><b>เริ่ม ฿350</b><span>ดูตารางราคาเต็มด้านล่าง</span></div>
+    </div>
+  </div>
+  <div class="fw-pricecard fw-rv">
+<section class="section" id="grooming" style="background:#fff;">
+  <div class="container">
+    <div class="center" style="max-width:560px;">
+      <span class="eyebrow">
+        <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9a6 6 0 1 0 12 0 6 6 0 0 0-12 0z"/><path d="M12 15v6"/><path d="M9 21h6"/></svg>
+        อาบน้ำตัดขน
+      </span>
+      <h2 class="section-title">Grooming ดูแลขนน้องให้สะอาด หอม ฟู</h2>
+      <p class="section-desc center">ราคาแบ่งตามน้ำหนัก/ขนาด เลือกแท็บสุนัขหรือแมวด้านล่าง</p>
+    </div>
+
+    <div class="tabs center" style="justify-content:center;display:flex;">
+      <button class="tab-btn active" data-tab="dog">สุนัข</button>
+      <button class="tab-btn" data-tab="cat">แมว</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-dog">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ขนาด</th><th>ขนสั้น</th><th>ขนยาว</th><th>ขนยาวพิเศษ</th><th>ตัดขน(เพิ่ม)</th></tr></thead>
+          <tbody>
+            <tr><td>XS (&lt;2kg)</td><td>350</td><td>400</td><td>450</td><td>+400</td></tr>
+            <tr><td>S (2-5kg)</td><td>400</td><td>500</td><td>600</td><td>+500</td></tr>
+            <tr><td>M (5-10kg)</td><td>500</td><td>700</td><td>900</td><td>+600</td></tr>
+            <tr><td>L (10-15kg)</td><td>700</td><td>900</td><td>1,000</td><td>+700</td></tr>
+            <tr><td>XL (15-20kg)</td><td>900</td><td>1,100</td><td>1,400</td><td>+900</td></tr>
+            <tr><td>2XL (20-30kg)</td><td>1,200</td><td>1,450</td><td>1,600</td><td>+1,200</td></tr>
+            <tr><td>3XL (30-40kg)</td><td>1,650</td><td>1,850</td><td>1,900</td><td>+1,600</td></tr>
+            <tr><td>4XL (40-50kg)</td><td>2,150</td><td>2,200</td><td>2,400</td><td>+2,200</td></tr>
+            <tr><td>5XL (&gt;50kg)</td><td>2,850</td><td>3,100</td><td>3,300</td><td>+2,800</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="free-note">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        ฟรีทุกครั้ง: ตัดเล็บ + เช็ดหู + ไถเท้า + ไถท้อง + ไถก้น
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-cat">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ขนาด</th><th>ขนสั้น</th><th>ขนยาว</th><th>ตัดขน(เพิ่ม)</th></tr></thead>
+          <tbody>
+            <tr><td>XS (&lt;2kg)</td><td>450</td><td>550</td><td>+450</td></tr>
+            <tr><td>S (2-3kg)</td><td>550</td><td>650</td><td>+550</td></tr>
+            <tr><td>M (3-5kg)</td><td>750</td><td>850</td><td>+750</td></tr>
+            <tr><td>L (5-7kg)</td><td>950</td><td>1,100</td><td>+950</td></tr>
+            <tr><td>XL (7-9kg)</td><td>1,250</td><td>1,400</td><td>+1,250</td></tr>
+            <tr><td>2XL (9-11kg)</td><td>1,400</td><td>1,600</td><td>+1,400</td></tr>
+            <tr><td>3XL (11-13kg)</td><td>1,750</td><td>1,850</td><td>+1,750</td></tr>
+            <tr><td>4XL (13-15kg)</td><td>2,100</td><td>2,250</td><td>+2,100</td></tr>
+            <tr><td>5XL (&gt;15kg)</td><td>2,650</td><td>2,800</td><td>+2,650</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="free-note">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        ฟรีทุกครั้ง: ตัดเล็บ + เช็ดหู
+      </div>
+    </div>
+
+    <p class="addon-note">มีบริการเสริม เช่น สปาโอโซน, ตัดแต่งหัว-เท้า-ก้น, แชมพูพิเศษ และอื่นๆ — สอบถามราคาตามขนาดน้องได้ทาง <a href="https://line.me/R/ti/p/@perfectbkk">LINE @perfectbkk</a></p>
+    <div style="text-align:center;margin-top:28px;"><a href="/groom.html" class="btn btn-primary" style="padding:14px 28px;">จองคิวอาบน้ำตัดขนออนไลน์ →</a><p style="margin:8px 0 0;font-size:0.85rem;color:var(--brown-soft);">เห็นรอบว่างและราคาตามไซส์ทันที · ไม่ต้องโอนมัดจำ</p></div>
+  </div>
+</section>
+  </div>
+
+
+<div class="fw-zz is-rev" id="awards">
+    <div class="fw-zz-text fw-rv">
+      <p class="fw-zz-k">ผลงานการแข่งขัน</p>
+      <h3>รางวัล<br><span class="fw-grad">ชนะเลิศอันดับ 1</span></h3>
+      <p>ผลงานจริงจากเวทีการแข่งขันที่การันตีฝีมือทีมช่างของเรา</p>
+    </div>
+    <div class="fw-rv"><div class="award-carousel">
+      <div class="award-track" id="awardTrack">
+        <div class="award-slide"><img src="images/award01.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
+        <div class="award-slide"><img src="images/award02.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
+        <div class="award-slide"><img src="images/award03.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
+        <div class="award-slide"><img src="images/award04.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
+        <div class="award-slide"><img src="images/award05.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
+        <div class="award-slide"><img src="images/award06.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
+        <div class="award-slide"><img src="images/award07.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
+        <div class="award-slide"><img src="images/award08.jpg" alt="ผลงานการแข่งขัน Grooming ชนะเลิศ" loading="lazy" decoding="async"></div>
+      </div>
+      <button class="award-nav award-prev" id="awardPrev" aria-label="ก่อนหน้า">‹</button>
+      <button class="award-nav award-next" id="awardNext" aria-label="ถัดไป">›</button>
+    </div>
+    <div class="award-dots" id="awardDots"></div></div>
+  </div>
+
+<style>
+  .award-carousel{position:relative;max-width:560px;margin:36px auto 0;}
+  .award-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;border-radius:20px;scrollbar-width:none;}
+  .award-track::-webkit-scrollbar{display:none;}
+  .award-slide{flex:0 0 100%;scroll-snap-align:center;}
+  .award-slide img{width:100%;height:420px;object-fit:cover;display:block;border-radius:20px;}
+  @media(max-width:560px){.award-slide img{height:340px;}}
+  .award-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
+    border:none;background:rgba(255,255,255,0.92);color:var(--orange-dark);font-size:1.6rem;line-height:1;
+    cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:center;z-index:2;}
+  .award-nav:hover{background:#fff;}
+  .award-prev{left:10px;} .award-next{right:10px;}
+  .award-dots{display:flex;justify-content:center;gap:8px;margin-top:16px;}
+  .award-dot{width:9px;height:9px;border-radius:50%;background:rgba(58,46,38,0.25);border:none;cursor:pointer;padding:0;transition:background .2s,transform .2s;}
+  .award-dot.active{background:var(--orange);transform:scale(1.3);}
+</style>
+
+<script>
+  (function(){
+    var track=document.getElementById('awardTrack');
+    if(!track) return;
+    var slides=track.querySelectorAll('.award-slide');
+    var dotsWrap=document.getElementById('awardDots');
+    var cur=0;
+    slides.forEach(function(_,i){
+      var d=document.createElement('button');
+      d.className='award-dot'+(i===0?' active':'');
+      d.setAttribute('aria-label','รูปที่ '+(i+1));
+      d.addEventListener('click',function(){ go(i); });
+      dotsWrap.appendChild(d);
+    });
+    var dots=dotsWrap.querySelectorAll('.award-dot');
+    function go(i){
+      cur=Math.max(0,Math.min(slides.length-1,i));
+      track.scrollTo({left:slides[cur].offsetLeft - track.offsetLeft, behavior:'smooth'});
+      update();
+    }
+    function update(){ dots.forEach(function(d,i){ d.classList.toggle('active',i===cur); }); }
+    document.getElementById('awardPrev').addEventListener('click',function(){ go(cur-1); });
+    document.getElementById('awardNext').addEventListener('click',function(){ go(cur+1); });
+    // sync dots เมื่อปัดด้วยนิ้ว
+    var t;
+    track.addEventListener('scroll',function(){
+      clearTimeout(t);
+      t=setTimeout(function(){
+        var idx=Math.round((track.scrollLeft)/slides[0].offsetWidth);
+        cur=Math.max(0,Math.min(slides.length-1,idx)); update();
+      },120);
+    });
+  })();
+</script>
+
+<div class="fw-zz" id="exercise">
+    <div class="fw-zz-text fw-rv">
+      <p class="fw-zz-k">DOG PARK &amp; PAW SPLASH</p>
+      <h3>เพราะ “เล่น”<br><span class="fw-grad">ก็คือการดูแลสุขภาพ</span></h3>
+      <p>สนามกลางแจ้งมีรั้ว + สระตื้นไล่ระดับ ลึก 25–45 ซม. ออกกำลังแบบควบคุม ช่วยเสริมกล้ามเนื้อรอบข้อต่อ</p>
+      <ul><li>Dog Park ฿690 · Paw Splash ฿890 ต่อครั้ง (ราคาเดียวทุกไซส์)</li><li>รอบละ 50 นาที · วันละ 4 รอบ · รอบละ 3 ครอบครัว</li><li>ใส่เสื้อชูชีพทุกตัว · พนักงาน 1:3 ดูแลในน้ำตลอด</li></ul>
+      <a class="fw-btn fw-btn-orange" href="/exercise-zone.html#price"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>ดูรายละเอียด &amp; จองรอบ</a>
+    </div>
+    <div class="fw-panel fw-rv">
+      <div class="fw-panel-grid">
+        <video class="fw-tall" data-fw src="images/pph/vid-park-play.mp4" poster="images/pph/vid-park-play.jpg" muted loop playsinline preload="metadata"></video>
+        <div style="display:grid;gap:12px;grid-template-rows:1fr 1fr;">
+          <img class="fw-ph" src="images/pph/park-1.jpg" alt="สนาม Dog Park" loading="lazy">
+          <img class="fw-ph" src="images/pawsplash.jpg" alt="สระ Paw Splash" loading="lazy">
+        </div>
+      </div>
+      <div class="fw-mini" style="left:16px;bottom:16px;"><span>รอบเล่นวันนี้</span><div class="fw-chips" style="margin-top:6px;"><span class="fw-chip">15:00</span><span class="fw-chip">16:00</span><span class="fw-chip">18:00</span><span class="fw-chip">19:00</span></div></div>
+    </div>
+  </div>
+
+  <div class="fw-zz is-rev" id="daily-care">
+    <div class="fw-zz-text fw-rv">
+      <p class="fw-zz-k">ตารางดูแลประจำวัน</p>
+      <h3>ทุกวันของน้อง<br><span class="fw-grad">รายงานถึงคุณ</span></h3>
+      <p>ทุกขั้นตอนถูกออกแบบมาให้น้องรู้สึกเหมือนอยู่บ้าน พร้อมรายงานให้เจ้าของรับทราบทุกวัน</p>
+    </div>
+    <div class="fw-panel fw-rv"><div class="fw-tl">
+      <div class="tl-card"><span class="tl-time">07:00</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg><p>อาหารเช้า + ทำความสะอาดห้อง</p></div>
+      <div class="tl-card"><span class="tl-time">09:00</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22s4-8 10-8 10 8 10 8"/><circle cx="12" cy="6" r="4"/></svg><p>เวลาออกกำลังกาย / เล่นที่สนามกลางแจ้ง</p></div>
+      <div class="tl-card"><span class="tl-time">12:00</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><p>อาหารกลางวัน + ตรวจสุขภาพ</p></div>
+      <div class="tl-card"><span class="tl-time">15:00</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10l7 4"/></svg><p>พักผ่อน / ขนมเบาๆ</p></div>
+      <div class="tl-card"><span class="tl-time">17:00</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><p>อาหารเย็น + ส่งรายงานให้เจ้าของ</p></div>
+      <div class="tl-card"><span class="tl-time">21:00</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><p>ตรวจห้องก่อนนอน + ปิดไฟ</p></div>
+    </div></div>
+  </div>
+ </div>
+</section>
+
+
+
 <style>
   /* แถบเลื่อนแนวนอน — บรรยากาศในร้าน & ภาพรีวิวจากเพจ */
   #gallery .gallery-grid,
@@ -1364,18 +1230,13 @@
   }
 </style>
 
-<section class="section" id="gallery" style="background:var(--orange-light);">
-  <div class="container">
-    <div class="center" style="max-width:560px;">
-      <span class="eyebrow">
-        <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        บรรยากาศจริงในร้าน
-      </span>
-      <h2 class="section-title">บรรยากาศจริงในร้าน</h2>
-    </div>
-    <p class="slider-hint">👉 เลื่อนซ้าย-ขวาเพื่อดูรูปทั้งหมด</p>
-    <div class="gallery-grid">
-      <img src="images/img07.jpg" alt="ทางเดินห้องพักสุนัข" loading="lazy" decoding="async">
+<section class="section" id="gallery">
+  <div class="container"><div class="center fw-rv" style="max-width:560px;">
+    <span class="fw-kicker">บรรยากาศจริงในร้าน</span>
+    <h2 class="fw-h2" style="margin-top:16px;">มาดูบ้านหลังที่สองของน้อง</h2>
+  </div></div>
+  <div class="fw-marquee"><div class="fw-mq-track" style="--dur:80s"><img src="images/pph/storefront-2.jpg" alt="หน้าร้าน Perfect Pet House" loading="lazy" decoding="async"><img src="images/pph/reception.jpg" alt="เคาน์เตอร์ต้อนรับ" loading="lazy" decoding="async"><img src="images/pph/hall-1.jpg" alt="โถงหน้าห้องพัก" loading="lazy" decoding="async"><img src="images/pph/corridor-dog.jpg" alt="ทางเดินโซนห้องพักสุนัข" loading="lazy" decoding="async"><img src="images/pph/park-2.jpg" alt="สนามกลางแจ้ง" loading="lazy" decoding="async"><img src="images/pph/cat-playroom.jpg" alt="ห้องเล่นแมว" loading="lazy" decoding="async"><img src="images/pph/grooming-room-2.jpg" alt="ห้อง Grooming" loading="lazy" decoding="async"><img src="images/pph/park-4.jpg" alt="ลู่วิ่งในสนาม" loading="lazy" decoding="async"><img src="images/pph/corridor-cat.jpg" alt="โซนห้องพักแมว" loading="lazy" decoding="async"><img src="images/pph/hall-3.jpg" alt="โถงหน้าห้องพัก" loading="lazy" decoding="async"></div></div>
+  <div class="fw-marquee is-rev"><div class="fw-mq-track" style="--dur:95s"><img src="images/img07.jpg" alt="ทางเดินห้องพักสุนัข" loading="lazy" decoding="async">
       <img src="images/img08.jpg" alt="โซนห้องพักแมว" loading="lazy" decoding="async">
       <img src="images/img09.jpg" alt="ห้องพักรายตัว" loading="lazy" decoding="async">
       <img src="images/img10.jpg" alt="หน้าร้าน Perfect Pet House" loading="lazy" decoding="async">
@@ -1396,9 +1257,7 @@
       <img src="images/img25.jpg" alt="บรรยากาศภายในร้าน Perfect Pet House" loading="lazy" decoding="async">
       <img src="images/img26.jpg" alt="บรรยากาศภายในร้าน Perfect Pet House" loading="lazy" decoding="async">
       <img src="images/img27.jpg" alt="บรรยากาศภายในร้าน Perfect Pet House" loading="lazy" decoding="async">
-      <img src="images/img28.jpg" alt="บรรยากาศภายในร้าน Perfect Pet House" loading="lazy" decoding="async">
-    </div>
-  </div>
+      <img src="images/img28.jpg" alt="บรรยากาศภายในร้าน Perfect Pet House" loading="lazy" decoding="async"></div></div>
 </section>
 
 <section class="section" id="reviews" style="background:#fff;">
@@ -1495,8 +1354,9 @@
         <svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
         จองออนไลน์
       </span>
-      <h2 class="section-title">จองคิวออนไลน์</h2>
+      <h2 class="section-title">พร้อมฝากน้องกับเราแล้วหรือยัง?</h2>
       <p class="section-desc center">เลือกบริการที่ต้องการ เห็นห้อง/รอบว่างและราคาทันที</p>
+      <div class="fw-pill" data-members-wrap><span class="fw-avs" aria-hidden="true"><img src="images/pph/vid-groomed-pom.jpg" alt=""><img src="images/pph/vid-park-pom.jpg" alt=""><img src="images/pph/vid-park-play.jpg" alt=""></span><span class="fw-pill-t">สมาชิก <b data-members>—</b> คนไว้ใจเรา</span></div>
     </div>
 
     <div class="bk-choices">
@@ -2008,5 +1868,7 @@
 <script>
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
 </script>
+<script src="showcase.js?v=0b2cfeeb"></script>
+<script src="fw.js?v=1925ebcb"></script>
 </body>
 </html>
