@@ -35,7 +35,7 @@
 .fw-app .fw-apile .fw-pc-t{font-size:11px;}
 
 /* ---------- ปุ่มลัด 4 อัน ---------- */
-.fw-app .quick{padding:0 16px;margin-top:-18px;position:relative;z-index:3;}
+.fw-app .quick{padding:0 16px;margin-top:8px;position:relative;z-index:3;}
 .fw-app .quick button{background:#fff;border:1px solid var(--fw-line);box-shadow:0 8px 20px rgba(42,31,24,.08);border-radius:18px;}
 .fw-app .quick .qi{background:var(--fw-orange-light);color:var(--fw-orange-dark);}
 .fw-app a.promo{background:var(--fw-dark)!important;box-shadow:none!important;border-radius:22px;margin:16px 16px 0;}
@@ -82,3 +82,10 @@
 .fw-app .botnav{left:10px;right:10px;bottom:10px;width:auto;border-radius:26px;border:1px solid var(--fw-line);
   box-shadow:0 14px 34px rgba(42,31,24,.14);background:rgba(255,255,255,.9);}
 @media(min-width:480px){ .fw-app .botnav{bottom:34px;border-radius:26px;} }
+
+/* ---------- แก้หลังตรวจ (impeccable audit 29 ต.ค.) ---------- */
+/* .pt-item เดิมสีน้ำตาล #3A2E26 → จมพื้นเข้มของแถบใหม่ */
+.fw-app .promo-ticker .pt-item{color:#FFE3C8;}
+.fw-app .promo-ticker .pt-item::after{color:#FFB98A;}
+/* ตัวหนังสือเล็กสุด 11px (เดิม 10.5px) */
+.fw-app .navbtn span,.fw-app .trust .t span,.fw-app .rev .who span{font-size:11px;}

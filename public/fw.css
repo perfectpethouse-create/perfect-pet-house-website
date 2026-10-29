@@ -6,7 +6,7 @@
 .fw{
   --fw-ink:#2A1F18;
   --fw-ink-soft:#6B5B50;
-  --fw-muted:#9A8B7F;
+  --fw-muted:#7A6B5F;  /* ≥4.5:1 บนขาว/ครีม */
   --fw-paper:#FFFFFF;
   --fw-cream:#FFF8F0;
   --fw-warm:#F4EEE7;
@@ -30,7 +30,7 @@
 .fw section.section[style*="#fff"],.fw section.section[style*="orange-light"]{background:transparent!important;}
 .fw .fw-hand{font-family:var(--fw-hand);font-weight:500;}
 .fw .fw-wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
-.fw .fw-kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--fw-orange-dark);
+.fw .fw-kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.04em;color:#9A4B15;
   background:var(--fw-orange-light);padding:6px 14px;border-radius:999px;}
 .fw .fw-h2{font-size:clamp(32px,4.6vw,58px);line-height:1.15;font-weight:700;letter-spacing:-.015em;color:var(--fw-ink);}
 .fw .fw-sub{font-size:clamp(15px,1.4vw,18px);line-height:1.7;color:var(--fw-ink-soft);}
@@ -42,7 +42,7 @@
 .fw .fw-btn svg{width:18px;height:18px;}
 .fw .fw-btn:hover{transform:translateY(-2px);}
 .fw .fw-btn-dark{background:var(--fw-ink);color:#fff;box-shadow:0 10px 24px rgba(42,31,24,.22);}
-.fw .fw-btn-orange{background:linear-gradient(135deg,#E07B39,#B85C1E);color:#fff;box-shadow:0 10px 24px rgba(184,92,30,.28);}
+.fw .fw-btn-orange{background:linear-gradient(135deg,#B85C1E,#A85216);color:#fff;box-shadow:0 10px 24px rgba(184,92,30,.28);}
 .fw .fw-btn-ghost{background:rgba(255,255,255,.7);color:var(--fw-ink);border:1px solid var(--fw-line);}
 .fw .fw-btn-light{background:#fff;color:var(--fw-ink);}
 
@@ -124,7 +124,7 @@
 .fw .fw-pc-av img{width:18px;height:auto;}
 .fw .fw-pc-t,.fw .fw-pc-s{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .fw .fw-pc-t{font-size:12.5px;font-weight:600;line-height:1.3;color:var(--fw-ink);}
-.fw .fw-pc-s{font-size:10.5px;color:var(--fw-muted);line-height:1.3;}
+.fw .fw-pc-s{font-size:11.5px;color:var(--fw-muted);line-height:1.3;}
 
 /* =====================================================================
    2) STAGE ขาว — "คนที่เข้าใจ" + Room Showcase (หดมุมมนก่อนเข้าส่วนเข้ม)
@@ -341,3 +341,13 @@
 .fw .fw-pricecard #grooming > .container > .center{display:none;}
 .fw .fw-pricecard #grooming{background:transparent!important;padding:0!important;}
 .fw .fw-plat .fw-pricecard{margin:-20px 0 30px;}
+
+/* ---------- แก้หลังตรวจ (impeccable audit 29 ต.ค.) ---------- */
+/* .fw .section ทำพื้นโปร่ง → ส่วนติดต่อเดิมพื้นน้ำตาลหาย ตัวขาวจมพื้นครีม: คืนพื้นเดิม */
+.fw .contact.section{background:var(--brown,#3A2E26);}
+/* หัวข้อ #safety อยู่บนพื้นเข้ม (การ์ดขาวคลุมแค่ขั้นตอน) */
+.fw .pph-care .pph-h2{color:#fff;}
+.fw .pph-care .pph-sub{color:#FFB98A;}
+.fw .eyebrow{color:#9A4B15;}
+.fw .fw-mini .fw-chip{color:var(--fw-ink);font-size:13px;}
+.fw .fw-plat .fw-btn-orange{box-shadow:none;}
