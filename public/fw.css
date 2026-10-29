@@ -24,6 +24,8 @@
   color:var(--fw-ink);
 }
 .fw .bg-shader{display:none;}
+/* [hidden] ต้องชนะ display ของคลาส (เช่นกล่องตัวเลขที่ fw.js ซ่อนเมื่อยังไม่มียอดสมาชิก) */
+.fw [hidden]{display:none!important;}
 .fw .section{background:transparent;backdrop-filter:none;}
 .fw section.section[style*="#fff"],.fw section.section[style*="orange-light"]{background:transparent!important;}
 .fw .fw-hand{font-family:var(--fw-hand);font-weight:500;}
