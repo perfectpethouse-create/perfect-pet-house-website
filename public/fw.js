@@ -1,7 +1,7 @@
 /* =====================================================================
    fw.js — การเคลื่อนไหวของดีไซน์สไตล์ fastwork (ใช้คู่กับ fw.css)
    ทุกส่วนทำงานเฉพาะเมื่อมี element นั้นในหน้า → ใช้ไฟล์เดียวได้ทั้ง index.html และ app.html
-   - ไม่แตะ location.hash · ไม่ส่งข้อมูลออก (มีแค่ GET อ่านยอดสมาชิกจาก publicInfo/stats)
+   - ไม่แตะ location.hash · ไม่ส่งข้อมูลออก (มีแค่ GET อ่านยอดสมาชิกจาก publicAvailability/stats)
    - ฟัง scroll ตรงๆ (เบราว์เซอร์ยิงไม่เกินเฟรมละครั้งอยู่แล้ว; rAF หยุดตอนแท็บถูกซ่อน)
    ===================================================================== */
 (function(){
@@ -20,9 +20,7 @@
   // แอป pph-booking เขียน publicAvailability/stats { memberCount } ทันทีที่ยอดเปลี่ยน — อ่านได้สาธารณะ ไม่มีชื่อ/เบอร์ลูกค้า
   var STATS_DOC='https://firestore.googleapis.com/v1/projects/pph-booking/databases/(default)/documents/',STATS_KEY='/stats?key=AIzaSyCi7sSXV0Sz85XqWI0hVTGw-BbNd8Cxox0';
   function readCount(){
-    // shortcut: อ่าน publicInfo/stats (ที่เก็บเดิม) ถ้าที่ใหม่ยังไม่มี, ลบได้เมื่อ publicAvailability/stats ถูกเขียนแล้ว
-    return fetch(STATS_DOC+'publicAvailability'+STATS_KEY).then(function(r){return r.ok?r:fetch(STATS_DOC+'publicInfo'+STATS_KEY);})
-      .then(function(r){return r.ok?r.json():null;}).then(function(j){
+    return fetch(STATS_DOC+'publicAvailability'+STATS_KEY).then(function(r){return r.ok?r.json():null;}).then(function(j){
         var f=j&&j.fields&&j.fields.memberCount; return f?Math.round(Number(f.integerValue||f.doubleValue))||0:0;
       });
   }
