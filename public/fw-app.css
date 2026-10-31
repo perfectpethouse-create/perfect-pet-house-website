@@ -16,7 +16,7 @@
 /* ---------- หน้าแรก: hero ---------- */
 .fw-app .fw-ahero{padding:26px 18px 0;text-align:center;overflow:hidden;}
 .fw-app .fw-ahero .fw-hero-loc{font-size:12.5px;margin-bottom:10px;}
-.fw-app .fw-ahero h1{font-size:clamp(30px,9vw,38px);line-height:1.16;font-weight:700;letter-spacing:-.015em;color:var(--fw-ink);margin:0 0 10px;}
+.fw-app .fw-ahero h1{white-space:nowrap;font-size:clamp(30px,9vw,38px);line-height:1.16;font-weight:700;letter-spacing:-.015em;color:var(--fw-ink);margin:0 0 10px;}
 .fw-app .fw-ahero .fw-hero-sub{font-size:14px;margin-bottom:18px;}
 .fw-app .fw-odo{margin-bottom:18px;}
 .fw-app .fw-odo-boxes{gap:7px;}
@@ -25,14 +25,12 @@
 .fw-app .fw-hero-ctas{gap:8px;}
 .fw-app .fw-hero-ctas .fw-btn{flex:1 1 0;min-height:48px;padding:0 14px;font-size:14.5px;}
 .fw-app .fw-hero-rate{font-size:12.5px;margin-top:12px;}
-.fw-app .fw-apile{display:flex;justify-content:center;margin:22px -18px 0;height:200px;}
-.fw-app .fw-apile .fw-pc{position:relative;left:auto;top:auto;flex:0 0 auto;width:118px;margin:0 -12px;padding:5px 5px 7px;border-radius:14px;
-  transform:rotate(var(--r));animation:none;}
-.fw-app .fw-apile .fw-pc:nth-child(odd){margin-top:26px;}
-.fw-app .fw-apile .fw-pc:nth-child(3){z-index:2;margin-top:0;}
+/* การ์ดรูป: ตาราง 3x2 เห็นเต็มทุกใบ ไม่ล้นขอบจอ */
+.fw-app .fw-apile{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 10px;margin-top:22px;}
+.fw-app .fw-apile .fw-pc{width:auto;padding:5px 5px 7px;border-radius:14px;transform:rotate(var(--r));animation:none;}
 .fw-app .fw-apile .fw-pc-media{aspect-ratio:3/4;border-radius:10px;}
 .fw-app .fw-apile .fw-pc-meta{padding:5px 2px 0;}
-.fw-app .fw-apile .fw-pc-t{font-size:11px;}
+.fw-app .fw-apile .fw-pc-t{font-size:11px;white-space:normal;}
 
 /* ---------- ปุ่มลัด 4 อัน ---------- */
 .fw-app .quick{padding:0 16px;margin-top:8px;position:relative;z-index:3;}

@@ -74,13 +74,13 @@
 .fw .fw-hero{position:relative;height:200vh;--p:0;}
 .fw .fw-hero-stage{position:sticky;top:0;height:100vh;min-height:640px;overflow:hidden;display:flex;align-items:center;justify-content:center;
   background:radial-gradient(1200px 600px at 50% 40%,#FFFDF9 0%,var(--fw-cream) 60%,#FBEFE2 100%);}
-.fw .fw-hero-center{position:relative;z-index:3;width:min(820px,calc(100% - 48px));text-align:center;padding-top:56px;
+.fw .fw-hero-center{position:relative;z-index:3;width:var(--cw);text-align:center;padding-top:56px;
   filter:blur(calc(var(--p) * 16px));opacity:calc(1 - var(--p) * 1.5);transform:scale(calc(1 - var(--p) * .06));
   animation:fw-unblur 1.1s var(--fw-ease) backwards;}
 @keyframes fw-unblur{from{filter:blur(14px);opacity:0;transform:scale(1.04);}}
 .fw .fw-hero-loc{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--fw-orange-dark);margin-bottom:14px;}
-.fw .fw-hero h1{font-size:clamp(40px,min(5.6vw,8.4vh),76px);line-height:1.12;font-weight:700;letter-spacing:-.02em;color:var(--fw-ink);margin:0 0 14px;}
-.fw .fw-rot{position:relative;display:inline-block;vertical-align:bottom;color:var(--fw-orange);font-family:var(--fw-hand);font-weight:600;
+.fw .fw-hero h1{white-space:nowrap;font-size:clamp(28px,min(5.6vw,8.4vh),76px);line-height:1.12;font-weight:700;letter-spacing:-.02em;color:var(--fw-ink);margin:0 0 14px;}
+.fw .fw-rot{box-sizing:content-box;position:relative;display:inline-block;vertical-align:bottom;color:var(--fw-orange);font-family:var(--fw-hand);font-weight:600;
   transition:width .5s var(--fw-ease);white-space:nowrap;overflow:hidden;padding:0 .08em;height:1.25em;line-height:1.25em;}
 .fw .fw-rot span{display:block;transition:transform .55s var(--fw-ease),opacity .4s;}
 .fw .fw-rot span.is-out{transform:translateY(-100%);opacity:0;}
@@ -110,9 +110,22 @@
 .fw .fw-scrollhint svg{width:18px;height:18px;animation:fw-bob 1.6s ease-in-out infinite;}
 @keyframes fw-bob{50%{transform:translateY(4px);}}
 
-/* การ์ดผลงาน (รูป/คลิปจริงของร้าน) ลอยรอบจอ */
-.fw .fw-pcs{position:absolute;inset:0;z-index:2;pointer-events:none;}
-.fw .fw-pc{position:absolute;left:var(--x);top:var(--y);width:var(--w,200px);padding:7px 7px 10px;background:#fff;border-radius:18px;
+/* การ์ดผลงาน (รูป/คลิปจริงของร้าน): เสาซ้าย-ขวาของข้อความกลาง · ตอนยังไม่เลื่อนต้องเห็นเต็มใบทุกใบ
+   --pw ผูกกับความสูงจอ เพื่อให้ 3 ใบซ้อนลงพอดีเสาเสมอ · 136px = พ้นหัวเว็บ + แถบโปร · 84px = พ้นปุ่ม LINE/โทร */
+.fw .fw-hero-stage{--cw:min(720px,56vw);--pw:min(13.5vw,16.5vh,240px);}
+@media (min-height:850px){.fw .fw-hero-stage{--pw:min(13.5vw,19vh,240px);}}
+.fw .fw-pcs{position:absolute;inset:0;z-index:2;pointer-events:none;--side:calc((100vw - var(--cw)) / 2);}
+.fw .fw-pside{position:absolute;top:136px;bottom:16px;display:flex;gap:20px;}
+.fw .fw-pside.is-l{left:84px;width:calc(var(--side) - 96px);}
+.fw .fw-pside.is-r{right:24px;width:calc(var(--side) - 36px);}
+.fw .fw-psub{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:space-evenly;}
+.fw .fw-psub.is-extra{display:none;}
+@media (min-width:1880px){.fw .fw-psub.is-extra{display:flex;}}
+.fw .fw-psub .fw-pc:nth-child(1){align-self:flex-start;}
+.fw .fw-psub .fw-pc:nth-child(2){align-self:flex-end;}
+.fw .fw-psub .fw-pc:nth-child(3){align-self:center;}
+@media (max-height:730px){.fw .fw-psub .fw-pc:nth-child(3){display:none;}}
+.fw .fw-pc{position:relative;flex:0 0 auto;width:var(--pw);padding:7px 7px 10px;background:#fff;border-radius:18px;
   box-shadow:0 18px 40px rgba(42,31,24,.14);pointer-events:auto;
   transform:translate(calc(var(--dx) * var(--p) * 1px),calc(var(--dy) * var(--p) * 1px)) rotate(var(--r,0deg));
   animation:fw-pc-in 1s var(--fw-ease) backwards;animation-delay:calc(var(--i,0) * 70ms);}
@@ -122,7 +135,8 @@
 .fw .fw-pc-meta > span:last-child{min-width:0;}
 .fw .fw-pc-av{width:24px;height:24px;border-radius:50%;flex:0 0 auto;background:#fff;border:1px solid var(--fw-line);display:flex;align-items:center;justify-content:center;overflow:hidden;}
 .fw .fw-pc-av img{width:18px;height:auto;}
-.fw .fw-pc-t,.fw .fw-pc-s{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fw .fw-pc-t{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fw .fw-pc-s{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;}
 .fw .fw-pc-t{font-size:12.5px;font-weight:600;line-height:1.3;color:var(--fw-ink);}
 .fw .fw-pc-s{font-size:11.5px;color:var(--fw-muted);line-height:1.3;}
 
@@ -291,17 +305,6 @@
    จอแคบ (แท็บเล็ต/มือถือที่ขอเว็บเต็ม)
    ===================================================================== */
 @media (max-width:900px){
-  .fw .fw-hero{height:150vh;}
-  .fw .fw-hero-stage{align-items:flex-start;}
-  .fw .fw-hero-center{padding-top:max(130px,14vh);}
-  .fw .fw-pc{--w:150px!important;--y:auto!important;bottom:-60px;}
-  .fw .fw-pc:nth-child(1){--x:-4%!important;bottom:-10px;}
-  .fw .fw-pc:nth-child(2){--x:16%!important;bottom:-70px;}
-  .fw .fw-pc:nth-child(3){--x:38%!important;bottom:-100px;}
-  .fw .fw-pc:nth-child(4){--x:60%!important;bottom:-60px;}
-  .fw .fw-pc:nth-child(5){--x:80%!important;bottom:-20px;}
-  .fw .fw-pc:nth-child(n+6){display:none;}
-  .fw .fw-scrollhint{display:none;}
   .fw .fw-odo-box{width:58px;height:72px;font-size:34px;border-radius:14px;}
   .fw .fw-pain{height:auto;}
   .fw .fw-pain-stage{position:relative;height:auto;min-height:0;padding:120px 0 60px;}
@@ -314,12 +317,7 @@
 }
 @media (max-width:560px){
   .fw .fw-notes{grid-template-columns:1fr;}
-  .fw .fw-pc{--w:128px!important;}
-  .fw .fw-pc:nth-child(1){--x:-6%!important;}
-  .fw .fw-pc:nth-child(2){--x:22%!important;}
-  .fw .fw-pc:nth-child(3){--x:52%!important;}
-  .fw .fw-pc:nth-child(4){--x:80%!important;}
-  .fw .fw-pc:nth-child(n+5){display:none;}
+}
 }
 
 /* ผู้ใช้ที่ตั้งค่าลดการเคลื่อนไหว → ไม่มี sticky/การลอย/โน้ตหล่น เนื้อหาครบเหมือนเดิม */
@@ -351,3 +349,22 @@
 .fw .eyebrow{color:#9A4B15;}
 .fw .fw-mini .fw-chip{color:var(--fw-ink);font-size:13px;}
 .fw .fw-plat .fw-btn-orange{box-shadow:none;}
+
+/* จอเล็กลง: การ์ดเล็กไม่พอใส่ป้ายพร้อมโลโก้ → ซ่อนโลโก้ ให้ข้อความได้ที่ */
+@media (max-height:849px),(max-width:1280px){.fw .fw-pc-av{display:none;}.fw .fw-pc-t{font-size:12px;letter-spacing:-.01em;}}
+
+/* แท็บเล็ต/จอแคบ: เรียงลงปกติ ไม่ sticky · การ์ด 6 ใบเป็นตาราง 3x2 ใต้ข้อความ เห็นเต็มทุกใบ */
+@media (max-width:1100px){
+  .fw .fw-hero{height:auto;--p:0!important;}
+  .fw .fw-hero-stage{position:relative;height:auto;min-height:0;flex-direction:column;overflow:visible;padding:136px 0 48px;--cw:calc(100% - 48px);}
+  .fw .fw-hero-center{padding-top:0;order:1;}
+  .fw .fw-hero h1{font-size:clamp(28px,9.4vw,76px);}
+  .fw .fw-pcs{position:relative;inset:auto;order:2;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;width:min(760px,calc(100% - 48px));margin-top:30px;}
+  .fw .fw-pside,.fw .fw-psub{display:contents;}
+  .fw .fw-psub.is-extra{display:none;}
+  .fw .fw-psub .fw-pc:nth-child(3){display:block;}
+  .fw .fw-pc{width:auto;--ar:3/4!important;}
+  .fw .fw-scrollhint{display:none;}
+}
+/* พื้นที่ hero มีปุ่มจองอยู่แล้ว ปุ่มลอยจึงซ่อน ไม่ให้ทับการ์ดมุมขวาล่าง */
+.fw-in-hero .float-cta{opacity:0!important;pointer-events:none!important;}

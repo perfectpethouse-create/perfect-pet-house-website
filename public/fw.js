@@ -75,7 +75,12 @@
 
   /* ---------- HERO: ข้อความเบลอ + การ์ดลอยออกตามการเลื่อน ---------- */
   var hero=$('.fw-hero');
-  if(hero&&!reduce) onScroll.push(function(){hero.style.setProperty('--p',progress(hero).toFixed(3));});
+  if(hero&&!reduce) onScroll.push(function(){
+    var q=progress(hero);
+    hero.style.setProperty('--p',q.toFixed(3));
+    // ปุ่มจองลอยซ่อนตอนอยู่ใน hero (เฉพาะแบบ sticky) ไม่ให้ทับการ์ดมุมขวาล่าง
+    document.body.classList.toggle('fw-in-hero',q<0.7&&hero.offsetHeight>innerHeight);
+  });
 
   /* ---------- STAGE ขาวหดมุมมนก่อนเข้าส่วนเข้ม ---------- */
   var stage=$('.fw-stage');
