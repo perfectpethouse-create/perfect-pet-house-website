@@ -1,0 +1,32 @@
+# Perfect Pet House — cache + compression (LiteSpeed/Apache)
+# รูป/CSS/JS ให้เบราว์เซอร์เก็บไว้ใช้ซ้ำ จะได้ไม่ต้องโหลดใหม่ทุกครั้ง (เว็บเร็วขึ้นตอนกลับมาเข้าซ้ำ)
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # รูปภาพ/วิดีโอ/ฟอนต์ — เก็บ 30 วัน
+  ExpiresByType image/jpeg        "access plus 30 days"
+  ExpiresByType image/png         "access plus 30 days"
+  ExpiresByType image/webp        "access plus 30 days"
+  ExpiresByType image/svg+xml     "access plus 30 days"
+  ExpiresByType image/x-icon      "access plus 30 days"
+  ExpiresByType video/mp4         "access plus 30 days"
+  ExpiresByType font/woff2        "access plus 365 days"
+  # CSS/JS มี ?v=hash อยู่แล้ว เปลี่ยนไฟล์ = เปลี่ยน hash เลยเก็บยาวได้ 1 ปี
+  ExpiresByType text/css          "access plus 365 days"
+  ExpiresByType application/javascript "access plus 365 days"
+  # HTML ไม่แคช (ให้ได้ของใหม่เสมอ — service worker จัดการ offline เอง)
+  ExpiresByType text/html         "access plus 0 seconds"
+</IfModule>
+
+# สำรองวิธีตั้งแคชเผื่อ mod_expires ปิดอยู่
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpg|jpeg|png|webp|svg|ico|mp4|woff2)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
