@@ -96,7 +96,12 @@
 .fw .fw-odo-col{display:flex;flex-direction:column;transform:translateY(calc(var(--d,0) * -1.15em));transition:transform 1.6s var(--fw-ease);}
 .fw .fw-odo-col span{height:1.15em;}
 .fw .fw-odo-box.is-sep{width:auto;background:none;box-shadow:none;font-size:40px;padding:0 2px;}
-.fw .fw-odo-cap{font-size:14px;color:var(--fw-ink-soft);}
+.fw .fw-odo-cap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:2px 10px;font-size:14px;color:var(--fw-ink-soft);}
+/* จุดกระพริบ "อัปเดตสด": ยอดมาจากระบบจองโดยตรง และหน้าเว็บอ่านซ้ำทุก 60 วิ */
+.fw .fw-live{display:inline-flex;align-items:center;gap:8px;font-weight:600;color:#1F7A45;}
+.fw .fw-live::before{content:"";width:9px;height:9px;border-radius:50%;background:#2E9E5B;animation:fw-live 1.6s ease-out infinite;}
+@keyframes fw-live{from{box-shadow:0 0 0 0 rgba(46,158,91,.55);}to{box-shadow:0 0 0 10px rgba(46,158,91,0);}}
+.fw .fw-odo.is-pending .fw-live{display:none;}
 .fw .fw-odo-cap b{color:var(--fw-ink);}
 .fw .fw-odo.is-pending .fw-odo-box{color:#C9BBAE;}
 .fw .fw-odo-note{font-size:11.5px;color:var(--fw-orange-dark);background:var(--fw-orange-light);padding:3px 10px;border-radius:999px;}

@@ -17,21 +17,33 @@
   var onScroll=[];
 
   /* ---------- ยอดสมาชิก (อ่านจากระบบจองอัตโนมัติ) ---------- */
-  // แอป pph-booking เขียน publicInfo/stats { memberCount } — คอลเลกชันนี้อ่านได้สาธารณะ ไม่มีชื่อ/เบอร์ลูกค้า
-  var STATS_URL='https://firestore.googleapis.com/v1/projects/pph-booking/databases/(default)/documents/publicInfo/stats?key=AIzaSyCi7sSXV0Sz85XqWI0hVTGw-BbNd8Cxox0';
+  // แอป pph-booking เขียน publicAvailability/stats { memberCount } ทันทีที่ยอดเปลี่ยน — อ่านได้สาธารณะ ไม่มีชื่อ/เบอร์ลูกค้า
+  var STATS_DOC='https://firestore.googleapis.com/v1/projects/pph-booking/databases/(default)/documents/',STATS_KEY='/stats?key=AIzaSyCi7sSXV0Sz85XqWI0hVTGw-BbNd8Cxox0';
+  function readCount(){
+    // shortcut: อ่าน publicInfo/stats (ที่เก็บเดิม) ถ้าที่ใหม่ยังไม่มี, ลบได้เมื่อ publicAvailability/stats ถูกเขียนแล้ว
+    return fetch(STATS_DOC+'publicAvailability'+STATS_KEY).then(function(r){return r.ok?r:fetch(STATS_DOC+'publicInfo'+STATS_KEY);})
+      .then(function(r){return r.ok?r.json():null;}).then(function(j){
+        var f=j&&j.fields&&j.fields.memberCount; return f?Math.round(Number(f.integerValue||f.doubleValue))||0:0;
+      });
+  }
   function fmt(n){return n.toLocaleString('en-US');}
   function renderOdo(el,n){
-    var boxes=$('.fw-odo-boxes',el),digits=fmt(n).split('');
+    var boxes=$('.fw-odo-boxes',el),digits=fmt(n).split(''),real=digits.filter(function(c){return c!==',';}),cols=$$('.fw-odo-col',boxes);
+    // จำนวนหลักเท่าเดิม (ยอดเปลี่ยนตอนเปิดหน้าค้าง) → หมุนวงล้อเดิมไปตัวเลขใหม่ ไม่สร้างใหม่
+    if(cols.length!==real.length){
     boxes.innerHTML=digits.map(function(ch){
       if(ch===',') return '<div class="fw-odo-box is-sep">,</div>';
-      return '<div class="fw-odo-box"><div class="fw-odo-reel"><div class="fw-odo-col">'+
+      return '<div class="fw-odo-box"><div class="fw-odo-reel" aria-hidden="true"><div class="fw-odo-col">'+
         '0123456789'.split('').map(function(d){return '<span>'+d+'</span>';}).join('')+'</div></div></div>';
     }).join('');
     // ให้วงล้อเริ่มที่ 0 แล้วหมุนไปตัวเลขจริง (ไล่จังหวะทีละหลักเหมือนมิเตอร์)
-    var cols=$$('.fw-odo-col',boxes),real=digits.filter(function(c){return c!==',';});
+    cols=$$('.fw-odo-col',boxes);
     boxes.offsetWidth; // บังคับให้เบราว์เซอร์วาดตำแหน่ง 0 ก่อน แล้วค่อยเลื่อนไปตัวเลขจริง (ไม่พึ่ง rAF ที่หยุดตอนแท็บซ่อน)
+    }
     cols.forEach(function(c,i){c.style.transitionDelay=(i*120)+'ms';c.style.setProperty('--d',real[i]);});
+    boxes.setAttribute('role','img'); boxes.setAttribute('aria-label',fmt(n)+' สมาชิก');
     el.classList.remove('is-pending');
+    $$('[data-members-wrap]').forEach(function(w){w.hidden=false;});
     $$('[data-members]').forEach(function(s){s.textContent=fmt(n);});
   }
   function pendingOdo(el){
@@ -41,10 +53,14 @@
   }
   var odos=$$('.fw-odo');
   if(odos.length){
-    fetch(STATS_URL).then(function(r){return r.ok?r.json():null;}).then(function(j){
-      var f=j&&j.fields&&j.fields.memberCount,n=f&&Number(f.integerValue||f.doubleValue);
-      odos.forEach(function(el){n>0?renderOdo(el,Math.round(n)):pendingOdo(el);});
+    readCount().then(function(n){
+      odos.forEach(function(el){n>0?renderOdo(el,n):pendingOdo(el);});
     }).catch(function(){odos.forEach(pendingOdo);});
+    // อ่านซ้ำทุก 60 วิ: ยอดเปลี่ยนในระบบ → หน้าที่เปิดค้างเปลี่ยนตาม · พลาดรอบไหนก็รอรอบถัดไป ไม่ซ่อนกล่อง
+    setInterval(function(){
+      if(document.hidden) return;
+      readCount().then(function(n){if(n>0) odos.forEach(function(el){renderOdo(el,n);});}).catch(function(){});
+    },60000);
   }
 
   /* ---------- คำหมุนในหัวข้อ (น้องหมา → น้องแมว → ลูกรัก) ---------- */

@@ -78,7 +78,7 @@
 
 /* ---------- แถบล่าง = แคปซูลลอย ---------- */
 .fw-app .botnav{left:10px;right:10px;bottom:10px;width:auto;border-radius:26px;border:1px solid var(--fw-line);
-  box-shadow:0 14px 34px rgba(42,31,24,.14);background:rgba(255,255,255,.9);}
+  box-shadow:0 14px 34px rgba(42,31,24,.14);background:rgba(255,255,255,.97);}  /* โปร่งกว่านี้ ตัวส้มไม่ผ่าน 4.5:1 ตอนส่วนเข้มเลื่อนผ่านหลังแถบ */
 @media(min-width:480px){ .fw-app .botnav{bottom:34px;border-radius:26px;} }
 
 /* ---------- แก้หลังตรวจ (impeccable audit 29 ต.ค.) ---------- */

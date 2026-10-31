@@ -30,7 +30,10 @@
     photo:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>',
     bed:'<path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/>',
     pin:'<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
-    cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>'
+    cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+    x:'<path d="M18 6 6 18M6 6l12 12"/>',
+    prev:'<path d="m15 18-6-6 6-6"/>',
+    next:'<path d="m9 18 6-6-6-6"/>'
   };
   var AMENITIES=[['cam','CCTV 24 ชม.'],['snow','แอร์เย็น 24 ชม.'],['photo','อัปเดตรูปทุกวัน'],['bed','เตียงนุ่มสะอาด']];
   var POLICY=[
@@ -54,7 +57,7 @@
     var id=uid+'-'+i;
     return ''+
     '<article class="rs-card" id="'+id+'" role="tabpanel" aria-labelledby="'+id+'-tab" data-i="'+i+'">'+
-      '<div class="rs-cover"><img src="'+imgBase+r.img+'" alt="'+r.name+' สำหรับ'+r.petTh+'" loading="lazy" decoding="async">'+
+      '<div class="rs-cover" role="button" tabindex="0" aria-label="ดูรูปเต็ม: '+r.name+'"><img src="'+imgBase+r.img+'" alt="'+r.name+' สำหรับ'+r.petTh+'" loading="lazy" decoding="async">'+
         '<div class="rs-badges"><span class="rs-badge">'+r.emoji+' ห้องพัก'+r.petTh+'</span>'+(r.feat?'<span class="rs-badge is-feat">⭐ แนะนำ</span>':'')+'</div>'+
       '</div>'+
       '<div class="rs-body">'+
@@ -77,7 +80,7 @@
         '</div>'+
         '<div class="rs-panes">'+
           '<div class="rs-pane is-on" data-pane="gal"><div class="rs-gal">'+
-            (r.gallery||[]).map(function(g){return '<figure><img src="'+imgBase+g[0]+'" alt="'+g[1]+'" loading="lazy" decoding="async"><figcaption>'+g[1]+'</figcaption></figure>';}).join('')+'</div></div>'+
+            (r.gallery||[]).map(function(g){return '<figure role="button" tabindex="0" aria-label="ดูรูปเต็ม: '+g[1]+'"><img src="'+imgBase+g[0]+'" alt="'+g[1]+'" loading="lazy" decoding="async"><figcaption>'+g[1]+'</figcaption></figure>';}).join('')+'</div></div>'+
           '<div class="rs-pane" data-pane="amen"><div class="rs-amen">'+
             AMENITIES.map(function(a){return '<div>'+svg(a[0])+a[1]+'</div>';}).join('')+'</div></div>'+
           '<div class="rs-pane" data-pane="policy"><ul class="rs-list">'+POLICY.map(li).join('')+'</ul></div>'+
@@ -101,6 +104,42 @@
     });
     return '<div class="rs-rail"><div class="rs-tabs" role="tablist" aria-label="เลือกห้องพัก" aria-orientation="vertical">'+html+'</div>'+
       '<div class="rs-count" aria-hidden="true"><b>01</b> / '+String(ROOMS.length).padStart(2,'0')+'</div></div>';
+  }
+
+  /* ---------- ดูรูปเต็ม: กดรูปในการ์ด → เด้งเต็มจอ · กดพื้นที่ซ้าย/ขวาเลื่อนรูป · X หรือ Esc ปิด ---------- */
+  var lb=null,lbList=[],lbI=0;
+  function lbShow(i){
+    lbI=(i+lbList.length)%lbList.length;
+    var im=lbList[lbI],big=lb.querySelector('.rs-lb-img');
+    big.src=im.getAttribute('src'); big.alt=im.alt;
+    lb.querySelector('.rs-lb-cap').textContent=im.alt+' · '+(lbI+1)+'/'+lbList.length;
+  }
+  function openViewer(shot){
+    if(!lb){
+      lb=document.createElement('dialog');
+      lb.className='rs-lb';
+      lb.setAttribute('aria-label','ดูรูปห้อง');
+      lb.innerHTML='<button class="rs-lb-x" aria-label="ปิด">'+svg('x')+'</button>'+
+        '<img class="rs-lb-img" alt=""><p class="rs-lb-cap"></p>'+
+        '<button class="rs-lb-nav is-prev" aria-label="รูปก่อนหน้า"><span>'+svg('prev')+'</span></button>'+
+        '<button class="rs-lb-nav is-next" aria-label="รูปถัดไป"><span>'+svg('next')+'</span></button>';
+      document.body.appendChild(lb);
+      lb.addEventListener('click',function(e){
+        var b=e.target.closest('button'); if(!b) return;
+        if(b.classList.contains('rs-lb-x')) lb.close(); else lbShow(lbI+(b.classList.contains('is-prev')?-1:1));
+      });
+      lb.addEventListener('keydown',function(e){
+        var d={ArrowLeft:-1,ArrowRight:1}[e.key]; if(d) lbShow(lbI+d);
+      });
+      // กันหน้าเว็บด้านหลังเลื่อนตอนเปิดดูรูป (การ์ด sticky จะเปลี่ยนใบ)
+      ['wheel','touchmove'].forEach(function(t){lb.addEventListener(t,function(e){e.preventDefault();},{passive:false});});
+    }
+    var seen={},src=shot.querySelector('img').getAttribute('src');
+    lbList=[].filter.call(shot.closest('.rs-card').querySelectorAll('.rs-cover img,.rs-gal img'),function(im){
+      var s=im.getAttribute('src'); return !seen[s]&&(seen[s]=1);
+    });
+    lbShow(lbList.findIndex(function(im){return im.getAttribute('src')===src;}));
+    lb.showModal();
   }
 
   var uidSeq=0;
@@ -193,7 +232,12 @@
       });
     });
     // แท็บย่อยในการ์ด (สิ่งที่ได้ / เช็คอิน-เอาท์ / เตรียมของ)
+    deck.addEventListener('keydown',function(e){
+      if((e.key==='Enter'||e.key===' ')&&e.target.matches('.rs-cover,.rs-gal figure')){e.preventDefault();openViewer(e.target);}
+    });
     deck.addEventListener('click',function(e){
+      var shot=e.target.closest('.rs-cover,.rs-gal figure');
+      if(shot){openViewer(shot);return;}
       var b=e.target.closest('.rs-sub'); if(!b) return;
       var card=b.closest('.rs-card');
       card.querySelectorAll('.rs-sub').forEach(function(x){var on=x===b;x.classList.toggle('is-on',on);x.setAttribute('aria-pressed',on);});
