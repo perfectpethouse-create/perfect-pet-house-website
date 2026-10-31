@@ -613,7 +613,8 @@
         <li>เช็คอิน 9:00–18:00 น. · ตัดรอบเช็คเอาท์ 14:00 น.</li>
         <li>Late check-out 14:00–20:00 น. คิดเป็นค่าบริการ Day Care / 20:00–21:00 น. คิดเพิ่มชั่วโมงละ 100 บาทต่อตัว (เศษชั่วโมงคิดเป็น 1 ชั่วโมง)</li>
         <li>ไม่รับเช็คอิน/เช็คเอาท์ก่อน 9:00 น. และหลัง 20:00 น.</li>
-        <li>มัดจำ 50% เพื่อยืนยันการจอง ชำระส่วนที่เหลืออีก 50% ในวันนำสัตว์เข้าพัก</li>
+        <li>ฝากค้างคืน: มัดจำ 50% เพื่อยืนยันการจอง ชำระส่วนที่เหลืออีก 50% ในวันนำสัตว์เข้าพัก</li>
+        <li>Day Care: ชำระเต็มจำนวนเพื่อยืนยันการจอง</li>
       </ul>
     </div>
 
@@ -1363,7 +1364,7 @@
     <div class="bk-choices">
       <a href="/booking.html" class="bk-new bk-dark">
         <svg class="icon bk-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span class="bk-txt"><strong>จองโรงแรม / Day Care ออนไลน์</strong><span>เช็คห้องว่าง เห็นราคาและยอดมัดจำทันที · VIP ราคาจองออนไลน์ 1,590</span></span>
+        <span class="bk-txt"><strong>จองโรงแรม / Day Care ออนไลน์</strong><span>เช็คห้องว่าง เห็นราคาและยอดชำระทันที · VIP ราคาจองออนไลน์ 1,590</span></span>
         <span class="bk-go">จองเลย →</span>
       </a>
       <a href="/groom.html" class="bk-new bk-light">
@@ -1463,7 +1464,7 @@
     if(serviceSel){
       var newHint = document.createElement('p');
       newHint.style.cssText = 'display:none;margin:8px 0 0;font-size:0.85rem;background:var(--orange-light);padding:8px 12px;border-radius:10px;';
-      newHint.innerHTML = 'จองฝากเลี้ยง/Day Care ที่ <a href="/booking.html" style="color:var(--orange-dark);font-weight:600;">หน้าจองออนไลน์</a> ได้เลย เห็นห้องว่างและยอดมัดจำทันที';
+      newHint.innerHTML = 'จองฝากเลี้ยง/Day Care ที่ <a href="/booking.html" style="color:var(--orange-dark);font-weight:600;">หน้าจองออนไลน์</a> ได้เลย เห็นห้องว่างและยอดชำระทันที';
       serviceSel.parentNode.appendChild(newHint);
       serviceSel.addEventListener('change', function(){
         var v = serviceSel.value;
