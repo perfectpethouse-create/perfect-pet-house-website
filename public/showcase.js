@@ -7,6 +7,8 @@
    ข้อมูลห้อง/ราคา ตรงกับ index.html section #rooms — แก้ราคาที่นี่ที่เดียว
    ===================================================================== */
 (function(){
+  // เปลี่ยน URL รูปห้องหลังหมุนพิกเซลแล้ว (เว็บแคชรูป 30 วัน)
+  var IMG_V='?v=2';
   // รูปหลัก + แกลเลอรีรายห้อง: รูปจริงจากโฟลเดอร์ "รูปร้านปัจจุบัน" (กายส่งให้ 29 ต.ค. 2569)
   var DOG_ZONE=[['pph/corridor-dog.jpg','ทางเดินโซนห้องพัก'],['pph/hall-1.jpg','โถงหน้าห้องพัก']];
   var CAT_ZONE=[['pph/corridor-cat.jpg','โซนห้องพักแมว'],['pph/cat-playroom.jpg','ห้องเล่นแมว']];
@@ -57,7 +59,7 @@
     var id=uid+'-'+i;
     return ''+
     '<article class="rs-card" id="'+id+'" role="tabpanel" aria-labelledby="'+id+'-tab" data-i="'+i+'">'+
-      '<div class="rs-cover" role="button" tabindex="0" aria-label="ดูรูปเต็ม: '+r.name+'"><img src="'+imgBase+r.img+'" alt="'+r.name+' สำหรับ'+r.petTh+'" loading="lazy" decoding="async">'+
+      '<div class="rs-cover" role="button" tabindex="0" aria-label="ดูรูปเต็ม: '+r.name+'"><img src="'+imgBase+r.img+IMG_V+'" alt="'+r.name+' สำหรับ'+r.petTh+'" loading="lazy" decoding="async">'+
         '<div class="rs-badges"><span class="rs-badge">'+r.emoji+' ห้องพัก'+r.petTh+'</span>'+(r.feat?'<span class="rs-badge is-feat">⭐ แนะนำ</span>':'')+'</div>'+
       '</div>'+
       '<div class="rs-body">'+
@@ -80,7 +82,7 @@
         '</div>'+
         '<div class="rs-panes">'+
           '<div class="rs-pane is-on" data-pane="gal"><div class="rs-gal">'+
-            (r.gallery||[]).map(function(g){return '<figure role="button" tabindex="0" aria-label="ดูรูปเต็ม: '+g[1]+'"><img src="'+imgBase+g[0]+'" alt="'+g[1]+'" loading="lazy" decoding="async"><figcaption>'+g[1]+'</figcaption></figure>';}).join('')+'</div></div>'+
+            (r.gallery||[]).map(function(g){return '<figure role="button" tabindex="0" aria-label="ดูรูปเต็ม: '+g[1]+'"><img src="'+imgBase+g[0]+IMG_V+'" alt="'+g[1]+'" loading="lazy" decoding="async"><figcaption>'+g[1]+'</figcaption></figure>';}).join('')+'</div></div>'+
           '<div class="rs-pane" data-pane="amen"><div class="rs-amen">'+
             AMENITIES.map(function(a){return '<div>'+svg(a[0])+a[1]+'</div>';}).join('')+'</div></div>'+
           '<div class="rs-pane" data-pane="policy"><ul class="rs-list">'+POLICY.map(li).join('')+'</ul></div>'+
