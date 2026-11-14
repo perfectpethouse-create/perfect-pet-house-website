@@ -233,6 +233,13 @@
         var n=(i+d+N)%N; tabs[n].focus(); if(!desktop) setActive(n,true); goTo(n);
       });
     });
+    // หน้าอื่นสั่งเปิดห้องที่ระบุ: root.dispatchEvent(new CustomEvent('rs:show',{detail:{pet:'dog',room:'cozy'}}))
+    // ถ้ากล่องยังซ่อนอยู่ ตั้ง active ไว้ก่อน แล้ว layout() ตอนกล่องโผล่จะเลื่อนไปการ์ดนั้นเอง
+    root.addEventListener('rs:show',function(e){
+      var i=ROOMS.findIndex(function(r){return r.pet===e.detail.pet&&r.room===e.detail.room;});
+      if(i<0) return;
+      setActive(i,true);goTo(i,true);
+    });
     // แท็บย่อยในการ์ด (สิ่งที่ได้ / เช็คอิน-เอาท์ / เตรียมของ)
     deck.addEventListener('keydown',function(e){
       if((e.key==='Enter'||e.key===' ')&&e.target.matches('.rs-cover,.rs-gal figure')){e.preventDefault();openViewer(e.target);}

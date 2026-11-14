@@ -992,9 +992,9 @@ window.PPHQR=(function(){
   /* ---------- DATA ---------- */
   var ROOMS={
     'น้องหมา':[
-      {name:'Cozy Room',size:'1×1.5 ม.',price:790,img:'images/room-cozy-dog.jpg'},
-      {name:'Deluxe Room',size:'1×2 ม.',price:990,img:'images/room-deluxe-dog.jpg?v=2'},
-      {name:'VIP Villa Room',size:'1.5×2.5 ม.',price:1890,img:'images/room-vip-dog.jpg?v=2',feat:true}
+      {room:'cozy',name:'Cozy Room',size:'1×1.5 ม.',price:790,img:'images/room-cozy-dog.jpg'},
+      {room:'deluxe',name:'Deluxe Room',size:'1×2 ม.',price:990,img:'images/room-deluxe-dog.jpg?v=2'},
+      {room:'vip',name:'VIP Villa Room',size:'1.5×2.5 ม.',price:1890,img:'images/room-vip-dog.jpg?v=2',feat:true}
     ],
     'น้องแมว':[
       {name:'Cozy Room',size:'1×1 ม.',price:690,img:'images/room-cozy-cat.jpg?v=2'},
@@ -1049,7 +1049,12 @@ window.PPHQR=(function(){
     ROOMS['น้องหมา'].forEach(function(r){
       var d=document.createElement('div');d.className='mini-room';
       d.innerHTML='<img src="'+r.img+'" alt="'+r.name+'"><div class="mr-body"><h4>'+r.name+'</h4><div class="mr-size">🐶 '+r.size+'</div><div class="mr-foot"><div class="mr-price">'+baht(r.price)+'<small>/คืน</small></div><span class="mr-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div></div>';
-      d.addEventListener('click',function(){startBooking('ฝากเลี้ยง (ค้างคืน)','น้องหมา',r);});
+      // กดการ์ด → ไปหน้าห้องพัก + เปิดการ์ดห้องนั้น ให้ลูกค้าดูรูปเพิ่มก่อนกด "จองห้องนี้"
+      d.addEventListener('click',function(){
+        go('rooms');
+        var sc=document.querySelector('#s-rooms [data-room-showcase]');
+        if(sc) sc.dispatchEvent(new CustomEvent('rs:show',{detail:{pet:'dog',room:r.room}}));
+      });
       wrap.appendChild(d);
     });
   })();
@@ -1621,7 +1626,7 @@ window.PPHQR=(function(){
 <script>
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
 </script>
-<script src="showcase.js?v=0fb9beb3"></script>
+<script src="showcase.js?v=fb078bf0"></script>
 <script src="fw.js?v=6df38ea1"></script>
 </body>
 </html>
