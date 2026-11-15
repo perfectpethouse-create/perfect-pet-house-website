@@ -41,7 +41,7 @@
   background:linear-gradient(to top,rgba(58,46,38,.28),transparent);pointer-events:none;}
 .rs-badges{position:absolute;top:14px;left:14px;display:flex;gap:6px;z-index:1;}
 .rs-badge{font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;
-  background:rgba(255,255,255,.92);color:var(--rs-brown);backdrop-filter:blur(6px);}
+  background:rgba(255,255,255,.92);color:var(--rs-brown);}  /* ไม่ใช้ backdrop-filter: พื้นทึบ .92 อยู่แล้ว + เบลอในแถบปัดหนัก iPhone */
 .rs-badge.is-feat{background:var(--rs-orange);color:#fff;}
 
 .rs-body{display:flex;flex-direction:column;gap:14px;min-width:0;}

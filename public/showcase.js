@@ -82,7 +82,8 @@
         '</div>'+
         '<div class="rs-panes">'+
           '<div class="rs-pane is-on" data-pane="gal"><div class="rs-gal">'+
-            (r.gallery||[]).map(function(g){return '<figure role="button" tabindex="0" aria-label="ดูรูปเต็ม: '+g[1]+'"><img src="'+imgBase+g[0]+IMG_V+'" alt="'+g[1]+'" loading="lazy" decoding="async"><figcaption>'+g[1]+'</figcaption></figure>';}).join('')+'</div></div>'+
+            // รูปย่อ: ใช้ไฟล์ใน pph/thumb/ (ด้านสั้น 420px) · รูปเต็มเก็บใน data-full ไว้ให้ตัวดูรูปเต็มจอ
+            (r.gallery||[]).map(function(g){return '<figure role="button" tabindex="0" aria-label="ดูรูปเต็ม: '+g[1]+'"><img src="'+imgBase+g[0].replace('pph/','pph/thumb/')+IMG_V+'" data-full="'+imgBase+g[0]+IMG_V+'" alt="'+g[1]+'" loading="lazy" decoding="async"><figcaption>'+g[1]+'</figcaption></figure>';}).join('')+'</div></div>'+
           '<div class="rs-pane" data-pane="amen"><div class="rs-amen">'+
             AMENITIES.map(function(a){return '<div>'+svg(a[0])+a[1]+'</div>';}).join('')+'</div></div>'+
           '<div class="rs-pane" data-pane="policy"><ul class="rs-list">'+POLICY.map(li).join('')+'</ul></div>'+
@@ -110,10 +111,11 @@
 
   /* ---------- ดูรูปเต็ม: กดรูปในการ์ด → เด้งเต็มจอ · กดพื้นที่ซ้าย/ขวาเลื่อนรูป · X หรือ Esc ปิด ---------- */
   var lb=null,lbList=[],lbI=0;
+  function fullSrc(im){return im.getAttribute('data-full')||im.getAttribute('src');}
   function lbShow(i){
     lbI=(i+lbList.length)%lbList.length;
     var im=lbList[lbI],big=lb.querySelector('.rs-lb-img');
-    big.src=im.getAttribute('src'); big.alt=im.alt;
+    big.src=fullSrc(im); big.alt=im.alt;
     lb.querySelector('.rs-lb-cap').textContent=im.alt+' · '+(lbI+1)+'/'+lbList.length;
   }
   function openViewer(shot){
@@ -136,11 +138,11 @@
       // กันหน้าเว็บด้านหลังเลื่อนตอนเปิดดูรูป (การ์ด sticky จะเปลี่ยนใบ)
       ['wheel','touchmove'].forEach(function(t){lb.addEventListener(t,function(e){e.preventDefault();},{passive:false});});
     }
-    var seen={},src=shot.querySelector('img').getAttribute('src');
+    var seen={},src=fullSrc(shot.querySelector('img'));
     lbList=[].filter.call(shot.closest('.rs-card').querySelectorAll('.rs-cover img,.rs-gal img'),function(im){
-      var s=im.getAttribute('src'); return !seen[s]&&(seen[s]=1);
+      var s=fullSrc(im); return !seen[s]&&(seen[s]=1);
     });
-    lbShow(lbList.findIndex(function(im){return im.getAttribute('src')===src;}));
+    lbShow(lbList.findIndex(function(im){return fullSrc(im)===src;}));
     lb.showModal();
   }
 
