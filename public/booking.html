@@ -24,6 +24,9 @@ a{color:var(--brand)}a:hover{color:var(--brand-ink)}
 h1,h2,h3{letter-spacing:-.01em;margin:0}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
+::selection{background:var(--brand-tint);color:var(--brand-ink)}
+input,textarea{caret-color:var(--brand)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(184,92,30,.35);outline-offset:2px}
 .hidden{display:none!important}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
@@ -36,7 +39,9 @@ button{cursor:pointer}
 .top a.line{font-weight:500;font-size:14px}
 
 .wrap{max-width:1080px;margin:0 auto;padding:0 16px 140px;display:grid;gap:28px}
-@media(min-width:960px){.wrap{grid-template-columns:minmax(0,1fr) 340px;padding-bottom:60px;align-items:start}}
+@media(min-width:960px){.wrap{grid-template-columns:minmax(0,1fr) 340px;padding-bottom:60px;align-items:start}
+  /* aside ยืดเต็มความสูงแถว → การ์ดสรุป (sticky) เลื่อนตามได้จริงตอนเลื่อนดูห้องยาวๆ */
+  .wrap>aside{align-self:stretch;padding-top:16px}}
 .progress{display:flex;gap:6px;margin:16px 0 6px}
 .progress i{flex:1;height:5px;border-radius:3px;background:var(--line)}
 .progress i.on{background:var(--brand)}
@@ -56,6 +61,7 @@ textarea.field{min-height:72px;resize:vertical}
 .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .hint{font-size:13px;color:var(--ink-soft);margin:6px 0 0}
 .err{font-size:13px;color:var(--danger);margin:6px 0 0;font-weight:500}
+.field.bad{border-color:var(--danger)}
 .stepper{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:6px 6px 6px 14px}
 .stepper .ctl{display:flex;align-items:center;gap:6px}
 .stepper button{width:44px;height:44px;border-radius:10px;border:1.5px solid var(--line);background:var(--cream);font-size:20px}
@@ -64,31 +70,54 @@ textarea.field{min-height:72px;resize:vertical}
 .note.warn{background:var(--brand-tint);color:#5A3A22}
 
 .rooms{display:grid;gap:14px}
-@media(min-width:700px){.rooms{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}}
-.room{background:#fff;border:1.5px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
-.room.sel{border:2.5px solid var(--brand);box-shadow:0 8px 24px rgba(184,92,30,.16)}
+.room{background:#fff;border:1.5px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s,box-shadow .15s}
+/* เลือกแล้ว: ขอบหนาขึ้นด้วย outline ด้านใน (ไม่ใช่ border) → การ์ดไม่ขยับ · เงายกตัวสีกลาง */
+.room.sel{border-color:var(--brand);outline:1px solid var(--brand);outline-offset:-2.5px;box-shadow:0 8px 24px rgba(58,46,38,.12)}
 .room.full{background:#F7F2EC}
 .room.full img{filter:grayscale(.85);opacity:.7}
 .room img{width:100%;height:160px;object-fit:cover;display:block;background:var(--brand-tint)}
-.room .b{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.room .ph{position:relative}
+.room .b{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1;min-width:0}
+.room .hd{display:flex;align-items:center;justify-content:space-between;gap:6px 10px;flex-wrap:wrap}
 .room h3{font-size:18px;font-weight:700}
-.pill{display:inline-flex;align-self:flex-start;font-size:13px;font-weight:600;border-radius:999px;padding:4px 10px}
+.room .stepper{padding:4px 4px 4px 12px}
+.room .stepper span{white-space:nowrap}
+.room .stepper button{width:40px;height:40px}
+/* คอลัมน์หลักกว้างพอ: การ์ดแนวนอน รูปซ้าย รายละเอียดขวา (เดิมบีบ 3 คอลัมน์ → กล่องจำนวนห้องล้นขอบ/ใบที่ 3 ตกแถว) */
+@media(min-width:700px){
+  .room{flex-direction:row}
+  .room .ph{flex:none;width:40%;max-width:280px;min-height:200px}
+  .room .ph img{position:absolute;inset:0;height:100%}
+  .room .b{padding:16px 18px}
+}
+.pill{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;font-size:13px;font-weight:600;border-radius:999px;padding:4px 10px}
+.pill.ok::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
 .pill.ok{background:var(--ok-tint);color:var(--ok)}
 .pill.last{background:var(--brand-tint);color:var(--brand-ink)}
 .pill.full{background:var(--full-tint);color:var(--full)}
 .pill.unk{background:#EEF0F3;color:#45505C}
 .feat{font-size:13px;color:var(--ink-soft)}
 .price{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:auto}
-.strike{font-size:13px;color:var(--muted);text-decoration:line-through}
+.was{font-size:13px;color:var(--muted)}
+.was s{margin-right:4px}
 .big{font-size:20px;font-weight:700}
+.big.deal{color:var(--brand-ink)}
+.price .tot{text-align:right}
+.big,.price b,.sum span:last-child,.bar .t b,.amount,.dz>button span,.stepper output{font-variant-numeric:tabular-nums}
 .online{font-size:12px;font-weight:600;color:var(--brand-ink)}
-.btn{min-height:48px;border-radius:12px;border:0;background:var(--brand);color:#fff;font-weight:600;font-size:15px;padding:0 18px}
+.btn{min-height:48px;border-radius:12px;border:0;background:var(--brand);color:#fff;font-weight:600;font-size:15px;padding:0 18px;transition:background-color .15s,color .15s}
 .btn.ghost{background:#fff;border:1.5px solid var(--brand);color:var(--brand-ink)}
 .btn.line{background:#06C755;color:#0B2E17}
 .btn:disabled{opacity:.45;cursor:not-allowed}
+@media(hover:hover){
+  .btn:not(:disabled):hover{background:var(--brand-ink)}
+  .btn.ghost:not(:disabled):hover{background:var(--brand-tint);color:var(--brand-ink)}
+  .btn.line:hover{background:#05B34C}
+  .seg button:hover,.addon:hover,.dz:hover,.stepper button:not(:disabled):hover{border-color:var(--accent)}
+}
 .upsell{display:flex;gap:10px;align-items:center;background:#fff;border:1.5px dashed var(--accent);border-radius:14px;padding:12px 14px;margin-top:14px}
 
-.addon{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:10px 10px 10px 14px;min-height:64px;margin-bottom:10px}
+.addon{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:10px 10px 10px 14px;min-height:64px;margin-bottom:10px;transition:border-color .15s,background-color .15s}
 .addon.on{border-color:var(--brand);background:#FFF4EA}
 .addon input[type=checkbox]{width:22px;height:22px;accent-color:var(--brand);flex:none;margin:0}
 .addon label{flex:1;cursor:pointer}
@@ -106,6 +135,15 @@ textarea.field{min-height:72px;resize:vertical}
 .dz .q{display:flex;align-items:center;justify-content:space-between;padding:0 8px 8px}
 .dz .q button{width:36px;height:36px;border-radius:9px;border:1.5px solid var(--line);background:#fff;font-size:18px}
 .dz .q output{font-size:14px;font-weight:600}
+@media(min-width:700px){.dcz{grid-template-columns:repeat(4,minmax(0,1fr))}}
+/* ติ๊ก Day Care วันเช็คเอาท์ → แผงเลือกไซส์ต่อจากกล่องเดียวกัน (ไม่ลอยแยก) */
+.addon.open{margin-bottom:0;border-bottom-left-radius:0;border-bottom-right-radius:0}
+.addon-more{border:1.5px solid var(--brand);border-top:0;border-radius:0 0 14px 14px;background:#FFF4EA;padding:2px 12px 12px;margin-bottom:10px}
+.addon-more .sec{font-size:15px;margin:10px 0 8px}
+.addon-more .dcz{margin:10px 0 0}
+.addon-more .sec+.dcz{margin-top:0}
+.addon-more .dz.on{background:#fff;outline:1px solid var(--brand);outline-offset:-2.5px}
+.addon-more .err{margin-top:8px}
 .sec{font-size:17px;font-weight:700;margin:20px 0 10px}
 .sec small{font-size:13px;font-weight:500;color:var(--ink-soft)}
 .stepper button:disabled,.dz .q button:disabled{opacity:.35;cursor:not-allowed}
@@ -131,6 +169,7 @@ aside .btn{width:100%;margin-top:12px}
 @media(min-width:960px){.bar{display:none}}
 
 .done-head{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;margin:20px 0 16px}
+.done-head .pill{align-self:center}
 .done-ic{width:56px;height:56px;border-radius:50%;background:var(--ok-tint);display:flex;align-items:center;justify-content:center}
 .code{font-size:18px;font-weight:700;letter-spacing:.5px;color:var(--ink)}
 .amount{font-size:34px;font-weight:700;color:var(--brand-ink);text-align:center}
@@ -355,7 +394,7 @@ function dcGroupStatus(g,need){
   return {s: free===need ? 'last':'ok', free:free};
 }
 function pillHtml(st){
-  if(st.s==='ok') return '<span class="pill ok">● ว่าง</span>';
+  if(st.s==='ok') return '<span class="pill ok">ว่าง</span>';
   if(st.s==='last') return '<span class="pill last">เหลือที่สุดท้าย</span>';
   if(st.s==='full') return '<span class="pill full">เต็มช่วงวันนี้</span>';
   return '<span class="pill unk">ร้านยืนยันห้องว่างทาง LINE</span>';
@@ -555,7 +594,7 @@ function arriveOpts(){
 }
 // ตัวนับน้องแยกสุนัข/แมว — ลดจนเหลือ 0 ได้ แต่รวมทั้งหมดต้องมีอย่างน้อย 1 ตัว
 function petStepper(p){
-  return '<div class="stepper" style="margin-bottom:8px"><span id="pl-'+p+'">'+PET_EMOJI[p]+' '+PET_TH[p]+'</span><div class="ctl" role="group" aria-labelledby="pl-'+p+'">'+
+  return '<div class="stepper" style="margin-bottom:8px"><span id="pl-'+p+'">'+PET_TH[p]+'</span><div class="ctl" role="group" aria-labelledby="pl-'+p+'">'+
     '<button type="button" data-pn="'+p+'" data-d="-1" aria-label="ลดจำนวน'+PET_TH[p]+'"'+(S.n[p]<1||petsTotal()<=1?' disabled':'')+'>−</button><output>'+S.n[p]+'</output>'+
     '<button type="button" data-pn="'+p+'" data-d="1" aria-label="เพิ่มจำนวน'+PET_TH[p]+'"'+(S.n[p]>=MAX_PER_PET?' disabled':'')+'>+</button></div></div>';
 }
@@ -571,7 +610,7 @@ function sizeChips(kind,p){
 }
 function sizeHead(kind,p){
   var m=sizeMap(kind,p);
-  return '<h2 class="sec">'+PET_EMOJI[p]+' '+PET_NICK[p]+' '+S.n[p]+' ตัว'+(S.n[p]>1?' <small>เลือกแล้ว '+sizeCount(m)+'/'+S.n[p]+'</small>':'')+'</h2>';
+  return '<h2 class="sec">'+PET_NICK[p]+' '+S.n[p]+' ตัว'+(S.n[p]>1?' <small>เลือกแล้ว '+sizeCount(m)+'/'+S.n[p]+'</small>':'')+'</h2>';
 }
 function step1(){
   var t=today(), stay=S.service==='stay', n=nightsOf(S.checkIn,S.checkOut);
@@ -596,18 +635,17 @@ function step1(){
 }
 function roomCard(rt,p){
   var st=roomStatus(rt,p), lp=listPrice(rt,p), up=unitPrice(rt,p), n=nightsOf(S.checkIn,S.checkOut);
-  var r=S.room[p], sel=r.type===rt, full=st.s==='full';
+  var r=S.room[p], sel=r.type===rt, full=st.s==='full', deal=up<lp;
   var maxRooms=Math.min(S.n[p], st.free||S.n[p]);
   return '<div class="room'+(sel?' sel':'')+(full?' full':'')+'">'+
-    '<img src="/images/room-'+rt+'-'+p+'.jpg" alt="ห้อง '+esc(D.prices[rt].label)+' สำหรับ'+PET_TH[p]+'" loading="lazy">'+
-    '<div class="b"><h3>'+esc(D.prices[rt].label)+'</h3>'+pillHtml(st)+
-    '<div class="feat">'+ROOM_INFO[rt][p]+' · CCTV + แอร์ 24 ชม. · อัปเดตรูปทุกวัน</div>'+
+    '<div class="ph"><img src="/images/room-'+rt+'-'+p+'.jpg" alt="ห้อง '+esc(D.prices[rt].label)+' สำหรับ'+PET_TH[p]+'" loading="lazy"></div>'+
+    '<div class="b"><div class="hd"><h3>'+esc(D.prices[rt].label)+'</h3>'+pillHtml(st)+'</div>'+
+    '<div class="feat">ขนาดห้อง '+ROOM_INFO[rt][p]+'</div>'+
     (full ? '<a href="https://line.me/R/ti/p/'+LINE_OA+'" target="_blank" rel="noopener" style="margin-top:auto;font-weight:500">ทัก LINE ให้แจ้งเมื่อว่าง</a>' :
-    '<div class="price"><div>'+(up<lp?'<div class="strike">'+baht(lp)+' / คืน</div>':'')+
-      '<div><span class="big" style="'+(up<lp?'color:var(--brand-ink)':'')+'">'+baht(up)+'</span> / คืน</div>'+
-      (up<lp?'<div class="online">ราคาจองออนไลน์</div>':'')+'</div>'+
-      '<div style="text-align:right"><div class="feat">'+n+' คืน'+(r.rooms>1&&sel?' × '+r.rooms+' ห้อง':'')+'</div><b>'+baht(up*n*(sel?r.rooms:1))+'</b></div></div>'+
-    (sel && S.n[p]>1 ? '<div class="stepper" style="padding:4px 4px 4px 12px"><span class="feat">จำนวนห้อง</span><div class="ctl"><button type="button" data-rooms="-1" data-pet="'+p+'" aria-label="ลดจำนวนห้อง">−</button><output>'+r.rooms+'</output><button type="button" data-rooms="1" data-pet="'+p+'" aria-label="เพิ่มจำนวนห้อง"'+(r.rooms>=maxRooms?' disabled':'')+'>+</button></div></div>' : '')+
+    '<div class="price"><div>'+(deal?'<div class="was"><s>'+baht(lp)+'</s> <span class="online">ราคาจองออนไลน์</span></div>':'')+
+      '<div><span class="big'+(deal?' deal':'')+'">'+baht(up)+'</span> / คืน</div></div>'+
+      '<div class="tot"><div class="feat">'+n+' คืน'+(r.rooms>1&&sel?' × '+r.rooms+' ห้อง':'')+'</div><b>'+baht(up*n*(sel?r.rooms:1))+'</b></div></div>'+
+    (sel && S.n[p]>1 ? '<div class="stepper"><span>จำนวนห้อง</span><div class="ctl"><button type="button" data-rooms="-1" data-pet="'+p+'" aria-label="ลดจำนวนห้อง"'+(r.rooms<=1?' disabled':'')+'>−</button><output>'+r.rooms+'</output><button type="button" data-rooms="1" data-pet="'+p+'" aria-label="เพิ่มจำนวนห้อง"'+(r.rooms>=maxRooms?' disabled':'')+'>+</button></div></div>' : '')+
     '<button type="button" class="btn'+(sel?'':' ghost')+'" data-room="'+rt+'" data-pet="'+p+'">'+(sel?'✓ เลือกห้องนี้แล้ว':'เลือกห้องนี้')+'</button>')+
     '</div></div>';
 }
@@ -624,10 +662,10 @@ function step2(){
   var h=backBtn()+progress()+
     '<div class="card" style="display:flex;justify-content:space-between;align-items:center;margin:12px 0 16px;padding:10px 14px"><span><b>'+petsLabel()+'</b> · '+thDate(S.checkIn,false)+' – '+thDate(S.checkOut,false)+' · '+n+' คืน</span><button class="back" data-go="1" style="padding:0">แก้ไข</button></div>'+
     '<h1 class="t" style="margin-top:0">เลือกห้องให้น้อง</h1>'+
-    (mixed?'<p class="sub">ห้องสุนัขกับแมวแยกกัน — เลือกให้ครบทั้ง 2 ส่วน</p>':'')+
+    '<p class="sub">ทุกห้อง: CCTV + แอร์ 24 ชม. · อัปเดตรูปทุกวัน'+(mixed?'<br>ห้องสุนัขกับแมวแยกกัน — เลือกให้ครบทั้ง 2 ส่วน':'')+'</p>'+
     (LIVE?'':'<div class="note warn" style="margin-bottom:14px">ตอนนี้เช็คห้องว่างอัตโนมัติไม่ได้ — ส่งคำขอได้ตามปกติ ร้านจะยืนยันห้องว่างทาง LINE</div>');
   types.forEach(function(p){
-    if(mixed) h+='<h2 class="sec">'+PET_EMOJI[p]+' ห้องของ'+PET_NICK[p]+' · '+S.n[p]+' ตัว</h2>';
+    if(mixed) h+='<h2 class="sec">ห้องของ'+PET_NICK[p]+' · '+S.n[p]+' ตัว</h2>';
     // ทางลัด: เลือกห้องหมาแล้ว อยากได้แบบเดียวกันให้แมว กดทีเดียว
     var dt=S.room.dog.type;
     if(p==='cat' && mixed && dt && S.room.cat.type!==dt && D.prices[dt] && roomStatus(dt,'cat').s!=='full')
@@ -648,13 +686,14 @@ function step3(){
     '</div>';
   });
   if(S.service==='stay'){
-    h+='<div class="addon'+(S.dcOn?' on':'')+'"><input type="checkbox" id="addc" data-dc'+(S.dcOn?' checked':'')+'>'+
+    h+='<div class="addon'+(S.dcOn?' on open':'')+'"><input type="checkbox" id="addc" data-dc'+(S.dcOn?' checked':'')+'>'+
       '<label for="addc"><div class="nm">Day Care วันเช็คเอาท์</div><div class="pr">รับน้องกลับหลัง 14:30 น. (ไม่เกิน 20:00 น.) · คิดเหมาวันตามน้ำหนักน้อง</div></label></div>';
     if(S.dcOn){
+      h+='<div class="addon-more">';
       petTypes().forEach(function(p){
         h+=(isMixed()||S.n[p]>1 ? sizeHead('late',p) : '')+sizeChips('late',p);
       });
-      h+=err('dc');
+      h+=err('dc')+'</div>';
     }
   }
   h+='<div class="addon'+(S.wantGroom?' on':'')+'"><input type="checkbox" id="adgr" data-k="wantGroom"'+(S.wantGroom?' checked':'')+'>'+
@@ -743,6 +782,11 @@ function render(){
   var showTotal = S.step>1 && (stay ? t.lines.length>0 : t.dcItems.length>0);
   bar.innerHTML='<div class="t"><small>'+esc(small)+(S.step===4&&showTotal?(t.full?' · ชำระเต็มจำนวน':' · มัดจำ '+baht(t.deposit)):'')+'</small><b>'+(showTotal?baht(t.grand):'')+'</b></div>'+
     '<button class="btn" data-next'+(S.sending?' disabled':'')+'>'+nextLabel()+'</button>';
+  // ช่องที่กรอกไม่ผ่าน: ขอบแดง + aria-invalid (ข้อความ error อยู่ใต้ช่องอยู่แล้ว)
+  Object.keys(S.errors).forEach(function(k){
+    var f=document.querySelector('main .field[data-k="'+k+'"]');
+    if(f){ f.classList.add('bad'); f.setAttribute('aria-invalid','true'); }
+  });
   aside.innerHTML = sumHtml(t)+'<button class="btn" data-next'+(S.sending?' disabled':'')+'>'+nextLabel()+'</button>'+
     '<p class="feat" style="margin:10px 0 0">เช็คอิน 9:00–18:00 น. · เช็คเอาท์ภายใน 14:00 น.</p>';
 }
@@ -836,7 +880,7 @@ document.addEventListener('change', function(e){
 });
 document.addEventListener('input', function(e){
   var el=e.target;
-  if(el.dataset.k && el.type!=='checkbox' && el.tagName!=='SELECT'){ S[el.dataset.k]=el.value; }
+  if(el.dataset.k && el.type!=='checkbox' && el.tagName!=='SELECT'){ S[el.dataset.k]=el.value; if(el.classList.contains('bad')){ el.classList.remove('bad'); el.removeAttribute('aria-invalid'); } }
 });
 
 // เปิดหน้าซ้ำหลังส่งแล้ว (เช่น กลับมาจาก LINE) → โชว์หน้ามัดจำเดิม
