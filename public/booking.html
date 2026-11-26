@@ -106,6 +106,9 @@ textarea.field{min-height:72px;resize:vertical}
 .dz .q{display:flex;align-items:center;justify-content:space-between;padding:0 8px 8px}
 .dz .q button{width:36px;height:36px;border-radius:9px;border:1.5px solid var(--line);background:#fff;font-size:18px}
 .dz .q output{font-size:14px;font-weight:600}
+.sec{font-size:17px;font-weight:700;margin:20px 0 10px}
+.sec small{font-size:13px;font-weight:500;color:var(--ink-soft)}
+.stepper button:disabled,.dz .q button:disabled{opacity:.35;cursor:not-allowed}
 
 .policy{background:var(--brand-tint);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.6;color:#5A3A22;margin:14px 0}
 .chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:10px 0}
@@ -210,13 +213,27 @@ var STEPS = ['วันที่และน้อง','เลือกห้อ
 var D = JSON.parse(JSON.stringify(FALLBACK)); // ข้อมูลร้าน (จะทับด้วยของจริงถ้าโหลดได้)
 var LIVE = false;   // โหลดห้องว่างจริงได้ไหม
 var HOLDS = [];     // การกันห้องที่ยังไม่หมดอายุ
+// จองสุนัข + แมวในใบเดียวได้ — ห้อง/ไซส์/ชื่อน้อง แยกตามชนิดสัตว์
+var PETS = ['dog','cat'];
+var PET_TH = { dog:'สุนัข', cat:'แมว' };
+var PET_NICK = { dog:'น้องหมา', cat:'น้องแมว' };
+var PET_EMOJI = { dog:'🐶', cat:'🐱' };
+var MAX_PER_PET = 4;
 var S = {
-  step:1, service:'stay', pet:'dog', pets:1,
-  checkIn:'', checkOut:'', date:'', arrive:'10:00', weight:'',
-  roomType:'', rooms:1, addons:{}, dcOn:false, lateDc:{},
-  owner:'', phone:'', line:'', email:'', petname:'', breed:'', note:'', wantGroom:false, accept:false,
+  step:1, service:'stay', n:{dog:1,cat:0},
+  checkIn:'', checkOut:'', date:'', arrive:'10:00',
+  room:{ dog:{type:'',rooms:1}, cat:{type:'',rooms:1} }, // ห้องที่เลือก แยกตามชนิดสัตว์
+  dc:{ dog:{}, cat:{} },                                 // Day Care (ไม่ค้างคืน): { ไซส์: จำนวนตัว }
+  addons:{}, dcOn:false, lateDc:{ dog:{}, cat:{} },       // Day Care วันเช็คเอาท์ (รับกลับหลัง 14:30)
+  owner:'', phone:'', line:'', email:'', nameDog:'', nameCat:'', breed:'', note:'', wantGroom:false, accept:false,
   errors:{}, sending:false, result:null
 };
+function petTypes(){ return PETS.filter(function(p){ return S.n[p]>0; }); }
+function petsTotal(){ return S.n.dog+S.n.cat; }
+function isMixed(){ return petTypes().length>1; }
+function petsLabel(){ return petTypes().map(function(p){ return PET_TH[p]+' '+S.n[p]+' ตัว'; }).join(' + '); }
+function petName(p){ return p==='dog' ? S.nameDog : S.nameCat; }
+function sizeCount(m){ var n=0; Object.keys(m||{}).forEach(function(k){ n+=m[k]; }); return n; }
 
 // ═══ utils ═══
 function $(id){ return document.getElementById(id); }
@@ -253,82 +270,89 @@ function unitPrice(rt,pet){
   var l = listPrice(rt,pet);
   return (o && o < l) ? o : l;
 }
-function weightKg(){ var w=parseFloat(String(S.weight).replace(',','.')); return w>0?w:0; }
-function dcSize(){
-  var w=weightKg(), cat=S.pet==='cat';
-  if(cat) return w<3?'s':w<7?'m':w<11?'l':'xl';
-  return w<5?'s':w<10?'m':w<20?'l':'xl';
-}
-function dcGroup(){ return S.pet==='cat' ? 'cat' : (weightKg()>=15 ? 'dogLarge' : 'dogSmall'); }
+function dcPrice(pet,size){ return Number(D.daycare.prices[pet] && D.daycare.prices[pet][size]) || 0; }
+// กลุ่มที่นับที่ว่าง Day Care (ตรงกับ daycareGroupOf หลังบ้าน): แมว · สุนัข S/M · สุนัข L/XL
+function dcGroupOf(pet,size){ return pet==='cat' ? 'cat' : (size==='l'||size==='xl' ? 'dogLarge' : 'dogSmall'); }
+var DC_GROUP_TH = { cat:'แมว', dogSmall:'สุนัขไซส์ S–M', dogLarge:'สุนัขไซส์ L–XL' };
 function addonList(){
   return (D.addOns||[]).filter(function(a){ return !SPECIAL_ADDON.test(a.name) && (S.service==='stay' || a.unit!=='คืน'); });
 }
-// Day Care วันเช็คเอาท์ (รับกลับหลัง 14:30) — เก็บเป็น { ไซส์: จำนวนตัว } รวมกันไม่เกินจำนวนน้อง
-function dcLateCount(){ var n=0; Object.keys(S.lateDc).forEach(function(k){ n+=S.lateDc[k]; }); return n; }
-function dcAutoPick(){ S.lateDc={}; if(weightKg()) S.lateDc[dcSize()]=S.pets; }
 function defaultQty(a){
   var n=nightsOf(S.checkIn,S.checkOut)||1;
   if(a.unit==='คืน') return n;
-  if(a.unit==='ตัว') return S.pets;
+  if(a.unit==='ตัว') return petsTotal();
   return 1;
 }
 function totals(){
-  var n = S.service==='stay' ? nightsOf(S.checkIn,S.checkOut) : 0;
-  var room=0, list=0, disc=0, pct=0, unit=0, dcUnit=0;
-  if(S.service==='stay' && S.roomType){
-    unit = unitPrice(S.roomType,S.pet);
-    var gross = r2(unit*S.rooms*n);
-    pct = longStayPct(n);
-    disc = pct ? Math.round(gross*pct/100) : 0; // ปัดเป็นบาทเต็ม (หลังบ้านบันทึกเป็นส่วนลดแบบจำนวนเงิน)
-    room = r2(gross-disc);
-    list = listPrice(S.roomType,S.pet);
-  }
-  if(S.service==='daycare'){
-    dcUnit = Number(D.daycare.prices[S.pet][dcSize()])||0;
-    room = r2(dcUnit*S.pets);
-  }
+  var stay=S.service==='stay', n=stay ? nightsOf(S.checkIn,S.checkOut) : 0, pct=stay ? longStayPct(n) : 0;
+  var lines=[], dcItems=[], room=0, disc=0;
+  petTypes().forEach(function(p){
+    if(stay){
+      var r=S.room[p]; if(!r.type) return;
+      var unit=unitPrice(r.type,p), gross=r2(unit*r.rooms*n);
+      // ปัดส่วนลดเป็นบาทเต็มต่อรายการห้อง (หลังบ้านบันทึกส่วนลดเป็นจำนวนเงินต่อรายการ → ยอดตรงกันเป๊ะ)
+      var d=pct ? Math.round(gross*pct/100) : 0;
+      lines.push({ pet:p, roomType:r.type, label:D.prices[r.type].label, rooms:r.rooms, unit:unit, list:listPrice(r.type,p), gross:gross, disc:d });
+      room=r2(room+gross-d); disc+=d;
+    } else {
+      DC_SIZES[p].forEach(function(z){
+        var q=S.dc[p][z[0]]; if(!q) return;
+        var u=dcPrice(p,z[0]);
+        dcItems.push({ pet:p, size:z[0], unitPrice:u, count:q, total:r2(u*q) });
+        room=r2(room+u*q);
+      });
+    }
+  });
   var adds = [], addSum = 0;
   addonList().forEach(function(a){
     var q=S.addons[a.name]; if(!q) return;
     var t=r2(a.unitPrice*q); addSum=r2(addSum+t);
     adds.push({name:a.name,unitPrice:a.unitPrice,qty:q,unit:a.unit,total:t});
   });
-  if(S.service==='stay' && S.dcOn) DC_SIZES[S.pet].forEach(function(z){
-    var q=S.lateDc[z[0]]; if(!q) return;
-    var u=Number(D.daycare.prices[S.pet][z[0]])||0, t=r2(u*q); addSum=r2(addSum+t);
-    adds.push({name:'Day Care วันเช็คเอาท์ ไซส์ '+z[0].toUpperCase(),unitPrice:u,qty:q,unit:'ตัว',total:t,kind:'daycare',size:z[0]});
+  if(stay && S.dcOn) petTypes().forEach(function(p){
+    DC_SIZES[p].forEach(function(z){
+      var q=S.lateDc[p][z[0]]; if(!q) return;
+      var u=dcPrice(p,z[0]), t=r2(u*q); addSum=r2(addSum+t);
+      adds.push({name:'Day Care วันเช็คเอาท์ '+PET_TH[p]+' ไซส์ '+z[0].toUpperCase(),unitPrice:u,qty:q,unit:'ตัว',total:t,kind:'daycare',size:z[0],pet:p});
+    });
   });
   var grand = r2(room+addSum);
-  var full = S.service==='daycare'; // Day Care ชำระเต็มจำนวน · ฝากค้างคืนมัดจำตาม depositPct
+  var full = !stay; // Day Care ชำระเต็มจำนวน · ฝากค้างคืนมัดจำตาม depositPct
   var dep = full ? grand : Math.round(grand*(D.depositPct==null?50:D.depositPct)/100);
-  return { nights:n, unit:unit, list:list, pct:pct, disc:disc, room:room, dcUnit:dcUnit, addOns:adds, addSum:addSum, grand:grand, deposit:dep, balance:r2(grand-dep), full:full };
+  return { nights:n, pct:pct, lines:lines, disc:disc, dcItems:dcItems, room:room, addOns:adds, addSum:addSum, grand:grand, deposit:dep, balance:r2(grand-dep), full:full };
 }
 
 // ═══ ห้องว่าง ═══
-function roomStatus(rt){
+function roomStatus(rt,pet){
   if(!LIVE || !D.capacity || !D.capacity[rt]) return {s:'unk'};
-  var cap = Number(D.capacity[rt][S.pet])||0;
+  var cap = Number(D.capacity[rt][pet])||0;
   if(cap<=0) return {s:'full',free:0};
   var minFree = Infinity;
   eachDate(S.checkIn, S.checkOut, function(d){
-    var used = (D.used[d] && D.used[d][rt+'|'+S.pet]) || 0;
-    HOLDS.forEach(function(h){ if(h.kind!=='daycare' && h.roomType===rt && h.pet===S.pet && h.checkIn<=d && d<h.checkOut) used += h.rooms||1; });
+    var used = (D.used[d] && D.used[d][rt+'|'+pet]) || 0;
+    HOLDS.forEach(function(h){ if(h.kind!=='daycare' && h.roomType===rt && h.pet===pet && h.checkIn<=d && d<h.checkOut) used += h.rooms||1; });
     minFree = Math.min(minFree, cap-used);
   });
   if(minFree===Infinity) minFree=cap;
-  var need = S.rooms;
+  var need = S.room[pet].type===rt ? S.room[pet].rooms : 1;
   if(minFree < 1) return {s:'full',free:0};
   if(minFree < need) return {s:'full',free:minFree};
   return {s: minFree===need ? 'last' : 'ok', free:minFree};
 }
-function dcStatus(){
+// จำนวนตัวที่ต้องใช้ที่ Day Care แยกตามกลุ่ม { cat|dogSmall|dogLarge: ตัว }
+function dcNeed(){
+  var g={};
+  petTypes().forEach(function(p){ Object.keys(S.dc[p]).forEach(function(z){ var k=dcGroupOf(p,z); g[k]=(g[k]||0)+S.dc[p][z]; }); });
+  return g;
+}
+function dcGroupStatus(g,need){
   if(!LIVE) return {s:'unk'};
-  var g=dcGroup(), cap=Number((D.daycare.capacity||{})[g])||0;
+  var cap=Number((D.daycare.capacity||{})[g])||0;
   var used=(D.dcUsed[S.date] && D.dcUsed[S.date][g]) || 0;
   HOLDS.forEach(function(h){ if(h.kind==='daycare' && h.dcGroup===g && h.checkIn===S.date) used += h.count||1; });
   var free=cap-used;
-  if(free < S.pets) return {s:'full',free:Math.max(0,free)};
-  return {s: free===S.pets ? 'last':'ok', free:free};
+  if(free < need) return {s:'full',free:Math.max(0,free)};
+  return {s: free===need ? 'last':'ok', free:free};
 }
 function pillHtml(st){
   if(st.s==='ok') return '<span class="pill ok">● ว่าง</span>';
@@ -389,13 +413,14 @@ function summaryText(code,t){
   var L=['🐾 จองออนไลน์ Perfect Pet House','รหัสจอง: '+code,'──────────────',
     '👤 '+S.owner+' · 📞 '+S.phone];
   if(S.line) L.push('💬 LINE: '+S.line);
-  L.push((S.pet==='cat'?'🐱 แมว':'🐶 สุนัข')+' '+S.pets+' ตัว · ชื่อน้อง: '+S.petname+(S.breed?' ('+S.breed+')':'')+(S.weight?' · '+S.weight+' กก.':''));
+  petTypes().forEach(function(p){ L.push(PET_EMOJI[p]+' '+PET_TH[p]+' '+S.n[p]+' ตัว · ชื่อน้อง: '+(petName(p)||'-')); });
+  if(S.breed) L.push('สายพันธุ์: '+S.breed);
   if(S.service==='stay'){
-    L.push('🏨 '+D.prices[S.roomType].label+' × '+S.rooms+' ห้อง · '+baht(t.unit)+'/คืน');
+    t.lines.forEach(function(l){ L.push('🏨 '+l.label+' ('+PET_TH[l.pet]+') × '+l.rooms+' ห้อง · '+baht(l.unit)+'/คืน'); });
     L.push('📅 '+S.checkIn+' → '+S.checkOut+' ('+t.nights+' คืน) · มาถึง '+S.arrive+' น.');
     if(t.pct) L.push('🎁 ส่วนลดพักยาว '+t.pct+'% (-'+baht(t.disc)+')');
   } else {
-    L.push('☀️ Day Care เหมาวัน ไซส์ '+dcSize().toUpperCase()+' × '+S.pets+' ตัว · '+baht(t.dcUnit)+'/ตัว');
+    t.dcItems.forEach(function(i){ L.push('☀️ Day Care '+PET_TH[i.pet]+' ไซส์ '+i.size.toUpperCase()+' × '+i.count+' ตัว · '+baht(i.unitPrice)+'/ตัว'); });
     L.push('📅 '+S.date+' · มาถึง '+S.arrive+' น.');
   }
   t.addOns.forEach(function(a){ L.push('➕ '+a.name+' '+a.qty+' '+a.unit+' = '+baht(a.total)); });
@@ -407,37 +432,49 @@ function summaryText(code,t){
 function submit(){
   if(S.sending) return;
   S.sending=true; render();
-  var t=totals(), code=genCode();
+  var t=totals(), code=genCode(), types=petTypes();
   var holdUntil=new Date(Date.now()+(D.holdHours||2)*3600000).toISOString();
   var stay=S.service==='stay';
+  var first=t.lines[0]||{}, firstDc=t.dcItems[0]||{}, need=dcNeed();
+  var roomsLabel=t.lines.map(function(l){ return l.label+(isMixed()?' ('+PET_TH[l.pet]+')':''); }).join(' + ');
   var payload = {
-    v:1, code:code, kind:stay?'stay':'daycare', pet:S.pet, pets:S.pets,
-    roomType:stay?S.roomType:'', roomLabel:stay?D.prices[S.roomType].label:'', rooms:stay?S.rooms:0,
+    v:2, code:code, kind:stay?'stay':'daycare', pet:types[0], pets:petsTotal(),
+    petCounts:{dog:S.n.dog,cat:S.n.cat}, petNames:{dog:S.nameDog,cat:S.nameCat},
+    // หลายห้อง/หลายสัตว์: หลังบ้านใช้ lines / daycareItems เป็นหลัก · ช่องเดี่ยวด้านล่างไว้ให้โค้ดรุ่นเก่ายังอ่านได้
+    lines: t.lines.map(function(l){ return {pet:l.pet,roomType:l.roomType,roomLabel:l.label,rooms:l.rooms,pricePerNight:l.unit,listPrice:l.list,longStayDisc:l.disc}; }),
+    daycareItems: t.dcItems.map(function(i){ return {pet:i.pet,size:i.size,group:dcGroupOf(i.pet,i.size),unitPrice:i.unitPrice,count:i.count}; }),
+    roomType:stay?first.roomType:'', roomLabel:stay?roomsLabel:'', rooms:t.lines.reduce(function(s,l){return s+l.rooms;},0),
     checkIn:stay?S.checkIn:S.date, checkOut:stay?S.checkOut:S.date, nights:t.nights,
-    pricePerNight:t.unit, listPrice:t.list, longStayPct:t.pct, longStayDisc:t.disc,
-    daycare: stay?null:{ size:dcSize(), group:dcGroup(), unitPrice:t.dcUnit, count:S.pets },
-    addOns:t.addOns.map(function(a){ var o={name:a.name,unitPrice:a.unitPrice,qty:a.qty,unit:a.unit}; if(a.kind){ o.kind=a.kind; o.size=a.size; o.pet=S.pet; } return o; }),
-    arriveTime:S.arrive, weightKg:S.weight, wantGroom:S.wantGroom,
+    pricePerNight:first.unit||0, listPrice:first.list||0, longStayPct:t.pct, longStayDisc:t.disc,
+    daycare: stay?null:{ size:firstDc.size||'', group:firstDc.pet?dcGroupOf(firstDc.pet,firstDc.size):'', unitPrice:firstDc.unitPrice||0, count:petsTotal() },
+    addOns:t.addOns.map(function(a){ var o={name:a.name,unitPrice:a.unitPrice,qty:a.qty,unit:a.unit}; if(a.kind){ o.kind=a.kind; o.size=a.size; o.pet=a.pet; } return o; }),
+    arriveTime:S.arrive, weightKg:'', wantGroom:S.wantGroom,
     depositPct:t.full?100:D.depositPct, totals:{grand:t.grand,deposit:t.deposit,balance:t.balance},
     holdUntil:holdUntil, acceptedPolicyAt:new Date().toISOString(), liveAvailability:LIVE
   };
-  var hold = { code:code, kind:payload.kind, roomType:payload.roomType, pet:S.pet, rooms:stay?S.rooms:0,
-    checkIn:payload.checkIn, checkOut:payload.checkOut, dcGroup:stay?'':dcGroup(), count:S.pets,
-    expiresAt:{__ts:holdUntil}, createdAt:new Date().toISOString() };
+  // กันห้อง: 1 รายการต่อแบบห้อง×ชนิดสัตว์ (Day Care = 1 รายการต่อกลุ่ม) — หลายใบใช้รหัสจองเดียวกัน
+  var base = { code:code, kind:payload.kind, checkIn:payload.checkIn, checkOut:payload.checkOut, expiresAt:{__ts:holdUntil}, createdAt:new Date().toISOString() };
+  var holds = stay
+    ? t.lines.map(function(l){ return Object.assign({}, base, { roomType:l.roomType, pet:l.pet, rooms:l.rooms, dcGroup:'', count:S.n[l.pet] }); })
+    : Object.keys(need).map(function(g){ return Object.assign({}, base, { roomType:'', pet:g==='cat'?'cat':'dog', rooms:0, dcGroup:g, count:need[g] }); });
   var msg = summaryText(code,t);
   var webData = {
     owner:S.owner, phone:S.phone, line:S.line, email:S.email,
-    pet:S.pet==='cat'?'น้องแมว':'น้องหมา', petname:S.petname, breed:S.breed,
+    pet:PET_NICK[types[0]]+(isMixed()?' + '+PET_NICK[types[1]]:''),
+    petname:types.map(function(p){ return petName(p)+(isMixed()?' ('+PET_TH[p]+')':''); }).join(' · '),
+    breed:S.breed,
     service: stay ? 'ฝากเลี้ยง (ค้างคืน)' : 'Day Care',
-    room: stay ? D.prices[S.roomType].label : '',
+    room: stay ? roomsLabel : '',
     checkin: payload.checkIn, checkout: stay ? S.checkOut : '',
     time: S.arrive, note: S.note
   };
-  var holdId='';
-  post('roomHolds', hold).then(function(j){ holdId=(j.name||'').split('/').pop(); }).catch(function(){})
+  var holdIds=[];
+  Promise.all(holds.map(function(h){
+    return post('roomHolds', h).then(function(j){ var id=(j.name||'').split('/').pop(); if(id) holdIds.push(id); }).catch(function(){});
+  }))
   .then(function(){
     var req = Object.assign({}, webData, { source:'/booking.html', submittedAt:new Date().toISOString(), status:'new',
-      code:code, holdId:holdId, payloadJson:JSON.stringify(payload) });
+      code:code, holdId:holdIds.join(','), payloadJson:JSON.stringify(payload) });
     var p1 = post('bookingRequests', req).then(function(){return true;},function(){return false;});
     // แจ้งเตือนร้าน + ลง Google Sheets + ปฏิทิน (Apps Script เดิม)
     var p2 = fetch(GAS,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},
@@ -446,8 +483,8 @@ function submit(){
     return Promise.all([p1,p2]);
   }).then(function(ok){
     S.sending=false;
-    S.result = { code:code, t:t, holdUntil:holdUntil, msg:msg, ok:ok[0]||ok[1], held:!!holdId,
-      label: stay ? D.prices[S.roomType].label : 'Day Care', when: stay ? (thDate(S.checkIn)+' – '+thDate(S.checkOut)+' ('+t.nights+' คืน)') : thDate(S.date) };
+    S.result = { code:code, t:t, holdUntil:holdUntil, msg:msg, ok:ok[0]||ok[1], held:holdIds.length>0,
+      label: stay ? roomsLabel : 'Day Care', when: stay ? (thDate(S.checkIn)+' – '+thDate(S.checkOut)+' ('+t.nights+' คืน)') : thDate(S.date) };
     try{ sessionStorage.setItem('pph_last_booking', JSON.stringify(S.result)); }catch(e){}
     S.step=5; history.pushState({step:5,idx:((history.state&&history.state.idx)||0)+1},''); render(); window.scrollTo(0,0);
   });
@@ -466,24 +503,32 @@ function validate(step){
       else if(nightsOf(S.checkIn,S.checkOut)>60) e.checkOut='จองออนไลน์ได้ไม่เกิน 60 คืน — ทัก LINE ได้เลย';
     } else {
       if(!S.date) e.date='เลือกวันที่'; else if(S.date<t) e.date='เลือกวันตั้งแต่วันนี้เป็นต้นไป';
-      if(!weightKg()) e.weight='ใส่น้ำหนักน้องโดยประมาณ เพื่อคิดราคาตามไซส์';
     }
   }
   if(step===2){
     if(S.service==='stay'){
-      if(!S.roomType) e.room='เลือกห้องที่ต้องการ';
-      else if(roomStatus(S.roomType).s==='full') e.room='ห้องนี้เต็มช่วงวันที่เลือก';
-    } else if(dcStatus().s==='full') e.room='Day Care วันนี้เต็มแล้ว ลองเลือกวันอื่น';
+      petTypes().forEach(function(p){
+        var r=S.room[p];
+        if(!r.type) e['room_'+p]='เลือกห้องให้'+PET_NICK[p];
+        else if(roomStatus(r.type,p).s==='full') e['room_'+p]='ห้องนี้เต็มช่วงวันที่เลือก';
+      });
+    } else {
+      petTypes().forEach(function(p){ if(sizeCount(S.dc[p])!==S.n[p]) e['dc_'+p]='เลือกไซส์ให้ครบ '+S.n[p]+' ตัว'; });
+      var need=dcNeed();
+      Object.keys(need).forEach(function(g){
+        var st=dcGroupStatus(g,need[g]);
+        if(st.s==='full') e.room='Day Care '+DC_GROUP_TH[g]+' วันนี้'+(st.free?'เหลือที่ '+st.free+' ตัว':'เต็มแล้ว')+' ลองเลือกวันอื่น';
+      });
+    }
   }
   if(step===3){
-    if(S.service==='stay' && S.dcOn && !dcLateCount()) e.dc='เลือกไซส์ตามน้ำหนักน้อง';
+    if(S.service==='stay' && S.dcOn && !petTypes().some(function(p){ return sizeCount(S.lateDc[p]); })) e.dc='เลือกไซส์ตามน้ำหนักน้อง';
   }
   if(step===4){
     if(!S.owner.trim()) e.owner='กรอกชื่อของคุณ';
     var ph=S.phone.replace(/\D/g,'');
     if(ph.length<9||ph.length>10) e.phone='เบอร์โทร 9–10 หลัก';
-    if(!S.petname.trim()) e.petname='กรอกชื่อน้อง';
-    if(S.service==='stay' && !weightKg() && S.weight) e.weight='ใส่เป็นตัวเลข';
+    petTypes().forEach(function(p){ var k=p==='dog'?'nameDog':'nameCat'; if(!String(S[k]).trim()) e[k]='กรอกชื่อ'+PET_NICK[p]; });
     if(S.email && !/^\S+@\S+\.\S+$/.test(S.email)) e.email='อีเมลไม่ถูกต้อง';
     if(!S.accept) e.accept='กรุณายอมรับเงื่อนไขก่อนส่ง';
   }
@@ -508,6 +553,26 @@ function arriveOpts(){
   var h=''; for(var i=9;i<=17;i++){ var a=(i<10?'0':'')+i+':00', b=(i+1<10?'0':'')+(i+1)+':00'; h+='<option value="'+a+'"'+(S.arrive===a?' selected':'')+'>'+a+' – '+b+' น.</option>'; }
   return h;
 }
+// ตัวนับน้องแยกสุนัข/แมว — ลดจนเหลือ 0 ได้ แต่รวมทั้งหมดต้องมีอย่างน้อย 1 ตัว
+function petStepper(p){
+  return '<div class="stepper" style="margin-bottom:8px"><span id="pl-'+p+'">'+PET_EMOJI[p]+' '+PET_TH[p]+'</span><div class="ctl" role="group" aria-labelledby="pl-'+p+'">'+
+    '<button type="button" data-pn="'+p+'" data-d="-1" aria-label="ลดจำนวน'+PET_TH[p]+'"'+(S.n[p]<1||petsTotal()<=1?' disabled':'')+'>−</button><output>'+S.n[p]+'</output>'+
+    '<button type="button" data-pn="'+p+'" data-d="1" aria-label="เพิ่มจำนวน'+PET_TH[p]+'"'+(S.n[p]>=MAX_PER_PET?' disabled':'')+'>+</button></div></div>';
+}
+// ปุ่มไซส์ตามน้ำหนัก (ใช้ทั้ง Day Care และ Day Care วันเช็คเอาท์) · kind: 'dc' | 'late'
+function sizeMap(kind,p){ return kind==='dc' ? S.dc[p] : S.lateDc[p]; }
+function sizeChips(kind,p){
+  var m=sizeMap(kind,p), cnt=S.n[p], left=cnt-sizeCount(m), at=' data-zk="'+kind+'" data-zp="'+p+'"';
+  return '<div class="dcz">'+DC_SIZES[p].map(function(z){
+    var q=m[z[0]]||0;
+    return '<div class="dz'+(q?' on':'')+'"><button type="button"'+at+' data-z="'+z[0]+'" aria-pressed="'+(q>0)+'"><b>ไซส์ '+z[0].toUpperCase()+'</b><small>'+z[1]+'</small><span>'+baht(dcPrice(p,z[0]))+' / ตัว</span></button>'+
+      (q&&cnt>1?'<div class="q"><button type="button"'+at+' data-zq="'+z[0]+'" data-d="-1" aria-label="ลด">−</button><output>'+q+' ตัว</output><button type="button"'+at+' data-zq="'+z[0]+'" data-d="1" aria-label="เพิ่ม"'+(left<1?' disabled':'')+'>+</button></div>':'')+'</div>';
+  }).join('')+'</div>';
+}
+function sizeHead(kind,p){
+  var m=sizeMap(kind,p);
+  return '<h2 class="sec">'+PET_EMOJI[p]+' '+PET_NICK[p]+' '+S.n[p]+' ตัว'+(S.n[p]>1?' <small>เลือกแล้ว '+sizeCount(m)+'/'+S.n[p]+'</small>':'')+'</h2>';
+}
 function step1(){
   var t=today(), stay=S.service==='stay', n=nightsOf(S.checkIn,S.checkOut);
   return progress()+
@@ -515,57 +580,60 @@ function step1(){
   '<div class="grp"><span class="lbl">บริการ</span><div class="seg">'+
     '<button type="button" data-set="service" data-v="stay" aria-pressed="'+stay+'">ฝากค้างคืน<small>โรงแรมสัตว์เลี้ยง</small></button>'+
     '<button type="button" data-set="service" data-v="daycare" aria-pressed="'+(!stay)+'">Day Care<small>9:00–20:00 น. ไม่ค้างคืน</small></button></div></div>'+
-  '<div class="grp"><span class="lbl">น้องเป็น</span><div class="seg">'+
-    '<button type="button" data-set="pet" data-v="dog" aria-pressed="'+(S.pet==='dog')+'">สุนัข</button>'+
-    '<button type="button" data-set="pet" data-v="cat" aria-pressed="'+(S.pet==='cat')+'">แมว</button></div></div>'+
-  '<div class="grp stepper"><span id="pl">จำนวนน้อง</span><div class="ctl" role="group" aria-labelledby="pl">'+
-    '<button type="button" data-pets="-1" aria-label="ลดจำนวนน้อง">−</button><output>'+S.pets+'</output>'+
-    '<button type="button" data-pets="1" aria-label="เพิ่มจำนวนน้อง">+</button></div></div>'+
+  '<div class="grp"><span class="lbl">น้องที่มาด้วย</span>'+petStepper('dog')+petStepper('cat')+
+    '<p class="hint" style="margin-top:0">มีทั้งสุนัขและแมว จองรวมในใบเดียวได้เลย</p></div>'+
   (stay ?
     '<div class="grp two"><div><label class="lbl" for="ci">เช็คอิน</label><input class="field" type="date" id="ci" data-k="checkIn" min="'+t+'" value="'+S.checkIn+'">'+err('checkIn')+'</div>'+
     '<div><label class="lbl" for="co">เช็คเอาท์</label><input class="field" type="date" id="co" data-k="checkOut" min="'+(S.checkIn?addDays(S.checkIn,1):t)+'" value="'+S.checkOut+'">'+err('checkOut')+'</div></div>'+
     (n?'<p class="hint" style="margin:-8px 0 16px;font-weight:600;color:var(--brand-ink)">รวม '+n+' คืน'+(longStayPct(n)?' · ได้ส่วนลดพักยาว '+longStayPct(n)+'%':'')+'</p>':'')
   :
-    '<div class="grp two"><div><label class="lbl" for="dd">วันที่</label><input class="field" type="date" id="dd" data-k="date" min="'+t+'" value="'+S.date+'">'+err('date')+'</div>'+
-    '<div><label class="lbl" for="wt">น้ำหนักน้อง (กก.)</label><input class="field" id="wt" data-k="weight" inputmode="decimal" placeholder="เช่น 8" value="'+esc(S.weight)+'">'+err('weight')+'</div></div>'
+    '<div class="grp"><label class="lbl" for="dd">วันที่</label><input class="field" type="date" id="dd" data-k="date" min="'+t+'" value="'+S.date+'">'+err('date')+'</div>'
   )+
   '<div class="grp"><label class="lbl" for="ar">เวลาที่จะพาน้องมาถึง</label><select class="field" id="ar" data-k="arrive">'+arriveOpts()+'</select>'+
     '<p class="hint">'+(stay?'เช็คอินได้ 9:00–18:00 น. · ตัดรอบเช็คเอาท์ 14:00 น.':'รับ 9:00 น. · รับกลับไม่เกิน 20:00 น.')+'</p></div>'+
   '<div class="note"><span>ห้องว่างดึงจากปฏิทินจริงของร้าน — กดถัดไปเพื่อดูว่าวันนี้เหลือห้องไหนบ้าง</span></div>'+
   '<p class="hint" style="text-align:center;margin-top:16px">จองอาบน้ำตัดขน? <a href="/groom.html">ไปหน้าจองคิว Grooming</a></p>';
 }
-function roomCard(rt){
-  var st=roomStatus(rt), lp=listPrice(rt,S.pet), up=unitPrice(rt,S.pet), n=nightsOf(S.checkIn,S.checkOut);
-  var sel=S.roomType===rt, full=st.s==='full';
-  var maxRooms=Math.min(S.pets, st.free||S.pets);
+function roomCard(rt,p){
+  var st=roomStatus(rt,p), lp=listPrice(rt,p), up=unitPrice(rt,p), n=nightsOf(S.checkIn,S.checkOut);
+  var r=S.room[p], sel=r.type===rt, full=st.s==='full';
+  var maxRooms=Math.min(S.n[p], st.free||S.n[p]);
   return '<div class="room'+(sel?' sel':'')+(full?' full':'')+'">'+
-    '<img src="/images/room-'+rt+'-'+S.pet+'.jpg" alt="ห้อง '+esc(D.prices[rt].label)+' สำหรับ'+(S.pet==='cat'?'แมว':'สุนัข')+'" loading="lazy">'+
+    '<img src="/images/room-'+rt+'-'+p+'.jpg" alt="ห้อง '+esc(D.prices[rt].label)+' สำหรับ'+PET_TH[p]+'" loading="lazy">'+
     '<div class="b"><h3>'+esc(D.prices[rt].label)+'</h3>'+pillHtml(st)+
-    '<div class="feat">'+ROOM_INFO[rt][S.pet]+' · CCTV + แอร์ 24 ชม. · อัปเดตรูปทุกวัน</div>'+
+    '<div class="feat">'+ROOM_INFO[rt][p]+' · CCTV + แอร์ 24 ชม. · อัปเดตรูปทุกวัน</div>'+
     (full ? '<a href="https://line.me/R/ti/p/'+LINE_OA+'" target="_blank" rel="noopener" style="margin-top:auto;font-weight:500">ทัก LINE ให้แจ้งเมื่อว่าง</a>' :
     '<div class="price"><div>'+(up<lp?'<div class="strike">'+baht(lp)+' / คืน</div>':'')+
       '<div><span class="big" style="'+(up<lp?'color:var(--brand-ink)':'')+'">'+baht(up)+'</span> / คืน</div>'+
       (up<lp?'<div class="online">ราคาจองออนไลน์</div>':'')+'</div>'+
-      '<div style="text-align:right"><div class="feat">'+n+' คืน'+(S.rooms>1&&sel?' × '+S.rooms+' ห้อง':'')+'</div><b>'+baht(up*n*(sel?S.rooms:1))+'</b></div></div>'+
-    (sel && S.pets>1 ? '<div class="stepper" style="padding:4px 4px 4px 12px"><span class="feat">จำนวนห้อง</span><div class="ctl"><button type="button" data-rooms="-1" aria-label="ลดจำนวนห้อง">−</button><output>'+S.rooms+'</output><button type="button" data-rooms="1" aria-label="เพิ่มจำนวนห้อง"'+(S.rooms>=maxRooms?' disabled':'')+'>+</button></div></div>' : '')+
-    '<button type="button" class="btn'+(sel?'':' ghost')+'" data-room="'+rt+'">'+(sel?'✓ เลือกห้องนี้แล้ว':'เลือกห้องนี้')+'</button>')+
+      '<div style="text-align:right"><div class="feat">'+n+' คืน'+(r.rooms>1&&sel?' × '+r.rooms+' ห้อง':'')+'</div><b>'+baht(up*n*(sel?r.rooms:1))+'</b></div></div>'+
+    (sel && S.n[p]>1 ? '<div class="stepper" style="padding:4px 4px 4px 12px"><span class="feat">จำนวนห้อง</span><div class="ctl"><button type="button" data-rooms="-1" data-pet="'+p+'" aria-label="ลดจำนวนห้อง">−</button><output>'+r.rooms+'</output><button type="button" data-rooms="1" data-pet="'+p+'" aria-label="เพิ่มจำนวนห้อง"'+(r.rooms>=maxRooms?' disabled':'')+'>+</button></div></div>' : '')+
+    '<button type="button" class="btn'+(sel?'':' ghost')+'" data-room="'+rt+'" data-pet="'+p+'">'+(sel?'✓ เลือกห้องนี้แล้ว':'เลือกห้องนี้')+'</button>')+
     '</div></div>';
 }
 function step2(){
+  var types=petTypes(), mixed=isMixed();
   if(S.service==='daycare'){
-    var st=dcStatus(), sz=dcSize(), p=D.daycare.prices[S.pet][sz];
-    return backBtn()+progress()+'<h1 class="t">Day Care '+thDate(S.date)+'</h1><p class="sub">'+(S.pet==='cat'?'แมว':'สุนัข')+' '+S.pets+' ตัว · '+esc(S.weight)+' กก. (ไซส์ '+sz.toUpperCase()+')</p>'+
-      '<div class="room'+(st.s==='full'?' full':' sel')+'"><div class="b"><h3>Day Care เหมาเต็มวัน</h3>'+pillHtml(st)+
-      '<div class="feat">9:00–20:00 น. · ดูแลใกล้ชิด · อัปเดตรูประหว่างวัน</div>'+
-      '<div class="price"><div><span class="big">'+baht(p)+'</span> / ตัว</div><b>'+baht(p*S.pets)+'</b></div></div></div>'+err('room')+
-      (st.s==='full'?'<div class="note warn" style="margin-top:14px">วันนี้รับครบแล้ว ลองเปลี่ยนวัน หรือทัก LINE '+LINE_OA+' เผื่อมีคิวว่าง</div>':'');
+    var h2=backBtn()+progress()+'<h1 class="t">Day Care '+thDate(S.date)+'</h1><p class="sub">9:00–20:00 น. · ดูแลใกล้ชิด · อัปเดตรูประหว่างวัน · เลือกไซส์ตามน้ำหนักน้องแต่ละตัว</p>'+
+      (LIVE?'':'<div class="note warn" style="margin-bottom:14px">ตอนนี้เช็คที่ว่างอัตโนมัติไม่ได้ — ส่งคำขอได้ตามปกติ ร้านจะยืนยันทาง LINE</div>');
+    types.forEach(function(p){ h2+=sizeHead('dc',p)+sizeChips('dc',p)+err('dc_'+p); });
+    if(S.errors.room) h2+='<div class="note warn" style="margin-top:14px">'+esc(S.errors.room)+' หรือทัก LINE '+LINE_OA+' เผื่อมีคิวว่าง</div>';
+    return h2;
   }
   var n=nightsOf(S.checkIn,S.checkOut), nt=nextTier(n), pct=longStayPct(n);
   var h=backBtn()+progress()+
-    '<div class="card" style="display:flex;justify-content:space-between;align-items:center;margin:12px 0 16px;padding:10px 14px"><span><b>'+(S.pet==='cat'?'แมว':'สุนัข')+' '+S.pets+' ตัว</b> · '+thDate(S.checkIn,false)+' – '+thDate(S.checkOut,false)+' · '+n+' คืน</span><button class="back" data-go="1" style="padding:0">แก้ไข</button></div>'+
+    '<div class="card" style="display:flex;justify-content:space-between;align-items:center;margin:12px 0 16px;padding:10px 14px"><span><b>'+petsLabel()+'</b> · '+thDate(S.checkIn,false)+' – '+thDate(S.checkOut,false)+' · '+n+' คืน</span><button class="back" data-go="1" style="padding:0">แก้ไข</button></div>'+
     '<h1 class="t" style="margin-top:0">เลือกห้องให้น้อง</h1>'+
-    (LIVE?'':'<div class="note warn" style="margin-bottom:14px">ตอนนี้เช็คห้องว่างอัตโนมัติไม่ได้ — ส่งคำขอได้ตามปกติ ร้านจะยืนยันห้องว่างทาง LINE</div>')+
-    '<div class="rooms">'+ROOM_ORDER.filter(function(rt){return D.prices[rt];}).map(roomCard).join('')+'</div>'+err('room');
+    (mixed?'<p class="sub">ห้องสุนัขกับแมวแยกกัน — เลือกให้ครบทั้ง 2 ส่วน</p>':'')+
+    (LIVE?'':'<div class="note warn" style="margin-bottom:14px">ตอนนี้เช็คห้องว่างอัตโนมัติไม่ได้ — ส่งคำขอได้ตามปกติ ร้านจะยืนยันห้องว่างทาง LINE</div>');
+  types.forEach(function(p){
+    if(mixed) h+='<h2 class="sec">'+PET_EMOJI[p]+' ห้องของ'+PET_NICK[p]+' · '+S.n[p]+' ตัว</h2>';
+    // ทางลัด: เลือกห้องหมาแล้ว อยากได้แบบเดียวกันให้แมว กดทีเดียว
+    var dt=S.room.dog.type;
+    if(p==='cat' && mixed && dt && S.room.cat.type!==dt && D.prices[dt] && roomStatus(dt,'cat').s!=='full')
+      h+='<button type="button" class="btn ghost" data-same style="width:100%;margin:0 0 12px">ใช้ '+esc(D.prices[dt].label)+' เหมือน'+PET_NICK.dog+'</button>';
+    h+='<div class="rooms">'+ROOM_ORDER.filter(function(rt){return D.prices[rt];}).map(function(rt){ return roomCard(rt,p); }).join('')+'</div>'+err('room_'+p);
+  });
   if(nt) h+='<div class="upsell"><div style="flex:1;font-size:14px"><b style="color:var(--brand-ink)">พักเพิ่มอีก '+(nt.minNights-n)+' คืน ลดค่าห้อง '+nt.pct+'%</b><br><span class="feat">พัก 5–9 คืน ลด 5% · 10 คืนขึ้นไป ลด 10%</span></div><button class="back" data-go="1" style="padding:0">เปลี่ยนวัน</button></div>';
   else if(pct) h+='<div class="note" style="margin-top:14px">ได้ส่วนลดพักยาว '+pct+'% แล้ว</div>';
   return h;
@@ -583,12 +651,10 @@ function step3(){
     h+='<div class="addon'+(S.dcOn?' on':'')+'"><input type="checkbox" id="addc" data-dc'+(S.dcOn?' checked':'')+'>'+
       '<label for="addc"><div class="nm">Day Care วันเช็คเอาท์</div><div class="pr">รับน้องกลับหลัง 14:30 น. (ไม่เกิน 20:00 น.) · คิดเหมาวันตามน้ำหนักน้อง</div></label></div>';
     if(S.dcOn){
-      var left=S.pets-dcLateCount();
-      h+=(S.pets>1?'<p class="hint" style="margin:-2px 0 8px">เลือกไซส์ของน้องแต่ละตัว ('+dcLateCount()+'/'+S.pets+' ตัว)</p>':'')+'<div class="dcz">'+DC_SIZES[S.pet].map(function(z){
-        var q=S.lateDc[z[0]]||0, p=Number(D.daycare.prices[S.pet][z[0]])||0;
-        return '<div class="dz'+(q?' on':'')+'"><button type="button" data-dcz="'+z[0]+'" aria-pressed="'+(q>0)+'"><b>ไซส์ '+z[0].toUpperCase()+'</b><small>'+z[1]+'</small><span>'+baht(p)+' / ตัว</span></button>'+
-          (q&&S.pets>1?'<div class="q"><button type="button" data-dcq="'+z[0]+'" data-d="-1" aria-label="ลด">−</button><output>'+q+' ตัว</output><button type="button" data-dcq="'+z[0]+'" data-d="1" aria-label="เพิ่ม"'+(left<1?' disabled':'')+'>+</button></div>':'')+'</div>';
-      }).join('')+'</div>'+err('dc');
+      petTypes().forEach(function(p){
+        h+=(isMixed()||S.n[p]>1 ? sizeHead('late',p) : '')+sizeChips('late',p);
+      });
+      h+=err('dc');
     }
   }
   h+='<div class="addon'+(S.wantGroom?' on':'')+'"><input type="checkbox" id="adgr" data-k="wantGroom"'+(S.wantGroom?' checked':'')+'>'+
@@ -604,9 +670,11 @@ function step4(){
   '<div><label class="lbl" for="ln">LINE ID</label><input class="field" id="ln" data-k="line" placeholder="ไว้ส่งรูปน้อง" value="'+esc(S.line)+'"></div></div>'+
   '<div class="grp"><label class="lbl" for="em">อีเมล (ไม่บังคับ — รับสรุปการจองทางอีเมล)</label><input class="field" id="em" data-k="email" type="email" autocomplete="email" value="'+esc(S.email)+'">'+err('email')+'</div>'+
   '<h2 style="font-size:17px;margin:12px 0 10px">น้อง</h2>'+
-  '<div class="grp two"><div><label class="lbl" for="pn">ชื่อน้อง'+(S.pets>1?' (ทุกตัว)':'')+'</label><input class="field" id="pn" data-k="petname" value="'+esc(S.petname)+'">'+err('petname')+'</div>'+
-  '<div><label class="lbl" for="br">สายพันธุ์</label><input class="field" id="br" data-k="breed" value="'+esc(S.breed)+'"></div></div>'+
-  (S.service==='stay'?'<div class="grp"><label class="lbl" for="wt2">น้ำหนักโดยประมาณ (กก.)</label><input class="field" id="wt2" data-k="weight" inputmode="decimal" value="'+esc(S.weight)+'">'+err('weight')+'</div>':'')+
+  petTypes().map(function(p){
+    var k=p==='dog'?'nameDog':'nameCat';
+    return '<div class="grp"><label class="lbl" for="pn-'+p+'">ชื่อ'+PET_NICK[p]+(S.n[p]>1?' ('+S.n[p]+' ตัว คั่นด้วย ,)':'')+'</label><input class="field" id="pn-'+p+'" data-k="'+k+'" value="'+esc(S[k])+'">'+err(k)+'</div>';
+  }).join('')+
+  '<div class="grp"><label class="lbl" for="br">สายพันธุ์ (ไม่บังคับ)</label><input class="field" id="br" data-k="breed" value="'+esc(S.breed)+'"></div>'+
   '<div class="grp"><label class="lbl" for="nt">สิ่งที่อยากให้เรารู้ (อาหาร ยา นิสัย)</label><textarea class="field" id="nt" data-k="note">'+esc(S.note)+'</textarea></div>'+
   '<div class="card" style="margin:6px 0">'+sumHtml(t)+'</div>'+
   '<div class="policy"><b>เงื่อนไขการจอง / ยกเลิก</b><br>'+[POLICY_PAY[S.service]].concat(POLICY).map(esc).join('<br>')+'</div>'+
@@ -640,13 +708,18 @@ function step5(){
   '<div class="card" style="margin-top:14px;font-size:14px;color:var(--ink-soft)">'+esc(r.label)+' · '+esc(r.when)+'<br>ยอดรวม '+baht(r.t.grand)+(r.t.full?' · ชำระเต็มจำนวน ไม่มียอดคงเหลือวันรับบริการ':' · ส่วนที่เหลือ '+baht(r.t.balance)+' ชำระวันเข้าพัก')+'<br>แนะนำให้แคปหน้าจอนี้เก็บไว้</div>';
 }
 function sumHtml(t){
-  var h='<div style="font-weight:700;font-size:17px;margin-bottom:6px">สรุปการจอง</div>';
+  var h='<div style="font-weight:700;font-size:17px;margin-bottom:6px">สรุปการจอง</div>', mixed=isMixed();
   if(S.service==='stay'){
-    if(!S.roomType) return h+'<p class="feat" style="margin:0">'+(S.checkIn&&S.checkOut?thDate(S.checkIn,false)+' – '+thDate(S.checkOut,false)+' · '+nightsOf(S.checkIn,S.checkOut)+' คืน':'เลือกวันที่และห้อง')+'</p>';
-    h+='<div class="sum"><span>'+esc(D.prices[S.roomType].label)+' '+baht(t.unit)+' × '+t.nights+' คืน'+(S.rooms>1?' × '+S.rooms+' ห้อง':'')+'</span><span>'+baht(r2(t.unit*t.nights*S.rooms))+'</span></div>';
+    if(!t.lines.length) return h+'<p class="feat" style="margin:0">'+(S.checkIn&&S.checkOut?thDate(S.checkIn,false)+' – '+thDate(S.checkOut,false)+' · '+nightsOf(S.checkIn,S.checkOut)+' คืน':'เลือกวันที่และห้อง')+'</p>';
+    t.lines.forEach(function(l){
+      h+='<div class="sum"><span>'+esc(l.label)+(mixed?' ('+PET_TH[l.pet]+')':'')+' '+baht(l.unit)+' × '+t.nights+' คืน'+(l.rooms>1?' × '+l.rooms+' ห้อง':'')+'</span><span>'+baht(l.gross)+'</span></div>';
+    });
     if(t.pct) h+='<div class="sum" style="color:var(--ok)"><span>ส่วนลดพักยาว '+t.pct+'%</span><span>-'+baht(t.disc)+'</span></div>';
   } else {
-    h+='<div class="sum"><span>Day Care ไซส์ '+dcSize().toUpperCase()+' '+baht(t.dcUnit)+' × '+S.pets+' ตัว</span><span>'+baht(t.room)+'</span></div>';
+    if(!t.dcItems.length) return h+'<p class="feat" style="margin:0">'+(S.date?thDate(S.date)+' · ':'')+petsLabel()+'</p>';
+    t.dcItems.forEach(function(i){
+      h+='<div class="sum"><span>Day Care '+PET_TH[i.pet]+' ไซส์ '+i.size.toUpperCase()+' '+baht(i.unitPrice)+' × '+i.count+' ตัว</span><span>'+baht(i.total)+'</span></div>';
+    });
   }
   t.addOns.forEach(function(a){ h+='<div class="sum"><span>'+esc(a.name)+' × '+a.qty+' '+esc(a.unit)+'</span><span>'+baht(a.total)+'</span></div>'; });
   if(S.wantGroom) h+='<div class="sum muted"><span>อาบน้ำ/ตัดขน</span><span>คิดตามน้ำหนักหน้าร้าน</span></div>';
@@ -660,14 +733,14 @@ function nextLabel(){
   return ['', 'ดูห้องว่าง', 'ถัดไป', 'ถัดไป', S.sending?'กำลังส่ง…':'ส่งคำขอจอง'][S.step];
 }
 function render(){
-  var t=totals();
+  var t=totals(), stay=S.service==='stay';
   $('main').innerHTML = [null,step1,step2,step3,step4,step5][S.step]();
   var bar=$('bar'), aside=$('aside');
   if(S.step===5){ bar.classList.add('hidden'); aside.innerHTML=S.result?'<div style="font-weight:700">'+esc(S.result.code)+'</div><p class="feat">'+(S.result.t.full?'โอนเงิน':'โอนมัดจำ')+'แล้วส่งสลิปทาง LINE '+LINE_OA+'</p>':''; return; }
   bar.classList.remove('hidden');
-  var small = S.step===1 ? (S.service==='stay' ? 'เลือกวันเข้า–ออก' : 'Day Care') :
-    (S.service==='stay' ? (S.roomType? D.prices[S.roomType].label+' · '+t.nights+' คืน' : 'ยังไม่ได้เลือกห้อง') : 'Day Care · '+S.pets+' ตัว');
-  var showTotal = S.step>1 && (S.service==='daycare' || S.roomType);
+  var small = S.step===1 ? (stay ? 'เลือกวันเข้า–ออก' : 'Day Care') :
+    (stay ? (t.lines.length ? t.lines.map(function(l){return l.label;}).filter(function(x,i,a){return a.indexOf(x)===i;}).join(' + ')+' · '+t.nights+' คืน' : 'ยังไม่ได้เลือกห้อง') : 'Day Care · '+petsTotal()+' ตัว');
+  var showTotal = S.step>1 && (stay ? t.lines.length>0 : t.dcItems.length>0);
   bar.innerHTML='<div class="t"><small>'+esc(small)+(S.step===4&&showTotal?(t.full?' · ชำระเต็มจำนวน':' · มัดจำ '+baht(t.deposit)):'')+'</small><b>'+(showTotal?baht(t.grand):'')+'</b></div>'+
     '<button class="btn" data-next'+(S.sending?' disabled':'')+'>'+nextLabel()+'</button>';
   aside.innerHTML = sumHtml(t)+'<button class="btn" data-next'+(S.sending?' disabled':'')+'>'+nextLabel()+'</button>'+
@@ -675,6 +748,7 @@ function render(){
 }
 
 // ═══ events (delegation) ═══
+function clearMap(m){ Object.keys(m).forEach(function(k){ delete m[k]; }); }
 document.addEventListener('click', function(e){
   var b=e.target.closest('button,[data-copy]'); if(!b) return;
   if(b.hasAttribute('data-next')){
@@ -683,9 +757,16 @@ document.addEventListener('click', function(e){
       if(!validate(1)){ render(); return; }
       b.disabled=true; b.textContent='กำลังเช็คห้องว่าง…';
       loadData().then(function(){
-        if(S.service==='stay' && !S.roomType && PRE_ROOM){ S.roomType=PRE_ROOM; PRE_ROOM=''; }
-        if(S.service==='stay' && S.roomType && roomStatus(S.roomType).s==='full') S.roomType='';
-        S.rooms=Math.min(S.rooms||1,S.pets); go(2);
+        if(S.service==='stay'){
+          var p0=petTypes()[0];
+          if(PRE_ROOM && !S.room[p0].type){ S.room[p0].type=PRE_ROOM; } PRE_ROOM='';
+          petTypes().forEach(function(p){
+            var r=S.room[p];
+            r.rooms=Math.max(1,Math.min(r.rooms||1,S.n[p]));
+            if(r.type && roomStatus(r.type,p).s==='full') r.type='';
+          });
+        }
+        go(2);
       });
       return;
     }
@@ -694,29 +775,39 @@ document.addEventListener('click', function(e){
   if(b.dataset.go){ var gn=Number(b.dataset.go); if(gn===S.step-1){ stepBack(); } else { go(gn); } return; }
   if(b.dataset.set){
     S[b.dataset.set]=b.dataset.v;
-    if(b.dataset.set==='service'){ S.addons={}; }
-    if(b.dataset.set==='service' || b.dataset.set==='pet'){ S.dcOn=false; S.lateDc={}; }
-    S.roomType=''; render(); return;
-  }
-  if(b.dataset.pets){ S.pets=Math.max(1,Math.min(4,S.pets+Number(b.dataset.pets))); S.rooms=Math.min(S.rooms,S.pets); if(dcLateCount()>S.pets) S.lateDc={}; render(); return; }
-  if(b.dataset.dcz){
-    var z=b.dataset.dcz;
-    if(S.pets===1){ S.lateDc={}; S.lateDc[z]=1; }           // ตัวเดียว = เลือกได้ไซส์เดียว
-    else if(S.lateDc[z]) delete S.lateDc[z];                 // หลายตัว = กดซ้ำเพื่อเอาไซส์นี้ออก
-    else if(dcLateCount()<S.pets) S.lateDc[z]=1;
-    else { toast('เลือกครบ '+S.pets+' ตัวแล้ว — ลดไซส์อื่นก่อน'); return; }
-    S.errors={}; render(); return;
-  }
-  if(b.dataset.dcq){
-    var zq=b.dataset.dcq, nq=(S.lateDc[zq]||0)+Number(b.dataset.d);
-    if(nq<=0) delete S.lateDc[zq]; else if(dcLateCount()-(S.lateDc[zq]||0)+nq<=S.pets) S.lateDc[zq]=nq;
+    if(b.dataset.set==='service'){ S.addons={}; S.dcOn=false; PETS.forEach(function(p){ clearMap(S.lateDc[p]); clearMap(S.dc[p]); }); }
+    PETS.forEach(function(p){ S.room[p].type=''; });
     render(); return;
   }
-  if(b.dataset.rooms){ S.rooms=Math.max(1,Math.min(S.pets,S.rooms+Number(b.dataset.rooms))); render(); return; }
+  if(b.dataset.pn){
+    var pp=b.dataset.pn, nn=Math.max(0,Math.min(MAX_PER_PET,S.n[pp]+Number(b.dataset.d)));
+    if(nn+S.n[pp==='dog'?'cat':'dog']<1) return; // ต้องมีน้องอย่างน้อย 1 ตัว
+    S.n[pp]=nn;
+    var rr=S.room[pp]; rr.rooms=Math.max(1,Math.min(rr.rooms,nn||1)); if(!nn) rr.type='';
+    if(sizeCount(S.dc[pp])>nn) clearMap(S.dc[pp]);
+    if(sizeCount(S.lateDc[pp])>nn) clearMap(S.lateDc[pp]);
+    render(); return;
+  }
+  if(b.dataset.rooms){ var rp=S.room[b.dataset.pet]; rp.rooms=Math.max(1,Math.min(S.n[b.dataset.pet],rp.rooms+Number(b.dataset.rooms))); render(); return; }
   if(b.dataset.room){
-    var st=roomStatus(b.dataset.room);
-    S.roomType=b.dataset.room;
-    if(st.free) S.rooms=Math.max(1,Math.min(S.rooms,st.free));
+    var pet=b.dataset.pet, st=roomStatus(b.dataset.room,pet), sr=S.room[pet];
+    sr.type=b.dataset.room;
+    if(st.free) sr.rooms=Math.max(1,Math.min(sr.rooms,st.free));
+    delete S.errors['room_'+pet]; render(); return;
+  }
+  if(b.hasAttribute('data-same')){ S.room.cat.type=S.room.dog.type; delete S.errors.room_cat; render(); return; }
+  if(b.dataset.zk){
+    var zp=b.dataset.zp, m=sizeMap(b.dataset.zk,zp), cnt=S.n[zp];
+    if(b.dataset.z){
+      var z=b.dataset.z;
+      if(cnt===1){ clearMap(m); m[z]=1; }                  // ตัวเดียว = เลือกได้ไซส์เดียว
+      else if(m[z]) delete m[z];                          // หลายตัว = กดซ้ำเพื่อเอาไซส์นี้ออก
+      else if(sizeCount(m)<cnt) m[z]=1;
+      else { toast('เลือกครบ '+cnt+' ตัวแล้ว — ลดไซส์อื่นก่อน'); return; }
+    } else {
+      var zq=b.dataset.zq, nq=(m[zq]||0)+Number(b.dataset.d);
+      if(nq<=0) delete m[zq]; else if(sizeCount(m)-(m[zq]||0)+nq<=cnt) m[zq]=nq;
+    }
     S.errors={}; render(); return;
   }
   if(b.dataset.q){ var nm=b.dataset.q; S.addons[nm]=Math.max(1,Math.min(99,(S.addons[nm]||1)+Number(b.dataset.d))); render(); return; }
@@ -725,7 +816,7 @@ document.addEventListener('click', function(e){
 document.addEventListener('change', function(e){
   var el=e.target;
   if(el.dataset.dc!=null){
-    S.dcOn=el.checked; if(S.dcOn) dcAutoPick(); else S.lateDc={};
+    S.dcOn=el.checked; if(!S.dcOn) PETS.forEach(function(p){ clearMap(S.lateDc[p]); });
     S.errors={}; render(); return;
   }
   if(el.dataset.addon!=null){
@@ -736,7 +827,7 @@ document.addEventListener('change', function(e){
   if(el.dataset.k){
     if(el.type==='checkbox') S[el.dataset.k]=el.checked; else S[el.dataset.k]=el.value;
     if(el.dataset.k==='checkIn' && S.checkIn && (!S.checkOut || S.checkOut<=S.checkIn)) S.checkOut=addDays(S.checkIn,1);
-    if(['checkIn','checkOut','date','weight'].indexOf(el.dataset.k)>-1){
+    if(['checkIn','checkOut','date'].indexOf(el.dataset.k)>-1){
       // ปรับจำนวนบริการเสริมรายคืนตามจำนวนคืนใหม่
       addonList().forEach(function(a){ if(S.addons[a.name] && a.unit==='คืน') S.addons[a.name]=defaultQty(a); });
       if(S.step===1 || el.type==='checkbox') render();
@@ -758,7 +849,7 @@ var PRE_ROOM='';
 try{
   var qs=new URLSearchParams(location.search);
   if(qs.get('service')==='daycare') S.service='daycare';
-  if(qs.get('pet')==='cat'||qs.get('pet')==='dog') S.pet=qs.get('pet');
+  if(qs.get('pet')==='cat') S.n={dog:0,cat:1};
   if(/^(cozy|deluxe|vip)$/.test(qs.get('room')||'')) PRE_ROOM=qs.get('room');
   if(qs.get('groom')==='1') S.wantGroom=true;
 }catch(e){}
