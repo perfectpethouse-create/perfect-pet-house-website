@@ -97,6 +97,15 @@ textarea.field{min-height:72px;resize:vertical}
 .addon .q{display:flex;align-items:center;gap:6px}
 .addon .q button{width:36px;height:36px;border-radius:9px;border:1.5px solid var(--line);background:#fff;font-size:18px}
 .addon .q output{min-width:52px;text-align:center;font-size:14px;font-weight:600}
+.dcz{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:-2px 0 12px}
+.dz{border:1.5px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+.dz.on{border-color:var(--brand);background:#FFF4EA}
+.dz>button{width:100%;min-height:64px;border:0;background:none;text-align:left;padding:8px 12px;display:flex;flex-direction:column;gap:1px;font:inherit;color:inherit;cursor:pointer}
+.dz>button small{font-size:12px;color:var(--ink-soft)}
+.dz>button span{font-weight:600;color:var(--brand-ink)}
+.dz .q{display:flex;align-items:center;justify-content:space-between;padding:0 8px 8px}
+.dz .q button{width:36px;height:36px;border-radius:9px;border:1.5px solid var(--line);background:#fff;font-size:18px}
+.dz .q output{font-size:14px;font-weight:600}
 
 .policy{background:var(--brand-tint);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.6;color:#5A3A22;margin:14px 0}
 .chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:10px 0}
@@ -178,6 +187,14 @@ var ROOM_INFO = {
   vip:    { dog:'1.5×2.5 ม.', cat:'1.5×2.5 ม.' }
 };
 var ROOM_ORDER = ['vip','deluxe','cozy'];
+// ไซส์ Day Care ตามน้ำหนัก (ตรงกับ DAYCARE_SIZES ในระบบหลังบ้าน) — ราคามาจาก D.daycare.prices (โปสเตอร์ร้าน)
+var DC_SIZES = {
+  dog: [['s','ต่ำกว่า 5 กก.'],['m','5–10 กก.'],['l','10–20 กก.'],['xl','มากกว่า 20 กก.']],
+  cat: [['s','ต่ำกว่า 3 กก.'],['m','3–7 กก.'],['l','7–11 กก.'],['xl','มากกว่า 11 กก.']]
+};
+// รายการจากหน้าตั้งค่าหลังบ้านที่หน้านี้ทำเป็นช่องเฉพาะแล้ว → ไม่โชว์ซ้ำ
+// (อาบน้ำ = คิดตามน้ำหนักที่ชั่งหน้าร้าน · Day Care = คิดตามไซส์ ไม่ใช่ราคาเดียว)
+var SPECIAL_ADDON = /อาบน้ำ|ตัดขน|grooming|day\s*care/i;
 var POLICY_PAY = {
   stay:'มัดจำ 50% เพื่อยืนยันการจอง ชำระส่วนที่เหลือวันเข้าพัก',
   daycare:'Day Care ชำระเต็มจำนวนเพื่อยืนยันการจอง'
@@ -196,7 +213,7 @@ var HOLDS = [];     // การกันห้องที่ยังไม่
 var S = {
   step:1, service:'stay', pet:'dog', pets:1,
   checkIn:'', checkOut:'', date:'', arrive:'10:00', weight:'',
-  roomType:'', rooms:1, addons:{},
+  roomType:'', rooms:1, addons:{}, dcOn:false, lateDc:{},
   owner:'', phone:'', line:'', email:'', petname:'', breed:'', note:'', wantGroom:false, accept:false,
   errors:{}, sending:false, result:null
 };
@@ -244,8 +261,11 @@ function dcSize(){
 }
 function dcGroup(){ return S.pet==='cat' ? 'cat' : (weightKg()>=15 ? 'dogLarge' : 'dogSmall'); }
 function addonList(){
-  return (D.addOns||[]).filter(function(a){ return S.service==='stay' || a.unit!=='คืน'; });
+  return (D.addOns||[]).filter(function(a){ return !SPECIAL_ADDON.test(a.name) && (S.service==='stay' || a.unit!=='คืน'); });
 }
+// Day Care วันเช็คเอาท์ (รับกลับหลัง 14:30) — เก็บเป็น { ไซส์: จำนวนตัว } รวมกันไม่เกินจำนวนน้อง
+function dcLateCount(){ var n=0; Object.keys(S.lateDc).forEach(function(k){ n+=S.lateDc[k]; }); return n; }
+function dcAutoPick(){ S.lateDc={}; if(weightKg()) S.lateDc[dcSize()]=S.pets; }
 function defaultQty(a){
   var n=nightsOf(S.checkIn,S.checkOut)||1;
   if(a.unit==='คืน') return n;
@@ -272,6 +292,11 @@ function totals(){
     var q=S.addons[a.name]; if(!q) return;
     var t=r2(a.unitPrice*q); addSum=r2(addSum+t);
     adds.push({name:a.name,unitPrice:a.unitPrice,qty:q,unit:a.unit,total:t});
+  });
+  if(S.service==='stay' && S.dcOn) DC_SIZES[S.pet].forEach(function(z){
+    var q=S.lateDc[z[0]]; if(!q) return;
+    var u=Number(D.daycare.prices[S.pet][z[0]])||0, t=r2(u*q); addSum=r2(addSum+t);
+    adds.push({name:'Day Care วันเช็คเอาท์ ไซส์ '+z[0].toUpperCase(),unitPrice:u,qty:q,unit:'ตัว',total:t,kind:'daycare',size:z[0]});
   });
   var grand = r2(room+addSum);
   var full = S.service==='daycare'; // Day Care ชำระเต็มจำนวน · ฝากค้างคืนมัดจำตาม depositPct
@@ -375,7 +400,7 @@ function summaryText(code,t){
   }
   t.addOns.forEach(function(a){ L.push('➕ '+a.name+' '+a.qty+' '+a.unit+' = '+baht(a.total)); });
   L.push('💰 รวม '+baht(t.grand)+(t.full?' · ชำระเต็มจำนวน':' · มัดจำ 50% '+baht(t.deposit)));
-  if(S.wantGroom) L.push('✂️ สนใจอาบน้ำ–ตัดขนก่อนกลับบ้าน');
+  if(S.wantGroom) L.push('✂️ อาบน้ำ/ตัดขนก่อนกลับบ้าน (คิดตามน้ำหนักที่ชั่งหน้าร้าน)');
   if(S.note) L.push('📝 '+S.note);
   return L.join('\n');
 }
@@ -391,7 +416,7 @@ function submit(){
     checkIn:stay?S.checkIn:S.date, checkOut:stay?S.checkOut:S.date, nights:t.nights,
     pricePerNight:t.unit, listPrice:t.list, longStayPct:t.pct, longStayDisc:t.disc,
     daycare: stay?null:{ size:dcSize(), group:dcGroup(), unitPrice:t.dcUnit, count:S.pets },
-    addOns:t.addOns.map(function(a){ return {name:a.name,unitPrice:a.unitPrice,qty:a.qty,unit:a.unit}; }),
+    addOns:t.addOns.map(function(a){ var o={name:a.name,unitPrice:a.unitPrice,qty:a.qty,unit:a.unit}; if(a.kind){ o.kind=a.kind; o.size=a.size; o.pet=S.pet; } return o; }),
     arriveTime:S.arrive, weightKg:S.weight, wantGroom:S.wantGroom,
     depositPct:t.full?100:D.depositPct, totals:{grand:t.grand,deposit:t.deposit,balance:t.balance},
     holdUntil:holdUntil, acceptedPolicyAt:new Date().toISOString(), liveAvailability:LIVE
@@ -449,6 +474,9 @@ function validate(step){
       if(!S.roomType) e.room='เลือกห้องที่ต้องการ';
       else if(roomStatus(S.roomType).s==='full') e.room='ห้องนี้เต็มช่วงวันที่เลือก';
     } else if(dcStatus().s==='full') e.room='Day Care วันนี้เต็มแล้ว ลองเลือกวันอื่น';
+  }
+  if(step===3){
+    if(S.service==='stay' && S.dcOn && !dcLateCount()) e.dc='เลือกไซส์ตามน้ำหนักน้อง';
   }
   if(step===4){
     if(!S.owner.trim()) e.owner='กรอกชื่อของคุณ';
@@ -551,7 +579,20 @@ function step3(){
       (on?'<div class="q"><button type="button" data-q="'+esc(a.name)+'" data-d="-1" aria-label="ลด">−</button><output>'+q+' '+esc(a.unit)+'</output><button type="button" data-q="'+esc(a.name)+'" data-d="1" aria-label="เพิ่ม">+</button></div>':'')+
     '</div>';
   });
-  h+='<label class="chk" style="background:#fff;border:1.5px dashed var(--accent);border-radius:14px;padding:12px 14px"><input type="checkbox" data-k="wantGroom"'+(S.wantGroom?' checked':'')+'><span><b>สนใจอาบน้ำ–ตัดขนก่อนกลับบ้าน</b><br><span class="feat">ทีมจะทักจัดคิวให้ใน LINE (ยังไม่รวมในยอดนี้)</span></span></label>';
+  if(S.service==='stay'){
+    h+='<div class="addon'+(S.dcOn?' on':'')+'"><input type="checkbox" id="addc" data-dc'+(S.dcOn?' checked':'')+'>'+
+      '<label for="addc"><div class="nm">Day Care วันเช็คเอาท์</div><div class="pr">รับน้องกลับหลัง 14:30 น. (ไม่เกิน 20:00 น.) · คิดเหมาวันตามน้ำหนักน้อง</div></label></div>';
+    if(S.dcOn){
+      var left=S.pets-dcLateCount();
+      h+=(S.pets>1?'<p class="hint" style="margin:-2px 0 8px">เลือกไซส์ของน้องแต่ละตัว ('+dcLateCount()+'/'+S.pets+' ตัว)</p>':'')+'<div class="dcz">'+DC_SIZES[S.pet].map(function(z){
+        var q=S.lateDc[z[0]]||0, p=Number(D.daycare.prices[S.pet][z[0]])||0;
+        return '<div class="dz'+(q?' on':'')+'"><button type="button" data-dcz="'+z[0]+'" aria-pressed="'+(q>0)+'"><b>ไซส์ '+z[0].toUpperCase()+'</b><small>'+z[1]+'</small><span>'+baht(p)+' / ตัว</span></button>'+
+          (q&&S.pets>1?'<div class="q"><button type="button" data-dcq="'+z[0]+'" data-d="-1" aria-label="ลด">−</button><output>'+q+' ตัว</output><button type="button" data-dcq="'+z[0]+'" data-d="1" aria-label="เพิ่ม"'+(left<1?' disabled':'')+'>+</button></div>':'')+'</div>';
+      }).join('')+'</div>'+err('dc');
+    }
+  }
+  h+='<div class="addon'+(S.wantGroom?' on':'')+'"><input type="checkbox" id="adgr" data-k="wantGroom"'+(S.wantGroom?' checked':'')+'>'+
+    '<label for="adgr"><div class="nm">อาบน้ำ/ตัดขน ก่อนกลับบ้าน</div><div class="pr">คิดค่าบริการตามน้ำหนักที่ชั่งหน้าร้าน (ยังไม่รวมในยอดนี้) · ทีมจะทักจัดคิวให้ใน LINE</div></label></div>';
   return h;
 }
 function step4(){
@@ -608,6 +649,7 @@ function sumHtml(t){
     h+='<div class="sum"><span>Day Care ไซส์ '+dcSize().toUpperCase()+' '+baht(t.dcUnit)+' × '+S.pets+' ตัว</span><span>'+baht(t.room)+'</span></div>';
   }
   t.addOns.forEach(function(a){ h+='<div class="sum"><span>'+esc(a.name)+' × '+a.qty+' '+esc(a.unit)+'</span><span>'+baht(a.total)+'</span></div>'; });
+  if(S.wantGroom) h+='<div class="sum muted"><span>อาบน้ำ/ตัดขน</span><span>คิดตามน้ำหนักหน้าร้าน</span></div>';
   h+='<div class="sum tot"><span>รวมทั้งหมด</span><span>'+baht(t.grand)+'</span></div>';
   if(t.full) h+='<div class="sum dep"><span>ชำระเต็มจำนวนตอนนี้</span><span>'+baht(t.deposit)+'</span></div>';
   else h+='<div class="sum dep"><span>มัดจำ 50% ตอนนี้</span><span>'+baht(t.deposit)+'</span></div>'+
@@ -653,9 +695,23 @@ document.addEventListener('click', function(e){
   if(b.dataset.set){
     S[b.dataset.set]=b.dataset.v;
     if(b.dataset.set==='service'){ S.addons={}; }
+    if(b.dataset.set==='service' || b.dataset.set==='pet'){ S.dcOn=false; S.lateDc={}; }
     S.roomType=''; render(); return;
   }
-  if(b.dataset.pets){ S.pets=Math.max(1,Math.min(4,S.pets+Number(b.dataset.pets))); S.rooms=Math.min(S.rooms,S.pets); render(); return; }
+  if(b.dataset.pets){ S.pets=Math.max(1,Math.min(4,S.pets+Number(b.dataset.pets))); S.rooms=Math.min(S.rooms,S.pets); if(dcLateCount()>S.pets) S.lateDc={}; render(); return; }
+  if(b.dataset.dcz){
+    var z=b.dataset.dcz;
+    if(S.pets===1){ S.lateDc={}; S.lateDc[z]=1; }           // ตัวเดียว = เลือกได้ไซส์เดียว
+    else if(S.lateDc[z]) delete S.lateDc[z];                 // หลายตัว = กดซ้ำเพื่อเอาไซส์นี้ออก
+    else if(dcLateCount()<S.pets) S.lateDc[z]=1;
+    else { toast('เลือกครบ '+S.pets+' ตัวแล้ว — ลดไซส์อื่นก่อน'); return; }
+    S.errors={}; render(); return;
+  }
+  if(b.dataset.dcq){
+    var zq=b.dataset.dcq, nq=(S.lateDc[zq]||0)+Number(b.dataset.d);
+    if(nq<=0) delete S.lateDc[zq]; else if(dcLateCount()-(S.lateDc[zq]||0)+nq<=S.pets) S.lateDc[zq]=nq;
+    render(); return;
+  }
   if(b.dataset.rooms){ S.rooms=Math.max(1,Math.min(S.pets,S.rooms+Number(b.dataset.rooms))); render(); return; }
   if(b.dataset.room){
     var st=roomStatus(b.dataset.room);
@@ -668,6 +724,10 @@ document.addEventListener('click', function(e){
 });
 document.addEventListener('change', function(e){
   var el=e.target;
+  if(el.dataset.dc!=null){
+    S.dcOn=el.checked; if(S.dcOn) dcAutoPick(); else S.lateDc={};
+    S.errors={}; render(); return;
+  }
   if(el.dataset.addon!=null){
     var a=addonList().filter(function(x){return x.name===el.dataset.addon;})[0];
     if(el.checked) S.addons[a.name]=defaultQty(a); else delete S.addons[a.name];
